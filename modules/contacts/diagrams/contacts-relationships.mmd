@@ -1,0 +1,46 @@
+%%{init: {'theme': 'base', 'themeVariables': { 'primaryColor': '#e3f2fd', 'primaryTextColor': '#0d47a1', 'primaryBorderColor': '#1976d2', 'lineColor': '#1976d2'}}}%%
+
+flowchart TB
+    subgraph contacts["<a href='https://crm.zoho.com.au/crm/org7003757385/tab/Contacts'>Contacts Module</a>"]
+        direction TB
+        C["<a href='https://crm.zoho.com.au/crm/org7003757385/tab/Contacts'>Contacts</a><br/><small>113 fields | 7 workflows</small>"]
+    end
+
+    subgraph outbound["Outbound Lookups (1)"]
+        direction TB
+        ACC["<a href='https://crm.zoho.com.au/crm/org7003757385/tab/Accounts'>Accounts</a><br/><small>Target Module</small>"]
+    end
+
+    subgraph inbound["Modules Referencing Contacts (8)"]
+        direction TB
+        COURSES["<a href='https://crm.zoho.com.au/crm/org7003757385/tab/Courses'>Courses</a><br/><small>3 lookup fields</small>"]
+        REG["<a href='https://crm.zoho.com.au/crm/org7003757385/tab/Registration_Records'>Registration Records</a><br/><small>2 lookup fields</small>"]
+        DEALS["<a href='https://crm.zoho.com.au/crm/org7003757385/tab/Deals'>Deals</a><br/><small>3 lookup fields</small>"]
+        LEADS["<a href='https://crm.zoho.com.au/crm/org7003757385/tab/Leads'>Leads</a><br/><small>1 lookup field</small>"]
+        INVOICES["<a href='https://crm.zoho.com.au/crm/org7003757385/tab/Invoices'>Invoices</a><br/><small>2 lookup fields</small>"]
+        QUOTES["<a href='https://crm.zoho.com.au/crm/org7003757385/tab/Quotes'>Quotes</a><br/><small>3 lookup fields</small>"]
+        VENUES["<a href='https://crm.zoho.com.au/crm/org7003757385/tab/Venues'>Venues</a><br/><small>1 lookup field</small>"]
+        ACCOUNTS2["<a href='https://crm.zoho.com.au/crm/org7003757385/tab/Accounts'>Accounts</a><br/><small>4 lookup fields</small>"]
+    end
+
+    %% Outbound relationships
+    C -->|"Account_Name<br/>lookup"| ACC
+
+    %% Inbound relationships with field API names
+    COURSES -->|"Course_Trainer<br/>Venue_Contact<br/>Training_Coordinator<br/>lookup"| C
+    REG -->|"Attendee<br/>Trainer<br/>lookup"| C
+    DEALS -->|"Contact_Name<br/>Account_Contact<br/>Training_Coordinator<br/>lookup"| C
+    LEADS -->|"Converted_Contact<br/>lookup"| C
+    INVOICES -->|"Contact_Name<br/>Account_Contact<br/>lookup"| C
+    QUOTES -->|"Contact_Name<br/>Account_Contact<br/>Public_Attendee<br/>lookup"| C
+    VENUES -->|"Venue_Contact<br/>lookup"| C
+    ACCOUNTS2 -->|"Primary_Contact<br/>Account_Contact<br/>Account_Payable<br/>Secondary_Contact<br/>lookup"| C
+
+    %% Styling
+    classDef contactStyle fill:#e3f2fd,stroke:#1976d2,color:#0d47a1,stroke-width:3px
+    classDef outStyle fill:#c8e6c9,stroke:#2e7d32,color:#1b5e20
+    classDef inStyle fill:#fff3e0,stroke:#f57c00,color:#e65100
+
+    class C contactStyle
+    class ACC outStyle
+    class COURSES,REG,DEALS,LEADS,INVOICES,QUOTES,VENUES,ACCOUNTS2 inStyle

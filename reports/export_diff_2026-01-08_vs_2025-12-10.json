@@ -1,0 +1,1559 @@
+{
+  "old_date": "2025-12-10",
+  "new_date": "2026-01-08",
+  "modules": {
+    "added": [
+      "twiliosmsextension0__Inbound_SMS",
+      "twiliosmsextension0__SMS_Templates",
+      "twiliosmsextension0__Sent_SMS",
+      "twiliosmsextension0__Twilio_Autoresponders",
+      "twiliosmsextension0__Twilio_Error_Logs",
+      "twiliosmsextension0__Twilio_From_Numbers"
+    ],
+    "removed": [],
+    "modified": {
+      "Sales_Scripts": {
+        "fields_added": [],
+        "fields_removed": [],
+        "fields_changed": [],
+        "picklists_changed": [],
+        "workflows_added": [],
+        "workflows_removed": [],
+        "workflows_changed": []
+      },
+      "Actions_Performed": {
+        "fields_added": [],
+        "fields_removed": [],
+        "fields_changed": [],
+        "picklists_changed": [],
+        "workflows_added": [],
+        "workflows_removed": [],
+        "workflows_changed": []
+      },
+      "Deals": {
+        "fields_added": [
+          "twiliosmsextension0__Address_For_Email_To_SMS",
+          "twiliosmsextension0__Last_Time_They_Replied_To_Twilio_Message",
+          "twiliosmsextension0__Last_Time_They_Sent_Us_a_Message",
+          "twiliosmsextension0__Num_Inbound_Twilio_Messages",
+          "twiliosmsextension0__Num_Outbound_Twilio_Messages",
+          "twiliosmsextension0__Smooth_Conversation_Team_Assigned",
+          "twiliosmsextension0__They_sent_an_SMS_and_we_haven_t_replied",
+          "twiliosmsextension0__Twilio_Auto_Responders_Enabled",
+          "twiliosmsextension0__Twilio_SMS_Message_Opt_Out",
+          "twiliosmsextension0__We_Sent_Them_An_SMS_and_They_Haven_t_Replied"
+        ],
+        "fields_removed": [],
+        "fields_changed": [
+          {
+            "field": "Lead_Source",
+            "changes": {
+              "pick_list_values": {
+                "old": [
+                  "-None-",
+                  "Advertisement",
+                  "Booking Form",
+                  "Calendly",
+                  "Chat",
+                  "Cold Call",
+                  "Email Campaign",
+                  "Employee Referral",
+                  "External Referral",
+                  "Facebook",
+                  "Facebook Organic",
+                  "Google AdWords",
+                  "Google+",
+                  "ICONIC FB LEAD",
+                  "Internal Seminar",
+                  "Newsletter",
+                  "Online Store",
+                  "Partner",
+                  "Public Relations",
+                  "Sales Email Alias",
+                  "Seminar Partner",
+                  "Trade Show",
+                  "Twitter",
+                  "Web Download",
+                  "Web Research",
+                  "Website",
+                  "Youtube"
+                ],
+                "new": [
+                  "-None-",
+                  "Advertisement",
+                  "Booking Form",
+                  "Calendly",
+                  "Chat",
+                  "Cold Call",
+                  "Email Campaign",
+                  "Employee Referral",
+                  "External Referral",
+                  "Facebook",
+                  "Facebook Organic",
+                  "Google AdWords",
+                  "Google+",
+                  "ICONIC FB LEAD",
+                  "Internal Seminar",
+                  "LinkedIn",
+                  "Newsletter",
+                  "Online Store",
+                  "Partner",
+                  "Public Relations",
+                  "Sales Email Alias",
+                  "Seminar Partner",
+                  "Trade Show",
+                  "Twitter",
+                  "Web Download",
+                  "Web Research",
+                  "Website",
+                  "Youtube"
+                ]
+              }
+            }
+          }
+        ],
+        "picklists_changed": [
+          {
+            "field": "Lead_Source",
+            "changes": {
+              "pick_list_values": {
+                "old": [
+                  "-None-",
+                  "Advertisement",
+                  "Booking Form",
+                  "Calendly",
+                  "Chat",
+                  "Cold Call",
+                  "Email Campaign",
+                  "Employee Referral",
+                  "External Referral",
+                  "Facebook",
+                  "Facebook Organic",
+                  "Google AdWords",
+                  "Google+",
+                  "ICONIC FB LEAD",
+                  "Internal Seminar",
+                  "Newsletter",
+                  "Online Store",
+                  "Partner",
+                  "Public Relations",
+                  "Sales Email Alias",
+                  "Seminar Partner",
+                  "Trade Show",
+                  "Twitter",
+                  "Web Download",
+                  "Web Research",
+                  "Website",
+                  "Youtube"
+                ],
+                "new": [
+                  "-None-",
+                  "Advertisement",
+                  "Booking Form",
+                  "Calendly",
+                  "Chat",
+                  "Cold Call",
+                  "Email Campaign",
+                  "Employee Referral",
+                  "External Referral",
+                  "Facebook",
+                  "Facebook Organic",
+                  "Google AdWords",
+                  "Google+",
+                  "ICONIC FB LEAD",
+                  "Internal Seminar",
+                  "LinkedIn",
+                  "Newsletter",
+                  "Online Store",
+                  "Partner",
+                  "Public Relations",
+                  "Sales Email Alias",
+                  "Seminar Partner",
+                  "Trade Show",
+                  "Twitter",
+                  "Web Download",
+                  "Web Research",
+                  "Website",
+                  "Youtube"
+                ]
+              }
+            }
+          }
+        ],
+        "workflows_added": [
+          "52330000013919513",
+          "52330000013919583",
+          "52330000013919697",
+          "52330000013919745",
+          "52330000013919832"
+        ],
+        "workflows_removed": [],
+        "workflows_changed": []
+      },
+      "Locking_Information__s": {
+        "fields_added": [],
+        "fields_removed": [],
+        "fields_changed": [],
+        "picklists_changed": [],
+        "workflows_added": [],
+        "workflows_removed": [],
+        "workflows_changed": []
+      },
+      "clicksendext__test": {
+        "fields_added": [],
+        "fields_removed": [],
+        "fields_changed": [],
+        "picklists_changed": [],
+        "workflows_added": [],
+        "workflows_removed": [],
+        "workflows_changed": []
+      },
+      "Course_Tasks": {
+        "fields_added": [],
+        "fields_removed": [],
+        "fields_changed": [],
+        "picklists_changed": [],
+        "workflows_added": [],
+        "workflows_removed": [],
+        "workflows_changed": []
+      },
+      "Ordered_Items": {
+        "fields_added": [],
+        "fields_removed": [],
+        "fields_changed": [],
+        "picklists_changed": [],
+        "workflows_added": [],
+        "workflows_removed": [],
+        "workflows_changed": []
+      },
+      "Email_Analytics": {
+        "fields_added": [],
+        "fields_removed": [],
+        "fields_changed": [],
+        "picklists_changed": [],
+        "workflows_added": [],
+        "workflows_removed": [],
+        "workflows_changed": []
+      },
+      "Projects_Tasks": {
+        "fields_added": [],
+        "fields_removed": [],
+        "fields_changed": [],
+        "picklists_changed": [],
+        "workflows_added": [],
+        "workflows_removed": [],
+        "workflows_changed": []
+      },
+      "Team_Tasks": {
+        "fields_added": [],
+        "fields_removed": [],
+        "fields_changed": [],
+        "picklists_changed": [],
+        "workflows_added": [],
+        "workflows_removed": [],
+        "workflows_changed": []
+      },
+      "Invoiced_Items": {
+        "fields_added": [],
+        "fields_removed": [],
+        "fields_changed": [],
+        "picklists_changed": [],
+        "workflows_added": [],
+        "workflows_removed": [],
+        "workflows_changed": []
+      },
+      "Course_Performance": {
+        "fields_added": [],
+        "fields_removed": [],
+        "fields_changed": [],
+        "picklists_changed": [],
+        "workflows_added": [],
+        "workflows_removed": [],
+        "workflows_changed": []
+      },
+      "Recurring_Tasks": {
+        "fields_added": [],
+        "fields_removed": [],
+        "fields_changed": [],
+        "picklists_changed": [],
+        "workflows_added": [],
+        "workflows_removed": [],
+        "workflows_changed": []
+      },
+      "Course_Days": {
+        "fields_added": [],
+        "fields_removed": [],
+        "fields_changed": [],
+        "picklists_changed": [],
+        "workflows_added": [],
+        "workflows_removed": [],
+        "workflows_changed": []
+      },
+      "Projects_Inhouse": {
+        "fields_added": [],
+        "fields_removed": [],
+        "fields_changed": [],
+        "picklists_changed": [],
+        "workflows_added": [],
+        "workflows_removed": [],
+        "workflows_changed": []
+      },
+      "Notes": {
+        "fields_added": [],
+        "fields_removed": [],
+        "fields_changed": [],
+        "picklists_changed": [],
+        "workflows_added": [],
+        "workflows_removed": [],
+        "workflows_changed": []
+      },
+      "Courses": {
+        "fields_added": [],
+        "fields_removed": [],
+        "fields_changed": [],
+        "picklists_changed": [],
+        "workflows_added": [],
+        "workflows_removed": [],
+        "workflows_changed": []
+      },
+      "Solutions": {
+        "fields_added": [],
+        "fields_removed": [],
+        "fields_changed": [],
+        "picklists_changed": [],
+        "workflows_added": [],
+        "workflows_removed": [],
+        "workflows_changed": []
+      },
+      "Sales_Orders": {
+        "fields_added": [],
+        "fields_removed": [],
+        "fields_changed": [],
+        "picklists_changed": [],
+        "workflows_added": [],
+        "workflows_removed": [],
+        "workflows_changed": []
+      },
+      "Purchase_Orders": {
+        "fields_added": [],
+        "fields_removed": [],
+        "fields_changed": [],
+        "picklists_changed": [],
+        "workflows_added": [],
+        "workflows_removed": [],
+        "workflows_changed": []
+      },
+      "clicksendext__Clicksend_SMS": {
+        "fields_added": [],
+        "fields_removed": [],
+        "fields_changed": [],
+        "picklists_changed": [],
+        "workflows_added": [],
+        "workflows_removed": [],
+        "workflows_changed": []
+      },
+      "Venues": {
+        "fields_added": [],
+        "fields_removed": [],
+        "fields_changed": [],
+        "picklists_changed": [],
+        "workflows_added": [],
+        "workflows_removed": [],
+        "workflows_changed": []
+      },
+      "Attachments": {
+        "fields_added": [],
+        "fields_removed": [],
+        "fields_changed": [],
+        "picklists_changed": [],
+        "workflows_added": [],
+        "workflows_removed": [],
+        "workflows_changed": []
+      },
+      "Associated_Contacts": {
+        "fields_added": [],
+        "fields_removed": [],
+        "fields_changed": [],
+        "picklists_changed": [],
+        "workflows_added": [],
+        "workflows_removed": [],
+        "workflows_changed": []
+      },
+      "Invoices": {
+        "fields_added": [
+          "Sync_To_Xero"
+        ],
+        "fields_removed": [],
+        "fields_changed": [],
+        "picklists_changed": [],
+        "workflows_added": [
+          "52330000014037247"
+        ],
+        "workflows_removed": [],
+        "workflows_changed": [
+          {
+            "workflow": "52330000002460231",
+            "changes": {
+              "execute_when": {
+                "old": {
+                  "details": {
+                    "trigger_module": {
+                      "api_name": "Invoices",
+                      "id": "52330000000000119"
+                    },
+                    "criteria": {
+                      "group_operator": "OR",
+                      "group": [
+                        {
+                          "group_operator": "OR",
+                          "group": [
+                            {
+                              "comparator": "${ANYVALUE}",
+                              "field": {
+                                "api_name": "Status",
+                                "id": "52330000000003361"
+                              },
+                              "value": "${ANYVALUE}"
+                            },
+                            {
+                              "comparator": "${ANYVALUE}",
+                              "field": {
+                                "api_name": "Status",
+                                "id": "52330000000003361"
+                              },
+                              "value": "${ANYVALUE}"
+                            }
+                          ]
+                        },
+                        {
+                          "comparator": "${ANYVALUE}",
+                          "field": {
+                            "api_name": "Status",
+                            "id": "52330000000003361"
+                          },
+                          "value": "${ANYVALUE}"
+                        }
+                      ]
+                    },
+                    "repeat": true,
+                    "match_all": false
+                  },
+                  "type": "field_update"
+                },
+                "new": {
+                  "details": {
+                    "trigger_module": {
+                      "api_name": "Invoices",
+                      "id": "52330000000000119"
+                    },
+                    "criteria": {
+                      "comparator": "${ANYVALUE}",
+                      "field": {
+                        "api_name": "Status",
+                        "id": "52330000000003361"
+                      },
+                      "value": "${ANYVALUE}"
+                    },
+                    "repeat": true,
+                    "match_all": false
+                  },
+                  "type": "field_update"
+                }
+              }
+            }
+          }
+        ]
+      },
+      "zohosign__ZohoSign_Recipients": {
+        "fields_added": [],
+        "fields_removed": [],
+        "fields_changed": [],
+        "picklists_changed": [],
+        "workflows_added": [],
+        "workflows_removed": [],
+        "workflows_changed": []
+      },
+      "Twitter": {
+        "fields_added": [],
+        "fields_removed": [],
+        "fields_changed": [],
+        "picklists_changed": [],
+        "workflows_added": [],
+        "workflows_removed": [],
+        "workflows_changed": []
+      },
+      "Registration_Records": {
+        "fields_added": [
+          "Payment_Status"
+        ],
+        "fields_removed": [],
+        "fields_changed": [
+          {
+            "field": "Lead_Source",
+            "changes": {
+              "pick_list_values": {
+                "old": [
+                  "-None-",
+                  "Advertisement",
+                  "Booking Form",
+                  "Calendly",
+                  "Chat",
+                  "Cold Call",
+                  "Email Campaign",
+                  "Employee Referral",
+                  "External Referral",
+                  "Facebook",
+                  "Facebook Organic",
+                  "Google AdWords",
+                  "Google+",
+                  "ICONIC FB LEAD",
+                  "Internal Seminar",
+                  "Newsletter",
+                  "Online Store",
+                  "Partner",
+                  "Public Relations",
+                  "Sales Email Alias",
+                  "Seminar Partner",
+                  "Trade Show",
+                  "Twitter",
+                  "Web Download",
+                  "Web Research",
+                  "Website",
+                  "Youtube"
+                ],
+                "new": [
+                  "-None-",
+                  "Advertisement",
+                  "Booking Form",
+                  "Calendly",
+                  "Chat",
+                  "Cold Call",
+                  "Email Campaign",
+                  "Employee Referral",
+                  "External Referral",
+                  "Facebook",
+                  "Facebook Organic",
+                  "Google AdWords",
+                  "Google+",
+                  "ICONIC FB LEAD",
+                  "Internal Seminar",
+                  "LinkedIn",
+                  "Newsletter",
+                  "Online Store",
+                  "Partner",
+                  "Public Relations",
+                  "Sales Email Alias",
+                  "Seminar Partner",
+                  "Trade Show",
+                  "Twitter",
+                  "Web Download",
+                  "Web Research",
+                  "Website",
+                  "Youtube"
+                ]
+              }
+            }
+          }
+        ],
+        "picklists_changed": [
+          {
+            "field": "Lead_Source",
+            "changes": {
+              "pick_list_values": {
+                "old": [
+                  "-None-",
+                  "Advertisement",
+                  "Booking Form",
+                  "Calendly",
+                  "Chat",
+                  "Cold Call",
+                  "Email Campaign",
+                  "Employee Referral",
+                  "External Referral",
+                  "Facebook",
+                  "Facebook Organic",
+                  "Google AdWords",
+                  "Google+",
+                  "ICONIC FB LEAD",
+                  "Internal Seminar",
+                  "Newsletter",
+                  "Online Store",
+                  "Partner",
+                  "Public Relations",
+                  "Sales Email Alias",
+                  "Seminar Partner",
+                  "Trade Show",
+                  "Twitter",
+                  "Web Download",
+                  "Web Research",
+                  "Website",
+                  "Youtube"
+                ],
+                "new": [
+                  "-None-",
+                  "Advertisement",
+                  "Booking Form",
+                  "Calendly",
+                  "Chat",
+                  "Cold Call",
+                  "Email Campaign",
+                  "Employee Referral",
+                  "External Referral",
+                  "Facebook",
+                  "Facebook Organic",
+                  "Google AdWords",
+                  "Google+",
+                  "ICONIC FB LEAD",
+                  "Internal Seminar",
+                  "LinkedIn",
+                  "Newsletter",
+                  "Online Store",
+                  "Partner",
+                  "Public Relations",
+                  "Sales Email Alias",
+                  "Seminar Partner",
+                  "Trade Show",
+                  "Twitter",
+                  "Web Download",
+                  "Web Research",
+                  "Website",
+                  "Youtube"
+                ]
+              }
+            }
+          }
+        ],
+        "workflows_added": [
+          "52330000013645165"
+        ],
+        "workflows_removed": [],
+        "workflows_changed": []
+      },
+      "Quotes": {
+        "fields_added": [],
+        "fields_removed": [],
+        "fields_changed": [],
+        "picklists_changed": [],
+        "workflows_added": [],
+        "workflows_removed": [],
+        "workflows_changed": [
+          {
+            "workflow": "52330000013638051",
+            "changes": {
+              "status": {
+                "old": {
+                  "active": true
+                },
+                "new": {
+                  "active": false
+                }
+              }
+            }
+          }
+        ]
+      },
+      "Approvals": {
+        "fields_added": [],
+        "fields_removed": [],
+        "fields_changed": [],
+        "picklists_changed": [],
+        "workflows_added": [],
+        "workflows_removed": [],
+        "workflows_changed": []
+      },
+      "Team_Task_Templates": {
+        "fields_added": [],
+        "fields_removed": [],
+        "fields_changed": [],
+        "picklists_changed": [],
+        "workflows_added": [],
+        "workflows_removed": [],
+        "workflows_changed": []
+      },
+      "Feedbacks": {
+        "fields_added": [],
+        "fields_removed": [],
+        "fields_changed": [],
+        "picklists_changed": [],
+        "workflows_added": [],
+        "workflows_removed": [],
+        "workflows_changed": []
+      },
+      "Associated_Deals": {
+        "fields_added": [],
+        "fields_removed": [],
+        "fields_changed": [],
+        "picklists_changed": [],
+        "workflows_added": [],
+        "workflows_removed": [],
+        "workflows_changed": []
+      },
+      "Call_Analytics": {
+        "fields_added": [
+          "AI_Processed"
+        ],
+        "fields_removed": [],
+        "fields_changed": [],
+        "picklists_changed": [],
+        "workflows_added": [],
+        "workflows_removed": [],
+        "workflows_changed": []
+      },
+      "Course_Type_History": {
+        "fields_added": [],
+        "fields_removed": [],
+        "fields_changed": [
+          {
+            "field": "Lead_Source",
+            "changes": {
+              "pick_list_values": {
+                "old": [
+                  "-None-",
+                  "Advertisement",
+                  "Booking Form",
+                  "Calendly",
+                  "Chat",
+                  "Cold Call",
+                  "Email Campaign",
+                  "Employee Referral",
+                  "External Referral",
+                  "Facebook",
+                  "Facebook Organic",
+                  "Google AdWords",
+                  "Google+",
+                  "ICONIC FB LEAD",
+                  "Internal Seminar",
+                  "Newsletter",
+                  "Online Store",
+                  "Partner",
+                  "Public Relations",
+                  "Sales Email Alias",
+                  "Seminar Partner",
+                  "Trade Show",
+                  "Twitter",
+                  "Web Download",
+                  "Web Research",
+                  "Website",
+                  "Youtube"
+                ],
+                "new": [
+                  "-None-",
+                  "Advertisement",
+                  "Booking Form",
+                  "Calendly",
+                  "Chat",
+                  "Cold Call",
+                  "Email Campaign",
+                  "Employee Referral",
+                  "External Referral",
+                  "Facebook",
+                  "Facebook Organic",
+                  "Google AdWords",
+                  "Google+",
+                  "ICONIC FB LEAD",
+                  "Internal Seminar",
+                  "LinkedIn",
+                  "Newsletter",
+                  "Online Store",
+                  "Partner",
+                  "Public Relations",
+                  "Sales Email Alias",
+                  "Seminar Partner",
+                  "Trade Show",
+                  "Twitter",
+                  "Web Download",
+                  "Web Research",
+                  "Website",
+                  "Youtube"
+                ]
+              }
+            }
+          }
+        ],
+        "picklists_changed": [
+          {
+            "field": "Lead_Source",
+            "changes": {
+              "pick_list_values": {
+                "old": [
+                  "-None-",
+                  "Advertisement",
+                  "Booking Form",
+                  "Calendly",
+                  "Chat",
+                  "Cold Call",
+                  "Email Campaign",
+                  "Employee Referral",
+                  "External Referral",
+                  "Facebook",
+                  "Facebook Organic",
+                  "Google AdWords",
+                  "Google+",
+                  "ICONIC FB LEAD",
+                  "Internal Seminar",
+                  "Newsletter",
+                  "Online Store",
+                  "Partner",
+                  "Public Relations",
+                  "Sales Email Alias",
+                  "Seminar Partner",
+                  "Trade Show",
+                  "Twitter",
+                  "Web Download",
+                  "Web Research",
+                  "Website",
+                  "Youtube"
+                ],
+                "new": [
+                  "-None-",
+                  "Advertisement",
+                  "Booking Form",
+                  "Calendly",
+                  "Chat",
+                  "Cold Call",
+                  "Email Campaign",
+                  "Employee Referral",
+                  "External Referral",
+                  "Facebook",
+                  "Facebook Organic",
+                  "Google AdWords",
+                  "Google+",
+                  "ICONIC FB LEAD",
+                  "Internal Seminar",
+                  "LinkedIn",
+                  "Newsletter",
+                  "Online Store",
+                  "Partner",
+                  "Public Relations",
+                  "Sales Email Alias",
+                  "Seminar Partner",
+                  "Trade Show",
+                  "Twitter",
+                  "Web Download",
+                  "Web Research",
+                  "Website",
+                  "Youtube"
+                ]
+              }
+            }
+          }
+        ],
+        "workflows_added": [],
+        "workflows_removed": [],
+        "workflows_changed": []
+      },
+      "Visits": {
+        "fields_added": [],
+        "fields_removed": [],
+        "fields_changed": [],
+        "picklists_changed": [],
+        "workflows_added": [],
+        "workflows_removed": [],
+        "workflows_changed": []
+      },
+      "Campaigns": {
+        "fields_added": [
+          "twiliosmsextension0__Number_of_replies_to_Twilio_campaign",
+          "twiliosmsextension0__Successful_Twilio_Message_Deliveries",
+          "twiliosmsextension0__Time_to_send_Twilio_Campaign",
+          "twiliosmsextension0__Twilio_From_Number_to_Use",
+          "twiliosmsextension0__Twilio_Template"
+        ],
+        "fields_removed": [],
+        "fields_changed": [],
+        "picklists_changed": [],
+        "workflows_added": [],
+        "workflows_removed": [],
+        "workflows_changed": []
+      },
+      "Leads": {
+        "fields_added": [
+          "twiliosmsextension0__Address_For_Email_To_SMS",
+          "twiliosmsextension0__Last_Time_They_Replied_To_Twilio_Message",
+          "twiliosmsextension0__Last_Time_They_Sent_Us_a_Message",
+          "twiliosmsextension0__Num_Inbound_Twilio_Messages",
+          "twiliosmsextension0__Num_Outbound_Twilio_Messages",
+          "twiliosmsextension0__Smooth_Conversation_Team_Assigned",
+          "twiliosmsextension0__They_sent_an_SMS_and_we_haven_t_replied",
+          "twiliosmsextension0__Twilio_Auto_Responders_Enabled",
+          "twiliosmsextension0__Twilio_SMS_Message_Opt_Out",
+          "twiliosmsextension0__We_Sent_Them_An_SMS_and_They_Haven_t_Replied"
+        ],
+        "fields_removed": [],
+        "fields_changed": [
+          {
+            "field": "Lead_Source",
+            "changes": {
+              "pick_list_values": {
+                "old": [
+                  "-None-",
+                  "Advertisement",
+                  "Booking Form",
+                  "Calendly",
+                  "Chat",
+                  "Cold Call",
+                  "Email Campaign",
+                  "Employee Referral",
+                  "External Referral",
+                  "Facebook",
+                  "Facebook Organic",
+                  "Google AdWords",
+                  "Google+",
+                  "ICONIC FB LEAD",
+                  "Internal Seminar",
+                  "Newsletter",
+                  "Online Store",
+                  "Partner",
+                  "Public Relations",
+                  "Sales Email Alias",
+                  "Seminar Partner",
+                  "Trade Show",
+                  "Twitter",
+                  "Web Download",
+                  "Web Research",
+                  "Website",
+                  "Youtube"
+                ],
+                "new": [
+                  "-None-",
+                  "Advertisement",
+                  "Booking Form",
+                  "Calendly",
+                  "Chat",
+                  "Cold Call",
+                  "Email Campaign",
+                  "Employee Referral",
+                  "External Referral",
+                  "Facebook",
+                  "Facebook Organic",
+                  "Google AdWords",
+                  "Google+",
+                  "ICONIC FB LEAD",
+                  "Internal Seminar",
+                  "LinkedIn",
+                  "Newsletter",
+                  "Online Store",
+                  "Partner",
+                  "Public Relations",
+                  "Sales Email Alias",
+                  "Seminar Partner",
+                  "Trade Show",
+                  "Twitter",
+                  "Web Download",
+                  "Web Research",
+                  "Website",
+                  "Youtube"
+                ]
+              }
+            }
+          }
+        ],
+        "picklists_changed": [
+          {
+            "field": "Lead_Source",
+            "changes": {
+              "pick_list_values": {
+                "old": [
+                  "-None-",
+                  "Advertisement",
+                  "Booking Form",
+                  "Calendly",
+                  "Chat",
+                  "Cold Call",
+                  "Email Campaign",
+                  "Employee Referral",
+                  "External Referral",
+                  "Facebook",
+                  "Facebook Organic",
+                  "Google AdWords",
+                  "Google+",
+                  "ICONIC FB LEAD",
+                  "Internal Seminar",
+                  "Newsletter",
+                  "Online Store",
+                  "Partner",
+                  "Public Relations",
+                  "Sales Email Alias",
+                  "Seminar Partner",
+                  "Trade Show",
+                  "Twitter",
+                  "Web Download",
+                  "Web Research",
+                  "Website",
+                  "Youtube"
+                ],
+                "new": [
+                  "-None-",
+                  "Advertisement",
+                  "Booking Form",
+                  "Calendly",
+                  "Chat",
+                  "Cold Call",
+                  "Email Campaign",
+                  "Employee Referral",
+                  "External Referral",
+                  "Facebook",
+                  "Facebook Organic",
+                  "Google AdWords",
+                  "Google+",
+                  "ICONIC FB LEAD",
+                  "Internal Seminar",
+                  "LinkedIn",
+                  "Newsletter",
+                  "Online Store",
+                  "Partner",
+                  "Public Relations",
+                  "Sales Email Alias",
+                  "Seminar Partner",
+                  "Trade Show",
+                  "Twitter",
+                  "Web Download",
+                  "Web Research",
+                  "Website",
+                  "Youtube"
+                ]
+              }
+            }
+          }
+        ],
+        "workflows_added": [
+          "52330000013919665",
+          "52330000013919713",
+          "52330000013919761",
+          "52330000013919848"
+        ],
+        "workflows_removed": [],
+        "workflows_changed": []
+      },
+      "Facebook": {
+        "fields_added": [],
+        "fields_removed": [],
+        "fields_changed": [],
+        "picklists_changed": [],
+        "workflows_added": [],
+        "workflows_removed": [],
+        "workflows_changed": []
+      },
+      "Quoted_Items": {
+        "fields_added": [],
+        "fields_removed": [],
+        "fields_changed": [],
+        "picklists_changed": [],
+        "workflows_added": [],
+        "workflows_removed": [],
+        "workflows_changed": []
+      },
+      "Associated_Attendees": {
+        "fields_added": [],
+        "fields_removed": [],
+        "fields_changed": [],
+        "picklists_changed": [],
+        "workflows_added": [],
+        "workflows_removed": [],
+        "workflows_changed": []
+      },
+      "Events": {
+        "fields_added": [],
+        "fields_removed": [],
+        "fields_changed": [],
+        "picklists_changed": [],
+        "workflows_added": [],
+        "workflows_removed": [],
+        "workflows_changed": []
+      },
+      "Products": {
+        "fields_added": [],
+        "fields_removed": [],
+        "fields_changed": [],
+        "picklists_changed": [],
+        "workflows_added": [],
+        "workflows_removed": [],
+        "workflows_changed": []
+      },
+      "Functions__s": {
+        "fields_added": [],
+        "fields_removed": [],
+        "fields_changed": [],
+        "picklists_changed": [],
+        "workflows_added": [],
+        "workflows_removed": [],
+        "workflows_changed": []
+      },
+      "Cases": {
+        "fields_added": [],
+        "fields_removed": [],
+        "fields_changed": [],
+        "picklists_changed": [],
+        "workflows_added": [],
+        "workflows_removed": [],
+        "workflows_changed": []
+      },
+      "Email_Template_Analytics": {
+        "fields_added": [],
+        "fields_removed": [],
+        "fields_changed": [],
+        "picklists_changed": [],
+        "workflows_added": [],
+        "workflows_removed": [],
+        "workflows_changed": []
+      },
+      "Attendees": {
+        "fields_added": [],
+        "fields_removed": [],
+        "fields_changed": [],
+        "picklists_changed": [],
+        "workflows_added": [],
+        "workflows_removed": [],
+        "workflows_changed": []
+      },
+      "Associated_Attendess": {
+        "fields_added": [],
+        "fields_removed": [],
+        "fields_changed": [],
+        "picklists_changed": [],
+        "workflows_added": [],
+        "workflows_removed": [],
+        "workflows_changed": []
+      },
+      "Tasks": {
+        "fields_added": [
+          "twiliosmsextension0__Twilio_SMS",
+          "twiliosmsextension0__twilio_parent_record_id"
+        ],
+        "fields_removed": [],
+        "fields_changed": [],
+        "picklists_changed": [],
+        "workflows_added": [],
+        "workflows_removed": [],
+        "workflows_changed": []
+      },
+      "Accounts": {
+        "fields_added": [
+          "twiliosmsextension0__Twilio_Auto_Responders_Enabled"
+        ],
+        "fields_removed": [],
+        "fields_changed": [],
+        "picklists_changed": [],
+        "workflows_added": [],
+        "workflows_removed": [],
+        "workflows_changed": []
+      },
+      "Cold_Outreach": {
+        "fields_added": [],
+        "fields_removed": [],
+        "fields_changed": [],
+        "picklists_changed": [],
+        "workflows_added": [],
+        "workflows_removed": [],
+        "workflows_changed": []
+      },
+      "Email_Sentiment": {
+        "fields_added": [],
+        "fields_removed": [],
+        "fields_changed": [],
+        "picklists_changed": [],
+        "workflows_added": [],
+        "workflows_removed": [],
+        "workflows_changed": []
+      },
+      "Calls": {
+        "fields_added": [],
+        "fields_removed": [],
+        "fields_changed": [],
+        "picklists_changed": [],
+        "workflows_added": [],
+        "workflows_removed": [],
+        "workflows_changed": []
+      },
+      "Price_Books": {
+        "fields_added": [],
+        "fields_removed": [],
+        "fields_changed": [],
+        "picklists_changed": [],
+        "workflows_added": [],
+        "workflows_removed": [],
+        "workflows_changed": []
+      },
+      "Vendors": {
+        "fields_added": [],
+        "fields_removed": [],
+        "fields_changed": [],
+        "picklists_changed": [],
+        "workflows_added": [],
+        "workflows_removed": [],
+        "workflows_changed": []
+      },
+      "zohosign__ZohoSign_Document_Events": {
+        "fields_added": [],
+        "fields_removed": [],
+        "fields_changed": [],
+        "picklists_changed": [],
+        "workflows_added": [],
+        "workflows_removed": [],
+        "workflows_changed": []
+      },
+      "Contacts": {
+        "fields_added": [
+          "twiliosmsextension0__Address_For_Email_To_SMS",
+          "twiliosmsextension0__Last_Time_They_Replied_To_Twilio_Message",
+          "twiliosmsextension0__Last_Time_They_Sent_Us_a_Message",
+          "twiliosmsextension0__Num_Inbound_Twilio_Messages",
+          "twiliosmsextension0__Num_Outbound_Twilio_Messages",
+          "twiliosmsextension0__Smooth_Conversation_Team_Assigned",
+          "twiliosmsextension0__They_sent_an_SMS_and_we_haven_t_replied",
+          "twiliosmsextension0__Twilio_Auto_Responders_Enabled",
+          "twiliosmsextension0__Twilio_SMS_Message_Opt_Out",
+          "twiliosmsextension0__We_Sent_Them_An_SMS_and_They_Haven_t_Replied",
+          "twiliosmsextension0__Whatsapp_Number"
+        ],
+        "fields_removed": [],
+        "fields_changed": [
+          {
+            "field": "Contact_Source",
+            "changes": {
+              "pick_list_values": {
+                "old": [
+                  "-None-",
+                  "Advertisement",
+                  "Booking Form",
+                  "Calendly",
+                  "Chat",
+                  "Cold Call",
+                  "Email Campaign",
+                  "Employee Referral",
+                  "External Referral",
+                  "Facebook",
+                  "Facebook Organic",
+                  "Google AdWords",
+                  "Google+",
+                  "ICONIC FB LEAD",
+                  "Internal Seminar",
+                  "Newsletter",
+                  "Online Store",
+                  "Partner",
+                  "Public Relations",
+                  "Sales Email Alias",
+                  "Seminar Partner",
+                  "Trade Show",
+                  "Twitter",
+                  "Web Download",
+                  "Web Research",
+                  "Website",
+                  "Youtube"
+                ],
+                "new": [
+                  "-None-",
+                  "Advertisement",
+                  "Booking Form",
+                  "Calendly",
+                  "Chat",
+                  "Cold Call",
+                  "Email Campaign",
+                  "Employee Referral",
+                  "External Referral",
+                  "Facebook",
+                  "Facebook Organic",
+                  "Google AdWords",
+                  "Google+",
+                  "ICONIC FB LEAD",
+                  "Internal Seminar",
+                  "LinkedIn",
+                  "Newsletter",
+                  "Online Store",
+                  "Partner",
+                  "Public Relations",
+                  "Sales Email Alias",
+                  "Seminar Partner",
+                  "Trade Show",
+                  "Twitter",
+                  "Web Download",
+                  "Web Research",
+                  "Website",
+                  "Youtube"
+                ]
+              }
+            }
+          }
+        ],
+        "picklists_changed": [
+          {
+            "field": "Contact_Source",
+            "changes": {
+              "pick_list_values": {
+                "old": [
+                  "-None-",
+                  "Advertisement",
+                  "Booking Form",
+                  "Calendly",
+                  "Chat",
+                  "Cold Call",
+                  "Email Campaign",
+                  "Employee Referral",
+                  "External Referral",
+                  "Facebook",
+                  "Facebook Organic",
+                  "Google AdWords",
+                  "Google+",
+                  "ICONIC FB LEAD",
+                  "Internal Seminar",
+                  "Newsletter",
+                  "Online Store",
+                  "Partner",
+                  "Public Relations",
+                  "Sales Email Alias",
+                  "Seminar Partner",
+                  "Trade Show",
+                  "Twitter",
+                  "Web Download",
+                  "Web Research",
+                  "Website",
+                  "Youtube"
+                ],
+                "new": [
+                  "-None-",
+                  "Advertisement",
+                  "Booking Form",
+                  "Calendly",
+                  "Chat",
+                  "Cold Call",
+                  "Email Campaign",
+                  "Employee Referral",
+                  "External Referral",
+                  "Facebook",
+                  "Facebook Organic",
+                  "Google AdWords",
+                  "Google+",
+                  "ICONIC FB LEAD",
+                  "Internal Seminar",
+                  "LinkedIn",
+                  "Newsletter",
+                  "Online Store",
+                  "Partner",
+                  "Public Relations",
+                  "Sales Email Alias",
+                  "Seminar Partner",
+                  "Trade Show",
+                  "Twitter",
+                  "Web Download",
+                  "Web Research",
+                  "Website",
+                  "Youtube"
+                ]
+              }
+            }
+          }
+        ],
+        "workflows_added": [
+          "52330000013919458",
+          "52330000013919474",
+          "52330000013919681",
+          "52330000013919729",
+          "52330000013919816"
+        ],
+        "workflows_removed": [],
+        "workflows_changed": []
+      },
+      "DealHistory": {
+        "fields_added": [],
+        "fields_removed": [],
+        "fields_changed": [],
+        "picklists_changed": [],
+        "workflows_added": [],
+        "workflows_removed": [],
+        "workflows_changed": []
+      },
+      "Referral_Form": {
+        "fields_added": [],
+        "fields_removed": [],
+        "fields_changed": [],
+        "picklists_changed": [],
+        "workflows_added": [],
+        "workflows_removed": [],
+        "workflows_changed": []
+      },
+      "zohosign__ZohoSign_Documents": {
+        "fields_added": [],
+        "fields_removed": [],
+        "fields_changed": [],
+        "picklists_changed": [],
+        "workflows_added": [],
+        "workflows_removed": [],
+        "workflows_changed": []
+      }
+    }
+  },
+  "lookup_relationships": {
+    "Actions_Performed": {
+      "added_lookup_fields": [],
+      "removed_lookup_fields": []
+    },
+    "Deals": {
+      "added_lookup_fields": [],
+      "removed_lookup_fields": []
+    },
+    "Course_Tasks": {
+      "added_lookup_fields": [],
+      "removed_lookup_fields": []
+    },
+    "Projects_Tasks": {
+      "added_lookup_fields": [],
+      "removed_lookup_fields": []
+    },
+    "Invoiced_Items": {
+      "added_lookup_fields": [],
+      "removed_lookup_fields": []
+    },
+    "Recurring_Tasks": {
+      "added_lookup_fields": [],
+      "removed_lookup_fields": []
+    },
+    "Course_Days": {
+      "added_lookup_fields": [],
+      "removed_lookup_fields": []
+    },
+    "twiliosmsextension0__Sent_SMS": {
+      "added_lookup_fields": [
+        "ContactName",
+        "LeadName",
+        "twiliosmsextension0__Campaign",
+        "twiliosmsextension0__DealName"
+      ],
+      "removed_lookup_fields": []
+    },
+    "Courses": {
+      "added_lookup_fields": [],
+      "removed_lookup_fields": []
+    },
+    "clicksendext__Clicksend_SMS": {
+      "added_lookup_fields": [],
+      "removed_lookup_fields": []
+    },
+    "Invoices": {
+      "added_lookup_fields": [],
+      "removed_lookup_fields": []
+    },
+    "Quotes": {
+      "added_lookup_fields": [],
+      "removed_lookup_fields": []
+    },
+    "Associated_Deals": {
+      "added_lookup_fields": [],
+      "removed_lookup_fields": []
+    },
+    "Call_Analytics": {
+      "added_lookup_fields": [],
+      "removed_lookup_fields": []
+    },
+    "Course_Type_History": {
+      "added_lookup_fields": [],
+      "removed_lookup_fields": []
+    },
+    "Campaigns": {
+      "added_lookup_fields": [
+        "twiliosmsextension0__Twilio_From_Number_to_Use",
+        "twiliosmsextension0__Twilio_Template"
+      ],
+      "removed_lookup_fields": []
+    },
+    "Quoted_Items": {
+      "added_lookup_fields": [],
+      "removed_lookup_fields": []
+    },
+    "Email_Template_Analytics": {
+      "added_lookup_fields": [],
+      "removed_lookup_fields": []
+    },
+    "Attendees": {
+      "added_lookup_fields": [],
+      "removed_lookup_fields": []
+    },
+    "Tasks": {
+      "added_lookup_fields": [],
+      "removed_lookup_fields": []
+    },
+    "Accounts": {
+      "added_lookup_fields": [],
+      "removed_lookup_fields": []
+    },
+    "Cold_Outreach": {
+      "added_lookup_fields": [],
+      "removed_lookup_fields": []
+    },
+    "Contacts": {
+      "added_lookup_fields": [],
+      "removed_lookup_fields": []
+    },
+    "DealHistory": {
+      "added_lookup_fields": [],
+      "removed_lookup_fields": []
+    },
+    "Referral_Form": {
+      "added_lookup_fields": [],
+      "removed_lookup_fields": []
+    },
+    "Ordered_Items": {
+      "added_lookup_fields": [],
+      "removed_lookup_fields": []
+    },
+    "Team_Tasks": {
+      "added_lookup_fields": [],
+      "removed_lookup_fields": []
+    },
+    "Course_Performance": {
+      "added_lookup_fields": [],
+      "removed_lookup_fields": []
+    },
+    "Sales_Orders": {
+      "added_lookup_fields": [],
+      "removed_lookup_fields": []
+    },
+    "Venues": {
+      "added_lookup_fields": [],
+      "removed_lookup_fields": []
+    },
+    "Associated_Contacts": {
+      "added_lookup_fields": [],
+      "removed_lookup_fields": []
+    },
+    "zohosign__ZohoSign_Recipients": {
+      "added_lookup_fields": [],
+      "removed_lookup_fields": []
+    },
+    "Registration_Records": {
+      "added_lookup_fields": [],
+      "removed_lookup_fields": []
+    },
+    "Feedbacks": {
+      "added_lookup_fields": [],
+      "removed_lookup_fields": []
+    },
+    "Leads": {
+      "added_lookup_fields": [],
+      "removed_lookup_fields": []
+    },
+    "Associated_Attendees": {
+      "added_lookup_fields": [],
+      "removed_lookup_fields": []
+    },
+    "Events": {
+      "added_lookup_fields": [],
+      "removed_lookup_fields": []
+    },
+    "Associated_Attendess": {
+      "added_lookup_fields": [],
+      "removed_lookup_fields": []
+    },
+    "Calls": {
+      "added_lookup_fields": [],
+      "removed_lookup_fields": []
+    },
+    "zohosign__ZohoSign_Document_Events": {
+      "added_lookup_fields": [],
+      "removed_lookup_fields": []
+    },
+    "zohosign__ZohoSign_Documents": {
+      "added_lookup_fields": [],
+      "removed_lookup_fields": []
+    }
+  }
+}

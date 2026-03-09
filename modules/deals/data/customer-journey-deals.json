@@ -1,0 +1,459 @@
+{
+  "workflow_metadata": {
+    "name": "Deals Customer Journey",
+    "description": "Sales opportunity lifecycle from lead conversion through to closed won/lost",
+    "primary_module": "Deals",
+    "created_date": "2025-11-13",
+    "data_source": "Zoho CRM Data Model 2025-11-13"
+  },
+  "customer_journey": {
+    "Deal_Created": {
+      "stage_order": 1,
+      "description": "Deal record created from lead conversion or direct entry",
+      "zoho_stage": "Qualification",
+      "outputs": {
+        "Deal_Name": {
+          "field_name": "Deal_Name",
+          "field_label": "Deal Name",
+          "data_type": "text",
+          "system_mandatory": true
+        },
+        "Account_Contact_Linked": {
+          "fields": [
+            {
+              "field_name": "Account_Name",
+              "field_label": "Account Name",
+              "data_type": "lookup",
+              "lookup_module": "Accounts"
+            },
+            {
+              "field_name": "Contact_Name",
+              "field_label": "Contact Name",
+              "data_type": "lookup",
+              "lookup_module": "Contacts"
+            }
+          ]
+        },
+        "Course_Details": {
+          "fields": [
+            {
+              "field_name": "Courseaa",
+              "field_label": "Course",
+              "data_type": "lookup",
+              "lookup_module": "Courses"
+            },
+            {
+              "field_name": "Course_Type",
+              "field_label": "Course Type",
+              "data_type": "picklist"
+            },
+            {
+              "field_name": "Number_of_Attendees",
+              "field_label": "Number of Attendees",
+              "data_type": "integer"
+            }
+          ]
+        }
+      },
+      "related_workflows": [
+        {
+          "workflow_id": "52330000002444572",
+          "workflow_name": "Update Deal ID",
+          "trigger_type": "create",
+          "description": "Assigns unique deal identifier",
+          "workflow_url": "https://crm.zoho.com.au/crm/org7003757385/settings/workflow-rules/52330000002444572"
+        },
+        {
+          "workflow_id": "52330000002967279",
+          "workflow_name": "Deal Naming Convention",
+          "trigger_type": "create",
+          "description": "Formats deal name consistently",
+          "workflow_url": "https://crm.zoho.com.au/crm/org7003757385/settings/workflow-rules/52330000002967279"
+        },
+        {
+          "workflow_id": "52330000003995130",
+          "workflow_name": "Update Amount on create",
+          "trigger_type": "create_or_edit",
+          "description": "Calculates deal amount",
+          "workflow_url": "https://crm.zoho.com.au/crm/org7003757385/settings/workflow-rules/52330000003995130"
+        },
+        {
+          "workflow_id": "52330000004452015",
+          "workflow_name": "Workflow - Update Deal ID",
+          "trigger_type": "create_or_edit",
+          "description": "Maintains deal ID consistency",
+          "workflow_url": "https://crm.zoho.com.au/crm/org7003757385/settings/workflow-rules/52330000004452015"
+        },
+        {
+          "workflow_id": "52330000005157945",
+          "workflow_name": "If Website Account Name",
+          "trigger_type": "create",
+          "description": "Handles website-originated deals",
+          "workflow_url": "https://crm.zoho.com.au/crm/org7003757385/settings/workflow-rules/52330000005157945"
+        }
+      ],
+      "mandatory_fields": [
+        "Deal_Name",
+        "Stage"
+      ],
+      "next": "Needs_Analysis"
+    },
+    "Needs_Analysis": {
+      "stage_order": 2,
+      "description": "Understanding client requirements and course needs",
+      "zoho_stage": "Needs Analysis",
+      "outputs": {
+        "Training_Coordinator_Assigned": {
+          "field_name": "Training_Coordinator",
+          "field_label": "Training Coordinator",
+          "data_type": "lookup",
+          "lookup_module": "Contacts"
+        },
+        "Attendee_Details_Requested": {
+          "field_name": "Request_Attendees",
+          "field_label": "Request Attendees",
+          "data_type": "boolean",
+          "workflow_trigger": true
+        }
+      },
+      "related_workflows": [
+        {
+          "workflow_id": "52330000002967852",
+          "workflow_name": "Email to training Coordinator from DEALS",
+          "trigger_type": "field_update",
+          "condition_fields": [
+            "Request_Attendees"
+          ],
+          "description": "Requests attendee details from coordinator",
+          "workflow_url": "https://crm.zoho.com.au/crm/org7003757385/settings/workflow-rules/52330000002967852"
+        },
+        {
+          "workflow_id": "52330000005069264",
+          "workflow_name": "When Account name is not blank",
+          "trigger_type": "field_update",
+          "condition_fields": [
+            "Account_Name"
+          ],
+          "description": "Updates related fields when account linked",
+          "workflow_url": "https://crm.zoho.com.au/crm/org7003757385/settings/workflow-rules/52330000005069264"
+        }
+      ],
+      "key_fields": [
+        "Number_of_Attendees",
+        "Course_Start_Date",
+        "Training_Coordinator",
+        "Request_Attendees"
+      ],
+      "next": "Ready_to_Quote"
+    },
+    "Ready_to_Quote": {
+      "stage_order": 3,
+      "description": "Preparing and sending quotation to client",
+      "zoho_stage": "Ready to Quote",
+      "outputs": {
+        "Quote_Created": {
+          "field_name": "Quote_ID",
+          "field_label": "Quote ID",
+          "data_type": "text",
+          "related_module": "Quotes"
+        },
+        "Quote_Amount": {
+          "field_name": "Quote_Amount",
+          "field_label": "Quote incl. GST Amount",
+          "data_type": "currency"
+        }
+      },
+      "related_workflows": [
+        {
+          "workflow_id": "52330000002460308",
+          "workflow_name": "Create Quote - Stage Update Ready to quote",
+          "trigger_type": "field_update",
+          "condition_fields": [
+            "Stage"
+          ],
+          "description": "Auto-creates quote when stage changed to Ready to Quote",
+          "workflow_url": "https://crm.zoho.com.au/crm/org7003757385/settings/workflow-rules/52330000002460308"
+        },
+        {
+          "workflow_id": "52330000004013962",
+          "workflow_name": "Copy of Deal Naming Convention",
+          "trigger_type": "field_update",
+          "condition_fields": [
+            "Courseaa",
+            "Course_Type"
+          ],
+          "description": "Updates deal name when course selected",
+          "workflow_url": "https://crm.zoho.com.au/crm/org7003757385/settings/workflow-rules/52330000004013962"
+        }
+      ],
+      "cross_module_actions": [
+        {
+          "target_module": "Quotes",
+          "action": "create",
+          "workflow": "Create Quote - Stage Update Ready to quote"
+        }
+      ],
+      "next": "Negotiation"
+    },
+    "Negotiation": {
+      "stage_order": 4,
+      "description": "Quote sent, awaiting client decision",
+      "zoho_stage": "Negotiation/Review",
+      "outputs": {
+        "Quote_Sent_Date": {
+          "field_name": "Quote_Sent_Date",
+          "field_label": "Quote Sent Date",
+          "data_type": "date",
+          "source_module": "Quotes"
+        },
+        "PO_Expected": {
+          "field_name": "Po_Expected_Date",
+          "field_label": "Po Expected Date",
+          "data_type": "date"
+        }
+      },
+      "related_workflows": [
+        {
+          "workflow_id": "52330000001178038",
+          "workflow_name": "Follow up future deals",
+          "trigger_type": "date_or_datetime",
+          "description": "Schedules follow-up for future dated deals",
+          "workflow_url": "https://crm.zoho.com.au/crm/org7003757385/settings/workflow-rules/52330000001178038"
+        }
+      ],
+      "follow_up_workflows": [
+        {
+          "workflow_id": "52330000002638269",
+          "workflow_name": "Follow up on Purchase Order 14 days before course",
+          "trigger_type": "date_or_datetime",
+          "description": "Reminds to chase PO 14 days before course",
+          "workflow_url": "https://crm.zoho.com.au/crm/org7003757385/settings/workflow-rules/52330000002638269"
+        },
+        {
+          "workflow_id": "52330000002638311",
+          "workflow_name": "Follow up on Purchase Order 28 days before",
+          "trigger_type": "date_or_datetime",
+          "description": "First PO reminder 28 days before",
+          "workflow_url": "https://crm.zoho.com.au/crm/org7003757385/settings/workflow-rules/52330000002638311"
+        },
+        {
+          "workflow_id": "52330000002638411",
+          "workflow_name": "Follow up on Purchase Order 1 days before",
+          "trigger_type": "date_or_datetime",
+          "description": "Urgent PO reminder 1 day before",
+          "workflow_url": "https://crm.zoho.com.au/crm/org7003757385/settings/workflow-rules/52330000002638411"
+        },
+        {
+          "workflow_id": "52330000009085891",
+          "workflow_name": "Follow up on Purchase Order 5 days before course",
+          "trigger_type": "field_update",
+          "condition_fields": [
+            "Stage"
+          ],
+          "description": "Creates task for PO follow-up",
+          "workflow_url": "https://crm.zoho.com.au/crm/org7003757385/settings/workflow-rules/52330000009085891"
+        }
+      ],
+      "key_fields": [
+        "Quote_ID",
+        "Quote_Amount",
+        "Po_Expected_Date",
+        "Po_Required"
+      ],
+      "next": "Closed_Won_or_Lost"
+    },
+    "Closed_Won_or_Lost": {
+      "stage_order": 5,
+      "description": "Quote accepted or rejected",
+      "zoho_stage": "Closed Won / Closed Lost",
+      "outputs": {
+        "Purchase_Order_Received": {
+          "field_name": "Purchase_Order_Number",
+          "field_label": "Purchase Order Number",
+          "data_type": "text",
+          "required_for_won": true
+        },
+        "Closing_Date": {
+          "field_name": "Closing_Date",
+          "field_label": "Closing Date",
+          "data_type": "date"
+        },
+        "Loss_Reason": {
+          "field_name": "Loss_Reason",
+          "field_label": "Loss Reason",
+          "data_type": "textarea",
+          "required_for_lost": true
+        }
+      },
+      "related_workflows": [
+        {
+          "workflow_id": "52330000002460283",
+          "workflow_name": "Purchase Order Received",
+          "trigger_type": "field_update",
+          "condition_fields": [
+            "Purchase_Order_Number"
+          ],
+          "description": "Triggers actions when PO number entered",
+          "workflow_url": "https://crm.zoho.com.au/crm/org7003757385/settings/workflow-rules/52330000002460283"
+        },
+        {
+          "workflow_id": "52330000006993545",
+          "workflow_name": "Update Registration records when PO Is received",
+          "trigger_type": "field_update",
+          "condition_fields": [
+            "Purchase_Order_Number"
+          ],
+          "description": "Updates related registration statuses",
+          "workflow_url": "https://crm.zoho.com.au/crm/org7003757385/settings/workflow-rules/52330000006993545"
+        },
+        {
+          "workflow_id": "52330000004335567",
+          "workflow_name": "On stage Update related Attendees",
+          "trigger_type": "field_update",
+          "condition_fields": [
+            "Stage"
+          ],
+          "description": "Updates registration records when deal won",
+          "workflow_url": "https://crm.zoho.com.au/crm/org7003757385/settings/workflow-rules/52330000004335567"
+        }
+      ],
+      "won_path": {
+        "stage_value": "Closed Won",
+        "triggers": [
+          "Quote status updates to Accepted",
+          "Invoice generation",
+          "Registration records confirmed",
+          "Course performance tracking updated"
+        ]
+      },
+      "lost_path": {
+        "stage_value": "Closed Lost",
+        "required_fields": [
+          "Loss_Reason"
+        ],
+        "triggers": [
+          "Quote status updates to Lost",
+          "Cancellation notifications"
+        ]
+      },
+      "next": null
+    }
+  },
+  "deal_types": {
+    "Public_Course": {
+      "course_type_value": "Public",
+      "characteristics": [
+        "Individual attendee payments",
+        "Credit card or invoice per person",
+        "Multiple deals per course possible",
+        "Website-originated leads common"
+      ],
+      "key_fields": [
+        "Preferred_Payment_Method",
+        "Payment_source"
+      ]
+    },
+    "Private_Course": {
+      "course_type_value": "Private",
+      "characteristics": [
+        "Single corporate invoice",
+        "Purchase order required",
+        "Consolidated billing",
+        "Training coordinator contact"
+      ],
+      "key_fields": [
+        "Po_Required",
+        "Purchase_Order_Number",
+        "Training_Coordinator",
+        "Request_Attendees"
+      ]
+    }
+  },
+  "stage_progression": {
+    "typical_stages": [
+      "Qualification",
+      "Needs Analysis",
+      "Ready to Quote",
+      "Negotiation/Review",
+      "Closed Won",
+      "Closed Lost"
+    ],
+    "stage_field": "Stage",
+    "system_mandatory": true
+  },
+  "linked_modules": {
+    "Leads": {
+      "relationship": "Converted from Lead",
+      "lookup_field": "Converted_Deal",
+      "tracking_fields": [
+        "Lead_ID",
+        "Is_Converted",
+        "Amount_Paid_Lead"
+      ]
+    },
+    "Courses": {
+      "relationship": "Course selection",
+      "lookup_field": "Courseaa",
+      "sync_fields": [
+        "Course_ID",
+        "Course_Start_Date",
+        "Associated_Course_Code"
+      ]
+    },
+    "Quotes": {
+      "relationship": "One-to-many",
+      "created_by_workflow": "Create Quote - Stage Update Ready to quote",
+      "tracking_fields": [
+        "Quote_ID",
+        "Quote_Amount"
+      ]
+    },
+    "Invoices": {
+      "relationship": "Created from Quote",
+      "created_when": "Quote stage = Accepted",
+      "tracking_fields": [
+        "Invoice status tracked in Deals"
+      ]
+    },
+    "Registration_Records": {
+      "relationship": "One-to-many (attendees)",
+      "lookup_field": "Deal",
+      "bidirectional_sync": true
+    }
+  },
+  "payment_tracking": {
+    "po_required_flow": {
+      "field": "Po_Required",
+      "when_true": [
+        "Purchase_Order_Number required",
+        "Po_Expected_Date tracked",
+        "Follow-up workflows trigger",
+        "Registration status pending until PO"
+      ]
+    },
+    "payment_confirmation": {
+      "workflows": [
+        "Purchase Order Received",
+        "Update Registration records when PO Is received"
+      ],
+      "updates": [
+        "Registration_Records.Status = Confirmed",
+        "Invoice creation triggered"
+      ]
+    }
+  },
+  "automation_summary": {
+    "total_workflows": 13,
+    "create_triggers": 4,
+    "field_update_triggers": 7,
+    "datetime_triggers": 4,
+    "key_trigger_fields": [
+      "Stage",
+      "Purchase_Order_Number",
+      "Course_Type",
+      "Courseaa",
+      "Account_Name",
+      "Request_Attendees"
+    ]
+  }
+}

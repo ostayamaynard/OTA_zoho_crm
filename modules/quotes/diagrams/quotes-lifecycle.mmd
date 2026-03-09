@@ -1,0 +1,36 @@
+graph TD
+    %% Quotes Customer Journey
+
+    Quote_Created["1. Quote Created<br/>Quote generated from deal"]
+    Quote_Sent["2. Quote Sent<br/>Quote delivered to client for review"]
+    Under_Review["3. Under Review<br/>Client reviewing quote, may request changes"]
+    Accepted_or_Rejected["4. Accepted or Rejected<br/>Quote accepted (won) or rejected (lost)"]
+
+    Quote_Created --> Quote_Sent
+    Quote_Sent --> Under_Review
+    Under_Review --> Accepted_or_Rejected
+
+    Quote_Created_WF0["Update Quote Details<br/>ID: 52330000002597194"]
+    style Quote_Created_WF0 fill:#90EE90
+    Quote_Created -.->|triggers| Quote_Created_WF0
+    Quote_Created_WF1["Update Quote Naming convention<br/>ID: 52330000002856364"]
+    style Quote_Created_WF1 fill:#90EE90
+    Quote_Created -.->|triggers| Quote_Created_WF1
+    Quote_Created_WF2["Inhouse - Calculate Overall Tax for Quote<br/>ID: 52330000004975235"]
+    style Quote_Created_WF2 fill:#90EE90
+    Quote_Created -.->|triggers| Quote_Created_WF2
+    Quote_Sent_WF0["Send Quote<br/>ID: 52330000006984913"]
+    style Quote_Sent_WF0 fill:#90EE90
+    Quote_Sent -.->|triggers| Quote_Sent_WF0
+    Quote_Sent_WF1["Update quote when quote is sent or won<br/>ID: 52330000003995201"]
+    style Quote_Sent_WF1 fill:#90EE90
+    Quote_Sent -.->|triggers| Quote_Sent_WF1
+    Under_Review_WF0["Update Deal with PO Number and Date<br/>ID: 52330000006993468"]
+    style Under_Review_WF0 fill:#90EE90
+    Under_Review -.->|triggers| Under_Review_WF0
+    Accepted_or_Rejected_WF0["Update Deal and Invoice on Quote Closed Won<br/>ID: 52330000002460325"]
+    style Accepted_or_Rejected_WF0 fill:#90EE90
+    Accepted_or_Rejected -.->|triggers| Accepted_or_Rejected_WF0
+    Accepted_or_Rejected_WF1["Update quote when quote is sent or won<br/>ID: 52330000003995201"]
+    style Accepted_or_Rejected_WF1 fill:#90EE90
+    Accepted_or_Rejected -.->|triggers| Accepted_or_Rejected_WF1

@@ -1,0 +1,192 @@
+graph TB
+    %% Deal Stages Kanban Board
+    %% Click on workflow boxes to open in Zoho CRM
+    
+    classDef stageQual fill:#FFE8E8,stroke:#ffc6c6,stroke-width:3px
+    classDef stageNegot fill:#E3E9FF,stroke:#ced9ff,stroke-width:3px
+    classDef stageQuote fill:#FFF4C4,stroke:#ffda62,stroke-width:3px
+    classDef stageZip fill:#E8D5FF,stroke:#af38fa,stroke-width:3px
+    classDef stagePO fill:#F5F5F5,stroke:#dbdbdb,stroke-width:3px
+    classDef stageInvoice fill:#E8E8E8,stroke:#acacac,stroke-width:3px
+    classDef stageUnused fill:#FFE8E8,stroke:#ffc6c6,stroke-width:3px
+    classDef stageWon fill:#C8E6C9,stroke:#25b52a,stroke-width:3px
+    classDef stageLost fill:#FFCDD2,stroke:#eb4d4d,stroke-width:3px
+    classDef autoWF fill:#90EE90,stroke:#2E7D32,stroke-width:2px
+    classDef manualWF fill:#2196F3,stroke:#0D47A1,stroke-width:2px
+    classDef timeWF fill:#FF9800,stroke:#E65100,stroke-width:2px
+    
+
+    %% ========== QUALIFICATION STAGE ==========
+    Stage1["🔍 QUALIFICATION<br/>Verify deal details, select course"]
+    class Stage1 stageQual
+    
+    Q_WF1["Update Deal ID<br/>ID: 52330000002444572<br/>🔗 Click to view"]
+    click Q_WF1 "https://crm.zoho.com.au/crm/org7003757385/settings/workflow-rules/52330000002444572" _blank
+    class Q_WF1 autoWF
+    Stage1 -.->|fires on create| Q_WF1
+    Q_WF2["Deal Naming Convention<br/>ID: 52330000002967279<br/>🔗 Click to view"]
+    click Q_WF2 "https://crm.zoho.com.au/crm/org7003757385/settings/workflow-rules/52330000002967279" _blank
+    class Q_WF2 autoWF
+    Stage1 -.->|fires on create| Q_WF2
+    Q_WF3["Update Amount on create<br/>ID: 52330000003995130<br/>🔗 Click to view"]
+    click Q_WF3 "https://crm.zoho.com.au/crm/org7003757385/settings/workflow-rules/52330000003995130" _blank
+    class Q_WF3 autoWF
+    Stage1 -.->|fires on create| Q_WF3
+    Q_WF4["Workflow - Update Deal ID<br/>ID: 52330000004452015<br/>🔗 Click to view"]
+    click Q_WF4 "https://crm.zoho.com.au/crm/org7003757385/settings/workflow-rules/52330000004452015" _blank
+    class Q_WF4 autoWF
+    Stage1 -.->|fires on create/edit| Q_WF4
+    Q_WF5["If Website Account Name<br/>ID: 52330000005157945<br/>🔗 Click to view"]
+    click Q_WF5 "https://crm.zoho.com.au/crm/org7003757385/settings/workflow-rules/52330000005157945" _blank
+    class Q_WF5 autoWF
+    Stage1 -.->|fires on create| Q_WF5
+    Q_WF6["Copy of Deal Naming Convention<br/>ID: 52330000004013962<br/>Trigger: Courseaa/Course_Type changes<br/>🔗 Click to view"]
+    click Q_WF6 "https://crm.zoho.com.au/crm/org7003757385/settings/workflow-rules/52330000004013962" _blank
+    class Q_WF6 autoWF
+    Stage1 -.->|fires on field update| Q_WF6
+    Q_WF7["When Account name is not blank<br/>ID: 52330000005069264<br/>Trigger: Account_Name changes<br/>🔗 Click to view"]
+    click Q_WF7 "https://crm.zoho.com.au/crm/org7003757385/settings/workflow-rules/52330000005069264" _blank
+    class Q_WF7 autoWF
+    Stage1 -.->|fires on field update| Q_WF7
+
+    Q_Human["👤 HUMAN ACTIONS:<br/>• Verify deal details<br/>• Select course (Courseaa)<br/>• Set attendee count"]
+    Stage1 --> Q_Human
+
+    %% ========== NEGOTIATION/REVIEW STAGE ==========
+    Q_Human --> Stage2["💬 NEGOTIATION/REVIEW<br/>Awaiting PO & decision"]
+    class Stage2 stageNegot
+    
+    N_WF1["Email to training Coordinator from DEALS<br/>ID: 52330000002967852<br/>Trigger: Request_Attendees = true<br/>Field-based (works in any stage)<br/>🔗 Click to view"]
+    click N_WF1 "https://crm.zoho.com.au/crm/org7003757385/settings/workflow-rules/52330000002967852" _blank
+    class N_WF1 manualWF
+    Stage2 -.->|manual trigger| N_WF1
+    N_WF2["Create Team Task from Deals<br/>ID: 52330000002460147<br/>Trigger: Create_Follow_up_Task = true<br/>Field-based (works in any stage)<br/>🔗 Click to view"]
+    click N_WF2 "https://crm.zoho.com.au/crm/org7003757385/settings/workflow-rules/52330000002460147" _blank
+    class N_WF2 manualWF
+    Stage2 -.->|manual trigger| N_WF2
+    
+    NEG_WF1["⏰ Follow up on Purchase Order 28 days before<br/>ID: 52330000002638311<br/>Timing: 28 days before course<br/>🔗 Click to view"]
+    click NEG_WF1 "https://crm.zoho.com.au/crm/org7003757385/settings/workflow-rules/52330000002638311" _blank
+    class NEG_WF1 timeWF
+    Stage2 -.->|time-based| NEG_WF1
+    NEG_WF2["⏰ Follow up on Purchase Order 14 days before course<br/>ID: 52330000002638269<br/>Timing: 14 days before course<br/>🔗 Click to view"]
+    click NEG_WF2 "https://crm.zoho.com.au/crm/org7003757385/settings/workflow-rules/52330000002638269" _blank
+    class NEG_WF2 timeWF
+    Stage2 -.->|time-based| NEG_WF2
+    NEG_WF3["⏰ Follow up on Purchase Order 1 days before<br/>ID: 52330000002638411<br/>Timing: 1 day before course<br/>🔗 Click to view"]
+    click NEG_WF3 "https://crm.zoho.com.au/crm/org7003757385/settings/workflow-rules/52330000002638411" _blank
+    class NEG_WF3 timeWF
+    Stage2 -.->|time-based| NEG_WF3
+    NEG_WF4["⏰ Follow up on Purchase Order 5 days before course<br/>ID: 52330000009085891<br/>Timing: 5 days before course<br/>🔗 Click to view"]
+    click NEG_WF4 "https://crm.zoho.com.au/crm/org7003757385/settings/workflow-rules/52330000009085891" _blank
+    class NEG_WF4 timeWF
+    Stage2 -.->|time-based| NEG_WF4
+    NEG_WF5["⏰ Follow up future deals<br/>ID: 52330000001178038<br/>Timing: Based on Follow_up_date<br/>🔗 Click to view"]
+    click NEG_WF5 "https://crm.zoho.com.au/crm/org7003757385/settings/workflow-rules/52330000001178038" _blank
+    class NEG_WF5 timeWF
+    Stage2 -.->|time-based| NEG_WF5
+
+    NEG_Human["👤 HUMAN ACTIONS:<br/>• Chase purchase order<br/>• Set Course_Start_Date<br/>• Enter PO# when received"]
+    Stage2 --> NEG_Human
+
+    %% ========== READY TO QUOTE STAGE ==========
+    NEG_Human --> Stage3["📝 READY TO QUOTE<br/>⚠️ Quote AUTO-CREATED"]
+    class Stage3 stageQuote
+    
+    R_WF1["⚡ Create Quote - Stage Update Ready to quote<br/>ID: 52330000002460308<br/>CREATES: Quote record<br/>🔗 Click to view"]
+    click R_WF1 "https://crm.zoho.com.au/crm/org7003757385/settings/workflow-rules/52330000002460308" _blank
+    class R_WF1 autoWF
+    Stage3 ==>|AUTO-FIRES| R_WF1
+
+    R_Human["👤 HUMAN ACTIONS:<br/>• Review auto-generated Quote<br/>• Adjust pricing in Quotes module<br/>• Send quote to client"]
+    Stage3 --> R_Human
+
+    %% ========== AWAITING ZIPPAY CONFIRMATION STAGE ==========
+    R_Human --> Stage4["💳 AWAITING ZIPPAY<br/>Payment confirmation"]
+    class Stage4 stageZip
+    
+    ZIP_Human["👤 HUMAN ACTIONS:<br/>• Monitor ZipPay payment status<br/>• Set Course_Start_Date"]
+    Stage4 --> ZIP_Human
+
+    %% ========== AWAITING PURCHASE ORDER STAGE ==========
+    ZIP_Human -->|Payment confirmed| Stage5["📋 AWAITING PO<br/>Purchase order"]
+    R_Human -->|Quote sent| Stage5
+    class Stage5 stagePO
+    
+    PO_Human["👤 HUMAN ACTIONS:<br/>• Chase purchase order<br/>• Enter PO# when received"]
+    Stage5 --> PO_Human
+
+    %% ========== AWAITING INVOICE PAYMENT STAGE ==========
+    PO_Human -->|PO received| Stage6["💰 AWAITING PAYMENT<br/>Invoice payment"]
+    class Stage6 stageInvoice
+    
+    INV_Human["👤 HUMAN ACTIONS:<br/>• Monitor invoice payment status<br/>• Follow up if overdue"]
+    Stage6 --> INV_Human
+
+    %% ========== UNUSED STAGE ==========
+    Stage2 -.->|On hold| Stage7["⏸️ UNUSED<br/>Deal on hold"]
+    class Stage7 stageUnused
+    
+    UNUSED_WF1["⏰ Follow up future deals<br/>ID: 52330000001178038<br/>Trigger: Follow_up_date set<br/>🔗 Click to view"]
+    click UNUSED_WF1 "https://crm.zoho.com.au/crm/org7003757385/settings/workflow-rules/52330000001178038" _blank
+    class UNUSED_WF1 timeWF
+    Stage7 -.->|time-based| UNUSED_WF1
+    
+    UNUSED_Human["👤 HUMAN ACTIONS:<br/>• Document reason for hold<br/>• Set Follow_up_date"]
+    Stage7 --> UNUSED_Human
+    UNUSED_Human -.->|Reactivate| Stage2
+
+    %% ========== DECISION POINT ==========
+    INV_Human --> Decision{Payment Received?}
+    PO_Human --> Decision2{PO Received?}
+    ZIP_Human --> Decision3{Payment Confirmed?}
+    NEG_Human --> Decision4{Quote Accepted?}
+    
+    %% ========== CLOSED WON STAGE ==========
+    Decision -->|Yes| Stage8["✅ CLOSED WON<br/>Deal won, process payment"]
+    Decision2 -->|Yes| Stage8
+    Decision3 -->|Yes| Stage8
+    Decision4 -->|Yes + PO| Stage8
+    class Stage8 stageWon
+    
+    W_WF1["Purchase Order Received<br/>ID: 52330000002460283<br/>Updates deal status, notifies team, timestamps PO receipt<br/>🔗 Click to view"]
+    click W_WF1 "https://crm.zoho.com.au/crm/org7003757385/settings/workflow-rules/52330000002460283" _blank
+    class W_WF1 autoWF
+    Stage8 ==>|fires| W_WF1
+    W_WF2["Update Registration records when PO Is received<br/>ID: 52330000006993545<br/>Updates all Registration_Records → Status = Confirmed<br/>🔗 Click to view"]
+    click W_WF2 "https://crm.zoho.com.au/crm/org7003757385/settings/workflow-rules/52330000006993545" _blank
+    class W_WF2 autoWF
+    Stage8 ==>|fires| W_WF2
+    W_WF3["On stage Update related Attendees<br/>ID: 52330000004335567<br/>Updates Registration_Records → Status = Confirmed<br/>🔗 Click to view"]
+    click W_WF3 "https://crm.zoho.com.au/crm/org7003757385/settings/workflow-rules/52330000004335567" _blank
+    class W_WF3 autoWF
+    Stage8 ==>|fires| W_WF3
+    W_WF4["Update Deal and Invoice on Quote Closed Won<br/>ID: 52330000002460325<br/>Module: Quotes (affects Deals)<br/>Trigger: Quote_Stage = Accepted<br/>🔗 Click to view"]
+    click W_WF4 "https://crm.zoho.com.au/crm/org7003757385/settings/workflow-rules/52330000002460325" _blank
+    class W_WF4 autoWF
+    Stage8 -.->|fires from Quotes| W_WF4
+
+    W_Human["👤 HUMAN ACTIONS:<br/>• Enter PO number<br/>• Verify invoice created<br/>• Monitor payment"]
+    Stage8 --> W_Human
+
+    %% ========== CLOSED LOST STAGE ==========
+    Decision -->|No| Stage9["❌ CLOSED LOST<br/>Deal lost"]
+    Decision2 -->|No| Stage9
+    Decision3 -->|No| Stage9
+    Decision4 -->|No / Declined| Stage9
+    class Stage9 stageLost
+    
+    L_Human["👤 HUMAN ACTIONS:<br/>• Enter Loss_Reason (MANDATORY)<br/>• Update Quote to Declined<br/>• Cancel any registrations"]
+    Stage9 --> L_Human
+    
+
+    %% ========== LEGEND ==========
+    subgraph Legend
+        L1[🟢 Automatic Workflow<br/>Fires without user action]
+        L2[🔵 Manual Workflow<br/>User sets field to trigger]
+        L3[🟠 Time-Based Workflow<br/>Fires on schedule]
+        L4[👤 Human Actions Required]
+        class L1 autoWF
+        class L2 manualWF
+        class L3 timeWF
+    end

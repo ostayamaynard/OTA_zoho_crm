@@ -1,0 +1,610 @@
+{
+  "workflow_metadata": {
+    "name": "Courses Operations Workflow",
+    "description": "Complete course lifecycle from creation to archiving",
+    "primary_module": "Courses",
+    "created_date": "2025-11-13",
+    "data_source": "Zoho CRM Data Model 2025-11-13"
+  },
+  "customer_journey": {
+    "Course_Created": {
+      "stage_order": 1,
+      "description": "Initial course record creation and setup",
+      "zoho_status": "Draft/Created",
+      "outputs": {
+        "Course_ID_Assigned": {
+          "field_name": "CRM_Course_ID",
+          "field_label": "CRM Course ID",
+          "data_type": "text"
+        },
+        "Auto_Number_Generated": {
+          "field_name": "Event_ID",
+          "field_label": "Auto Course ID",
+          "data_type": "autonumber"
+        },
+        "Workdrive_Folder_Created": {
+          "field_name": "Workdrive_URL",
+          "field_label": "Workdrive URL",
+          "data_type": "website"
+        },
+        "Performance_Record_Initialized": {
+          "related_module": "Course_Performance",
+          "created_by_workflow": "Course Performance Record"
+        }
+      },
+      "related_workflows": [
+        {
+          "workflow_id": "52330000002444506",
+          "workflow_name": "Udpate Course ID",
+          "trigger_type": "create",
+          "trigger": "automatic",
+          "description": "Assigns unique course identifier",
+          "workflow_url": "https://crm.zoho.com.au/crm/org7003757385/settings/workflow-rules/52330000002444506"
+        },
+        {
+          "workflow_id": "52330000002661635",
+          "workflow_name": "Create Tasks for Course",
+          "trigger_type": "create",
+          "trigger": "automatic",
+          "description": "Generates team tasks for course preparation",
+          "workflow_url": "https://crm.zoho.com.au/crm/org7003757385/settings/workflow-rules/52330000002661635"
+        },
+        {
+          "workflow_id": "52330000004013116",
+          "workflow_name": "Naming Convention - Course",
+          "trigger_type": "create_or_edit",
+          "trigger": "automatic",
+          "description": "Ensures course follows naming standards",
+          "workflow_url": "https://crm.zoho.com.au/crm/org7003757385/settings/workflow-rules/52330000004013116"
+        },
+        {
+          "workflow_id": "52330000002462001",
+          "workflow_name": "Courses_ZohoFlow_CRM Course to Workdrive Folder",
+          "trigger_type": "create",
+          "trigger": "third_party",
+          "integration": "Zoho Workdrive",
+          "description": "Creates folder structure in Workdrive",
+          "workflow_url": "https://crm.zoho.com.au/crm/org7003757385/settings/workflow-rules/52330000002462001"
+        },
+        {
+          "workflow_id": "52330000008928362",
+          "workflow_name": "Course Performance Record",
+          "trigger_type": "create",
+          "trigger": "automatic",
+          "description": "Initializes performance tracking record",
+          "workflow_url": "https://crm.zoho.com.au/crm/org7003757385/settings/workflow-rules/52330000008928362"
+        }
+      ],
+      "mandatory_fields": [
+        {
+          "field_name": "Name",
+          "field_label": "Course Name",
+          "data_type": "text",
+          "system_mandatory": true
+        }
+      ],
+      "human_actions": [
+        "Create course record",
+        "Enter course name",
+        "Set course dates (Course_Start_Time, Course_End_Time)",
+        "Select course qualification/product",
+        "Assign trainer (Course_Trainer lookup)",
+        "Set venue (Select_Venue lookup)",
+        "Define registration limits (Minimum_registrations, Maximum_registrations)"
+      ],
+      "next": "Course_Approved"
+    },
+    "Course_Approved": {
+      "stage_order": 2,
+      "description": "Validate minimum registrations and publish course",
+      "zoho_status": "Confirmed",
+      "outputs": {
+        "Registration_Count_Met": {
+          "field_name": "Registrations_Confirmed",
+          "field_label": "Registrations Confirmed",
+          "data_type": "integer",
+          "validation_against": "Minimum_registrations"
+        },
+        "Course_Published": {
+          "field_name": "Published_on",
+          "field_label": "Publish on",
+          "data_type": "datetime"
+        },
+        "WordPress_ID": {
+          "field_name": "WP_Course_ID",
+          "field_label": "WP Course ID",
+          "data_type": "text"
+        },
+        "Course_Confirmed": {
+          "field_name": "Course_Confirmed",
+          "field_label": "Course_Confirmed",
+          "data_type": "boolean"
+        }
+      },
+      "related_workflows": [
+        {
+          "workflow_id": "52330000003463406",
+          "workflow_name": "Check Min registration",
+          "trigger_type": "date_or_datetime",
+          "trigger": "automatic",
+          "timing": "14 days before course",
+          "description": "Validates minimum registration levels are met",
+          "workflow_url": "https://crm.zoho.com.au/crm/org7003757385/settings/workflow-rules/52330000003463406"
+        },
+        {
+          "workflow_id": "52330000006315389",
+          "workflow_name": "Sync Course to Wordpress",
+          "trigger_type": "field_update",
+          "trigger": "automatic",
+          "condition_field": "Course_Status",
+          "integration": "WordPress",
+          "description": "Publishes course to public website",
+          "workflow_url": "https://crm.zoho.com.au/crm/org7003757385/settings/workflow-rules/52330000006315389"
+        },
+        {
+          "workflow_id": "52330000011998036",
+          "workflow_name": "Course Confirmed - Website Calendar",
+          "trigger_type": "field_update",
+          "trigger": "automatic",
+          "condition_field": "Course_Confirmed",
+          "integration": "WordPress",
+          "description": "Publishes to website calendar when confirmed",
+          "workflow_url": "https://crm.zoho.com.au/crm/org7003757385/settings/workflow-rules/52330000011998036"
+        },
+        {
+          "workflow_id": "52330000003463443",
+          "workflow_name": "Copy of Check MAX registration",
+          "trigger_type": "field_update",
+          "trigger": "automatic",
+          "condition_field": "Registrations_Confirmed",
+          "description": "Prevents overbooking",
+          "workflow_url": "https://crm.zoho.com.au/crm/org7003757385/settings/workflow-rules/52330000003463443"
+        }
+      ],
+      "human_actions": [
+        "Review registration numbers",
+        "Confirm course viability",
+        "Set Course_Confirmed = true",
+        "Update Course_Status to Confirmed"
+      ],
+      "next": "Coursework"
+    },
+    "Coursework": {
+      "stage_order": 3,
+      "description": "Prepare and distribute course materials",
+      "outputs": {
+        "Materials_Method": {
+          "field_name": "Printing_Being_Pickup_Or_posted",
+          "field_label": "Printing Being Pickup Or posted?",
+          "data_type": "picklist"
+        },
+        "Materials_Confirmed": {
+          "field_name": "Course_Work_Uploaded_Competent",
+          "field_label": "Course Work Uploaded/Competent",
+          "data_type": "boolean"
+        }
+      },
+      "related_workflows": [],
+      "human_actions": [
+        "Arrange printing of coursework",
+        "Set Printing_Being_Pickup_Or_posted value",
+        "Complete pickup or postage details",
+        "Upload digital materials to Workdrive",
+        "Trainer confirms receipt via Course_Work_Uploaded_Competent = true"
+      ],
+      "workflow_type": "manual_process",
+      "next": "Course_Logistics"
+    },
+    "Course_Logistics": {
+      "stage_order": 4,
+      "description": "Arrange trainer travel, accommodation, and venue",
+      "outputs": {
+        "Trainer_Notified": {
+          "manual_trigger": "Send_Trainer_email",
+          "workflow": "Send Trainer Email"
+        },
+        "Calendar_Updated": {
+          "manual_trigger": "Add_Trainer_Calendar",
+          "workflow": "Send to Trainer Calendar"
+        },
+        "Trainer_Info_Sent": {
+          "automatic": true,
+          "timing": "3 days before course"
+        }
+      },
+      "related_workflows": [
+        {
+          "workflow_id": "52330000002570460",
+          "workflow_name": "Send Trainer Email",
+          "trigger_type": "field_update",
+          "trigger": "manual",
+          "condition_field": "Send_Trainer_email",
+          "description": "Sends logistics details to trainer",
+          "workflow_url": "https://crm.zoho.com.au/crm/org7003757385/settings/workflow-rules/52330000002570460"
+        },
+        {
+          "workflow_id": "52330000002656676",
+          "workflow_name": "10 days before course SMS to Trainer",
+          "trigger_type": "date_or_datetime",
+          "trigger": "automatic",
+          "timing": "10 days before Course_Start_Time",
+          "integration": "ClickSend SMS",
+          "description": "SMS reminder to trainer",
+          "workflow_url": "https://crm.zoho.com.au/crm/org7003757385/settings/workflow-rules/52330000002656676"
+        },
+        {
+          "workflow_id": "52330000002656692",
+          "workflow_name": "1 day before course SMS to Trainer",
+          "trigger_type": "date_or_datetime",
+          "trigger": "automatic",
+          "timing": "1 day before Course_Start_Time",
+          "integration": "ClickSend SMS",
+          "description": "Final SMS reminder to trainer",
+          "workflow_url": "https://crm.zoho.com.au/crm/org7003757385/settings/workflow-rules/52330000002656692"
+        },
+        {
+          "workflow_id": "52330000010838346",
+          "workflow_name": "Trainer Info PDF",
+          "trigger_type": "date_or_datetime",
+          "trigger": "automatic",
+          "timing": "3 days before Course_Start_Time",
+          "description": "Generates trainer information document",
+          "workflow_url": "https://crm.zoho.com.au/crm/org7003757385/settings/workflow-rules/52330000010838346"
+        },
+        {
+          "workflow_id": "52330000011998008",
+          "workflow_name": "Send to Trainer Calendar",
+          "trigger_type": "field_update",
+          "trigger": "manual",
+          "condition_field": "Add_Trainer_Calendar",
+          "description": "Adds course to trainer's calendar",
+          "workflow_url": "https://crm.zoho.com.au/crm/org7003757385/settings/workflow-rules/52330000011998008"
+        }
+      ],
+      "human_actions": [
+        "Arrange flights (if Flight_to_be_booked = Yes)",
+        "Book accommodation (if Accommodation_Required = Yes)",
+        "Arrange hire car (if Hire_Car_Required = Yes)",
+        "Coordinate venue access and facilities",
+        "Set Send_Trainer_email = true to notify trainer",
+        "Set Add_Trainer_Calendar = true for calendar invite"
+      ],
+      "next": "Course_Enrolment"
+    },
+    "Course_Enrolment": {
+      "stage_order": 5,
+      "description": "Student enrolment and compliance (handled in Registration_Records)",
+      "note": "This stage primarily occurs in Registration_Records module",
+      "cross_module_reference": "Registration_Records",
+      "course_level_tracking": {
+        "Registrations_Booked": "Updated by Calculate Registrations workflow",
+        "Registrations_Confirmed": "Updated when registrations confirmed",
+        "Total_Registrations": "Total count of registrations"
+      },
+      "related_workflows": [
+        {
+          "workflow_id": "52330000002179",
+          "workflow_name": "Update Registration Course Days",
+          "trigger_type": "field_update",
+          "trigger": "automatic",
+          "condition_fields": [
+            "Course_Start_Time",
+            "Course_End_Time"
+          ],
+          "description": "Updates registration records when course times change"
+        },
+        {
+          "workflow_id": "52330000003999102",
+          "workflow_name": "Update Registration records",
+          "trigger_type": "field_update",
+          "trigger": "manual",
+          "condition_field": "Update_Registration_Records",
+          "description": "Syncs course changes to all registrations",
+          "workflow_url": "https://crm.zoho.com.au/crm/org7003757385/settings/workflow-rules/52330000003999102"
+        }
+      ],
+      "human_actions": [
+        "Monitor registration counts",
+        "Ensure registrations meet minimum threshold",
+        "Verify compliance completion in Registration_Records"
+      ],
+      "next": "Course_Delivery"
+    },
+    "Course_Delivery": {
+      "stage_order": 6,
+      "description": "Actual course delivery and attendance tracking",
+      "outputs": {
+        "Attendance_PDFs_Generated": {
+          "automatic": true,
+          "timing": "1 day before course"
+        },
+        "Attendance_App_Sent": {
+          "automatic": true,
+          "timing": "11 days before course"
+        }
+      },
+      "related_workflows": [
+        {
+          "workflow_id": "52330000002569380",
+          "workflow_name": "Send Attendance App email 11 days prior to start",
+          "trigger_type": "date_or_datetime",
+          "trigger": "automatic",
+          "timing": "11 days before Course_Start_Time",
+          "description": "Sends attendance app access to trainer",
+          "workflow_url": "https://crm.zoho.com.au/crm/org7003757385/settings/workflow-rules/52330000002569380"
+        },
+        {
+          "workflow_id": "52330000012545268",
+          "workflow_name": "1 Day prior Attendance PDF",
+          "trigger_type": "date_or_datetime",
+          "trigger": "automatic",
+          "timing": "1 day before Course_Start_Time",
+          "description": "Generates attendance list PDF",
+          "workflow_url": "https://crm.zoho.com.au/crm/org7003757385/settings/workflow-rules/52330000012545268"
+        },
+        {
+          "workflow_id": "52330000004569126",
+          "workflow_name": "Manual Trigger for Attendance PDF",
+          "trigger_type": "field_update",
+          "trigger": "manual",
+          "condition_field": "Workflow_Actions",
+          "description": "Generates attendance PDF on demand",
+          "workflow_url": "https://crm.zoho.com.au/crm/org7003757385/settings/workflow-rules/52330000004569126"
+        },
+        {
+          "workflow_id": "52330000004815267",
+          "workflow_name": "Send attendance to Trainer",
+          "trigger_type": "field_update",
+          "trigger": "manual",
+          "condition_field": "Send_Attendance_PDF_to_Trainer",
+          "description": "Emails attendance list to trainer",
+          "workflow_url": "https://crm.zoho.com.au/crm/org7003757385/settings/workflow-rules/52330000004815267"
+        },
+        {
+          "workflow_id": "52330000002656789",
+          "workflow_name": "Trainer Feedback Email",
+          "trigger_type": "date_or_datetime",
+          "trigger": "automatic",
+          "timing": "After course end",
+          "description": "Requests trainer feedback",
+          "workflow_url": "https://crm.zoho.com.au/crm/org7003757385/settings/workflow-rules/52330000002656789"
+        },
+        {
+          "workflow_id": "52330000002656953",
+          "workflow_name": "Trainer Task - to upload Course material",
+          "trigger_type": "date_or_datetime",
+          "trigger": "automatic",
+          "timing": "After course end",
+          "description": "Reminds trainer to upload materials",
+          "workflow_url": "https://crm.zoho.com.au/crm/org7003757385/settings/workflow-rules/52330000002656953"
+        },
+        {
+          "workflow_id": "52330000004065214",
+          "workflow_name": "Completed course for WP. course Start Date",
+          "trigger_type": "date_or_datetime",
+          "trigger": "automatic",
+          "timing": "1 week after Course_Start_Time",
+          "integration": "WordPress",
+          "description": "Marks course complete on website",
+          "workflow_url": "https://crm.zoho.com.au/crm/org7003757385/settings/workflow-rules/52330000004065214"
+        }
+      ],
+      "human_actions": [
+        "Trainer marks daily attendance in Registration_Records.Course_Days",
+        "Generate attendance PDFs as needed (set Workflow_Actions)",
+        "Monitor course delivery",
+        "Collect completed coursework"
+      ],
+      "next": "Certification"
+    },
+    "Certification": {
+      "stage_order": 7,
+      "description": "Certificate processing and distribution",
+      "note": "Certificate status tracked per attendee in Registration_Records",
+      "course_level_tracking": {
+        "Certificate_Update": "Overall certificate status"
+      },
+      "related_workflows": [
+        {
+          "workflow_id": "52330000004037507",
+          "workflow_name": "Status updated to completed",
+          "trigger_type": "field_update",
+          "trigger": "automatic",
+          "condition_field": "Course_Status",
+          "description": "Triggers post-completion actions",
+          "workflow_url": "https://crm.zoho.com.au/crm/org7003757385/settings/workflow-rules/52330000004037507"
+        }
+      ],
+      "human_actions": [
+        "Submit coursework to RTO",
+        "Set Course_Work_Uploaded_Competent = true",
+        "Receive certificates from RTO",
+        "Update Certificate field in Registration_Records",
+        "Trigger certificate distribution (Registration_Records.send_cert_email)"
+      ],
+      "next": "Archiving"
+    },
+    "Archiving": {
+      "stage_order": 8,
+      "description": "Final documentation and performance metrics",
+      "zoho_status": "Completed/Archived",
+      "outputs": {
+        "Final_Status": {
+          "field_name": "Course_Status",
+          "field_label": "Course Status",
+          "data_type": "picklist",
+          "values": [
+            "Completed",
+            "Cancelled",
+            "Archived"
+          ]
+        },
+        "Performance_Metrics": {
+          "module": "Course_Performance",
+          "updated_by_workflow": "Course Performance"
+        },
+        "Trainer_Feedback": {
+          "field_name": "Trainer_Comments",
+          "field_label": "Trainer Comments",
+          "data_type": "textarea"
+        }
+      },
+      "related_workflows": [
+        {
+          "workflow_id": "52330000008928375",
+          "workflow_name": "Course Performance",
+          "trigger_type": "field_update",
+          "trigger": "automatic",
+          "condition_field": "Course_Status",
+          "condition_value": "Completed",
+          "description": "Updates Course_Performance analytics record",
+          "workflow_url": "https://crm.zoho.com.au/crm/org7003757385/settings/workflow-rules/52330000008928375"
+        },
+        {
+          "workflow_id": "52330000003995688",
+          "workflow_name": "Cancelled Course WF",
+          "trigger_type": "field_update",
+          "trigger": "automatic",
+          "condition_field": "Course_Status",
+          "description": "Handles cancellation notifications",
+          "workflow_url": "https://crm.zoho.com.au/crm/org7003757385/settings/workflow-rules/52330000003995688"
+        },
+        {
+          "workflow_id": "52330000011362374",
+          "workflow_name": "Notification for Course Archive or Cancel",
+          "trigger_type": "field_update",
+          "trigger": "automatic",
+          "condition_field": "Course_Status",
+          "description": "Notifies stakeholders of status change",
+          "workflow_url": "https://crm.zoho.com.au/crm/org7003757385/settings/workflow-rules/52330000011362374"
+        }
+      ],
+      "human_actions": [
+        "Collect final paperwork from trainer",
+        "Update Trainer_Comments",
+        "Verify all documents in Workdrive",
+        "Set Course_Status = Completed or Archived"
+      ],
+      "next": null
+    }
+  },
+  "course_types": {
+    "Public": {
+      "field_value": "Public",
+      "characteristics": [
+        "Published to website",
+        "Individual attendee payments",
+        "Open enrolment"
+      ],
+      "specific_workflows": [
+        "Sync Course to Wordpress"
+      ]
+    },
+    "Private": {
+      "field_value": "Private",
+      "characteristics": [
+        "Corporate client course",
+        "Consolidated billing",
+        "Closed enrolment"
+      ],
+      "additional_fields": [
+        "Private_Course_Client",
+        "Private_Course_Status"
+      ],
+      "specific_workflows": [
+        {
+          "workflow_id": "52330000004318762",
+          "workflow_name": "Private course Status Updates",
+          "workflow_url": "https://crm.zoho.com.au/crm/org7003757385/settings/workflow-rules/52330000004318762"
+        },
+        {
+          "workflow_id": "52330000005069426",
+          "workflow_name": "Private Course Status changed",
+          "workflow_url": "https://crm.zoho.com.au/crm/org7003757385/settings/workflow-rules/52330000005069426"
+        },
+        {
+          "workflow_id": "52330000010760918",
+          "workflow_name": "Private Course Client Selected",
+          "workflow_url": "https://crm.zoho.com.au/crm/org7003757385/settings/workflow-rules/52330000010760918"
+        }
+      ]
+    }
+  },
+  "additional_workflows": {
+    "qualification_updates": {
+      "workflow_id": "52330000002638166",
+      "workflow_name": "Course Qualification lookup Edited",
+      "trigger_type": "field_update",
+      "trigger": "automatic",
+      "condition_field": "Course_Qualification",
+      "description": "Updates course details when qualification changed",
+      "workflow_url": "https://crm.zoho.com.au/crm/org7003757385/settings/workflow-rules/52330000002638166"
+    },
+    "product_sync": {
+      "workflow_id": "52330000003995088",
+      "workflow_name": "Update course from product",
+      "trigger_type": "edit",
+      "trigger": "automatic",
+      "description": "Syncs product template details to course",
+      "workflow_url": "https://crm.zoho.com.au/crm/org7003757385/settings/workflow-rules/52330000003995088"
+    },
+    "trainer_coordination": {
+      "workflow_id": "52330000002582583",
+      "workflow_name": "Email to Training Coordinator from Courses",
+      "trigger_type": "field_update",
+      "trigger": "manual",
+      "condition_field": "Send_Email_to_Coordinator",
+      "description": "Sends email to training coordinator",
+      "workflow_url": "https://crm.zoho.com.au/crm/org7003757385/settings/workflow-rules/52330000002582583"
+    }
+  },
+  "integration_points": {
+    "WordPress": {
+      "workflows": [
+        "Sync Course to Wordpress",
+        "Course Confirmed - Website Calendar",
+        "Completed course for WP. course Start Date"
+      ],
+      "fields": [
+        "WP_Course_ID",
+        "WP_Ticket_ID",
+        "Published_on",
+        "Event_URL"
+      ]
+    },
+    "Workdrive": {
+      "workflows": [
+        "Courses_ZohoFlow_CRM Course to Workdrive Folder"
+      ],
+      "fields": [
+        "Workdrive_URL"
+      ]
+    },
+    "ClickSend_SMS": {
+      "workflows": [
+        "10 days before course SMS to Trainer",
+        "1 day before course SMS to Trainer"
+      ],
+      "fields": [
+        "Trainer_Mobile",
+        "SMS_Opt_Out"
+      ]
+    }
+  },
+  "automation_summary": {
+    "total_workflows": 23,
+    "create_triggers": 5,
+    "field_update_triggers": 12,
+    "datetime_triggers": 6,
+    "key_trigger_fields": [
+      "Course_Status",
+      "Course_Confirmed",
+      "Course_Qualification",
+      "Send_Trainer_email",
+      "Send_Attendance_PDF_to_Trainer",
+      "Workflow_Actions",
+      "Update_Registration_Records",
+      "Private_Course_Status"
+    ]
+  }
+}

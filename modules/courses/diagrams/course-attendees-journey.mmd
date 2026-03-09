@@ -1,0 +1,79 @@
+graph TD
+    %% Course Attendees Customer Journey
+
+    Registration_Created["1. Registration Created<br/>Attendee registers for course"]
+    Payment_Pending["2. Payment Pending<br/>Awaiting payment confirmation"]
+    Spot_Booked["3. Spot Booked<br/>Payment confirmed, spot reserved"]
+    Compliance_Completion["4. Compliance Completion<br/>Completing pre-course compliance requirements"]
+    Pre_Course_Communications["5. Pre Course Communications<br/>Automated reminders and confirmations before course"]
+    Course_Attendance["6. Course Attendance<br/>During course - daily attendance tracking"]
+    Post_Course["7. Post Course<br/>After course completion - thank you and feedback"]
+    Certification["8. Certification<br/>Certificate processing and distribution"]
+    Complete["9. Complete<br/>Journey complete - all documentation finalised"]
+
+    Registration_Created --> Payment_Pending
+    Payment_Pending --> Spot_Booked
+    Spot_Booked --> Compliance_Completion
+    Compliance_Completion --> Pre_Course_Communications
+    Pre_Course_Communications --> Course_Attendance
+    Course_Attendance --> Post_Course
+    Post_Course --> Certification
+    Certification --> Complete
+
+    Registration_Created_WF0["Populate Course Days<br/>ID: 52330000002460165"]
+    style Registration_Created_WF0 fill:#90EE90
+    Registration_Created -.->|triggers| Registration_Created_WF0
+    Registration_Created_WF1["Calculate Registrations and create team task<br/>ID: 52330000002518044"]
+    style Registration_Created_WF1 fill:#90EE90
+    Registration_Created -.->|triggers| Registration_Created_WF1
+    Registration_Created_WF2["Registration_Records_ZohoFlow_Copy of CRM Contact<br/>ID: 52330000005138075"]
+    style Registration_Created_WF2 fill:#90EE90
+    Registration_Created -.->|triggers| Registration_Created_WF2
+    Payment_Pending_WF0["Send payment link<br/>ID: 52330000003024548"]
+    style Payment_Pending_WF0 fill:#90EE90
+    Payment_Pending -.->|triggers| Payment_Pending_WF0
+    Spot_Booked_WF0["Calculate Registrations<br/>ID: 52330000002518060"]
+    style Spot_Booked_WF0 fill:#90EE90
+    Spot_Booked -.->|triggers| Spot_Booked_WF0
+    Spot_Booked_WF1["Email - Attendee Payment made for Invoice<br/>ID: 52330000005157463"]
+    style Spot_Booked_WF1 fill:#90EE90
+    Spot_Booked -.->|triggers| Spot_Booked_WF1
+    Spot_Booked_WF2["Private course Tentative - Attendee Spot Booked<br/>ID: 52330000005163175"]
+    style Spot_Booked_WF2 fill:#90EE90
+    Spot_Booked -.->|triggers| Spot_Booked_WF2
+    Compliance_Completion_WF0["Create Team Task<br/>ID: 52330000003121331"]
+    style Compliance_Completion_WF0 fill:#90EE90
+    Compliance_Completion -.->|triggers| Compliance_Completion_WF0
+    Compliance_Completion_WF1["Update course details<br/>ID: 52330000003014626"]
+    style Compliance_Completion_WF1 fill:#90EE90
+    Compliance_Completion -.->|triggers| Compliance_Completion_WF1
+    Pre_Course_Communications_WF0["Generate SMS Shorten Link<br/>ID: 52330000005789649"]
+    style Pre_Course_Communications_WF0 fill:#90EE90
+    Pre_Course_Communications -.->|triggers| Pre_Course_Communications_WF0
+    Pre_Course_Communications_WF1["Generate SMS Link 15 days prior if Empty<br/>ID: 52330000005789664"]
+    style Pre_Course_Communications_WF1 fill:#90EE90
+    Pre_Course_Communications -.->|triggers| Pre_Course_Communications_WF1
+    Pre_Course_Communications_WF2["14 days SMS Before Attendance Confirmation<br/>ID: 52330000005789721"]
+    style Pre_Course_Communications_WF2 fill:#90EE90
+    Pre_Course_Communications -.->|triggers| Pre_Course_Communications_WF2
+    Course_Attendance_WF0["Update Course Attended 1 week from course date<br/>ID: 52330000003014483"]
+    style Course_Attendance_WF0 fill:#90EE90
+    Course_Attendance -.->|triggers| Course_Attendance_WF0
+    Course_Attendance_WF1["Update Course Attended 1 Day from course<br/>ID: 52330000003014499"]
+    style Course_Attendance_WF1 fill:#90EE90
+    Course_Attendance -.->|triggers| Course_Attendance_WF1
+    Post_Course_WF0["Thank you SMS<br/>ID: 52330000002656733"]
+    style Post_Course_WF0 fill:#90EE90
+    Post_Course -.->|triggers| Post_Course_WF0
+    Post_Course_WF1["Feedback Email from attendee<br/>ID: 52330000002633996"]
+    style Post_Course_WF1 fill:#90EE90
+    Post_Course -.->|triggers| Post_Course_WF1
+    Certification_WF0["Certificate Held Back<br/>ID: 52330000002667069"]
+    style Certification_WF0 fill:#90EE90
+    Certification -.->|triggers| Certification_WF0
+    Certification_WF1["status update<br/>ID: 52330000004045787"]
+    style Certification_WF1 fill:#90EE90
+    Certification -.->|triggers| Certification_WF1
+    Complete_WF0["Registration Cancelled<br/>ID: 52330000009966152"]
+    style Complete_WF0 fill:#90EE90
+    Complete -.->|triggers| Complete_WF0

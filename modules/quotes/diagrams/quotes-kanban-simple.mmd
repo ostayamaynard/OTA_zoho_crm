@@ -1,0 +1,40 @@
+---
+title: Quotes Module - Stage Kanban (Simple)
+---
+flowchart LR
+    subgraph New["New"]
+        Draft["Draft"]
+    end
+
+    subgraph InProgress["In Progress"]
+        Negotiation["Negotiation"]
+    end
+
+    subgraph Sent["Sent"]
+        SentStage["Sent"]
+    end
+
+    subgraph Won["Won"]
+        ClosedWon["Closed Won"]
+    end
+
+    subgraph Lost["Lost"]
+        ClosedLost["Closed Lost"]
+        Unused["Unused"]
+    end
+
+    Draft --> Negotiation
+    Draft --> SentStage
+    Draft --> Unused
+    Negotiation --> SentStage
+    Negotiation --> ClosedLost
+    Negotiation --> Unused
+    SentStage --> ClosedWon
+    SentStage --> ClosedLost
+    SentStage --> Negotiation
+
+    style New fill:#616e88,color:#fff
+    style InProgress fill:#ffd6bc,color:#000
+    style Sent fill:#add9ff,color:#000
+    style Won fill:#67c480,color:#fff
+    style Lost fill:#eb4d4d,color:#fff

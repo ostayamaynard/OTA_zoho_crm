@@ -1,0 +1,164 @@
+%%{init: {'theme': 'base', 'themeVariables': { 'primaryColor': '#E3F2FD'}}}%%
+graph TB
+    %% Courses Kanban - Detailed View with All Workflows
+    %% Shows complete workflow mapping for each stage
+
+    subgraph Draft["📝 DRAFT - Course Created"]
+        direction TB
+        D_header["<b>Stage 1: Initial Setup</b><br/>Color: #E3F2FD"]
+
+        D_auto["<b>⚡ Auto Workflows (5)</b>"]
+        D_wf1["<a href='https://crm.zoho.com.au/crm/org7003757385/settings/workflow-rules/52330000002444506'>Udpate Course ID</a>"]
+        D_wf2["<a href='https://crm.zoho.com.au/crm/org7003757385/settings/workflow-rules/52330000002661635'>Create Tasks for Course</a>"]
+        D_wf3["<a href='https://crm.zoho.com.au/crm/org7003757385/settings/workflow-rules/52330000004013116'>Naming Convention - Course</a>"]
+        D_wf4["<a href='https://crm.zoho.com.au/crm/org7003757385/settings/workflow-rules/52330000002462001'>Workdrive Folder Creation</a>"]
+        D_wf5["<a href='https://crm.zoho.com.au/crm/org7003757385/settings/workflow-rules/52330000008928362'>Course Performance Record</a>"]
+
+        D_field["<b>📝 Field Update Workflows</b>"]
+        D_wf6["<a href='https://crm.zoho.com.au/crm/org7003757385/settings/workflow-rules/52330000002638166'>Course Qualification lookup Edited</a>"]
+        D_wf7["<a href='https://crm.zoho.com.au/crm/org7003757385/settings/workflow-rules/52330000003995088'>Update course from product</a>"]
+
+        D_actions["<b>👤 Human Actions</b><br/>• Create record<br/>• Set dates & venue<br/>• Assign trainer<br/>• Define limits<br/>• Set pricing"]
+
+        D_exit["<b>Exit:</b> Set Course_Status = 'Sync to Wordpress'"]
+    end
+
+    subgraph Sync["🔄 SYNC TO WORDPRESS"]
+        direction TB
+        S_header["<b>Stage 2: Website Publication</b><br/>Color: #FFF3E0"]
+
+        S_auto["<b>⚡ Auto Workflow (1)</b>"]
+        S_wf1["<a href='https://crm.zoho.com.au/crm/org7003757385/settings/workflow-rules/52330000006315389'>Sync Course to Wordpress</a>"]
+
+        S_actions["<b>👤 Human Actions</b><br/>• Review registration numbers<br/>• Verify WP sync"]
+
+        S_exit["<b>Exit:</b> Set Course_Status = 'Published'"]
+    end
+
+    subgraph Published["🌐 PUBLISHED - Active Enrolment"]
+        direction TB
+        P_header["<b>Stage 3: Live Course Management</b><br/>Color: #E8F5E9"]
+
+        P_confirm["<b>⚡ Confirmation Workflows</b>"]
+        P_wf1["<a href='https://crm.zoho.com.au/crm/org7003757385/settings/workflow-rules/52330000011998036'>Course Confirmed - Website Calendar</a>"]
+        P_wf2["<a href='https://crm.zoho.com.au/crm/org7003757385/settings/workflow-rules/52330000003463443'>Check MAX registration</a>"]
+
+        P_time["<b>⏰ Time-Based Workflows</b>"]
+        P_wf3["<a href='https://crm.zoho.com.au/crm/org7003757385/settings/workflow-rules/52330000003463406'>Check Min registration (14 days)</a>"]
+        P_wf4["<a href='https://crm.zoho.com.au/crm/org7003757385/settings/workflow-rules/52330000002569868'>Check Registration Booked</a>"]
+
+        P_logistics["<b>🚗 Logistics Workflows</b>"]
+        P_wf5["<a href='https://crm.zoho.com.au/crm/org7003757385/settings/workflow-rules/52330000002570460'>Send Trainer Email</a> 🔵"]
+        P_wf6["<a href='https://crm.zoho.com.au/crm/org7003757385/settings/workflow-rules/52330000011998008'>Send to Trainer Calendar</a> 🔵"]
+        P_wf7["<a href='https://crm.zoho.com.au/crm/org7003757385/settings/workflow-rules/52330000002582583'>Email to Coordinator</a> 🔵"]
+        P_wf8["<a href='https://crm.zoho.com.au/crm/org7003757385/settings/workflow-rules/52330000002656676'>SMS to Trainer (10 days)</a>"]
+        P_wf9["<a href='https://crm.zoho.com.au/crm/org7003757385/settings/workflow-rules/52330000002656692'>SMS to Trainer (1 day)</a>"]
+        P_wf10["<a href='https://crm.zoho.com.au/crm/org7003757385/settings/workflow-rules/52330000010838346'>Trainer Info PDF (3 days)</a>"]
+
+        P_delivery["<b>📋 Delivery Workflows</b>"]
+        P_wf11["<a href='https://crm.zoho.com.au/crm/org7003757385/settings/workflow-rules/52330000002569380'>Attendance App (11 days)</a>"]
+        P_wf12["<a href='https://crm.zoho.com.au/crm/org7003757385/settings/workflow-rules/52330000012545268'>Attendance PDF (1 day)</a>"]
+        P_wf13["<a href='https://crm.zoho.com.au/crm/org7003757385/settings/workflow-rules/52330000004569126'>Manual Attendance PDF</a> 🔵"]
+        P_wf14["<a href='https://crm.zoho.com.au/crm/org7003757385/settings/workflow-rules/52330000004815267'>Send Attendance to Trainer</a> 🔵"]
+
+        P_reg["<b>📝 Registration Sync</b>"]
+        P_wf15["<a href='https://crm.zoho.com.au/crm/org7003757385/settings/workflow-rules/52330000002460179'>Update Registration Days</a>"]
+        P_wf16["<a href='https://crm.zoho.com.au/crm/org7003757385/settings/workflow-rules/52330000003999102'>Update Registration records</a> 🔵"]
+
+        P_private["<b>🏢 Private Course Workflows</b>"]
+        P_wf17["<a href='https://crm.zoho.com.au/crm/org7003757385/settings/workflow-rules/52330000004318762'>Private course Status Updates</a>"]
+        P_wf18["<a href='https://crm.zoho.com.au/crm/org7003757385/settings/workflow-rules/52330000005069426'>Private Course Status changed</a>"]
+        P_wf19["<a href='https://crm.zoho.com.au/crm/org7003757385/settings/workflow-rules/52330000010760918'>Private Course Client Selected</a>"]
+
+        P_actions["<b>👤 Human Actions</b><br/>• Set Course_Confirmed = true<br/>• Book trainer logistics<br/>• Monitor registrations<br/>• Prepare coursework"]
+
+        P_exit["<b>Exit:</b> Set Course_Status = 'Completed' or 'Cancelled'"]
+    end
+
+    subgraph LinkOnly["🔗 PUBLISHED VIA LINK"]
+        direction TB
+        L_header["<b>Stage 4: Private Access Only</b><br/>Color: #FFF8E1"]
+
+        L_actions["<b>👤 Human Actions</b><br/>• Share Event_URL<br/>• Monitor registrations"]
+
+        L_exit["<b>Exit:</b> Set Course_Status = 'Completed' or 'Cancelled'"]
+    end
+
+    subgraph Completed["✅ COMPLETED - Post-Delivery"]
+        direction TB
+        C_header["<b>Stage 5: Certificate & Archive</b><br/>Color: #C8E6C9"]
+
+        C_auto["<b>⚡ Auto Workflows (5)</b>"]
+        C_wf1["<a href='https://crm.zoho.com.au/crm/org7003757385/settings/workflow-rules/52330000004037507'>Status updated to completed</a>"]
+        C_wf2["<a href='https://crm.zoho.com.au/crm/org7003757385/settings/workflow-rules/52330000008928375'>Course Performance</a>"]
+        C_wf3["<a href='https://crm.zoho.com.au/crm/org7003757385/settings/workflow-rules/52330000004065214'>Completed course for WP</a>"]
+        C_wf4["<a href='https://crm.zoho.com.au/crm/org7003757385/settings/workflow-rules/52330000002656789'>Trainer Feedback Email</a>"]
+        C_wf5["<a href='https://crm.zoho.com.au/crm/org7003757385/settings/workflow-rules/52330000002656953'>Trainer Task - upload materials</a>"]
+
+        C_actions["<b>👤 Human Actions</b><br/>• Collect trainer feedback<br/>• Verify coursework uploaded<br/>• Process certificates"]
+
+        C_exit["<b>Exit:</b> Set Course_Status = 'Archived'"]
+    end
+
+    subgraph Cancelled["❌ CANCELLED"]
+        direction TB
+        X_header["<b>Stage 6: Course Cancelled</b><br/>Color: #FFCDD2"]
+
+        X_auto["<b>⚡ Auto Workflows (2)</b>"]
+        X_wf1["<a href='https://crm.zoho.com.au/crm/org7003757385/settings/workflow-rules/52330000003995688'>Cancelled Course WF</a>"]
+        X_wf2["<a href='https://crm.zoho.com.au/crm/org7003757385/settings/workflow-rules/52330000011362374'>Notification for Cancel/Archive</a>"]
+
+        X_actions["<b>👤 Human Actions</b><br/>• Document reason<br/>• Notify registrants<br/>• Process refunds<br/>• Cancel bookings"]
+
+        X_terminal["<b>TERMINAL STAGE</b>"]
+    end
+
+    subgraph Archived["📦 ARCHIVED"]
+        direction TB
+        A_header["<b>Stage 7: Final Archive</b><br/>Color: #ECEFF1"]
+
+        A_auto["<b>⚡ Auto Workflow (1)</b>"]
+        A_wf1["<a href='https://crm.zoho.com.au/crm/org7003757385/settings/workflow-rules/52330000011362374'>Notification for Cancel/Archive</a>"]
+
+        A_actions["<b>👤 Human Actions</b><br/>• Verify documentation<br/>• Final performance review"]
+
+        A_terminal["<b>TERMINAL STAGE</b>"]
+    end
+
+    %% Flow connections
+    Draft --> Sync
+    Sync --> Published
+    Draft --> LinkOnly
+    Published --> Completed
+    LinkOnly --> Completed
+    Completed --> Archived
+
+    %% Cancel paths
+    Draft -.-> Cancelled
+    Sync -.-> Cancelled
+    Published -.-> Cancelled
+    LinkOnly -.-> Cancelled
+
+    %% Legend
+    subgraph Legend["📋 LEGEND"]
+        leg1["⚡ = Auto workflow<br/>⏰ = Time-based<br/>🔵 = Manual trigger"]
+    end
+
+    %% Styling
+    classDef draft fill:#E3F2FD,stroke:#1976D2,stroke-width:2px
+    classDef sync fill:#FFF3E0,stroke:#F57C00,stroke-width:2px
+    classDef published fill:#E8F5E9,stroke:#388E3C,stroke-width:2px
+    classDef link fill:#FFF8E1,stroke:#FFA000,stroke-width:2px
+    classDef completed fill:#C8E6C9,stroke:#2E7D32,stroke-width:2px
+    classDef cancelled fill:#FFCDD2,stroke:#D32F2F,stroke-width:2px
+    classDef archived fill:#ECEFF1,stroke:#546E7A,stroke-width:2px
+    classDef legend fill:#FAFAFA,stroke:#9E9E9E,stroke-width:1px
+
+    class Draft draft
+    class Sync sync
+    class Published published
+    class LinkOnly link
+    class Completed completed
+    class Cancelled cancelled
+    class Archived archived
+    class Legend legend

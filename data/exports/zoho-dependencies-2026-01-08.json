@@ -1,0 +1,3504 @@
+{
+  "workflow_field_usage": {},
+  "lookup_relationships": {
+    "Leads": [
+      {
+        "field_name": "Converted_Account",
+        "field_label": "Converted Account",
+        "lookup_module": "Accounts",
+        "required": false
+      },
+      {
+        "field_name": "Converted_Contact",
+        "field_label": "Converted Contact",
+        "lookup_module": "Contacts",
+        "required": false
+      },
+      {
+        "field_name": "Converted_Deal",
+        "field_label": "Converted Deal",
+        "lookup_module": "Deals",
+        "required": false
+      },
+      {
+        "field_name": "Course",
+        "field_label": "Course",
+        "lookup_module": "Courses",
+        "required": false
+      },
+      {
+        "field_name": "Existing_Company_Record",
+        "field_label": "Existing Company Record",
+        "lookup_module": "Accounts",
+        "required": false
+      }
+    ],
+    "Contacts": [
+      {
+        "field_name": "Account_Name",
+        "field_label": "Account Name",
+        "lookup_module": "Accounts",
+        "required": false
+      }
+    ],
+    "Accounts": [
+      {
+        "field_name": "Parent_Account",
+        "field_label": "Parent Account",
+        "lookup_module": "Accounts",
+        "required": false
+      },
+      {
+        "field_name": "Primary_Contact",
+        "field_label": "Primary Contact",
+        "lookup_module": "Contacts",
+        "required": false
+      },
+      {
+        "field_name": "Last_Course",
+        "field_label": "Last Course",
+        "lookup_module": "Courses",
+        "required": false
+      },
+      {
+        "field_name": "Account_Contact",
+        "field_label": "Account Contact",
+        "lookup_module": "Contacts",
+        "required": false
+      },
+      {
+        "field_name": "Account_Payable",
+        "field_label": "Account Payable",
+        "lookup_module": "Contacts",
+        "required": false
+      },
+      {
+        "field_name": "Secondary_Contact",
+        "field_label": "Secondary Contact",
+        "lookup_module": "Contacts",
+        "required": false
+      }
+    ],
+    "Deals": [
+      {
+        "field_name": "Account_Name",
+        "field_label": "Account Name",
+        "lookup_module": "Accounts",
+        "required": false
+      },
+      {
+        "field_name": "Contact_Name",
+        "field_label": "Contact Name",
+        "lookup_module": "Contacts",
+        "required": false
+      },
+      {
+        "field_name": "Parent_Account",
+        "field_label": "Parent Account",
+        "lookup_module": "Accounts",
+        "required": false
+      },
+      {
+        "field_name": "Course",
+        "field_label": "Product",
+        "lookup_module": "Products",
+        "required": false
+      },
+      {
+        "field_name": "Courseaa",
+        "field_label": "Course",
+        "lookup_module": "Courses",
+        "required": false
+      },
+      {
+        "field_name": "Account_Contact",
+        "field_label": "Account Contact",
+        "lookup_module": "Contacts",
+        "required": false
+      },
+      {
+        "field_name": "Training_Coordinator",
+        "field_label": "Training Coordinator",
+        "lookup_module": "Contacts",
+        "required": false
+      }
+    ],
+    "Tasks": [
+      {
+        "field_name": "Who_Id",
+        "field_label": "Contact Name",
+        "lookup_module": "Contacts",
+        "required": false
+      },
+      {
+        "field_name": "What_Id",
+        "field_label": "Related To",
+        "lookup_module": "se_module",
+        "required": false
+      }
+    ],
+    "Events": [
+      {
+        "field_name": "Who_Id",
+        "field_label": "Contact Name",
+        "lookup_module": "Contacts",
+        "required": false
+      },
+      {
+        "field_name": "What_Id",
+        "field_label": "Related To",
+        "lookup_module": "se_module",
+        "required": false
+      }
+    ],
+    "Calls": [
+      {
+        "field_name": "Who_Id",
+        "field_label": "Contact Name",
+        "lookup_module": "Contacts",
+        "required": false
+      },
+      {
+        "field_name": "What_Id",
+        "field_label": "Related To",
+        "lookup_module": "se_module",
+        "required": false
+      }
+    ],
+    "Campaigns": [
+      {
+        "field_name": "Parent_Campaign",
+        "field_label": "Parent Campaign",
+        "lookup_module": "Campaigns",
+        "required": false
+      },
+      {
+        "field_name": "twiliosmsextension0__Twilio_Template",
+        "field_label": "Sinch Template",
+        "lookup_module": "twiliosmsextension0__SMS_Templates",
+        "required": false
+      },
+      {
+        "field_name": "twiliosmsextension0__Twilio_From_Number_to_Use",
+        "field_label": "Sinch From Number to Use",
+        "lookup_module": "twiliosmsextension0__Twilio_From_Numbers",
+        "required": false
+      }
+    ],
+    "Courses": [
+      {
+        "field_name": "Course_Trainer",
+        "field_label": "Course Trainer",
+        "lookup_module": "Contacts",
+        "required": false
+      },
+      {
+        "field_name": "Course_Qualification",
+        "field_label": "Course Qualification",
+        "lookup_module": "Products",
+        "required": false
+      },
+      {
+        "field_name": "Select_Venue",
+        "field_label": "Select Venue",
+        "lookup_module": "Venues",
+        "required": false
+      },
+      {
+        "field_name": "Venue_Contact",
+        "field_label": "Venue Contact",
+        "lookup_module": "Contacts",
+        "required": false
+      },
+      {
+        "field_name": "Training_Coordinator",
+        "field_label": "Training Coordinator",
+        "lookup_module": "Contacts",
+        "required": false
+      },
+      {
+        "field_name": "Private_Course_Client",
+        "field_label": "Private Course Client",
+        "lookup_module": "Accounts",
+        "required": false
+      }
+    ],
+    "Registration_Records": [
+      {
+        "field_name": "Course",
+        "field_label": "Course",
+        "lookup_module": "Courses",
+        "required": false
+      },
+      {
+        "field_name": "Related_Deal",
+        "field_label": "Related Deal",
+        "lookup_module": "Deals",
+        "required": false
+      },
+      {
+        "field_name": "Account_Name",
+        "field_label": "Account Name",
+        "lookup_module": "Accounts",
+        "required": false
+      },
+      {
+        "field_name": "Venue",
+        "field_label": "Venue",
+        "lookup_module": "Venues",
+        "required": false
+      },
+      {
+        "field_name": "Trainer",
+        "field_label": "Trainer",
+        "lookup_module": "Contacts",
+        "required": false
+      },
+      {
+        "field_name": "Attendee",
+        "field_label": "Attendee",
+        "lookup_module": "Contacts",
+        "required": false
+      },
+      {
+        "field_name": "Invoice",
+        "field_label": "Invoice",
+        "lookup_module": "Invoices",
+        "required": false
+      },
+      {
+        "field_name": "Deal",
+        "field_label": "Deal",
+        "lookup_module": "Deals",
+        "required": false
+      },
+      {
+        "field_name": "Quote",
+        "field_label": "Quote",
+        "lookup_module": "Quotes",
+        "required": false
+      }
+    ],
+    "Venues": [
+      {
+        "field_name": "Venue_Contact",
+        "field_label": "Venue Contact",
+        "lookup_module": "Contacts",
+        "required": false
+      }
+    ],
+    "Team_Tasks": [
+      {
+        "field_name": "Course",
+        "field_label": "Course",
+        "lookup_module": "Courses",
+        "required": false
+      },
+      {
+        "field_name": "Course_Attendee",
+        "field_label": "Course Attendee",
+        "lookup_module": "Registration_Records",
+        "required": false
+      },
+      {
+        "field_name": "Deal",
+        "field_label": "Deal",
+        "lookup_module": "Deals",
+        "required": false
+      },
+      {
+        "field_name": "Invoice",
+        "field_label": "Invoice",
+        "lookup_module": "Invoices",
+        "required": false
+      },
+      {
+        "field_name": "Quote",
+        "field_label": "Quote",
+        "lookup_module": "Quotes",
+        "required": false
+      },
+      {
+        "field_name": "Lead",
+        "field_label": "Lead",
+        "lookup_module": "Leads",
+        "required": false
+      },
+      {
+        "field_name": "Contact",
+        "field_label": "Contact",
+        "lookup_module": "Contacts",
+        "required": false
+      },
+      {
+        "field_name": "Project",
+        "field_label": "Project",
+        "lookup_module": "Projects_Inhouse",
+        "required": false
+      },
+      {
+        "field_name": "Recurring_Task",
+        "field_label": "Recurring Task",
+        "lookup_module": "Team_Task_Templates",
+        "required": false
+      }
+    ],
+    "Quotes": [
+      {
+        "field_name": "Deal_Name",
+        "field_label": "Deal Name",
+        "lookup_module": "Deals",
+        "required": false
+      },
+      {
+        "field_name": "Contact_Name",
+        "field_label": "Contact Name",
+        "lookup_module": "Contacts",
+        "required": false
+      },
+      {
+        "field_name": "Account_Name",
+        "field_label": "Account Name",
+        "lookup_module": "Accounts",
+        "required": false
+      },
+      {
+        "field_name": "Parent_Account",
+        "field_label": "Parent Account",
+        "lookup_module": "Accounts",
+        "required": false
+      },
+      {
+        "field_name": "Account_Contact",
+        "field_label": "Account Contact",
+        "lookup_module": "Contacts",
+        "required": false
+      },
+      {
+        "field_name": "Course_Name",
+        "field_label": "Course Name",
+        "lookup_module": "Courses",
+        "required": false
+      },
+      {
+        "field_name": "Public_Attendee",
+        "field_label": "Public Attendee",
+        "lookup_module": "Contacts",
+        "required": false
+      }
+    ],
+    "Sales_Orders": [
+      {
+        "field_name": "Deal_Name",
+        "field_label": "Deal Name",
+        "lookup_module": "Deals",
+        "required": false
+      },
+      {
+        "field_name": "Quote_Name",
+        "field_label": "Quote Name",
+        "lookup_module": "Quotes",
+        "required": false
+      },
+      {
+        "field_name": "Contact_Name",
+        "field_label": "Contact Name",
+        "lookup_module": "Contacts",
+        "required": false
+      },
+      {
+        "field_name": "Account_Name",
+        "field_label": "Account Name",
+        "lookup_module": "Accounts",
+        "required": false
+      }
+    ],
+    "Invoices": [
+      {
+        "field_name": "Account_Name",
+        "field_label": "Account Name",
+        "lookup_module": "Accounts",
+        "required": false
+      },
+      {
+        "field_name": "Contact_Name",
+        "field_label": "Contact Name",
+        "lookup_module": "Contacts",
+        "required": false
+      },
+      {
+        "field_name": "Deal_Name__s",
+        "field_label": "Deal Name",
+        "lookup_module": "Deals",
+        "required": false
+      },
+      {
+        "field_name": "Parent_Account",
+        "field_label": "Parent Account",
+        "lookup_module": "Accounts",
+        "required": false
+      },
+      {
+        "field_name": "Account_Contact",
+        "field_label": "Account Contact",
+        "lookup_module": "Contacts",
+        "required": false
+      },
+      {
+        "field_name": "Course_Name",
+        "field_label": "Course Name",
+        "lookup_module": "Courses",
+        "required": false
+      }
+    ],
+    "Email_Template_Analytics": [
+      {
+        "field_name": "Template_Name",
+        "field_label": "Template Name",
+        "lookup_module": "Email_Template__s",
+        "required": false
+      }
+    ],
+    "Recurring_Tasks": [
+      {
+        "field_name": "Parent_Id",
+        "field_label": "Parent ID",
+        "lookup_module": "Team_Task_Templates",
+        "required": false
+      }
+    ],
+    "Course_Tasks": [
+      {
+        "field_name": "Parent_Id",
+        "field_label": "Parent ID",
+        "lookup_module": "Team_Task_Templates",
+        "required": false
+      }
+    ],
+    "zohosign__ZohoSign_Documents": [
+      {
+        "field_name": "zohosign__Account",
+        "field_label": "Account",
+        "lookup_module": "Accounts",
+        "required": false
+      },
+      {
+        "field_name": "zohosign__Contact",
+        "field_label": "Contact",
+        "lookup_module": "Contacts",
+        "required": false
+      },
+      {
+        "field_name": "zohosign__Deal",
+        "field_label": "Deal",
+        "lookup_module": "Deals",
+        "required": false
+      },
+      {
+        "field_name": "zohosign__Lead",
+        "field_label": "Lead",
+        "lookup_module": "Leads",
+        "required": false
+      },
+      {
+        "field_name": "zohosign__Quote",
+        "field_label": "Quote",
+        "lookup_module": "Quotes",
+        "required": false
+      }
+    ],
+    "clicksendext__Clicksend_SMS": [
+      {
+        "field_name": "clicksendext__Lead",
+        "field_label": "Lead",
+        "lookup_module": "Leads",
+        "required": false
+      },
+      {
+        "field_name": "clicksendext__Contact",
+        "field_label": "Contact",
+        "lookup_module": "Contacts",
+        "required": false
+      }
+    ],
+    "Attendees": [
+      {
+        "field_name": "Parent_Id",
+        "field_label": "Parent ID",
+        "lookup_module": "Leads",
+        "required": false
+      }
+    ],
+    "Associated_Deals": [
+      {
+        "field_name": "Parent_Id",
+        "field_label": "Parent ID",
+        "lookup_module": "Course_Performance",
+        "required": false
+      },
+      {
+        "field_name": "Deal_Name",
+        "field_label": "Deal Name",
+        "lookup_module": "Deals",
+        "required": false
+      }
+    ],
+    "Associated_Attendees": [
+      {
+        "field_name": "Parent_Id",
+        "field_label": "Parent ID",
+        "lookup_module": "Course_Performance",
+        "required": false
+      },
+      {
+        "field_name": "Course_Attendee",
+        "field_label": "Course Attendee",
+        "lookup_module": "Registration_Records",
+        "required": false
+      },
+      {
+        "field_name": "Deal",
+        "field_label": "Deal",
+        "lookup_module": "Deals",
+        "required": false
+      },
+      {
+        "field_name": "Invoice",
+        "field_label": "Invoice",
+        "lookup_module": "Invoices",
+        "required": false
+      }
+    ],
+    "Cold_Outreach": [
+      {
+        "field_name": "Parent_Id",
+        "field_label": "Parent ID",
+        "lookup_module": "Leads",
+        "required": false
+      }
+    ],
+    "Referral_Form": [
+      {
+        "field_name": "Parent_Id",
+        "field_label": "Parent ID",
+        "lookup_module": "Contacts",
+        "required": false
+      },
+      {
+        "field_name": "Referred_Lead",
+        "field_label": "Referred Lead",
+        "lookup_module": "Leads",
+        "required": false
+      }
+    ],
+    "twiliosmsextension0__Sent_SMS": [
+      {
+        "field_name": "LeadName",
+        "field_label": "LeadName",
+        "lookup_module": "Leads",
+        "required": false
+      },
+      {
+        "field_name": "ContactName",
+        "field_label": "ContactName",
+        "lookup_module": "Contacts",
+        "required": false
+      },
+      {
+        "field_name": "twiliosmsextension0__DealName",
+        "field_label": "DealName",
+        "lookup_module": "Deals",
+        "required": false
+      },
+      {
+        "field_name": "twiliosmsextension0__Campaign",
+        "field_label": "Campaign",
+        "lookup_module": "Campaigns",
+        "required": false
+      }
+    ],
+    "zohosign__ZohoSign_Recipients": [
+      {
+        "field_name": "zohosign__ZohoSign_Document",
+        "field_label": "ZohoSign Document",
+        "lookup_module": "zohosign__ZohoSign_Documents",
+        "required": false
+      }
+    ],
+    "zohosign__ZohoSign_Document_Events": [
+      {
+        "field_name": "zohosign__ZohoSign_Document",
+        "field_label": "ZohoSign Document",
+        "lookup_module": "zohosign__ZohoSign_Documents",
+        "required": false
+      }
+    ],
+    "Feedbacks": [
+      {
+        "field_name": "Attendee_Record",
+        "field_label": "Attendee Record",
+        "lookup_module": "Registration_Records",
+        "required": false
+      },
+      {
+        "field_name": "Trainer_Record",
+        "field_label": "Trainer Record",
+        "lookup_module": "Contacts",
+        "required": false
+      }
+    ],
+    "DealHistory": [
+      {
+        "field_name": "Potential_Name",
+        "field_label": "Deal Name",
+        "lookup_module": "Deals",
+        "required": false
+      }
+    ],
+    "Actions_Performed": [
+      {
+        "field_name": "Chat_Attachment",
+        "field_label": "Chat Attachment",
+        "lookup_module": "Attachments",
+        "required": false
+      }
+    ],
+    "Quoted_Items": [
+      {
+        "field_name": "Parent_Id",
+        "field_label": "Parent ID",
+        "lookup_module": "Quotes",
+        "required": false
+      },
+      {
+        "field_name": "Product_Name",
+        "field_label": "Course Template Name",
+        "lookup_module": "Products",
+        "required": false
+      }
+    ],
+    "Ordered_Items": [
+      {
+        "field_name": "Parent_Id",
+        "field_label": "Parent ID",
+        "lookup_module": "Sales_Orders",
+        "required": false
+      },
+      {
+        "field_name": "Product_Name",
+        "field_label": "Course Template Name",
+        "lookup_module": "Products",
+        "required": false
+      }
+    ],
+    "Invoiced_Items": [
+      {
+        "field_name": "Parent_Id",
+        "field_label": "Parent ID",
+        "lookup_module": "Invoices",
+        "required": false
+      },
+      {
+        "field_name": "Product_Name",
+        "field_label": "Course Template Name",
+        "lookup_module": "Products",
+        "required": false
+      }
+    ],
+    "Associated_Attendess": [
+      {
+        "field_name": "Parent_Id",
+        "field_label": "Parent ID",
+        "lookup_module": "Deals",
+        "required": false
+      },
+      {
+        "field_name": "Attendees",
+        "field_label": "Attendees",
+        "lookup_module": "Contacts",
+        "required": false
+      }
+    ],
+    "Associated_Contacts": [
+      {
+        "field_name": "Parent_Id",
+        "field_label": "Parent ID",
+        "lookup_module": "Accounts",
+        "required": false
+      },
+      {
+        "field_name": "Contact_Name",
+        "field_label": "Contact Name",
+        "lookup_module": "Contacts",
+        "required": false
+      }
+    ],
+    "Course_Days": [
+      {
+        "field_name": "Parent_Id",
+        "field_label": "Parent ID",
+        "lookup_module": "Registration_Records",
+        "required": false
+      }
+    ],
+    "Projects_Tasks": [
+      {
+        "field_name": "Associated_Project",
+        "field_label": "Associated Project",
+        "lookup_module": "Projects_Inhouse",
+        "required": false
+      }
+    ],
+    "Course_Type_History": [
+      {
+        "field_name": "Full_Name",
+        "field_label": "Full Name",
+        "lookup_module": "Leads",
+        "required": false
+      }
+    ],
+    "Course_Performance": [
+      {
+        "field_name": "Course",
+        "field_label": "Course",
+        "lookup_module": "Courses",
+        "required": false
+      }
+    ],
+    "Call_Analytics": [
+      {
+        "field_name": "Related_Call",
+        "field_label": "Related Call",
+        "lookup_module": "Leads",
+        "required": false
+      },
+      {
+        "field_name": "Account",
+        "field_label": "Account",
+        "lookup_module": "Accounts",
+        "required": false
+      },
+      {
+        "field_name": "Lead",
+        "field_label": "Lead",
+        "lookup_module": "Leads",
+        "required": false
+      },
+      {
+        "field_name": "Contact",
+        "field_label": "Contact",
+        "lookup_module": "Contacts",
+        "required": false
+      }
+    ]
+  },
+  "picklist_dependencies": {},
+  "formula_fields": {
+    "Courses": [
+      {
+        "field_name": "Duration",
+        "field_label": "Duration",
+        "formula": "",
+        "return_type": "formula"
+      }
+    ],
+    "Sales_Orders": [
+      {
+        "field_name": "Sub_Total",
+        "field_label": "Sub Total",
+        "formula": "",
+        "return_type": "formula"
+      },
+      {
+        "field_name": "Grand_Total",
+        "field_label": "Grand Total",
+        "formula": "",
+        "return_type": "formula"
+      }
+    ],
+    "Quoted_Items": [
+      {
+        "field_name": "Total",
+        "field_label": "Amount",
+        "formula": "",
+        "return_type": "formula"
+      },
+      {
+        "field_name": "Total_After_Discount",
+        "field_label": "Total After Discount",
+        "formula": "",
+        "return_type": "formula"
+      },
+      {
+        "field_name": "Net_Total",
+        "field_label": "Total",
+        "formula": "",
+        "return_type": "formula"
+      }
+    ],
+    "Ordered_Items": [
+      {
+        "field_name": "Total",
+        "field_label": "Amount",
+        "formula": "",
+        "return_type": "formula"
+      },
+      {
+        "field_name": "Total_After_Discount",
+        "field_label": "Total After Discount",
+        "formula": "",
+        "return_type": "formula"
+      },
+      {
+        "field_name": "Net_Total",
+        "field_label": "Total",
+        "formula": "",
+        "return_type": "formula"
+      }
+    ],
+    "Invoiced_Items": [
+      {
+        "field_name": "Total",
+        "field_label": "Amount",
+        "formula": "",
+        "return_type": "formula"
+      },
+      {
+        "field_name": "Total_After_Discount",
+        "field_label": "Total After Discount",
+        "formula": "",
+        "return_type": "formula"
+      },
+      {
+        "field_name": "Net_Total",
+        "field_label": "Total",
+        "formula": "",
+        "return_type": "formula"
+      }
+    ],
+    "Course_Performance": [
+      {
+        "field_name": "Total_Inv_Value_Ex",
+        "field_label": "Total Inv Value Ex",
+        "formula": "",
+        "return_type": "formula"
+      },
+      {
+        "field_name": "Total_Outstanding_Ex_GST",
+        "field_label": "Total Outstanding Ex GST",
+        "formula": "",
+        "return_type": "formula"
+      }
+    ]
+  },
+  "mandatory_fields": {
+    "Leads": [
+      {
+        "field_name": "Last_Name",
+        "field_label": "Last Name",
+        "data_type": "text",
+        "system_mandatory": true
+      }
+    ],
+    "Contacts": [
+      {
+        "field_name": "Last_Name",
+        "field_label": "Last Name",
+        "data_type": "text",
+        "system_mandatory": true
+      }
+    ],
+    "Accounts": [
+      {
+        "field_name": "Account_Name",
+        "field_label": "Account Name",
+        "data_type": "text",
+        "system_mandatory": true
+      }
+    ],
+    "Deals": [
+      {
+        "field_name": "Deal_Name",
+        "field_label": "Deal Name",
+        "data_type": "text",
+        "system_mandatory": true
+      },
+      {
+        "field_name": "Stage",
+        "field_label": "Stage",
+        "data_type": "picklist",
+        "system_mandatory": true
+      }
+    ],
+    "Tasks": [
+      {
+        "field_name": "Subject",
+        "field_label": "Subject",
+        "data_type": "text",
+        "system_mandatory": true
+      }
+    ],
+    "Events": [
+      {
+        "field_name": "Event_Title",
+        "field_label": "Title",
+        "data_type": "text",
+        "system_mandatory": true
+      },
+      {
+        "field_name": "Start_DateTime",
+        "field_label": "From",
+        "data_type": "datetime",
+        "system_mandatory": true
+      },
+      {
+        "field_name": "End_DateTime",
+        "field_label": "To",
+        "data_type": "datetime",
+        "system_mandatory": true
+      },
+      {
+        "field_name": "Meeting_Venue__s",
+        "field_label": "Meeting Venue",
+        "data_type": "picklist",
+        "system_mandatory": true
+      }
+    ],
+    "Calls": [
+      {
+        "field_name": "Call_Type",
+        "field_label": "Call Type",
+        "data_type": "picklist",
+        "system_mandatory": true
+      },
+      {
+        "field_name": "Call_Start_Time",
+        "field_label": "Call Start Time",
+        "data_type": "datetime",
+        "system_mandatory": true
+      },
+      {
+        "field_name": "Call_Duration",
+        "field_label": "Call Duration",
+        "data_type": "text",
+        "system_mandatory": true
+      }
+    ],
+    "Campaigns": [
+      {
+        "field_name": "Campaign_Name",
+        "field_label": "Campaign Name",
+        "data_type": "text",
+        "system_mandatory": true
+      }
+    ],
+    "Courses": [
+      {
+        "field_name": "Name",
+        "field_label": "Course Name",
+        "data_type": "text",
+        "system_mandatory": true
+      }
+    ],
+    "Venues": [
+      {
+        "field_name": "Name",
+        "field_label": "Venue Name",
+        "data_type": "text",
+        "system_mandatory": true
+      }
+    ],
+    "Team_Task_Templates": [
+      {
+        "field_name": "Name",
+        "field_label": "Team Task Template Name",
+        "data_type": "text",
+        "system_mandatory": true
+      }
+    ],
+    "Team_Tasks": [
+      {
+        "field_name": "Name",
+        "field_label": "Team Task Name",
+        "data_type": "text",
+        "system_mandatory": true
+      }
+    ],
+    "Products": [
+      {
+        "field_name": "Product_Name",
+        "field_label": "Course Template Name",
+        "data_type": "text",
+        "system_mandatory": true
+      }
+    ],
+    "Quotes": [
+      {
+        "field_name": "Subject",
+        "field_label": "Subject",
+        "data_type": "text",
+        "system_mandatory": true
+      },
+      {
+        "field_name": "Quoted_Items",
+        "field_label": "Quoted Items",
+        "data_type": "subform",
+        "system_mandatory": true
+      }
+    ],
+    "Sales_Orders": [
+      {
+        "field_name": "Subject",
+        "field_label": "Subject",
+        "data_type": "text",
+        "system_mandatory": true
+      },
+      {
+        "field_name": "Ordered_Items",
+        "field_label": "Ordered Items",
+        "data_type": "subform",
+        "system_mandatory": true
+      }
+    ],
+    "Invoices": [
+      {
+        "field_name": "Subject",
+        "field_label": "Subject",
+        "data_type": "text",
+        "system_mandatory": true
+      },
+      {
+        "field_name": "Invoiced_Items",
+        "field_label": "Invoiced Items",
+        "data_type": "subform",
+        "system_mandatory": true
+      }
+    ],
+    "Recurring_Tasks": [
+      {
+        "field_name": "Parent_Id",
+        "field_label": "Parent ID",
+        "data_type": "lookup",
+        "system_mandatory": true
+      }
+    ],
+    "Course_Tasks": [
+      {
+        "field_name": "Parent_Id",
+        "field_label": "Parent ID",
+        "data_type": "lookup",
+        "system_mandatory": true
+      }
+    ],
+    "zohosign__ZohoSign_Documents": [
+      {
+        "field_name": "Name",
+        "field_label": "Zoho Sign Document Name",
+        "data_type": "text",
+        "system_mandatory": true
+      }
+    ],
+    "clicksendext__Clicksend_SMS": [
+      {
+        "field_name": "Name",
+        "field_label": "Subject",
+        "data_type": "text",
+        "system_mandatory": true
+      }
+    ],
+    "Attendees": [
+      {
+        "field_name": "Parent_Id",
+        "field_label": "Parent ID",
+        "data_type": "lookup",
+        "system_mandatory": true
+      }
+    ],
+    "Associated_Deals": [
+      {
+        "field_name": "Parent_Id",
+        "field_label": "Parent ID",
+        "data_type": "lookup",
+        "system_mandatory": true
+      }
+    ],
+    "Associated_Attendees": [
+      {
+        "field_name": "Parent_Id",
+        "field_label": "Parent ID",
+        "data_type": "lookup",
+        "system_mandatory": true
+      }
+    ],
+    "Cold_Outreach": [
+      {
+        "field_name": "Parent_Id",
+        "field_label": "Parent ID",
+        "data_type": "lookup",
+        "system_mandatory": true
+      }
+    ],
+    "Referral_Form": [
+      {
+        "field_name": "Parent_Id",
+        "field_label": "Parent ID",
+        "data_type": "lookup",
+        "system_mandatory": true
+      }
+    ],
+    "twiliosmsextension0__SMS_Templates": [
+      {
+        "field_name": "Name",
+        "field_label": "Sinch SMS Template Name",
+        "data_type": "text",
+        "system_mandatory": true
+      }
+    ],
+    "twiliosmsextension0__Sent_SMS": [
+      {
+        "field_name": "Name",
+        "field_label": "Sinch Message Name",
+        "data_type": "text",
+        "system_mandatory": true
+      }
+    ],
+    "twiliosmsextension0__Inbound_SMS": [
+      {
+        "field_name": "Name",
+        "field_label": "Sinch Inbound fetcher Name",
+        "data_type": "text",
+        "system_mandatory": true
+      }
+    ],
+    "twiliosmsextension0__Twilio_From_Numbers": [
+      {
+        "field_name": "Name",
+        "field_label": "From Number",
+        "data_type": "text",
+        "system_mandatory": true
+      }
+    ],
+    "twiliosmsextension0__Twilio_Autoresponders": [
+      {
+        "field_name": "Name",
+        "field_label": "Sinch Autoresponder Name",
+        "data_type": "text",
+        "system_mandatory": true
+      }
+    ],
+    "twiliosmsextension0__Twilio_Error_Logs": [
+      {
+        "field_name": "Name",
+        "field_label": "Sinch Error Log Name",
+        "data_type": "text",
+        "system_mandatory": true
+      }
+    ],
+    "zohosign__ZohoSign_Recipients": [
+      {
+        "field_name": "Name",
+        "field_label": "Zoho Sign Recipient Name",
+        "data_type": "text",
+        "system_mandatory": true
+      }
+    ],
+    "zohosign__ZohoSign_Document_Events": [
+      {
+        "field_name": "Name",
+        "field_label": "Zoho Sign Document Events Name",
+        "data_type": "text",
+        "system_mandatory": true
+      }
+    ],
+    "Notes": [
+      {
+        "field_name": "Parent_Id",
+        "field_label": "Parent ID",
+        "data_type": "multi_module_lookup",
+        "system_mandatory": true
+      }
+    ],
+    "Feedbacks": [
+      {
+        "field_name": "Name",
+        "field_label": "Feedback Name",
+        "data_type": "text",
+        "system_mandatory": true
+      }
+    ],
+    "Attachments": [
+      {
+        "field_name": "File_Name",
+        "field_label": "File Name",
+        "data_type": "text",
+        "system_mandatory": true
+      },
+      {
+        "field_name": "Size",
+        "field_label": "Size",
+        "data_type": "bigint",
+        "system_mandatory": true
+      },
+      {
+        "field_name": "Parent_Id",
+        "field_label": "Parent ID",
+        "data_type": "lookup",
+        "system_mandatory": true
+      }
+    ],
+    "Actions_Performed": [
+      {
+        "field_name": "Action_Type",
+        "field_label": "Action Type",
+        "data_type": "text",
+        "system_mandatory": true
+      },
+      {
+        "field_name": "Actions",
+        "field_label": "Actions",
+        "data_type": "website",
+        "system_mandatory": true
+      },
+      {
+        "field_name": "Action_Performed_Time",
+        "field_label": "Action Performed Time",
+        "data_type": "datetime",
+        "system_mandatory": true
+      }
+    ],
+    "Quoted_Items": [
+      {
+        "field_name": "Parent_Id",
+        "field_label": "Parent ID",
+        "data_type": "lookup",
+        "system_mandatory": true
+      },
+      {
+        "field_name": "Product_Name",
+        "field_label": "Course Template Name",
+        "data_type": "lookup",
+        "system_mandatory": true
+      }
+    ],
+    "Ordered_Items": [
+      {
+        "field_name": "Parent_Id",
+        "field_label": "Parent ID",
+        "data_type": "lookup",
+        "system_mandatory": true
+      },
+      {
+        "field_name": "Product_Name",
+        "field_label": "Course Template Name",
+        "data_type": "lookup",
+        "system_mandatory": true
+      }
+    ],
+    "Invoiced_Items": [
+      {
+        "field_name": "Parent_Id",
+        "field_label": "Parent ID",
+        "data_type": "lookup",
+        "system_mandatory": true
+      },
+      {
+        "field_name": "Product_Name",
+        "field_label": "Course Template Name",
+        "data_type": "lookup",
+        "system_mandatory": true
+      }
+    ],
+    "Associated_Attendess": [
+      {
+        "field_name": "Parent_Id",
+        "field_label": "Parent ID",
+        "data_type": "lookup",
+        "system_mandatory": true
+      }
+    ],
+    "Associated_Contacts": [
+      {
+        "field_name": "Parent_Id",
+        "field_label": "Parent ID",
+        "data_type": "lookup",
+        "system_mandatory": true
+      }
+    ],
+    "Course_Days": [
+      {
+        "field_name": "Parent_Id",
+        "field_label": "Parent ID",
+        "data_type": "lookup",
+        "system_mandatory": true
+      }
+    ],
+    "Projects_Inhouse": [
+      {
+        "field_name": "Name",
+        "field_label": "Project Name",
+        "data_type": "text",
+        "system_mandatory": true
+      }
+    ],
+    "Projects_Tasks": [
+      {
+        "field_name": "Name",
+        "field_label": "Projects Tasks Name",
+        "data_type": "text",
+        "system_mandatory": true
+      }
+    ],
+    "Course_Type_History": [
+      {
+        "field_name": "Course_Type",
+        "field_label": "Course Type",
+        "data_type": "picklist",
+        "system_mandatory": true
+      },
+      {
+        "field_name": "Full_Name",
+        "field_label": "Full Name",
+        "data_type": "lookup",
+        "system_mandatory": true
+      }
+    ],
+    "Course_Performance": [
+      {
+        "field_name": "Name",
+        "field_label": "Course Performance Name",
+        "data_type": "text",
+        "system_mandatory": true
+      }
+    ],
+    "Call_Analytics": [
+      {
+        "field_name": "Name",
+        "field_label": "Call Analytics Name",
+        "data_type": "text",
+        "system_mandatory": true
+      }
+    ],
+    "Sales_Scripts": [
+      {
+        "field_name": "Name",
+        "field_label": "Sales Scripts Name",
+        "data_type": "text",
+        "system_mandatory": true
+      }
+    ]
+  },
+  "unique_fields": {},
+  "workflow_dependencies": {
+    "Leads_52330000000427010": {
+      "workflow_name": "New Lead Notification",
+      "workflow_id": "52330000000427010",
+      "module": "Leads",
+      "active": true,
+      "trigger_type": "create",
+      "condition_fields": [],
+      "updated_fields": [],
+      "cross_module_actions": [],
+      "external_dependencies": []
+    },
+    "Leads_52330000000864146": {
+      "workflow_name": "CallWithIn24Hours and Team Task",
+      "workflow_id": "52330000000864146",
+      "module": "Leads",
+      "active": true,
+      "trigger_type": "create",
+      "condition_fields": [],
+      "updated_fields": [],
+      "cross_module_actions": [],
+      "external_dependencies": []
+    },
+    "Leads_52330000002758376": {
+      "workflow_name": "Create Team task in leads",
+      "workflow_id": "52330000002758376",
+      "module": "Leads",
+      "active": true,
+      "trigger_type": "field_update",
+      "condition_fields": [],
+      "updated_fields": [],
+      "cross_module_actions": [],
+      "external_dependencies": []
+    },
+    "Leads_52330000005569771": {
+      "workflow_name": "Course Details Udpated",
+      "workflow_id": "52330000005569771",
+      "module": "Leads",
+      "active": true,
+      "trigger_type": "field_update",
+      "condition_fields": [],
+      "updated_fields": [],
+      "cross_module_actions": [],
+      "external_dependencies": []
+    },
+    "Leads_52330000005569800": {
+      "workflow_name": "Update Address",
+      "workflow_id": "52330000005569800",
+      "module": "Leads",
+      "active": true,
+      "trigger_type": "field_update",
+      "condition_fields": [],
+      "updated_fields": [],
+      "cross_module_actions": [],
+      "external_dependencies": []
+    },
+    "Leads_52330000005789994": {
+      "workflow_name": "Format Number",
+      "workflow_id": "52330000005789994",
+      "module": "Leads",
+      "active": true,
+      "trigger_type": "create",
+      "condition_fields": [],
+      "updated_fields": [],
+      "cross_module_actions": [],
+      "external_dependencies": []
+    },
+    "Leads_52330000005817040": {
+      "workflow_name": "Format Number on Edit",
+      "workflow_id": "52330000005817040",
+      "module": "Leads",
+      "active": true,
+      "trigger_type": "field_update",
+      "condition_fields": [],
+      "updated_fields": [],
+      "cross_module_actions": [],
+      "external_dependencies": []
+    },
+    "Leads_52330000006093561": {
+      "workflow_name": "Send Course email",
+      "workflow_id": "52330000006093561",
+      "module": "Leads",
+      "active": true,
+      "trigger_type": "field_update",
+      "condition_fields": [],
+      "updated_fields": [],
+      "cross_module_actions": [],
+      "external_dependencies": []
+    },
+    "Leads_52330000007257288": {
+      "workflow_name": "Lead Owner Assignment",
+      "workflow_id": "52330000007257288",
+      "module": "Leads",
+      "active": true,
+      "trigger_type": "create",
+      "condition_fields": [],
+      "updated_fields": [],
+      "cross_module_actions": [],
+      "external_dependencies": []
+    },
+    "Leads_52330000007732209": {
+      "workflow_name": "Tag G-Series Leadership Leads",
+      "workflow_id": "52330000007732209",
+      "module": "Leads",
+      "active": true,
+      "trigger_type": "create",
+      "condition_fields": [],
+      "updated_fields": [],
+      "cross_module_actions": [],
+      "external_dependencies": []
+    },
+    "Leads_52330000008158816": {
+      "workflow_name": "Update Location URL",
+      "workflow_id": "52330000008158816",
+      "module": "Leads",
+      "active": true,
+      "trigger_type": "field_update",
+      "condition_fields": [],
+      "updated_fields": [],
+      "cross_module_actions": [],
+      "external_dependencies": []
+    },
+    "Leads_52330000008228472": {
+      "workflow_name": "Generate Payment URL",
+      "workflow_id": "52330000008228472",
+      "module": "Leads",
+      "active": true,
+      "trigger_type": "field_update",
+      "condition_fields": [],
+      "updated_fields": [],
+      "cross_module_actions": [],
+      "external_dependencies": []
+    },
+    "Leads_52330000008250081": {
+      "workflow_name": "Convert Non Paying Lead",
+      "workflow_id": "52330000008250081",
+      "module": "Leads",
+      "active": true,
+      "trigger_type": "field_update",
+      "condition_fields": [],
+      "updated_fields": [],
+      "cross_module_actions": [],
+      "external_dependencies": []
+    },
+    "Leads_52330000008292523": {
+      "workflow_name": "Convert on Payment Success",
+      "workflow_id": "52330000008292523",
+      "module": "Leads",
+      "active": true,
+      "trigger_type": "field_update",
+      "condition_fields": [],
+      "updated_fields": [],
+      "cross_module_actions": [],
+      "external_dependencies": []
+    },
+    "Leads_52330000008405346": {
+      "workflow_name": "Convert to Only Create a contact",
+      "workflow_id": "52330000008405346",
+      "module": "Leads",
+      "active": true,
+      "trigger_type": "field_update",
+      "condition_fields": [],
+      "updated_fields": [],
+      "cross_module_actions": [],
+      "external_dependencies": []
+    },
+    "Leads_52330000008493195": {
+      "workflow_name": "TEST SMS",
+      "workflow_id": "52330000008493195",
+      "module": "Leads",
+      "active": false,
+      "trigger_type": "field_update",
+      "condition_fields": [],
+      "updated_fields": [],
+      "cross_module_actions": [],
+      "external_dependencies": []
+    },
+    "Leads_52330000008920352": {
+      "workflow_name": "Convert Pay Via Invoice",
+      "workflow_id": "52330000008920352",
+      "module": "Leads",
+      "active": true,
+      "trigger_type": "field_update",
+      "condition_fields": [],
+      "updated_fields": [],
+      "cross_module_actions": [],
+      "external_dependencies": []
+    },
+    "Leads_52330000010756363": {
+      "workflow_name": "setLeadGMapFiledsAsEmpty",
+      "workflow_id": "52330000010756363",
+      "module": "Leads",
+      "active": true,
+      "trigger_type": "date_or_datetime",
+      "condition_fields": [],
+      "updated_fields": [],
+      "cross_module_actions": [],
+      "external_dependencies": []
+    },
+    "Leads_52330000010756411": {
+      "workflow_name": "updateLeadAddressAndRemoveMapFileds",
+      "workflow_id": "52330000010756411",
+      "module": "Leads",
+      "active": true,
+      "trigger_type": "field_update",
+      "condition_fields": [],
+      "updated_fields": [],
+      "cross_module_actions": [],
+      "external_dependencies": []
+    },
+    "Leads_52330000013574105": {
+      "workflow_name": "Reactivate Lost Lead from Brochure Download",
+      "workflow_id": "52330000013574105",
+      "module": "Leads",
+      "active": true,
+      "trigger_type": "create_or_edit",
+      "condition_fields": [],
+      "updated_fields": [],
+      "cross_module_actions": [],
+      "external_dependencies": []
+    },
+    "Leads_52330000013919665": {
+      "workflow_name": "Sync Lead to backend on create",
+      "workflow_id": "52330000013919665",
+      "module": "Leads",
+      "active": true,
+      "trigger_type": "create",
+      "condition_fields": [],
+      "updated_fields": [],
+      "cross_module_actions": [],
+      "external_dependencies": []
+    },
+    "Leads_52330000013919713": {
+      "workflow_name": "Close conversation if lead deleted",
+      "workflow_id": "52330000013919713",
+      "module": "Leads",
+      "active": true,
+      "trigger_type": "delete",
+      "condition_fields": [],
+      "updated_fields": [],
+      "cross_module_actions": [],
+      "external_dependencies": []
+    },
+    "Leads_52330000013919761": {
+      "workflow_name": "Sync lead to backend when phone changes",
+      "workflow_id": "52330000013919761",
+      "module": "Leads",
+      "active": false,
+      "trigger_type": "field_update",
+      "condition_fields": [],
+      "updated_fields": [],
+      "cross_module_actions": [],
+      "external_dependencies": []
+    },
+    "Leads_52330000013919848": {
+      "workflow_name": "LeadUpdate opt out on server after Manual opt out",
+      "workflow_id": "52330000013919848",
+      "module": "Leads",
+      "active": true,
+      "trigger_type": "field_update",
+      "condition_fields": [],
+      "updated_fields": [],
+      "cross_module_actions": [],
+      "external_dependencies": []
+    },
+    "Contacts_52330000002460248": {
+      "workflow_name": "Push Contact Updates to Xero",
+      "workflow_id": "52330000002460248",
+      "module": "Contacts",
+      "active": true,
+      "trigger_type": "edit",
+      "condition_fields": [],
+      "updated_fields": [],
+      "cross_module_actions": [],
+      "external_dependencies": []
+    },
+    "Contacts_52330000002758242": {
+      "workflow_name": "Create task in contacts",
+      "workflow_id": "52330000002758242",
+      "module": "Contacts",
+      "active": true,
+      "trigger_type": "field_update",
+      "condition_fields": [],
+      "updated_fields": [],
+      "cross_module_actions": [],
+      "external_dependencies": []
+    },
+    "Contacts_52330000002820175": {
+      "workflow_name": "Contacts_ZohoFlow_CRM Contact to Workdrive Folder",
+      "workflow_id": "52330000002820175",
+      "module": "Contacts",
+      "active": true,
+      "trigger_type": "create",
+      "condition_fields": [],
+      "updated_fields": [],
+      "cross_module_actions": [],
+      "external_dependencies": []
+    },
+    "Contacts_52330000005817024": {
+      "workflow_name": "Format Phone field",
+      "workflow_id": "52330000005817024",
+      "module": "Contacts",
+      "active": true,
+      "trigger_type": "create",
+      "condition_fields": [],
+      "updated_fields": [],
+      "cross_module_actions": [],
+      "external_dependencies": []
+    },
+    "Contacts_52330000005817052": {
+      "workflow_name": "On Edit - Format Phone field",
+      "workflow_id": "52330000005817052",
+      "module": "Contacts",
+      "active": true,
+      "trigger_type": "field_update",
+      "condition_fields": [],
+      "updated_fields": [],
+      "cross_module_actions": [],
+      "external_dependencies": []
+    },
+    "Contacts_52330000010756331": {
+      "workflow_name": "updateContactAddressAndRemoveMapFileds",
+      "workflow_id": "52330000010756331",
+      "module": "Contacts",
+      "active": true,
+      "trigger_type": "field_update",
+      "condition_fields": [],
+      "updated_fields": [],
+      "cross_module_actions": [],
+      "external_dependencies": []
+    },
+    "Contacts_52330000010756379": {
+      "workflow_name": "setContactsGMapFiledsAsEmpty",
+      "workflow_id": "52330000010756379",
+      "module": "Contacts",
+      "active": true,
+      "trigger_type": "date_or_datetime",
+      "condition_fields": [],
+      "updated_fields": [],
+      "cross_module_actions": [],
+      "external_dependencies": []
+    },
+    "Contacts_52330000013919458": {
+      "workflow_name": "find_messages_for_new_contact",
+      "workflow_id": "52330000013919458",
+      "module": "Contacts",
+      "active": true,
+      "trigger_type": "create",
+      "condition_fields": [],
+      "updated_fields": [],
+      "cross_module_actions": [],
+      "external_dependencies": []
+    },
+    "Contacts_52330000013919474": {
+      "workflow_name": "transfer messages from converted lead to contact",
+      "workflow_id": "52330000013919474",
+      "module": "Contacts",
+      "active": true,
+      "trigger_type": "date_or_datetime",
+      "condition_fields": [],
+      "updated_fields": [],
+      "cross_module_actions": [],
+      "external_dependencies": []
+    },
+    "Contacts_52330000013919681": {
+      "workflow_name": "Sync Contact to backend",
+      "workflow_id": "52330000013919681",
+      "module": "Contacts",
+      "active": true,
+      "trigger_type": "create",
+      "condition_fields": [],
+      "updated_fields": [],
+      "cross_module_actions": [],
+      "external_dependencies": []
+    },
+    "Contacts_52330000013919729": {
+      "workflow_name": "Close conversation if contact deleted",
+      "workflow_id": "52330000013919729",
+      "module": "Contacts",
+      "active": true,
+      "trigger_type": "delete",
+      "condition_fields": [],
+      "updated_fields": [],
+      "cross_module_actions": [],
+      "external_dependencies": []
+    },
+    "Contacts_52330000013919816": {
+      "workflow_name": "Update contactopt out status when manually changed",
+      "workflow_id": "52330000013919816",
+      "module": "Contacts",
+      "active": true,
+      "trigger_type": "field_update",
+      "condition_fields": [],
+      "updated_fields": [],
+      "cross_module_actions": [],
+      "external_dependencies": []
+    },
+    "Accounts_52330000002460265": {
+      "workflow_name": "Push Account Updates to Xero",
+      "workflow_id": "52330000002460265",
+      "module": "Accounts",
+      "active": true,
+      "trigger_type": "edit",
+      "condition_fields": [],
+      "updated_fields": [],
+      "cross_module_actions": [],
+      "external_dependencies": []
+    },
+    "Accounts_52330000005584202": {
+      "workflow_name": "Send Update Your Details",
+      "workflow_id": "52330000005584202",
+      "module": "Accounts",
+      "active": true,
+      "trigger_type": "field_update",
+      "condition_fields": [],
+      "updated_fields": [],
+      "cross_module_actions": [],
+      "external_dependencies": []
+    },
+    "Accounts_52330000010756347": {
+      "workflow_name": "updateAccountsAddressAndRemoveMapFileds\t",
+      "workflow_id": "52330000010756347",
+      "module": "Accounts",
+      "active": true,
+      "trigger_type": "field_update",
+      "condition_fields": [],
+      "updated_fields": [],
+      "cross_module_actions": [],
+      "external_dependencies": []
+    },
+    "Accounts_52330000010756395": {
+      "workflow_name": "setAccountsGMapFiledsAsEmpty",
+      "workflow_id": "52330000010756395",
+      "module": "Accounts",
+      "active": true,
+      "trigger_type": "date_or_datetime",
+      "condition_fields": [],
+      "updated_fields": [],
+      "cross_module_actions": [],
+      "external_dependencies": []
+    },
+    "Deals_52330000001178038": {
+      "workflow_name": "Follow up future deals",
+      "workflow_id": "52330000001178038",
+      "module": "Deals",
+      "active": true,
+      "trigger_type": "date_or_datetime",
+      "condition_fields": [],
+      "updated_fields": [],
+      "cross_module_actions": [],
+      "external_dependencies": []
+    },
+    "Deals_52330000002460283": {
+      "workflow_name": "Purchase Order Received",
+      "workflow_id": "52330000002460283",
+      "module": "Deals",
+      "active": true,
+      "trigger_type": "field_update",
+      "condition_fields": [],
+      "updated_fields": [],
+      "cross_module_actions": [],
+      "external_dependencies": []
+    },
+    "Deals_52330000002460147": {
+      "workflow_name": "Create Team Task from Deals",
+      "workflow_id": "52330000002460147",
+      "module": "Deals",
+      "active": true,
+      "trigger_type": "field_update",
+      "condition_fields": [],
+      "updated_fields": [],
+      "cross_module_actions": [],
+      "external_dependencies": []
+    },
+    "Deals_52330000002460308": {
+      "workflow_name": "Create Quote - Stage Update Ready to quote",
+      "workflow_id": "52330000002460308",
+      "module": "Deals",
+      "active": true,
+      "trigger_type": "field_update",
+      "condition_fields": [],
+      "updated_fields": [],
+      "cross_module_actions": [],
+      "external_dependencies": []
+    },
+    "Deals_52330000002444572": {
+      "workflow_name": "Update Deal ID",
+      "workflow_id": "52330000002444572",
+      "module": "Deals",
+      "active": true,
+      "trigger_type": "create",
+      "condition_fields": [],
+      "updated_fields": [],
+      "cross_module_actions": [],
+      "external_dependencies": []
+    },
+    "Deals_52330000002638269": {
+      "workflow_name": "Follow up on Purchase Order 14 days before course",
+      "workflow_id": "52330000002638269",
+      "module": "Deals",
+      "active": true,
+      "trigger_type": "date_or_datetime",
+      "condition_fields": [],
+      "updated_fields": [],
+      "cross_module_actions": [],
+      "external_dependencies": []
+    },
+    "Deals_52330000002638311": {
+      "workflow_name": "Follow up on Purchase Order 28 days before",
+      "workflow_id": "52330000002638311",
+      "module": "Deals",
+      "active": true,
+      "trigger_type": "date_or_datetime",
+      "condition_fields": [],
+      "updated_fields": [],
+      "cross_module_actions": [],
+      "external_dependencies": []
+    },
+    "Deals_52330000002638411": {
+      "workflow_name": "Follow up on Purchase Order 1 days before",
+      "workflow_id": "52330000002638411",
+      "module": "Deals",
+      "active": true,
+      "trigger_type": "date_or_datetime",
+      "condition_fields": [],
+      "updated_fields": [],
+      "cross_module_actions": [],
+      "external_dependencies": []
+    },
+    "Deals_52330000002967279": {
+      "workflow_name": "Deal Naming Convention",
+      "workflow_id": "52330000002967279",
+      "module": "Deals",
+      "active": true,
+      "trigger_type": "create",
+      "condition_fields": [],
+      "updated_fields": [],
+      "cross_module_actions": [],
+      "external_dependencies": []
+    },
+    "Deals_52330000002967852": {
+      "workflow_name": "Email to training Coordinator from DEALS",
+      "workflow_id": "52330000002967852",
+      "module": "Deals",
+      "active": true,
+      "trigger_type": "field_update",
+      "condition_fields": [],
+      "updated_fields": [],
+      "cross_module_actions": [],
+      "external_dependencies": []
+    },
+    "Deals_52330000003995130": {
+      "workflow_name": "Update Amount on create",
+      "workflow_id": "52330000003995130",
+      "module": "Deals",
+      "active": true,
+      "trigger_type": "create_or_edit",
+      "condition_fields": [],
+      "updated_fields": [],
+      "cross_module_actions": [],
+      "external_dependencies": []
+    },
+    "Deals_52330000004013962": {
+      "workflow_name": "Copy of Deal Naming Convention",
+      "workflow_id": "52330000004013962",
+      "module": "Deals",
+      "active": true,
+      "trigger_type": "field_update",
+      "condition_fields": [],
+      "updated_fields": [],
+      "cross_module_actions": [],
+      "external_dependencies": []
+    },
+    "Deals_52330000004335567": {
+      "workflow_name": "On stage Update related Attendees",
+      "workflow_id": "52330000004335567",
+      "module": "Deals",
+      "active": true,
+      "trigger_type": "field_update",
+      "condition_fields": [],
+      "updated_fields": [],
+      "cross_module_actions": [],
+      "external_dependencies": []
+    },
+    "Deals_52330000004434048": {
+      "workflow_name": "Update Deal stage when 1 attendee, qualification and public",
+      "workflow_id": "52330000004434048",
+      "module": "Deals",
+      "active": false,
+      "trigger_type": "create",
+      "condition_fields": [],
+      "updated_fields": [],
+      "cross_module_actions": [],
+      "external_dependencies": []
+    },
+    "Deals_52330000004452015": {
+      "workflow_name": "Workflow - Update Deal ID",
+      "workflow_id": "52330000004452015",
+      "module": "Deals",
+      "active": true,
+      "trigger_type": "create_or_edit",
+      "condition_fields": [],
+      "updated_fields": [],
+      "cross_module_actions": [],
+      "external_dependencies": []
+    },
+    "Deals_52330000005069264": {
+      "workflow_name": "When Account name is not blank",
+      "workflow_id": "52330000005069264",
+      "module": "Deals",
+      "active": true,
+      "trigger_type": "field_update",
+      "condition_fields": [],
+      "updated_fields": [],
+      "cross_module_actions": [],
+      "external_dependencies": []
+    },
+    "Deals_52330000005157945": {
+      "workflow_name": "If Website Account Name",
+      "workflow_id": "52330000005157945",
+      "module": "Deals",
+      "active": true,
+      "trigger_type": "create",
+      "condition_fields": [],
+      "updated_fields": [],
+      "cross_module_actions": [],
+      "external_dependencies": []
+    },
+    "Deals_52330000006993545": {
+      "workflow_name": "Update Registration records when PO Is received",
+      "workflow_id": "52330000006993545",
+      "module": "Deals",
+      "active": true,
+      "trigger_type": "field_update",
+      "condition_fields": [],
+      "updated_fields": [],
+      "cross_module_actions": [],
+      "external_dependencies": []
+    },
+    "Deals_52330000009085891": {
+      "workflow_name": "Follow up on Purchase Order 5 days before course",
+      "workflow_id": "52330000009085891",
+      "module": "Deals",
+      "active": true,
+      "trigger_type": "field_update",
+      "condition_fields": [],
+      "updated_fields": [],
+      "cross_module_actions": [],
+      "external_dependencies": []
+    },
+    "Deals_52330000013445263": {
+      "workflow_name": "Course Change",
+      "workflow_id": "52330000013445263",
+      "module": "Deals",
+      "active": true,
+      "trigger_type": "field_update",
+      "condition_fields": [],
+      "updated_fields": [],
+      "cross_module_actions": [],
+      "external_dependencies": []
+    },
+    "Deals_52330000013919513": {
+      "workflow_name": "copy converted lead messages to deal",
+      "workflow_id": "52330000013919513",
+      "module": "Deals",
+      "active": true,
+      "trigger_type": "create",
+      "condition_fields": [],
+      "updated_fields": [],
+      "cross_module_actions": [],
+      "external_dependencies": []
+    },
+    "Deals_52330000013919583": {
+      "workflow_name": "Transfer messages from converted lead to a deal",
+      "workflow_id": "52330000013919583",
+      "module": "Deals",
+      "active": true,
+      "trigger_type": "date_or_datetime",
+      "condition_fields": [],
+      "updated_fields": [],
+      "cross_module_actions": [],
+      "external_dependencies": []
+    },
+    "Deals_52330000013919697": {
+      "workflow_name": "Sync Deal to backend",
+      "workflow_id": "52330000013919697",
+      "module": "Deals",
+      "active": true,
+      "trigger_type": "create",
+      "condition_fields": [],
+      "updated_fields": [],
+      "cross_module_actions": [],
+      "external_dependencies": []
+    },
+    "Deals_52330000013919745": {
+      "workflow_name": "Close conversation if deal deleted",
+      "workflow_id": "52330000013919745",
+      "module": "Deals",
+      "active": true,
+      "trigger_type": "delete",
+      "condition_fields": [],
+      "updated_fields": [],
+      "cross_module_actions": [],
+      "external_dependencies": []
+    },
+    "Deals_52330000013919832": {
+      "workflow_name": "Update dealopt out status when manually changed",
+      "workflow_id": "52330000013919832",
+      "module": "Deals",
+      "active": true,
+      "trigger_type": "field_update",
+      "condition_fields": [],
+      "updated_fields": [],
+      "cross_module_actions": [],
+      "external_dependencies": []
+    },
+    "Events_52330000010756312": {
+      "workflow_name": "updateLastVisitedDate",
+      "workflow_id": "52330000010756312",
+      "module": "Events",
+      "active": true,
+      "trigger_type": "date_or_datetime",
+      "condition_fields": [],
+      "updated_fields": [],
+      "cross_module_actions": [],
+      "external_dependencies": []
+    },
+    "Calls_52330000000464146": {
+      "workflow_name": "CallLogs",
+      "workflow_id": "52330000000464146",
+      "module": "Calls",
+      "active": true,
+      "trigger_type": "outgoing_call_createedit",
+      "condition_fields": [],
+      "updated_fields": [],
+      "cross_module_actions": [],
+      "external_dependencies": []
+    },
+    "Courses_52330000002460179": {
+      "workflow_name": "Update Registration Course Days",
+      "workflow_id": "52330000002460179",
+      "module": "Courses",
+      "active": true,
+      "trigger_type": "field_update",
+      "condition_fields": [],
+      "updated_fields": [],
+      "cross_module_actions": [],
+      "external_dependencies": []
+    },
+    "Courses_52330000002460212": {
+      "workflow_name": "Sync Course to Wordpress",
+      "workflow_id": "52330000002460212",
+      "module": "Courses",
+      "active": false,
+      "trigger_type": "create",
+      "condition_fields": [],
+      "updated_fields": [],
+      "cross_module_actions": [],
+      "external_dependencies": []
+    },
+    "Courses_52330000002462001": {
+      "workflow_name": "Courses_ZohoFlow_CRM Course to Workdrive Folder",
+      "workflow_id": "52330000002462001",
+      "module": "Courses",
+      "active": true,
+      "trigger_type": "create",
+      "condition_fields": [],
+      "updated_fields": [],
+      "cross_module_actions": [],
+      "external_dependencies": []
+    },
+    "Courses_52330000002444506": {
+      "workflow_name": "Udpate Course ID",
+      "workflow_id": "52330000002444506",
+      "module": "Courses",
+      "active": true,
+      "trigger_type": "create",
+      "condition_fields": [],
+      "updated_fields": [],
+      "cross_module_actions": [],
+      "external_dependencies": []
+    },
+    "Courses_52330000002569380": {
+      "workflow_name": "Send Attendance App email 11 days prior to start",
+      "workflow_id": "52330000002569380",
+      "module": "Courses",
+      "active": true,
+      "trigger_type": "date_or_datetime",
+      "condition_fields": [],
+      "updated_fields": [],
+      "cross_module_actions": [],
+      "external_dependencies": []
+    },
+    "Courses_52330000002582583": {
+      "workflow_name": "Email to Training Coordinator from Courses",
+      "workflow_id": "52330000002582583",
+      "module": "Courses",
+      "active": true,
+      "trigger_type": "field_update",
+      "condition_fields": [],
+      "updated_fields": [],
+      "cross_module_actions": [],
+      "external_dependencies": []
+    },
+    "Courses_52330000002569868": {
+      "workflow_name": "Check for Registration Booked Lower than Minimum Registrations",
+      "workflow_id": "52330000002569868",
+      "module": "Courses",
+      "active": true,
+      "trigger_type": "date_or_datetime",
+      "condition_fields": [],
+      "updated_fields": [],
+      "cross_module_actions": [],
+      "external_dependencies": []
+    },
+    "Courses_52330000002570460": {
+      "workflow_name": "Send Trainer Email",
+      "workflow_id": "52330000002570460",
+      "module": "Courses",
+      "active": true,
+      "trigger_type": "field_update",
+      "condition_fields": [],
+      "updated_fields": [],
+      "cross_module_actions": [],
+      "external_dependencies": []
+    },
+    "Courses_52330000002638166": {
+      "workflow_name": "Course Qualification lookup Edited",
+      "workflow_id": "52330000002638166",
+      "module": "Courses",
+      "active": true,
+      "trigger_type": "field_update",
+      "condition_fields": [],
+      "updated_fields": [],
+      "cross_module_actions": [],
+      "external_dependencies": []
+    },
+    "Courses_52330000002656676": {
+      "workflow_name": "10 days before course SMS to Trainer",
+      "workflow_id": "52330000002656676",
+      "module": "Courses",
+      "active": true,
+      "trigger_type": "date_or_datetime",
+      "condition_fields": [],
+      "updated_fields": [],
+      "cross_module_actions": [],
+      "external_dependencies": []
+    },
+    "Courses_52330000002656692": {
+      "workflow_name": "1 day before course SMS to Trainer",
+      "workflow_id": "52330000002656692",
+      "module": "Courses",
+      "active": true,
+      "trigger_type": "date_or_datetime",
+      "condition_fields": [],
+      "updated_fields": [],
+      "cross_module_actions": [],
+      "external_dependencies": []
+    },
+    "Courses_52330000002656789": {
+      "workflow_name": "Trainer Feedback Email",
+      "workflow_id": "52330000002656789",
+      "module": "Courses",
+      "active": true,
+      "trigger_type": "date_or_datetime",
+      "condition_fields": [],
+      "updated_fields": [],
+      "cross_module_actions": [],
+      "external_dependencies": []
+    },
+    "Courses_52330000002656953": {
+      "workflow_name": "Trainer Task - to upload Course material",
+      "workflow_id": "52330000002656953",
+      "module": "Courses",
+      "active": true,
+      "trigger_type": "date_or_datetime",
+      "condition_fields": [],
+      "updated_fields": [],
+      "cross_module_actions": [],
+      "external_dependencies": []
+    },
+    "Courses_52330000002661635": {
+      "workflow_name": "Create Tasks for Course",
+      "workflow_id": "52330000002661635",
+      "module": "Courses",
+      "active": true,
+      "trigger_type": "create",
+      "condition_fields": [],
+      "updated_fields": [],
+      "cross_module_actions": [],
+      "external_dependencies": []
+    },
+    "Courses_52330000003463406": {
+      "workflow_name": "Check Min registration",
+      "workflow_id": "52330000003463406",
+      "module": "Courses",
+      "active": true,
+      "trigger_type": "date_or_datetime",
+      "condition_fields": [],
+      "updated_fields": [],
+      "cross_module_actions": [],
+      "external_dependencies": []
+    },
+    "Courses_52330000003463443": {
+      "workflow_name": "Copy of Check MAX registration",
+      "workflow_id": "52330000003463443",
+      "module": "Courses",
+      "active": true,
+      "trigger_type": "field_update",
+      "condition_fields": [],
+      "updated_fields": [],
+      "cross_module_actions": [],
+      "external_dependencies": []
+    },
+    "Courses_52330000003561188": {
+      "workflow_name": "Create Meetings for Trainer",
+      "workflow_id": "52330000003561188",
+      "module": "Courses",
+      "active": false,
+      "trigger_type": "create",
+      "condition_fields": [],
+      "updated_fields": [],
+      "cross_module_actions": [],
+      "external_dependencies": []
+    },
+    "Courses_52330000003664428": {
+      "workflow_name": "Create Meetings for Trainer on EDIT",
+      "workflow_id": "52330000003664428",
+      "module": "Courses",
+      "active": false,
+      "trigger_type": "field_update",
+      "condition_fields": [],
+      "updated_fields": [],
+      "cross_module_actions": [],
+      "external_dependencies": []
+    },
+    "Courses_52330000003995088": {
+      "workflow_name": "Update course from product",
+      "workflow_id": "52330000003995088",
+      "module": "Courses",
+      "active": true,
+      "trigger_type": "edit",
+      "condition_fields": [],
+      "updated_fields": [],
+      "cross_module_actions": [],
+      "external_dependencies": []
+    },
+    "Courses_52330000003995688": {
+      "workflow_name": "Cancelled Course WF",
+      "workflow_id": "52330000003995688",
+      "module": "Courses",
+      "active": true,
+      "trigger_type": "field_update",
+      "condition_fields": [],
+      "updated_fields": [],
+      "cross_module_actions": [],
+      "external_dependencies": []
+    },
+    "Courses_52330000003999102": {
+      "workflow_name": "Update Registration records",
+      "workflow_id": "52330000003999102",
+      "module": "Courses",
+      "active": true,
+      "trigger_type": "field_update",
+      "condition_fields": [],
+      "updated_fields": [],
+      "cross_module_actions": [],
+      "external_dependencies": []
+    },
+    "Courses_52330000004013116": {
+      "workflow_name": "Naming Convention - Course",
+      "workflow_id": "52330000004013116",
+      "module": "Courses",
+      "active": true,
+      "trigger_type": "create_or_edit",
+      "condition_fields": [],
+      "updated_fields": [],
+      "cross_module_actions": [],
+      "external_dependencies": []
+    },
+    "Courses_52330000004037507": {
+      "workflow_name": "Status updated to completed",
+      "workflow_id": "52330000004037507",
+      "module": "Courses",
+      "active": true,
+      "trigger_type": "field_update",
+      "condition_fields": [],
+      "updated_fields": [],
+      "cross_module_actions": [],
+      "external_dependencies": []
+    },
+    "Courses_52330000004065214": {
+      "workflow_name": "Completed course for WP. course Start Date",
+      "workflow_id": "52330000004065214",
+      "module": "Courses",
+      "active": true,
+      "trigger_type": "date_or_datetime",
+      "condition_fields": [],
+      "updated_fields": [],
+      "cross_module_actions": [],
+      "external_dependencies": []
+    },
+    "Courses_52330000004318762": {
+      "workflow_name": "Private course Status Updates",
+      "workflow_id": "52330000004318762",
+      "module": "Courses",
+      "active": true,
+      "trigger_type": "field_update",
+      "condition_fields": [],
+      "updated_fields": [],
+      "cross_module_actions": [],
+      "external_dependencies": []
+    },
+    "Courses_52330000004569126": {
+      "workflow_name": "Manual Trigger for Attendance PDF",
+      "workflow_id": "52330000004569126",
+      "module": "Courses",
+      "active": true,
+      "trigger_type": "field_update",
+      "condition_fields": [],
+      "updated_fields": [],
+      "cross_module_actions": [],
+      "external_dependencies": []
+    },
+    "Courses_52330000004815267": {
+      "workflow_name": "Send attendance to Trainer",
+      "workflow_id": "52330000004815267",
+      "module": "Courses",
+      "active": true,
+      "trigger_type": "field_update",
+      "condition_fields": [],
+      "updated_fields": [],
+      "cross_module_actions": [],
+      "external_dependencies": []
+    },
+    "Courses_52330000005069426": {
+      "workflow_name": "Private Course Status changed",
+      "workflow_id": "52330000005069426",
+      "module": "Courses",
+      "active": true,
+      "trigger_type": "field_update",
+      "condition_fields": [],
+      "updated_fields": [],
+      "cross_module_actions": [],
+      "external_dependencies": []
+    },
+    "Courses_52330000006315389": {
+      "workflow_name": "Sync Course to Wordpress",
+      "workflow_id": "52330000006315389",
+      "module": "Courses",
+      "active": true,
+      "trigger_type": "field_update",
+      "condition_fields": [],
+      "updated_fields": [],
+      "cross_module_actions": [],
+      "external_dependencies": []
+    },
+    "Courses_52330000008928362": {
+      "workflow_name": "Course Performance Record",
+      "workflow_id": "52330000008928362",
+      "module": "Courses",
+      "active": true,
+      "trigger_type": "create",
+      "condition_fields": [],
+      "updated_fields": [],
+      "cross_module_actions": [],
+      "external_dependencies": []
+    },
+    "Courses_52330000008928375": {
+      "workflow_name": "Course Performance",
+      "workflow_id": "52330000008928375",
+      "module": "Courses",
+      "active": true,
+      "trigger_type": "field_update",
+      "condition_fields": [],
+      "updated_fields": [],
+      "cross_module_actions": [],
+      "external_dependencies": []
+    },
+    "Courses_52330000010760918": {
+      "workflow_name": "Private Course Client Selected",
+      "workflow_id": "52330000010760918",
+      "module": "Courses",
+      "active": true,
+      "trigger_type": "field_update",
+      "condition_fields": [],
+      "updated_fields": [],
+      "cross_module_actions": [],
+      "external_dependencies": []
+    },
+    "Courses_52330000010838346": {
+      "workflow_name": "Trainer Info PDF",
+      "workflow_id": "52330000010838346",
+      "module": "Courses",
+      "active": true,
+      "trigger_type": "date_or_datetime",
+      "condition_fields": [],
+      "updated_fields": [],
+      "cross_module_actions": [],
+      "external_dependencies": []
+    },
+    "Courses_52330000011362374": {
+      "workflow_name": "Notification for Course Archive or Cancel",
+      "workflow_id": "52330000011362374",
+      "module": "Courses",
+      "active": true,
+      "trigger_type": "field_update",
+      "condition_fields": [],
+      "updated_fields": [],
+      "cross_module_actions": [],
+      "external_dependencies": []
+    },
+    "Courses_52330000011998008": {
+      "workflow_name": "Send to Trainer Calendar",
+      "workflow_id": "52330000011998008",
+      "module": "Courses",
+      "active": true,
+      "trigger_type": "field_update",
+      "condition_fields": [],
+      "updated_fields": [],
+      "cross_module_actions": [],
+      "external_dependencies": []
+    },
+    "Courses_52330000011998036": {
+      "workflow_name": "Course Confirmed - Website Calendar",
+      "workflow_id": "52330000011998036",
+      "module": "Courses",
+      "active": true,
+      "trigger_type": "field_update",
+      "condition_fields": [],
+      "updated_fields": [],
+      "cross_module_actions": [],
+      "external_dependencies": []
+    },
+    "Courses_52330000012545268": {
+      "workflow_name": "1 Day prior Attendance PDF",
+      "workflow_id": "52330000012545268",
+      "module": "Courses",
+      "active": true,
+      "trigger_type": "date_or_datetime",
+      "condition_fields": [],
+      "updated_fields": [],
+      "cross_module_actions": [],
+      "external_dependencies": []
+    },
+    "Registration_Records_52330000002460165": {
+      "workflow_name": "Populate Course Days",
+      "workflow_id": "52330000002460165",
+      "module": "Registration_Records",
+      "active": true,
+      "trigger_type": "create",
+      "condition_fields": [],
+      "updated_fields": [],
+      "cross_module_actions": [],
+      "external_dependencies": []
+    },
+    "Registration_Records_52330000002518044": {
+      "workflow_name": "Calculate Registrations and create team task",
+      "workflow_id": "52330000002518044",
+      "module": "Registration_Records",
+      "active": true,
+      "trigger_type": "create",
+      "condition_fields": [],
+      "updated_fields": [],
+      "cross_module_actions": [],
+      "external_dependencies": []
+    },
+    "Registration_Records_52330000002518060": {
+      "workflow_name": "Calculate Registrations",
+      "workflow_id": "52330000002518060",
+      "module": "Registration_Records",
+      "active": true,
+      "trigger_type": "field_update",
+      "condition_fields": [],
+      "updated_fields": [],
+      "cross_module_actions": [],
+      "external_dependencies": []
+    },
+    "Registration_Records_52330000002582386": {
+      "workflow_name": "Email - Attendee paid via credit card",
+      "workflow_id": "52330000002582386",
+      "module": "Registration_Records",
+      "active": true,
+      "trigger_type": "create",
+      "condition_fields": [],
+      "updated_fields": [],
+      "cross_module_actions": [],
+      "external_dependencies": []
+    },
+    "Registration_Records_52330000002582766": {
+      "workflow_name": "1 week prior to Public course",
+      "workflow_id": "52330000002582766",
+      "module": "Registration_Records",
+      "active": true,
+      "trigger_type": "date_or_datetime",
+      "condition_fields": [],
+      "updated_fields": [],
+      "cross_module_actions": [],
+      "external_dependencies": []
+    },
+    "Registration_Records_52330000002597951": {
+      "workflow_name": "7 Days before Public course SMS Reminder",
+      "workflow_id": "52330000002597951",
+      "module": "Registration_Records",
+      "active": true,
+      "trigger_type": "date_or_datetime",
+      "condition_fields": [],
+      "updated_fields": [],
+      "cross_module_actions": [],
+      "external_dependencies": []
+    },
+    "Registration_Records_52330000002633996": {
+      "workflow_name": "Feedback Email from attendee",
+      "workflow_id": "52330000002633996",
+      "module": "Registration_Records",
+      "active": false,
+      "trigger_type": "date_or_datetime",
+      "condition_fields": [],
+      "updated_fields": [],
+      "cross_module_actions": [],
+      "external_dependencies": []
+    },
+    "Registration_Records_52330000002656733": {
+      "workflow_name": "Thank you SMS",
+      "workflow_id": "52330000002656733",
+      "module": "Registration_Records",
+      "active": true,
+      "trigger_type": "date_or_datetime",
+      "condition_fields": [],
+      "updated_fields": [],
+      "cross_module_actions": [],
+      "external_dependencies": []
+    },
+    "Registration_Records_52330000002667069": {
+      "workflow_name": "Certificate Held Back",
+      "workflow_id": "52330000002667069",
+      "module": "Registration_Records",
+      "active": true,
+      "trigger_type": "field_update",
+      "condition_fields": [],
+      "updated_fields": [],
+      "cross_module_actions": [],
+      "external_dependencies": []
+    },
+    "Registration_Records_52330000003014483": {
+      "workflow_name": "Update Course Attended 1 week from course date",
+      "workflow_id": "52330000003014483",
+      "module": "Registration_Records",
+      "active": true,
+      "trigger_type": "date_or_datetime",
+      "condition_fields": [],
+      "updated_fields": [],
+      "cross_module_actions": [],
+      "external_dependencies": []
+    },
+    "Registration_Records_52330000003014499": {
+      "workflow_name": "Update Course Attended 1 Day from course",
+      "workflow_id": "52330000003014499",
+      "module": "Registration_Records",
+      "active": true,
+      "trigger_type": "date_or_datetime",
+      "condition_fields": [],
+      "updated_fields": [],
+      "cross_module_actions": [],
+      "external_dependencies": []
+    },
+    "Registration_Records_52330000003014626": {
+      "workflow_name": "Update course details",
+      "workflow_id": "52330000003014626",
+      "module": "Registration_Records",
+      "active": true,
+      "trigger_type": "field_update",
+      "condition_fields": [],
+      "updated_fields": [],
+      "cross_module_actions": [],
+      "external_dependencies": []
+    },
+    "Registration_Records_52330000003024548": {
+      "workflow_name": "Send payment link",
+      "workflow_id": "52330000003024548",
+      "module": "Registration_Records",
+      "active": false,
+      "trigger_type": "field_update",
+      "condition_fields": [],
+      "updated_fields": [],
+      "cross_module_actions": [],
+      "external_dependencies": []
+    },
+    "Registration_Records_52330000003121331": {
+      "workflow_name": "Create Team Task",
+      "workflow_id": "52330000003121331",
+      "module": "Registration_Records",
+      "active": true,
+      "trigger_type": "field_update",
+      "condition_fields": [],
+      "updated_fields": [],
+      "cross_module_actions": [],
+      "external_dependencies": []
+    },
+    "Registration_Records_52330000004045787": {
+      "workflow_name": "status update",
+      "workflow_id": "52330000004045787",
+      "module": "Registration_Records",
+      "active": true,
+      "trigger_type": "field_update",
+      "condition_fields": [],
+      "updated_fields": [],
+      "cross_module_actions": [],
+      "external_dependencies": []
+    },
+    "Registration_Records_52330000004112123": {
+      "workflow_name": "Trainer Edited",
+      "workflow_id": "52330000004112123",
+      "module": "Registration_Records",
+      "active": true,
+      "trigger_type": "field_update",
+      "condition_fields": [],
+      "updated_fields": [],
+      "cross_module_actions": [],
+      "external_dependencies": []
+    },
+    "Registration_Records_52330000004335393": {
+      "workflow_name": "Update Attendee for Payment Update with DEAL",
+      "workflow_id": "52330000004335393",
+      "module": "Registration_Records",
+      "active": true,
+      "trigger_type": "create",
+      "condition_fields": [],
+      "updated_fields": [],
+      "cross_module_actions": [],
+      "external_dependencies": []
+    },
+    "Registration_Records_52330000004534986": {
+      "workflow_name": "IF paid via credcard",
+      "workflow_id": "52330000004534986",
+      "module": "Registration_Records",
+      "active": false,
+      "trigger_type": "create",
+      "condition_fields": [],
+      "updated_fields": [],
+      "cross_module_actions": [],
+      "external_dependencies": []
+    },
+    "Registration_Records_52330000005138075": {
+      "workflow_name": "Registration_Records_ZohoFlow_Copy of CRM Contact",
+      "workflow_id": "52330000005138075",
+      "module": "Registration_Records",
+      "active": true,
+      "trigger_type": "create",
+      "condition_fields": [],
+      "updated_fields": [],
+      "cross_module_actions": [],
+      "external_dependencies": []
+    },
+    "Registration_Records_52330000005157446": {
+      "workflow_name": "Email - Attendee Created - Public - Pay via Invoice",
+      "workflow_id": "52330000005157446",
+      "module": "Registration_Records",
+      "active": false,
+      "trigger_type": "create",
+      "condition_fields": [],
+      "updated_fields": [],
+      "cross_module_actions": [],
+      "external_dependencies": []
+    },
+    "Registration_Records_52330000005157463": {
+      "workflow_name": "Email - Attendee Payment made for Invoice",
+      "workflow_id": "52330000005157463",
+      "module": "Registration_Records",
+      "active": true,
+      "trigger_type": "field_update",
+      "condition_fields": [],
+      "updated_fields": [],
+      "cross_module_actions": [],
+      "external_dependencies": []
+    },
+    "Registration_Records_52330000005163090": {
+      "workflow_name": "Private Attendee - Spot Tentative",
+      "workflow_id": "52330000005163090",
+      "module": "Registration_Records",
+      "active": false,
+      "trigger_type": "field_update",
+      "condition_fields": [],
+      "updated_fields": [],
+      "cross_module_actions": [],
+      "external_dependencies": []
+    },
+    "Registration_Records_52330000005163175": {
+      "workflow_name": "Private course Tentative - Attendee Spot Booked",
+      "workflow_id": "52330000005163175",
+      "module": "Registration_Records",
+      "active": true,
+      "trigger_type": "field_update",
+      "condition_fields": [],
+      "updated_fields": [],
+      "cross_module_actions": [],
+      "external_dependencies": []
+    },
+    "Registration_Records_52330000005163264": {
+      "workflow_name": "Private Course Confirmed - Attendee Spot Booked",
+      "workflow_id": "52330000005163264",
+      "module": "Registration_Records",
+      "active": true,
+      "trigger_type": "field_update",
+      "condition_fields": [],
+      "updated_fields": [],
+      "cross_module_actions": [],
+      "external_dependencies": []
+    },
+    "Registration_Records_52330000005163385": {
+      "workflow_name": "1 week prior to Private Confirmed course",
+      "workflow_id": "52330000005163385",
+      "module": "Registration_Records",
+      "active": true,
+      "trigger_type": "date_or_datetime",
+      "condition_fields": [],
+      "updated_fields": [],
+      "cross_module_actions": [],
+      "external_dependencies": []
+    },
+    "Registration_Records_52330000005163433": {
+      "workflow_name": "7 Days before Private Confirmed course SMS Reminder",
+      "workflow_id": "52330000005163433",
+      "module": "Registration_Records",
+      "active": true,
+      "trigger_type": "date_or_datetime",
+      "condition_fields": [],
+      "updated_fields": [],
+      "cross_module_actions": [],
+      "external_dependencies": []
+    },
+    "Registration_Records_52330000005375288": {
+      "workflow_name": "Move Course Attendee Folder on Course Change",
+      "workflow_id": "52330000005375288",
+      "module": "Registration_Records",
+      "active": true,
+      "trigger_type": "field_update",
+      "condition_fields": [],
+      "updated_fields": [],
+      "cross_module_actions": [],
+      "external_dependencies": []
+    },
+    "Registration_Records_52330000005789634": {
+      "workflow_name": "SMS Attendance Link",
+      "workflow_id": "52330000005789634",
+      "module": "Registration_Records",
+      "active": true,
+      "trigger_type": "create",
+      "condition_fields": [],
+      "updated_fields": [],
+      "cross_module_actions": [],
+      "external_dependencies": []
+    },
+    "Registration_Records_52330000005789649": {
+      "workflow_name": "Generate SMS Shorten Link",
+      "workflow_id": "52330000005789649",
+      "module": "Registration_Records",
+      "active": true,
+      "trigger_type": "date_or_datetime",
+      "condition_fields": [],
+      "updated_fields": [],
+      "cross_module_actions": [],
+      "external_dependencies": []
+    },
+    "Registration_Records_52330000005789664": {
+      "workflow_name": "Generate SMS Link 15 days prior if Empty",
+      "workflow_id": "52330000005789664",
+      "module": "Registration_Records",
+      "active": true,
+      "trigger_type": "date_or_datetime",
+      "condition_fields": [],
+      "updated_fields": [],
+      "cross_module_actions": [],
+      "external_dependencies": []
+    },
+    "Registration_Records_52330000005789721": {
+      "workflow_name": "14 days SMS Before Attendance Confirmation",
+      "workflow_id": "52330000005789721",
+      "module": "Registration_Records",
+      "active": true,
+      "trigger_type": "date_or_datetime",
+      "condition_fields": [],
+      "updated_fields": [],
+      "cross_module_actions": [],
+      "external_dependencies": []
+    },
+    "Registration_Records_52330000006676878": {
+      "workflow_name": "SMS - Attendance Acknowledgement",
+      "workflow_id": "52330000006676878",
+      "module": "Registration_Records",
+      "active": true,
+      "trigger_type": "field_update",
+      "condition_fields": [],
+      "updated_fields": [],
+      "cross_module_actions": [],
+      "external_dependencies": []
+    },
+    "Registration_Records_52330000007034348": {
+      "workflow_name": "Waitlist Record",
+      "workflow_id": "52330000007034348",
+      "module": "Registration_Records",
+      "active": true,
+      "trigger_type": "create",
+      "condition_fields": [],
+      "updated_fields": [],
+      "cross_module_actions": [],
+      "external_dependencies": []
+    },
+    "Registration_Records_52330000007826269": {
+      "workflow_name": "Set Opt-Outs to False",
+      "workflow_id": "52330000007826269",
+      "module": "Registration_Records",
+      "active": false,
+      "trigger_type": "create_or_edit",
+      "condition_fields": [],
+      "updated_fields": [],
+      "cross_module_actions": [],
+      "external_dependencies": []
+    },
+    "Registration_Records_52330000009066119": {
+      "workflow_name": "Update Name on Course Change",
+      "workflow_id": "52330000009066119",
+      "module": "Registration_Records",
+      "active": true,
+      "trigger_type": "field_update",
+      "condition_fields": [],
+      "updated_fields": [],
+      "cross_module_actions": [],
+      "external_dependencies": []
+    },
+    "Registration_Records_52330000009966152": {
+      "workflow_name": "Registration Cancelled",
+      "workflow_id": "52330000009966152",
+      "module": "Registration_Records",
+      "active": true,
+      "trigger_type": "field_update",
+      "condition_fields": [],
+      "updated_fields": [],
+      "cross_module_actions": [],
+      "external_dependencies": []
+    },
+    "Registration_Records_52330000013645165": {
+      "workflow_name": "Payment Confirmation",
+      "workflow_id": "52330000013645165",
+      "module": "Registration_Records",
+      "active": true,
+      "trigger_type": "field_update",
+      "condition_fields": [],
+      "updated_fields": [],
+      "cross_module_actions": [],
+      "external_dependencies": []
+    },
+    "Team_Tasks_52330000006206281": {
+      "workflow_name": "Assign Related To Fields on Create",
+      "workflow_id": "52330000006206281",
+      "module": "Team_Tasks",
+      "active": true,
+      "trigger_type": "create",
+      "condition_fields": [],
+      "updated_fields": [],
+      "cross_module_actions": [],
+      "external_dependencies": []
+    },
+    "Team_Tasks_52330000006206296": {
+      "workflow_name": "Assign Related To Fields on Update",
+      "workflow_id": "52330000006206296",
+      "module": "Team_Tasks",
+      "active": true,
+      "trigger_type": "section_update",
+      "condition_fields": [],
+      "updated_fields": [],
+      "cross_module_actions": [],
+      "external_dependencies": []
+    },
+    "Team_Tasks_52330000006206312": {
+      "workflow_name": "Assign Related To Fields on Update",
+      "workflow_id": "52330000006206312",
+      "module": "Team_Tasks",
+      "active": true,
+      "trigger_type": "field_update",
+      "condition_fields": [],
+      "updated_fields": [],
+      "cross_module_actions": [],
+      "external_dependencies": []
+    },
+    "Quotes_52330000002460325": {
+      "workflow_name": "Update Deal and Invoice on Quote Closed Won",
+      "workflow_id": "52330000002460325",
+      "module": "Quotes",
+      "active": true,
+      "trigger_type": "field_update",
+      "condition_fields": [],
+      "updated_fields": [],
+      "cross_module_actions": [],
+      "external_dependencies": []
+    },
+    "Quotes_52330000002375246": {
+      "workflow_name": "Calculate Overall Tax for Quote",
+      "workflow_id": "52330000002375246",
+      "module": "Quotes",
+      "active": false,
+      "trigger_type": "create_or_edit",
+      "condition_fields": [],
+      "updated_fields": [],
+      "cross_module_actions": [],
+      "external_dependencies": []
+    },
+    "Quotes_52330000002597194": {
+      "workflow_name": "Update Quote Details",
+      "workflow_id": "52330000002597194",
+      "module": "Quotes",
+      "active": true,
+      "trigger_type": "create",
+      "condition_fields": [],
+      "updated_fields": [],
+      "cross_module_actions": [],
+      "external_dependencies": []
+    },
+    "Quotes_52330000002856364": {
+      "workflow_name": "Update Quote Naming convention",
+      "workflow_id": "52330000002856364",
+      "module": "Quotes",
+      "active": true,
+      "trigger_type": "create_or_edit",
+      "condition_fields": [],
+      "updated_fields": [],
+      "cross_module_actions": [],
+      "external_dependencies": []
+    },
+    "Quotes_52330000003995201": {
+      "workflow_name": "Update quote when quote is sent or won",
+      "workflow_id": "52330000003995201",
+      "module": "Quotes",
+      "active": true,
+      "trigger_type": "field_update",
+      "condition_fields": [],
+      "updated_fields": [],
+      "cross_module_actions": [],
+      "external_dependencies": []
+    },
+    "Quotes_52330000004975235": {
+      "workflow_name": "Inhouse - Calculate Overall Tax for Quote",
+      "workflow_id": "52330000004975235",
+      "module": "Quotes",
+      "active": true,
+      "trigger_type": "create_or_edit",
+      "condition_fields": [],
+      "updated_fields": [],
+      "cross_module_actions": [],
+      "external_dependencies": []
+    },
+    "Quotes_52330000006984913": {
+      "workflow_name": "Send Quote",
+      "workflow_id": "52330000006984913",
+      "module": "Quotes",
+      "active": true,
+      "trigger_type": "field_update",
+      "condition_fields": [],
+      "updated_fields": [],
+      "cross_module_actions": [],
+      "external_dependencies": []
+    },
+    "Quotes_52330000006993468": {
+      "workflow_name": "Update Deal with PO Number and Date",
+      "workflow_id": "52330000006993468",
+      "module": "Quotes",
+      "active": true,
+      "trigger_type": "field_update",
+      "condition_fields": [],
+      "updated_fields": [],
+      "cross_module_actions": [],
+      "external_dependencies": []
+    },
+    "Quotes_52330000013638051": {
+      "workflow_name": "Qoutes status update",
+      "workflow_id": "52330000013638051",
+      "module": "Quotes",
+      "active": false,
+      "trigger_type": "create_or_edit",
+      "condition_fields": [],
+      "updated_fields": [],
+      "cross_module_actions": [],
+      "external_dependencies": []
+    },
+    "Sales_Orders_52330000002375226": {
+      "workflow_name": "Calculate Overall Tax for Sales Order",
+      "workflow_id": "52330000002375226",
+      "module": "Sales_Orders",
+      "active": true,
+      "trigger_type": "create_or_edit",
+      "condition_fields": [],
+      "updated_fields": [],
+      "cross_module_actions": [],
+      "external_dependencies": []
+    },
+    "Invoices_52330000002460196": {
+      "workflow_name": "Paid in Crez",
+      "workflow_id": "52330000002460196",
+      "module": "Invoices",
+      "active": true,
+      "trigger_type": "field_update",
+      "condition_fields": [],
+      "updated_fields": [],
+      "cross_module_actions": [],
+      "external_dependencies": []
+    },
+    "Invoices_52330000002460231": {
+      "workflow_name": "Push Invoice to Xero",
+      "workflow_id": "52330000002460231",
+      "module": "Invoices",
+      "active": true,
+      "trigger_type": "field_update",
+      "condition_fields": [],
+      "updated_fields": [],
+      "cross_module_actions": [],
+      "external_dependencies": []
+    },
+    "Invoices_52330000002375206": {
+      "workflow_name": "Calculate Overall Tax for Invoice",
+      "workflow_id": "52330000002375206",
+      "module": "Invoices",
+      "active": false,
+      "trigger_type": "create_or_edit",
+      "condition_fields": [],
+      "updated_fields": [],
+      "cross_module_actions": [],
+      "external_dependencies": []
+    },
+    "Invoices_52330000002610986": {
+      "workflow_name": "Invoice Udpate",
+      "workflow_id": "52330000002610986",
+      "module": "Invoices",
+      "active": true,
+      "trigger_type": "field_update",
+      "condition_fields": [],
+      "updated_fields": [],
+      "cross_module_actions": [],
+      "external_dependencies": []
+    },
+    "Invoices_52330000004251591": {
+      "workflow_name": "New - Update deal and Reg record",
+      "workflow_id": "52330000004251591",
+      "module": "Invoices",
+      "active": true,
+      "trigger_type": "create_or_edit",
+      "condition_fields": [],
+      "updated_fields": [],
+      "cross_module_actions": [],
+      "external_dependencies": []
+    },
+    "Invoices_52330000004534311": {
+      "workflow_name": "Send Invoice",
+      "workflow_id": "52330000004534311",
+      "module": "Invoices",
+      "active": true,
+      "trigger_type": "field_update",
+      "condition_fields": [],
+      "updated_fields": [],
+      "cross_module_actions": [],
+      "external_dependencies": []
+    },
+    "Invoices_52330000004975124": {
+      "workflow_name": "Inhouse - Calculate Overall Tax for Invoice",
+      "workflow_id": "52330000004975124",
+      "module": "Invoices",
+      "active": true,
+      "trigger_type": "create_or_edit",
+      "condition_fields": [],
+      "updated_fields": [],
+      "cross_module_actions": [],
+      "external_dependencies": []
+    },
+    "Invoices_52330000005069739": {
+      "workflow_name": "Update Due Date",
+      "workflow_id": "52330000005069739",
+      "module": "Invoices",
+      "active": true,
+      "trigger_type": "create",
+      "condition_fields": [],
+      "updated_fields": [],
+      "cross_module_actions": [],
+      "external_dependencies": []
+    },
+    "Invoices_52330000005069778": {
+      "workflow_name": "When Po is received",
+      "workflow_id": "52330000005069778",
+      "module": "Invoices",
+      "active": true,
+      "trigger_type": "field_update",
+      "condition_fields": [],
+      "updated_fields": [],
+      "cross_module_actions": [],
+      "external_dependencies": []
+    },
+    "Invoices_52330000005517247": {
+      "workflow_name": "Push to XERO on Create when PAID",
+      "workflow_id": "52330000005517247",
+      "module": "Invoices",
+      "active": false,
+      "trigger_type": "create",
+      "condition_fields": [],
+      "updated_fields": [],
+      "cross_module_actions": [],
+      "external_dependencies": []
+    },
+    "Invoices_52330000008512961": {
+      "workflow_name": "Update All Fields",
+      "workflow_id": "52330000008512961",
+      "module": "Invoices",
+      "active": true,
+      "trigger_type": "create",
+      "condition_fields": [],
+      "updated_fields": [],
+      "cross_module_actions": [],
+      "external_dependencies": []
+    },
+    "Invoices_52330000008519048": {
+      "workflow_name": "Update URL",
+      "workflow_id": "52330000008519048",
+      "module": "Invoices",
+      "active": true,
+      "trigger_type": "field_update",
+      "condition_fields": [],
+      "updated_fields": [],
+      "cross_module_actions": [],
+      "external_dependencies": []
+    },
+    "Invoices_52330000008694463": {
+      "workflow_name": "Send on create - Awaiting Payment",
+      "workflow_id": "52330000008694463",
+      "module": "Invoices",
+      "active": true,
+      "trigger_type": "create",
+      "condition_fields": [],
+      "updated_fields": [],
+      "cross_module_actions": [],
+      "external_dependencies": []
+    },
+    "Invoices_52330000008776519": {
+      "workflow_name": "Refresh Payment URL",
+      "workflow_id": "52330000008776519",
+      "module": "Invoices",
+      "active": true,
+      "trigger_type": "field_update",
+      "condition_fields": [],
+      "updated_fields": [],
+      "cross_module_actions": [],
+      "external_dependencies": []
+    },
+    "Invoices_52330000009085784": {
+      "workflow_name": "Update Amount in Deal when Inv is paid",
+      "workflow_id": "52330000009085784",
+      "module": "Invoices",
+      "active": true,
+      "trigger_type": "field_update",
+      "condition_fields": [],
+      "updated_fields": [],
+      "cross_module_actions": [],
+      "external_dependencies": []
+    },
+    "Invoices_52330000013638031": {
+      "workflow_name": "Invoice Reminder",
+      "workflow_id": "52330000013638031",
+      "module": "Invoices",
+      "active": true,
+      "trigger_type": "create",
+      "condition_fields": [],
+      "updated_fields": [],
+      "cross_module_actions": [],
+      "external_dependencies": []
+    },
+    "Invoices_52330000014037247": {
+      "workflow_name": "Checkbox Sync to XERO",
+      "workflow_id": "52330000014037247",
+      "module": "Invoices",
+      "active": true,
+      "trigger_type": "field_update",
+      "condition_fields": [],
+      "updated_fields": [],
+      "cross_module_actions": [],
+      "external_dependencies": []
+    },
+    "clicksendext__Clicksend_SMS_52330000008065919": {
+      "workflow_name": "Undefined Contact/Lead",
+      "workflow_id": "52330000008065919",
+      "module": "clicksendext__Clicksend_SMS",
+      "active": true,
+      "trigger_type": "date_or_datetime",
+      "condition_fields": [],
+      "updated_fields": [],
+      "cross_module_actions": [],
+      "external_dependencies": []
+    },
+    "twiliosmsextension0__Sent_SMS_52330000013919493": {
+      "workflow_name": "Send message triggered by workflow",
+      "workflow_id": "52330000013919493",
+      "module": "twiliosmsextension0__Sent_SMS",
+      "active": true,
+      "trigger_type": "create",
+      "condition_fields": [],
+      "updated_fields": [],
+      "cross_module_actions": [],
+      "external_dependencies": []
+    },
+    "twiliosmsextension0__Sent_SMS_52330000013919537": {
+      "workflow_name": "Try sending auto SMS again if it didn't go out",
+      "workflow_id": "52330000013919537",
+      "module": "twiliosmsextension0__Sent_SMS",
+      "active": true,
+      "trigger_type": "date_or_datetime",
+      "condition_fields": [],
+      "updated_fields": [],
+      "cross_module_actions": [],
+      "external_dependencies": []
+    },
+    "twiliosmsextension0__Sent_SMS_52330000013919560": {
+      "workflow_name": "Report error if To/From are not set",
+      "workflow_id": "52330000013919560",
+      "module": "twiliosmsextension0__Sent_SMS",
+      "active": true,
+      "trigger_type": "date_or_datetime",
+      "condition_fields": [],
+      "updated_fields": [],
+      "cross_module_actions": [],
+      "external_dependencies": []
+    },
+    "twiliosmsextension0__Sent_SMS_52330000013919602": {
+      "workflow_name": "Trigger scheduled message",
+      "workflow_id": "52330000013919602",
+      "module": "twiliosmsextension0__Sent_SMS",
+      "active": true,
+      "trigger_type": "date_or_datetime",
+      "condition_fields": [],
+      "updated_fields": [],
+      "cross_module_actions": [],
+      "external_dependencies": []
+    },
+    "twiliosmsextension0__Sent_SMS_52330000013919625": {
+      "workflow_name": "Try sending auto SMS again if it didn't go out-mod",
+      "workflow_id": "52330000013919625",
+      "module": "twiliosmsextension0__Sent_SMS",
+      "active": true,
+      "trigger_type": "edit",
+      "condition_fields": [],
+      "updated_fields": [],
+      "cross_module_actions": [],
+      "external_dependencies": []
+    },
+    "twiliosmsextension0__Sent_SMS_52330000013919645": {
+      "workflow_name": "Sync sent messages to backend",
+      "workflow_id": "52330000013919645",
+      "module": "twiliosmsextension0__Sent_SMS",
+      "active": true,
+      "trigger_type": "create_or_edit",
+      "condition_fields": [],
+      "updated_fields": [],
+      "cross_module_actions": [],
+      "external_dependencies": []
+    },
+    "twiliosmsextension0__Sent_SMS_52330000013919793": {
+      "workflow_name": "Update reply stats",
+      "workflow_id": "52330000013919793",
+      "module": "twiliosmsextension0__Sent_SMS",
+      "active": true,
+      "trigger_type": "date_or_datetime",
+      "condition_fields": [],
+      "updated_fields": [],
+      "cross_module_actions": [],
+      "external_dependencies": []
+    },
+    "twiliosmsextension0__Sent_SMS_52330000013919864": {
+      "workflow_name": "Retry sending if headers not authorised",
+      "workflow_id": "52330000013919864",
+      "module": "twiliosmsextension0__Sent_SMS",
+      "active": false,
+      "trigger_type": "date_or_datetime",
+      "condition_fields": [],
+      "updated_fields": [],
+      "cross_module_actions": [],
+      "external_dependencies": []
+    },
+    "twiliosmsextension0__Twilio_From_Numbers_52330000013919777": {
+      "workflow_name": "Sync from numbers on add or edit",
+      "workflow_id": "52330000013919777",
+      "module": "twiliosmsextension0__Twilio_From_Numbers",
+      "active": true,
+      "trigger_type": "create_or_edit",
+      "condition_fields": [],
+      "updated_fields": [],
+      "cross_module_actions": [],
+      "external_dependencies": []
+    },
+    "Projects_Inhouse_52330000005367166": {
+      "workflow_name": "New Task to be created",
+      "workflow_id": "52330000005367166",
+      "module": "Projects_Inhouse",
+      "active": true,
+      "trigger_type": "field_update",
+      "condition_fields": [],
+      "updated_fields": [],
+      "cross_module_actions": [],
+      "external_dependencies": []
+    },
+    "Projects_Inhouse_52330000005353218": {
+      "workflow_name": "Create Project Folder in Workdrive",
+      "workflow_id": "52330000005353218",
+      "module": "Projects_Inhouse",
+      "active": true,
+      "trigger_type": "create_or_edit",
+      "condition_fields": [],
+      "updated_fields": [],
+      "cross_module_actions": [],
+      "external_dependencies": []
+    }
+  },
+  "blueprint_dependencies": {
+    "Leads": {
+      "module": "Leads",
+      "has_blueprint": true,
+      "stage_field": "Lead_Status",
+      "states": [],
+      "state_names": [],
+      "transitions": [
+        {
+          "id": "52330000005682109",
+          "name": "Not Available",
+          "source": null,
+          "target": "Attempted to Contact"
+        },
+        {
+          "id": "52330000008237263",
+          "name": "Lost Lead",
+          "source": null,
+          "target": "Lost Lead"
+        },
+        {
+          "id": "52330000008232215",
+          "name": "Qualify",
+          "source": null,
+          "target": "Contacted"
+        },
+        {
+          "id": "52330000008237219",
+          "name": "Re-Qualify",
+          "source": null,
+          "target": "Interested"
+        },
+        {
+          "id": "52330000008237261",
+          "name": "Convert - Create Records",
+          "source": null,
+          "target": "Convert - Create Records"
+        },
+        {
+          "id": "52330000008071623",
+          "name": "Attempt 2.",
+          "source": null,
+          "target": "Re-Attempt 1"
+        },
+        {
+          "id": "52330000008553560",
+          "name": "FInal Attempt",
+          "source": null,
+          "target": "Lost Lead"
+        }
+      ],
+      "required_fields_by_transition": {},
+      "sampling_info": {
+        "records_sampled": 18,
+        "stages_covered": [
+          "Lost Lead",
+          "Attempted to Contact",
+          "Not Qualified",
+          "Interested",
+          "New Lead - Website",
+          "New Lead",
+          "Contacted",
+          "Junk Lead",
+          "Convert - Create Records",
+          "New Lead - Facebook",
+          "Re-Attempt 1",
+          "Contact in Future"
+        ],
+        "total_states_discovered": 0,
+        "total_transitions_discovered": 7,
+        "extraction_time": "0:00:39.035503"
+      }
+    },
+    "Tasks": {
+      "module": "Tasks",
+      "has_blueprint": true,
+      "stage_field": "Status",
+      "states": [],
+      "state_names": [],
+      "transitions": [],
+      "required_fields_by_transition": {},
+      "sampling_info": {
+        "records_sampled": 0,
+        "stages_covered": [
+          "Completed",
+          "Waiting for input",
+          "In Progress",
+          "Not Started"
+        ],
+        "total_states_discovered": 0,
+        "total_transitions_discovered": 0,
+        "extraction_time": "0:00:11.298625"
+      }
+    }
+  },
+  "automation_chains": [],
+  "cross_module_dependencies": {},
+  "field_usage_matrix": {}
+}

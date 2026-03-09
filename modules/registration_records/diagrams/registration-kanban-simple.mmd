@@ -1,0 +1,89 @@
+%%{init: {'theme': 'base', 'themeVariables': { 'primaryColor': '#FFF3E0', 'secondaryColor': '#E8F5E9', 'tertiaryColor': '#C8E6C9'}}}%%
+graph LR
+    %% Registration Records Kanban - Simple View
+    %% Shows the main Status stages with key information
+
+    subgraph Tentative["⏳ Spot Tentative"]
+        T1["<b>Initial Booking</b><br/>• Enquiry received<br/>• Payment pending<br/>---<br/>6 auto workflows"]
+    end
+
+    subgraph Booked["✅ Spot Booked"]
+        B1["<b>Payment Confirmed</b><br/>• Spot secured<br/>• Compliance check<br/>• Reminders sent<br/>---<br/>14 workflows"]
+    end
+
+    subgraph Waitlist["📝 Waiting List"]
+        W1["<b>Course Full</b><br/>• Monitor for spot<br/>---<br/>1 workflow"]
+    end
+
+    subgraph Rebook["🔄 To Be Rebooked"]
+        R1["<b>Move Course</b><br/>• Find alternative<br/>---<br/>0 workflows"]
+    end
+
+    subgraph Confirmed["📋 Details Confirmed"]
+        DC1["<b>Ready for Course</b><br/>• Compliance complete<br/>---<br/>1 workflow"]
+    end
+
+    subgraph FullAtt["🎓 Fully Attended"]
+        FA1["<b>Complete Attendance</b><br/>• All days attended<br/>---<br/>4 workflows"]
+    end
+
+    subgraph PartAtt["⚠️ Partially Attended"]
+        PA1["<b>Missed Days</b><br/>• Makeup needed<br/>---<br/>0 workflows"]
+    end
+
+    subgraph Completed["📚 Course Completed"]
+        CC1["<b>Attendance Done</b><br/>• Certificate processing<br/>---<br/>1 workflow"]
+    end
+
+    subgraph Resources["🏆 Resources Uploaded"]
+        RU1["<b>Final</b><br/>• Certificate issued<br/>• Archived<br/>---<br/>1 workflow"]
+    end
+
+    subgraph Cancelled["❌ Cancelled"]
+        X1["<b>Withdrawn</b><br/>• Refund processed<br/>---<br/>1 workflow"]
+    end
+
+    %% Main flow
+    Tentative --> Booked
+    Booked --> Confirmed
+    Confirmed --> FullAtt
+    Confirmed --> PartAtt
+    FullAtt --> Completed
+    PartAtt --> Completed
+    Completed --> Resources
+
+    %% Alternative paths
+    Tentative --> Waitlist
+    Waitlist --> Booked
+    Booked --> Rebook
+    Rebook --> Booked
+    PartAtt --> Rebook
+
+    %% Cancel paths
+    Tentative -.-> Cancelled
+    Booked -.-> Cancelled
+    Waitlist -.-> Cancelled
+    Rebook -.-> Cancelled
+
+    %% Styling
+    classDef tentative fill:#FFF3E0,stroke:#F57C00,stroke-width:2px
+    classDef booked fill:#E8F5E9,stroke:#388E3C,stroke-width:2px
+    classDef waitlist fill:#FFF8E1,stroke:#FFA000,stroke-width:2px
+    classDef rebook fill:#FCE4EC,stroke:#C2185B,stroke-width:2px
+    classDef confirmed fill:#E3F2FD,stroke:#1976D2,stroke-width:2px
+    classDef attended fill:#C8E6C9,stroke:#2E7D32,stroke-width:2px
+    classDef partial fill:#FFECB3,stroke:#FFA000,stroke-width:2px
+    classDef completed fill:#B2DFDB,stroke:#00796B,stroke-width:2px
+    classDef resources fill:#DCEDC8,stroke:#689F38,stroke-width:2px
+    classDef cancelled fill:#FFCDD2,stroke:#D32F2F,stroke-width:2px
+
+    class Tentative tentative
+    class Booked booked
+    class Waitlist waitlist
+    class Rebook rebook
+    class Confirmed confirmed
+    class FullAtt attended
+    class PartAtt partial
+    class Completed completed
+    class Resources resources
+    class Cancelled cancelled

@@ -1,0 +1,762 @@
+{
+  "workflow_metadata": {
+    "name": "Course Attendee Customer Journey",
+    "description": "Individual attendee lifecycle from registration through certification",
+    "primary_module": "Registration_Records",
+    "created_date": "2025-11-13",
+    "data_source": "Zoho CRM Data Model 2025-11-13"
+  },
+  "customer_journey": {
+    "Registration_Created": {
+      "stage_order": 1,
+      "description": "Attendee registers for course",
+      "zoho_status": "Spot Tentative / Pending Payment",
+      "outputs": {
+        "Attendee_Linked": {
+          "field_name": "Attendee",
+          "field_label": "Attendee",
+          "data_type": "lookup",
+          "lookup_module": "Contacts",
+          "required": true
+        },
+        "Course_Linked": {
+          "field_name": "Course",
+          "field_label": "Course",
+          "data_type": "lookup",
+          "lookup_module": "Courses",
+          "required": true
+        },
+        "Deal_Invoice_Linked": {
+          "fields": [
+            {
+              "field_name": "Deal",
+              "field_label": "Deal",
+              "data_type": "lookup",
+              "lookup_module": "Deals"
+            },
+            {
+              "field_name": "Invoice",
+              "field_label": "Invoice",
+              "data_type": "lookup",
+              "lookup_module": "Invoices"
+            }
+          ]
+        }
+      },
+      "related_workflows": [
+        {
+          "workflow_id": "52330000002460165",
+          "workflow_name": "Populate Course Days",
+          "trigger_type": "create",
+          "description": "Creates attendance tracking subform entries",
+          "workflow_url": "https://crm.zoho.com.au/crm/org7003757385/settings/workflow-rules/52330000002460165"
+        },
+        {
+          "workflow_id": "52330000002518044",
+          "workflow_name": "Calculate Registrations and create team task",
+          "trigger_type": "create",
+          "description": "Updates course registration counts",
+          "workflow_url": "https://crm.zoho.com.au/crm/org7003757385/settings/workflow-rules/52330000002518044"
+        },
+        {
+          "workflow_id": "52330000005138075",
+          "workflow_name": "Registration_Records_ZohoFlow_Copy of CRM Contact",
+          "trigger_type": "create",
+          "description": "Creates Workdrive folder for attendee",
+          "workflow_url": "https://crm.zoho.com.au/crm/org7003757385/settings/workflow-rules/52330000005138075"
+        },
+        {
+          "workflow_id": "52330000002582386",
+          "workflow_name": "Email - Attendee paid via credit card",
+          "trigger_type": "create",
+          "description": "Confirmation for credit card payments",
+          "workflow_url": "https://crm.zoho.com.au/crm/org7003757385/settings/workflow-rules/52330000002582386"
+        },
+        {
+          "workflow_id": "52330000005789634",
+          "workflow_name": "SMS Attendance Link",
+          "trigger_type": "create",
+          "description": "Sends attendance app link via SMS",
+          "workflow_url": "https://crm.zoho.com.au/crm/org7003757385/settings/workflow-rules/52330000005789634"
+        },
+        {
+          "workflow_id": "52330000004335393",
+          "workflow_name": "Update Attendee for Payment Update with DEAL",
+          "trigger_type": "create",
+          "description": "Links payment tracking to deal",
+          "workflow_url": "https://crm.zoho.com.au/crm/org7003757385/settings/workflow-rules/52330000004335393"
+        },
+        {
+          "workflow_id": "52330000007034348",
+          "workflow_name": "Waitlist Record",
+          "trigger_type": "create",
+          "description": "Manages waitlist if course full",
+          "workflow_url": "https://crm.zoho.com.au/crm/org7003757385/settings/workflow-rules/52330000007034348"
+        }
+      ],
+      "next": "Payment_Pending"
+    },
+    "Payment_Pending": {
+      "stage_order": 2,
+      "description": "Awaiting payment confirmation",
+      "zoho_status": "Pending Payment",
+      "outputs": {
+        "Payment_Source_Set": {
+          "field_name": "Payment_Source",
+          "field_label": "Payment Source",
+          "data_type": "text",
+          "values": [
+            "Credit Card",
+            "Invoice",
+            "Other"
+          ]
+        },
+        "Invoice_Created": {
+          "field_name": "Invoice",
+          "field_label": "Invoice",
+          "data_type": "lookup",
+          "lookup_module": "Invoices"
+        }
+      },
+      "related_workflows": [
+        {
+          "workflow_id": "52330000003024548",
+          "workflow_name": "Send payment link",
+          "trigger_type": "field_update",
+          "condition_fields": [
+            "Send_payment_link"
+          ],
+          "active": false,
+          "description": "Sends payment link to attendee",
+          "workflow_url": "https://crm.zoho.com.au/crm/org7003757385/settings/workflow-rules/52330000003024548"
+        }
+      ],
+      "payment_methods": {
+        "credit_card": {
+          "immediate_confirmation": true,
+          "workflow": "Email - Attendee paid via credit card"
+        },
+        "invoice": {
+          "requires_po": "For private courses",
+          "confirmation_workflow": "Email - Attendee Payment made for Invoice"
+        }
+      },
+      "next": "Spot_Booked"
+    },
+    "Spot_Booked": {
+      "stage_order": 3,
+      "description": "Payment confirmed, spot reserved",
+      "zoho_status": "Spot Booked",
+      "outputs": {
+        "Payment_Confirmed": {
+          "field_name": "Status",
+          "field_label": "Status",
+          "data_type": "picklist",
+          "value": "Spot Booked"
+        },
+        "Workdrive_Folder": {
+          "field_name": "Workdrive_URL",
+          "field_label": "Workdrive URL",
+          "data_type": "website"
+        }
+      },
+      "related_workflows": [
+        {
+          "workflow_id": "52330000002518060",
+          "workflow_name": "Calculate Registrations",
+          "trigger_type": "field_update",
+          "condition_fields": [
+            "Status"
+          ],
+          "description": "Updates course registration counts",
+          "workflow_url": "https://crm.zoho.com.au/crm/org7003757385/settings/workflow-rules/52330000002518060"
+        },
+        {
+          "workflow_id": "52330000005157463",
+          "workflow_name": "Email - Attendee Payment made for Invoice",
+          "trigger_type": "field_update",
+          "condition_fields": [
+            "Status"
+          ],
+          "description": "Confirmation email when payment received",
+          "workflow_url": "https://crm.zoho.com.au/crm/org7003757385/settings/workflow-rules/52330000005157463"
+        },
+        {
+          "workflow_id": "52330000005163175",
+          "workflow_name": "Private course Tentative - Attendee Spot Booked",
+          "trigger_type": "field_update",
+          "condition_fields": [
+            "Private_Course_Status",
+            "Status"
+          ],
+          "description": "Private course specific handling",
+          "workflow_url": "https://crm.zoho.com.au/crm/org7003757385/settings/workflow-rules/52330000005163175"
+        },
+        {
+          "workflow_id": "52330000005163264",
+          "workflow_name": "Private Course Confirmed - Attendee Spot Booked",
+          "trigger_type": "field_update",
+          "condition_fields": [
+            "Private_Course_Status",
+            "Status"
+          ],
+          "description": "Private course confirmation",
+          "workflow_url": "https://crm.zoho.com.au/crm/org7003757385/settings/workflow-rules/52330000005163264"
+        }
+      ],
+      "course_updates": {
+        "Registrations_Booked": "Incremented",
+        "Registrations_Confirmed": "Incremented when compliant"
+      },
+      "next": "Compliance_Completion"
+    },
+    "Compliance_Completion": {
+      "stage_order": 4,
+      "description": "Completing pre-course compliance requirements",
+      "zoho_status": "Spot Booked → Confirmed",
+      "outputs": {
+        "USI_Number_Captured": {
+          "field_name": "USI_Number",
+          "field_label": "USI Number",
+          "data_type": "text",
+          "mandatory": true
+        },
+        "Compliance_Checks": {
+          "fields": [
+            {
+              "field_name": "English_second_language",
+              "field_label": "Compliance Check Done",
+              "data_type": "picklist"
+            },
+            {
+              "field_name": "Request_3rd_Party_Record",
+              "field_label": "Pre Requisite Evidence Complete",
+              "data_type": "boolean"
+            },
+            {
+              "field_name": "CV_Submitted",
+              "field_label": "CV Submitted",
+              "data_type": "boolean"
+            },
+            {
+              "field_name": "Additional_Documents_Submitted",
+              "field_label": "Additional Documents Submitted",
+              "data_type": "boolean"
+            }
+          ]
+        }
+      },
+      "related_workflows": [
+        {
+          "workflow_id": "52330000003121331",
+          "workflow_name": "Create Team Task",
+          "trigger_type": "field_update",
+          "condition_fields": [
+            "Create_Team_Task"
+          ],
+          "description": "Creates admin task for compliance follow-up",
+          "workflow_url": "https://crm.zoho.com.au/crm/org7003757385/settings/workflow-rules/52330000003121331"
+        },
+        {
+          "workflow_id": "52330000003014626",
+          "workflow_name": "Update course details",
+          "trigger_type": "field_update",
+          "condition_fields": [
+            "Update"
+          ],
+          "description": "Syncs changes to course record",
+          "workflow_url": "https://crm.zoho.com.au/crm/org7003757385/settings/workflow-rules/52330000003014626"
+        }
+      ],
+      "compliance_checklist": [
+        "USI Number verified",
+        "Compliance Check Done",
+        "Pre-requisite evidence uploaded",
+        "CV on file (if required)",
+        "Additional documents submitted"
+      ],
+      "next": "Pre_Course_Communications"
+    },
+    "Pre_Course_Communications": {
+      "stage_order": 5,
+      "description": "Automated reminders and confirmations before course",
+      "zoho_status": "Confirmed",
+      "outputs": {
+        "SMS_Link_Generated": {
+          "field_name": "SMS_Link",
+          "field_label": "SMS_Link",
+          "data_type": "text"
+        },
+        "Attendance_Confirmed": {
+          "field_name": "Attendance_Confirmed",
+          "field_label": "Attendance Confirmed",
+          "data_type": "boolean"
+        },
+        "SMS_Confirmation_Response": {
+          "field_name": "SMS_Confirmation",
+          "field_label": "Attending Course - Confirmation",
+          "data_type": "picklist"
+        }
+      },
+      "related_workflows": [
+        {
+          "workflow_id": "52330000005789649",
+          "workflow_name": "Generate SMS Shorten Link",
+          "trigger_type": "date_or_datetime",
+          "timing": "15 days before course",
+          "description": "Creates shortened attendance link",
+          "workflow_url": "https://crm.zoho.com.au/crm/org7003757385/settings/workflow-rules/52330000005789649"
+        },
+        {
+          "workflow_id": "52330000005789664",
+          "workflow_name": "Generate SMS Link 15 days prior if Empty",
+          "trigger_type": "date_or_datetime",
+          "timing": "15 days before course",
+          "description": "Backup link generation",
+          "workflow_url": "https://crm.zoho.com.au/crm/org7003757385/settings/workflow-rules/52330000005789664"
+        },
+        {
+          "workflow_id": "52330000005789721",
+          "workflow_name": "14 days SMS Before Attendance Confirmation",
+          "trigger_type": "date_or_datetime",
+          "timing": "14 days before course",
+          "description": "SMS requesting attendance confirmation",
+          "workflow_url": "https://crm.zoho.com.au/crm/org7003757385/settings/workflow-rules/52330000005789721"
+        },
+        {
+          "workflow_id": "52330000002582766",
+          "workflow_name": "1 week prior to Public course",
+          "trigger_type": "date_or_datetime",
+          "timing": "7 days before course",
+          "description": "Email reminder for public courses",
+          "workflow_url": "https://crm.zoho.com.au/crm/org7003757385/settings/workflow-rules/52330000002582766"
+        },
+        {
+          "workflow_id": "52330000002597951",
+          "workflow_name": "7 Days before Public course SMS Reminder",
+          "trigger_type": "date_or_datetime",
+          "timing": "7 days before course",
+          "description": "SMS reminder",
+          "workflow_url": "https://crm.zoho.com.au/crm/org7003757385/settings/workflow-rules/52330000002597951"
+        },
+        {
+          "workflow_id": "52330000005163385",
+          "workflow_name": "1 week prior to Private Confirmed course",
+          "trigger_type": "date_or_datetime",
+          "timing": "7 days before course",
+          "description": "Private course reminder",
+          "workflow_url": "https://crm.zoho.com.au/crm/org7003757385/settings/workflow-rules/52330000005163385"
+        },
+        {
+          "workflow_id": "52330000005163433",
+          "workflow_name": "7 Days before Private Confirmed course SMS Reminder",
+          "trigger_type": "date_or_datetime",
+          "timing": "7 days before course",
+          "description": "Private course SMS",
+          "workflow_url": "https://crm.zoho.com.au/crm/org7003757385/settings/workflow-rules/52330000005163433"
+        },
+        {
+          "workflow_id": "52330000006676878",
+          "workflow_name": "SMS - Attendance Acknowledgement",
+          "trigger_type": "field_update",
+          "condition_fields": [
+            "SMS_Confirmation"
+          ],
+          "description": "Acknowledges attendance response",
+          "workflow_url": "https://crm.zoho.com.au/crm/org7003757385/settings/workflow-rules/52330000006676878"
+        }
+      ],
+      "communication_timeline": [
+        "15 days: SMS link generated",
+        "14 days: SMS attendance confirmation request",
+        "7 days: Email and SMS reminders",
+        "Course day: Attendance tracking begins"
+      ],
+      "next": "Course_Attendance"
+    },
+    "Course_Attendance": {
+      "stage_order": 6,
+      "description": "During course - daily attendance tracking",
+      "zoho_status": "Confirmed",
+      "outputs": {
+        "Daily_Attendance": {
+          "subform": "Course_Days",
+          "fields": [
+            {
+              "field_name": "Course_Date",
+              "field_label": "Course Date",
+              "data_type": "date"
+            },
+            {
+              "field_name": "Attendance",
+              "field_label": "Attendance Status",
+              "data_type": "picklist",
+              "values": [
+                "Present",
+                "Absent",
+                "Late",
+                "Left Early"
+              ]
+            },
+            {
+              "field_name": "Comments",
+              "field_label": "Comments",
+              "data_type": "textarea"
+            }
+          ]
+        }
+      },
+      "related_workflows": [
+        {
+          "workflow_id": "52330000003014483",
+          "workflow_name": "Update Course Attended 1 week from course date",
+          "trigger_type": "date_or_datetime",
+          "timing": "1 week after course start",
+          "description": "Updates attendance flags",
+          "workflow_url": "https://crm.zoho.com.au/crm/org7003757385/settings/workflow-rules/52330000003014483"
+        },
+        {
+          "workflow_id": "52330000003014499",
+          "workflow_name": "Update Course Attended 1 Day from course",
+          "trigger_type": "date_or_datetime",
+          "timing": "1 day after course start",
+          "description": "Updates attendance status",
+          "workflow_url": "https://crm.zoho.com.au/crm/org7003757385/settings/workflow-rules/52330000003014499"
+        }
+      ],
+      "attendance_tracking": {
+        "method": "Course_Days subform",
+        "populated_by": "Populate Course Days workflow",
+        "updated_by": "Trainer during course",
+        "daily_entries": "One per course day"
+      },
+      "next": "Post_Course"
+    },
+    "Post_Course": {
+      "stage_order": 7,
+      "description": "After course completion - thank you and feedback",
+      "zoho_status": "Confirmed",
+      "outputs": {
+        "Thank_You_Sent": {
+          "workflow": "Thank you SMS",
+          "timing": "1 day after course end"
+        },
+        "Evidence_Collected": {
+          "field_name": "Evidence_Received",
+          "field_label": "Evidence Received",
+          "data_type": "picklist"
+        }
+      },
+      "related_workflows": [
+        {
+          "workflow_id": "52330000002656733",
+          "workflow_name": "Thank you SMS",
+          "trigger_type": "date_or_datetime",
+          "timing": "1 day after Course_End_Date",
+          "description": "Thank you message to attendees",
+          "workflow_url": "https://crm.zoho.com.au/crm/org7003757385/settings/workflow-rules/52330000002656733"
+        },
+        {
+          "workflow_id": "52330000002633996",
+          "workflow_name": "Feedback Email from attendee",
+          "trigger_type": "date_or_datetime",
+          "active": false,
+          "description": "Requests attendee feedback (currently inactive)",
+          "workflow_url": "https://crm.zoho.com.au/crm/org7003757385/settings/workflow-rules/52330000002633996"
+        }
+      ],
+      "next": "Certification"
+    },
+    "Certification": {
+      "stage_order": 8,
+      "description": "Certificate processing and distribution",
+      "zoho_status": "Completed",
+      "outputs": {
+        "Assessment_Result": {
+          "field_name": "Result",
+          "field_label": "Result",
+          "data_type": "picklist",
+          "values": [
+            "Competent",
+            "Not Yet Competent"
+          ]
+        },
+        "Certificate_Status": {
+          "field_name": "Certificate",
+          "field_label": "Certificate",
+          "data_type": "picklist",
+          "values": [
+            "Not Received",
+            "Received",
+            "Issued",
+            "Held Back"
+          ]
+        },
+        "Post_Compliance": {
+          "fields": [
+            {
+              "field_name": "Difficulty_with_IT",
+              "field_label": "Post Requisite Evidence Complete",
+              "data_type": "picklist"
+            },
+            {
+              "field_name": "Reading_writing_difficulties",
+              "field_label": "SOA Received",
+              "data_type": "picklist"
+            }
+          ]
+        },
+        "Certificate_Distributed": {
+          "field_name": "send_cert_email",
+          "field_label": "send cert email",
+          "data_type": "boolean",
+          "trigger": "Email with certificate"
+        }
+      },
+      "related_workflows": [
+        {
+          "workflow_id": "52330000002667069",
+          "workflow_name": "Certificate Held Back",
+          "trigger_type": "field_update",
+          "condition_fields": [
+            "send_cert_email"
+          ],
+          "description": "Processes certificate distribution or hold notification",
+          "workflow_url": "https://crm.zoho.com.au/crm/org7003757385/settings/workflow-rules/52330000002667069"
+        },
+        {
+          "workflow_id": "52330000004045787",
+          "workflow_name": "status update",
+          "trigger_type": "field_update",
+          "condition_fields": [
+            "Status"
+          ],
+          "description": "Updates related records when status changes",
+          "workflow_url": "https://crm.zoho.com.au/crm/org7003757385/settings/workflow-rules/52330000004045787"
+        }
+      ],
+      "held_back_handling": {
+        "field": "Certificate_Held_Back_Reason",
+        "data_type": "multiselectpicklist",
+        "reasons": [
+          "Outstanding fees",
+          "Missing evidence",
+          "Incomplete coursework",
+          "Failed assessment"
+        ]
+      },
+      "soa_distribution": {
+        "field": "SOA_Sent",
+        "label": "SOA Sent",
+        "for": "Private courses - sent to client/employer"
+      },
+      "next": "Complete"
+    },
+    "Complete": {
+      "stage_order": 9,
+      "description": "Journey complete - all documentation finalised",
+      "zoho_status": "Completed",
+      "outputs": {
+        "Final_Status": {
+          "field_name": "Status",
+          "field_label": "Status",
+          "values": [
+            "Completed",
+            "Did Not Attend",
+            "Cancelled"
+          ]
+        },
+        "Enrolled_Spec": {
+          "field_name": "Enrolled_Spec",
+          "field_label": "Enrolled (Spec)",
+          "data_type": "picklist",
+          "description": "Final enrolment status for reporting"
+        }
+      },
+      "related_workflows": [
+        {
+          "workflow_id": "52330000009966152",
+          "workflow_name": "Registration Cancelled",
+          "trigger_type": "field_update",
+          "condition_fields": [
+            "Status"
+          ],
+          "description": "Handles cancellation notifications",
+          "workflow_url": "https://crm.zoho.com.au/crm/org7003757385/settings/workflow-rules/52330000009966152"
+        }
+      ],
+      "completion_criteria": [
+        "Attendance marked for all course days",
+        "Result determined",
+        "Certificate processed",
+        "All evidence collected",
+        "Status set to final value"
+      ],
+      "next": null
+    }
+  },
+  "status_values": {
+    "progression": [
+      "Spot Tentative",
+      "Pending Payment",
+      "Spot Booked",
+      "Confirmed",
+      "Completed",
+      "Cancelled",
+      "Did Not Attend"
+    ],
+    "field": "Status",
+    "custom_field": true
+  },
+  "attendee_types": {
+    "Public": {
+      "field_value": "Public",
+      "payment_type": "Individual",
+      "workflows": [
+        "1 week prior to Public course",
+        "7 Days before Public course SMS Reminder"
+      ]
+    },
+    "Private": {
+      "field_value": "Private",
+      "payment_type": "Corporate invoice",
+      "workflows": [
+        "Private Attendee - Spot Tentative",
+        "Private course Tentative - Attendee Spot Booked",
+        "Private Course Confirmed - Attendee Spot Booked",
+        "1 week prior to Private Confirmed course",
+        "7 Days before Private Confirmed course SMS Reminder"
+      ],
+      "additional_fields": [
+        "Private_Course_Status",
+        "Account_Name"
+      ]
+    }
+  },
+  "course_days_subform": {
+    "subform_name": "Course_Days",
+    "parent_field": "Parent_Id",
+    "auto_populated": true,
+    "populated_by_workflow": "Populate Course Days",
+    "fields": [
+      {
+        "field_name": "Course_Date",
+        "field_label": "Course Date",
+        "data_type": "date"
+      },
+      {
+        "field_name": "Attendance",
+        "field_label": "Attendance Status",
+        "data_type": "picklist"
+      },
+      {
+        "field_name": "Comments",
+        "field_label": "Comments",
+        "data_type": "textarea"
+      }
+    ],
+    "usage": "Trainer marks attendance daily during course"
+  },
+  "linked_modules": {
+    "Courses": {
+      "lookup_field": "Course",
+      "mandatory": false,
+      "updates_course_fields": [
+        "Registrations_Booked",
+        "Registrations_Confirmed",
+        "Total_Registrations"
+      ]
+    },
+    "Contacts": {
+      "lookup_field": "Attendee",
+      "mandatory": false,
+      "provides_data": [
+        "Attendee_Email",
+        "Mobile",
+        "USI_Number"
+      ]
+    },
+    "Deals": {
+      "lookup_field": "Deal",
+      "optional": true,
+      "links_payment": true
+    },
+    "Invoices": {
+      "lookup_field": "Invoice",
+      "created_when": "Payment required",
+      "status_synced": true
+    },
+    "Quotes": {
+      "lookup_field": "Quote",
+      "optional": true
+    },
+    "Venues": {
+      "lookup_field": "Venue",
+      "copied_from_course": true
+    },
+    "Feedbacks": {
+      "relationship": "One-to-many",
+      "linked_via": "Attendee_Record",
+      "for": "Post-course feedback collection"
+    }
+  },
+  "workdrive_integration": {
+    "folder_created_on": "Registration creation",
+    "workflow": "Registration_Records_ZohoFlow_Copy of CRM Contact",
+    "field": "Workdrive_URL",
+    "contains": [
+      "Compliance documents",
+      "CV and additional documents",
+      "Pre-requisite evidence",
+      "Post-course evidence",
+      "Certificates"
+    ]
+  },
+  "sms_communications": {
+    "opt_out_field": "SMS_Opt_Out",
+    "opt_out_respected": true,
+    "sms_workflows": [
+      {
+        "name": "SMS Attendance Link",
+        "timing": "On registration creation",
+        "content": "Attendance app access link"
+      },
+      {
+        "name": "14 days SMS Before Attendance Confirmation",
+        "timing": "14 days before course",
+        "content": "Attendance confirmation request"
+      },
+      {
+        "name": "7 Days before Public course SMS Reminder",
+        "timing": "7 days before course",
+        "content": "Course reminder"
+      },
+      {
+        "name": "SMS - Attendance Acknowledgement",
+        "timing": "When SMS_Confirmation updated",
+        "content": "Thank you for confirming"
+      },
+      {
+        "name": "Thank you SMS",
+        "timing": "1 day after course end",
+        "content": "Thank you message"
+      }
+    ]
+  },
+  "automation_summary": {
+    "total_workflows": 24,
+    "create_triggers": 7,
+    "field_update_triggers": 11,
+    "datetime_triggers": 9,
+    "key_trigger_fields": [
+      "Status",
+      "Course",
+      "Update",
+      "Create_Team_Task",
+      "Send_payment_link",
+      "send_cert_email",
+      "SMS_Confirmation",
+      "Private_Course_Status"
+    ]
+  }
+}

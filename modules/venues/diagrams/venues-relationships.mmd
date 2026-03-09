@@ -1,0 +1,31 @@
+---
+title: Venues Module - Relationships
+---
+flowchart TB
+    subgraph Venues["Venues Module"]
+        V[("**Venues**<br/>23 fields<br/>0 workflows")]
+    end
+
+    subgraph Related["Related Modules"]
+        Courses[("Courses<br/>Select_Venue")]
+        RegRec[("Registration<br/>Records<br/>Venue")]
+        Contacts[("Contacts<br/>Venue_Contact")]
+    end
+
+    subgraph External["External Systems"]
+        WP[("WordPress<br/>WP_Venue_ID")]
+    end
+
+    %% Incoming relationships
+    Courses -->|"selects"| V
+    RegRec -->|"references"| V
+
+    %% Outgoing relationships
+    V -->|"links to"| Contacts
+
+    %% Integration
+    V -.->|"syncs with"| WP
+
+    style Venues fill:#3498db,color:#fff
+    style Related fill:#f5f5f5,stroke:#333
+    style External fill:#e8f8f5,stroke:#27ae60

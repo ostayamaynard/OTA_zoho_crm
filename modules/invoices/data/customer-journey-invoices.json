@@ -1,0 +1,645 @@
+{
+  "workflow_metadata": {
+    "name": "Invoice Customer Journey",
+    "description": "Invoice lifecycle from creation through to payment",
+    "primary_module": "Invoices",
+    "created_date": "2025-11-13",
+    "data_source": "Zoho CRM Data Model 2025-11-13"
+  },
+  "customer_journey": {
+    "Invoice_Created": {
+      "stage_order": 1,
+      "description": "Invoice generated from quote or deal",
+      "zoho_status": "Draft / Created",
+      "outputs": {
+        "Invoice_Details": {
+          "fields": [
+            {
+              "field_name": "Subject",
+              "field_label": "Subject",
+              "data_type": "text",
+              "system_mandatory": true
+            },
+            {
+              "field_name": "Account_Name",
+              "field_label": "Account Name",
+              "data_type": "lookup",
+              "lookup_module": "Accounts"
+            },
+            {
+              "field_name": "Contact_Name",
+              "field_label": "Contact Name",
+              "data_type": "lookup",
+              "lookup_module": "Contacts"
+            },
+            {
+              "field_name": "Invoice_Date",
+              "field_label": "Invoice Date",
+              "data_type": "date"
+            }
+          ]
+        },
+        "Invoice_Items": {
+          "field_name": "Invoiced_Items",
+          "field_label": "Invoiced Items",
+          "data_type": "subform",
+          "system_mandatory": true
+        },
+        "Tax_Calculation": {
+          "fields": [
+            {
+              "field_name": "sbhtc__Subtotal_ex_GST0",
+              "field_label": "Subtotal ex GST",
+              "data_type": "currency"
+            },
+            {
+              "field_name": "sbhtc__Total_GST0",
+              "field_label": "Total GST",
+              "data_type": "currency"
+            },
+            {
+              "field_name": "sbhtc__Total_inc_GST0",
+              "field_label": "Total inc GST",
+              "data_type": "currency"
+            }
+          ]
+        }
+      },
+      "related_workflows": [
+        {
+          "workflow_id": "52330000004975124",
+          "workflow_name": "Inhouse - Calculate Overall Tax for Invoice",
+          "trigger_type": "create_or_edit",
+          "description": "Calculates GST for private/inhouse courses",
+          "workflow_url": "https://crm.zoho.com.au/crm/org7003757385/settings/workflow-rules/52330000004975124"
+        },
+        {
+          "workflow_id": "52330000005069739",
+          "workflow_name": "Update Due Date",
+          "trigger_type": "create",
+          "description": "Sets due date based on payment terms",
+          "workflow_url": "https://crm.zoho.com.au/crm/org7003757385/settings/workflow-rules/52330000005069739"
+        },
+        {
+          "workflow_id": "52330000008512961",
+          "workflow_name": "Update All Fields",
+          "trigger_type": "create",
+          "description": "Populates invoice fields from deal/quote",
+          "workflow_url": "https://crm.zoho.com.au/crm/org7003757385/settings/workflow-rules/52330000008512961"
+        },
+        {
+          "workflow_id": "52330000008519048",
+          "workflow_name": "Update URL",
+          "trigger_type": "field_update",
+          "condition_fields": [
+            "Course_Name",
+            "sbhtc__Total_inc_GST0",
+            "Deal_Name__s"
+          ],
+          "description": "Generates payment and request URLs",
+          "workflow_url": "https://crm.zoho.com.au/crm/org7003757385/settings/workflow-rules/52330000008519048"
+        },
+        {
+          "workflow_id": "52330000004251591",
+          "workflow_name": "New - Update deal and Reg record",
+          "trigger_type": "create_or_edit",
+          "description": "Syncs invoice to deal and registration records",
+          "workflow_url": "https://crm.zoho.com.au/crm/org7003757385/settings/workflow-rules/52330000004251591"
+        }
+      ],
+      "auto_number_field": {
+        "field_name": "Quote_Ref_Number",
+        "field_label": "Invoice Ref Number",
+        "data_type": "autonumber"
+      },
+      "next": "Awaiting_Payment"
+    },
+    "Awaiting_Payment": {
+      "stage_order": 2,
+      "description": "Invoice sent to client, awaiting payment",
+      "zoho_status": "Sent / Awaiting Payment",
+      "outputs": {
+        "Invoice_Sent": {
+          "field_name": "Sent",
+          "field_label": "Sent",
+          "data_type": "boolean"
+        },
+        "Invoice_Sent_Date": {
+          "field_name": "Invoice_Sent_Date",
+          "field_label": "Invoice Sent Date",
+          "data_type": "date"
+        },
+        "Payment_URLs": {
+          "fields": [
+            {
+              "field_name": "Request_Payment_URL",
+              "field_label": "Request Payment URL",
+              "data_type": "website",
+              "description": "Payment request form link"
+            },
+            {
+              "field_name": "Get_PO_URL",
+              "field_label": "Get PO URL",
+              "data_type": "website",
+              "description": "Purchase order request form"
+            }
+          ]
+        },
+        "Due_Date": {
+          "field_name": "Due_Date",
+          "field_label": "Due Date",
+          "data_type": "date",
+          "calculated_from": "Invoice_Date + Payment_term_in_days"
+        }
+      },
+      "related_workflows": [
+        {
+          "workflow_id": "52330000004534311",
+          "workflow_name": "Send Invoice",
+          "trigger_type": "field_update",
+          "condition_fields": [
+            "Status"
+          ],
+          "description": "Emails invoice when status = Sent",
+          "workflow_url": "https://crm.zoho.com.au/crm/org7003757385/settings/workflow-rules/52330000004534311"
+        },
+        {
+          "workflow_id": "52330000008694463",
+          "workflow_name": "Send on create - Awaiting Payment",
+          "trigger_type": "create",
+          "description": "Auto-sends invoice on creation if status = Awaiting Payment",
+          "workflow_url": "https://crm.zoho.com.au/crm/org7003757385/settings/workflow-rules/52330000008694463"
+        },
+        {
+          "workflow_id": "52330000002610986",
+          "workflow_name": "Invoice Udpate",
+          "trigger_type": "field_update",
+          "condition_fields": [
+            "Status"
+          ],
+          "description": "Updates related records on status change",
+          "workflow_url": "https://crm.zoho.com.au/crm/org7003757385/settings/workflow-rules/52330000002610986"
+        },
+        {
+          "workflow_id": "52330000008776519",
+          "workflow_name": "Refresh Payment URL",
+          "trigger_type": "field_update",
+          "condition_fields": [
+            "Refresh_PO_URL"
+          ],
+          "description": "Regenerates payment URL if needed",
+          "workflow_url": "https://crm.zoho.com.au/crm/org7003757385/settings/workflow-rules/52330000008776519"
+        }
+      ],
+      "po_required_handling": {
+        "when": "Private courses or Po_Required = true",
+        "field": "Purchase_Order_Number",
+        "workflow": "When Po is received",
+        "triggers_on": "PO Number entered"
+      },
+      "next": "Payment_Processing"
+    },
+    "Payment_Processing": {
+      "stage_order": 3,
+      "description": "Purchase order received or payment in progress",
+      "zoho_status": "Sent / Awaiting Payment",
+      "outputs": {
+        "PO_Received": {
+          "field_name": "Purchase_Order_Number",
+          "field_label": "Purchase Order Number",
+          "data_type": "text"
+        },
+        "PO_Expected_Date": {
+          "field_name": "Po_Expected_Date",
+          "field_label": "Po Expected Date",
+          "data_type": "date"
+        },
+        "Payment_Tracking": {
+          "fields": [
+            {
+              "field_name": "Payment_Source",
+              "field_label": "Payment Source",
+              "data_type": "picklist"
+            },
+            {
+              "field_name": "Payment_Type",
+              "field_label": "Payment Type",
+              "data_type": "picklist"
+            },
+            {
+              "field_name": "Stripe_ID",
+              "field_label": "Stripe Payment ID",
+              "data_type": "text"
+            }
+          ]
+        }
+      },
+      "related_workflows": [
+        {
+          "workflow_id": "52330000005069778",
+          "workflow_name": "When Po is received",
+          "trigger_type": "field_update",
+          "condition_fields": [
+            "Purchase_Order_Number",
+            "Status"
+          ],
+          "description": "Updates status when PO entered",
+          "workflow_url": "https://crm.zoho.com.au/crm/org7003757385/settings/workflow-rules/52330000005069778"
+        },
+        {
+          "workflow_id": "52330000002460231",
+          "workflow_name": "Push Invoice to Xero",
+          "trigger_type": "field_update",
+          "condition_fields": [
+            "Status"
+          ],
+          "description": "Syncs invoice to Xero accounting system",
+          "workflow_url": "https://crm.zoho.com.au/crm/org7003757385/settings/workflow-rules/52330000002460231"
+        }
+      ],
+      "xero_integration": {
+        "workflow": "Push Invoice to Xero",
+        "triggered_on": "Status change",
+        "fields_synced": [
+          "Xero_Invoice_Number",
+          "Xero_Invoice_URL"
+        ]
+      },
+      "next": "Paid"
+    },
+    "Paid": {
+      "stage_order": 4,
+      "description": "Payment received and processed",
+      "zoho_status": "Paid",
+      "outputs": {
+        "Payment_Confirmation": {
+          "field_name": "Status",
+          "field_label": "Status",
+          "value": "Paid"
+        },
+        "Payment_Details": {
+          "fields": [
+            {
+              "field_name": "Last_Payment_Date",
+              "field_label": "Last Payment Date",
+              "data_type": "date"
+            },
+            {
+              "field_name": "Last_Payment_Amount",
+              "field_label": "Last Payment Amount",
+              "data_type": "currency"
+            },
+            {
+              "field_name": "Invoice_Won_Date",
+              "field_label": "Invoice Paid Date",
+              "data_type": "date"
+            }
+          ]
+        },
+        "Xero_Sync": {
+          "fields": [
+            {
+              "field_name": "Xero_Invoice_URL",
+              "field_label": "Xero Invoice URL",
+              "data_type": "website"
+            },
+            {
+              "field_name": "Xero_Invoice_Number",
+              "field_label": "Xero Invoice Number",
+              "data_type": "text"
+            }
+          ]
+        }
+      },
+      "related_workflows": [
+        {
+          "workflow_id": "52330000002460196",
+          "workflow_name": "Paid in Crez",
+          "trigger_type": "field_update",
+          "condition_fields": [
+            "Paid_In_CREZ"
+          ],
+          "description": "Marks payment received in CREZ system",
+          "workflow_url": "https://crm.zoho.com.au/crm/org7003757385/settings/workflow-rules/52330000002460196"
+        },
+        {
+          "workflow_id": "52330000002460231",
+          "workflow_name": "Push Invoice to Xero",
+          "trigger_type": "field_update",
+          "condition_fields": [
+            "Status"
+          ],
+          "description": "Updates Xero with payment status",
+          "workflow_url": "https://crm.zoho.com.au/crm/org7003757385/settings/workflow-rules/52330000002460231"
+        },
+        {
+          "workflow_id": "52330000002610986",
+          "workflow_name": "Invoice Udpate",
+          "trigger_type": "field_update",
+          "condition_fields": [
+            "Status"
+          ],
+          "description": "Updates related records (Deal, Registration)",
+          "workflow_url": "https://crm.zoho.com.au/crm/org7003757385/settings/workflow-rules/52330000002610986"
+        },
+        {
+          "workflow_id": "52330000009085784",
+          "workflow_name": "Update Amount in Deal when Inv is paid",
+          "trigger_type": "field_update",
+          "condition_fields": [
+            "Status"
+          ],
+          "description": "Updates deal amount when invoice paid",
+          "workflow_url": "https://crm.zoho.com.au/crm/org7003757385/settings/workflow-rules/52330000009085784"
+        }
+      ],
+      "updates_related_records": {
+        "Deals": {
+          "field": "Amount",
+          "updated_when": "Invoice status = Paid"
+        },
+        "Registration_Records": {
+          "field": "Invoice_Status",
+          "updated_to": "Paid"
+        },
+        "Course_Performance": {
+          "metrics_updated": [
+            "Total_Paid_Amount",
+            "Outstanding_Amount"
+          ]
+        }
+      },
+      "next": "Complete"
+    },
+    "Complete": {
+      "stage_order": 5,
+      "description": "Invoice fully processed and reconciled",
+      "zoho_status": "Paid",
+      "outputs": {
+        "Final_Status": {
+          "field_name": "Status",
+          "field_label": "Status",
+          "value": "Paid"
+        },
+        "Amount_Outstanding": {
+          "field_name": "Amount_Outstanding",
+          "field_label": "Amount Outstanding",
+          "data_type": "currency",
+          "value": 0
+        },
+        "Receipted": {
+          "field_name": "Inv_Reciepted",
+          "field_label": "Inv. Reciepted",
+          "data_type": "picklist"
+        }
+      },
+      "completion_criteria": [
+        "Status = Paid",
+        "Amount_Outstanding = 0",
+        "Xero sync complete",
+        "Deal updated",
+        "Registration records updated"
+      ],
+      "next": null
+    }
+  },
+  "status_values": {
+    "progression": [
+      "Draft",
+      "Created",
+      "Sent",
+      "Awaiting Payment",
+      "Overdue",
+      "Paid",
+      "Void"
+    ],
+    "field": "Status",
+    "system_field": true
+  },
+  "invoice_creation_sources": {
+    "from_quote": {
+      "created_by_workflow": "Update Deal and Invoice on Quote Closed Won",
+      "condition": "Quote_Stage = Closed Won",
+      "fields_copied": [
+        "Account_Name",
+        "Contact_Name",
+        "Deal_Name__s",
+        "Course_Name",
+        "Quoted_Items → Invoiced_Items"
+      ]
+    },
+    "from_deal": {
+      "manual_creation": true,
+      "linked_via": "Deal_Name__s"
+    },
+    "from_website": {
+      "field": "Created_Through",
+      "value": "Website / Online Payment",
+      "payment_type": "Credit Card via Stripe"
+    }
+  },
+  "invoiced_items_subform": {
+    "subform_name": "Invoiced_Items",
+    "mandatory": true,
+    "fields": [
+      {
+        "field_name": "Product_Name",
+        "field_label": "Course Template Name",
+        "data_type": "lookup",
+        "lookup_module": "Products",
+        "system_mandatory": true
+      },
+      {
+        "field_name": "Quantity",
+        "field_label": "Quantity",
+        "data_type": "double",
+        "description": "Number of attendees"
+      },
+      {
+        "field_name": "List_Price",
+        "field_label": "List Price",
+        "data_type": "currency"
+      },
+      {
+        "field_name": "Discount",
+        "field_label": "Discount",
+        "data_type": "currency"
+      },
+      {
+        "field_name": "Tax",
+        "field_label": "Tax",
+        "data_type": "currency"
+      },
+      {
+        "field_name": "Net_Total",
+        "field_label": "Total",
+        "data_type": "formula"
+      }
+    ]
+  },
+  "tax_calculation": {
+    "extension": "sbhtc (Overall Tax Calculator)",
+    "fields": [
+      "sbhtc__Enable_Overall_Tax_Calculator",
+      "sbhtc__Amounts_Tax_Inclusive",
+      "sbhtc__Subtotal_ex_GST0",
+      "sbhtc__GST_Total",
+      "sbhtc__Total_inc_GST0"
+    ],
+    "workflows": [
+      {
+        "workflow_id": "52330000002375206",
+        "workflow_name": "Calculate Overall Tax for Invoice",
+        "active": false,
+        "replaced_by": "Inhouse - Calculate Overall Tax for Invoice",
+        "workflow_url": "https://crm.zoho.com.au/crm/org7003757385/settings/workflow-rules/52330000002375206"
+      },
+      {
+        "workflow_id": "52330000004975124",
+        "workflow_name": "Inhouse - Calculate Overall Tax for Invoice",
+        "active": true,
+        "workflow_url": "https://crm.zoho.com.au/crm/org7003757385/settings/workflow-rules/52330000004975124"
+      }
+    ]
+  },
+  "payment_methods": {
+    "credit_card": {
+      "payment_source": "Credit Card",
+      "processor": "Stripe",
+      "field": "Stripe_ID",
+      "immediate_confirmation": true
+    },
+    "invoice_payment": {
+      "payment_source": "Invoice",
+      "requires_po": "Usually for private courses",
+      "payment_terms": "Payment_term_in_days field",
+      "due_date_calculated": true
+    },
+    "other": {
+      "payment_source": "Other",
+      "manual_tracking": true
+    }
+  },
+  "xero_integration": {
+    "sync_workflow": "Push Invoice to Xero",
+    "triggered_on": "Status field updates",
+    "fields_synced_to_xero": [
+      "Account_Name (Customer)",
+      "Invoice_Date",
+      "Due_Date",
+      "Invoiced_Items (Line items)",
+      "Tax amounts",
+      "Status"
+    ],
+    "fields_from_xero": [
+      "Xero_Invoice_Number",
+      "Xero_Invoice_URL"
+    ],
+    "sync_direction": "Bidirectional"
+  },
+  "url_generation": {
+    "request_payment_url": {
+      "field": "Request_Payment_URL",
+      "generated_by": "Update URL workflow",
+      "uses_fields": [
+        "Course_Name",
+        "sbhtc__Total_inc_GST0",
+        "Deal_Name__s"
+      ],
+      "purpose": "Zoho Form for payment request"
+    },
+    "get_po_url": {
+      "field": "Get_PO_URL",
+      "generated_by": "Update URL workflow",
+      "purpose": "Purchase order request form",
+      "refreshable": true,
+      "refresh_trigger": "Refresh_PO_URL = true"
+    }
+  },
+  "linked_modules": {
+    "Deals": {
+      "lookup_field": "Deal_Name__s",
+      "updates_when_paid": "Amount field",
+      "workflow": "Update Amount in Deal when Inv is paid"
+    },
+    "Registration_Records": {
+      "lookup_field": "Invoice",
+      "status_synced": true,
+      "field_synced": "Invoice_Status",
+      "updated_by": "New - Update deal and Reg record"
+    },
+    "Accounts": {
+      "lookup_field": "Account_Name",
+      "provides_data": [
+        "Payment_term_in_days",
+        "Po_Required",
+        "Email_for_Invoice"
+      ]
+    },
+    "Courses": {
+      "lookup_field": "Course_Name",
+      "links_to": "Course performance tracking"
+    }
+  },
+  "payment_tracking_fields": {
+    "current_payment": [
+      "Last_Payment_Date",
+      "Last_Payment_Amount",
+      "Payment_Type",
+      "Payment_Source"
+    ],
+    "outstanding": [
+      "Amount_Outstanding",
+      "Due_Date",
+      "A_R_Crez_To_be_paid_on"
+    ],
+    "reconciliation": [
+      "Paid_In_CREZ",
+      "Inv_Reciepted"
+    ]
+  },
+  "merchant_fees": {
+    "field": "Merchant_Fee",
+    "applies_to": "Credit card payments",
+    "calculated_automatically": true
+  },
+  "automation_summary": {
+    "total_workflows": 11,
+    "create_triggers": 3,
+    "field_update_triggers": 7,
+    "create_or_edit_triggers": 2,
+    "key_trigger_fields": [
+      "Status",
+      "Purchase_Order_Number",
+      "Course_Name",
+      "sbhtc__Total_inc_GST0",
+      "Deal_Name__s",
+      "Refresh_PO_URL",
+      "Paid_In_CREZ"
+    ]
+  },
+  "external_integrations": {
+    "Xero": {
+      "purpose": "Accounting system sync",
+      "workflows": [
+        "Push Invoice to Xero"
+      ],
+      "fields": [
+        "Xero_Invoice_Number",
+        "Xero_Invoice_URL"
+      ]
+    },
+    "Stripe": {
+      "purpose": "Credit card processing",
+      "field": "Stripe_ID",
+      "source": "Website payments"
+    },
+    "Zoho_Forms": {
+      "purpose": "Payment and PO requests",
+      "fields": [
+        "Request_Payment_URL",
+        "Get_PO_URL"
+      ]
+    }
+  }
+}

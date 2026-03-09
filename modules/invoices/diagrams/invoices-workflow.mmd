@@ -1,0 +1,74 @@
+---
+title: Invoices Module - Workflow Execution Flow
+---
+flowchart TB
+    subgraph module["<a href='https://crm.zoho.com.au/crm/org7003757385/tab/Invoices'>Invoices Module</a>"]
+        direction LR
+        M["15 workflows | 4 triggers"]
+    end
+
+    subgraph Create["On Create Workflows (4)"]
+        C1["<a href='https://crm.zoho.com.au/crm/org7003757385/settings/workflow-rules/52330000005069739'>Update Due Date</a><br/><small>ID: 52330000005069739</small><br/><small>Trigger: On Create</small>"]
+        C2["<a href='https://crm.zoho.com.au/crm/org7003757385/settings/workflow-rules/52330000008512961'>Update All Fields</a><br/><small>ID: 52330000008512961</small><br/><small>Trigger: On Create</small>"]
+        C3["<a href='https://crm.zoho.com.au/crm/org7003757385/settings/workflow-rules/52330000005517247'>Push to XERO on Create when PAID</a><br/><small>ID: 52330000005517247</small><br/><small>Trigger: On Create</small>"]
+        C4["<a href='https://crm.zoho.com.au/crm/org7003757385/settings/workflow-rules/52330000008694463'>Send on create - Awaiting Payment</a><br/><small>ID: 52330000008694463</small><br/><small>Trigger: On Create</small>"]
+    end
+
+    subgraph CreateEdit["On Create/Edit Workflows (3)"]
+        CE1["<a href='https://crm.zoho.com.au/crm/org7003757385/settings/workflow-rules/52330000002375206'>Calculate Overall Tax</a><br/><small>ID: 52330000002375206</small><br/><small>Trigger: On Create/Edit</small>"]
+        CE2["<a href='https://crm.zoho.com.au/crm/org7003757385/settings/workflow-rules/52330000004251591'>Update Deal and Reg record</a><br/><small>ID: 52330000004251591</small><br/><small>Trigger: On Create/Edit</small>"]
+        CE3["<a href='https://crm.zoho.com.au/crm/org7003757385/settings/workflow-rules/52330000004975124'>Inhouse - Calculate Tax</a><br/><small>ID: 52330000004975124</small><br/><small>Trigger: On Create/Edit</small>"]
+    end
+
+    subgraph StatusUpdate["On Status Field Update (4)"]
+        S1["<a href='https://crm.zoho.com.au/crm/org7003757385/settings/workflow-rules/52330000004534311'>Send Invoice</a><br/><small>ID: 52330000004534311</small><br/><small>Field: Status = Sent</small>"]
+        S2["<a href='https://crm.zoho.com.au/crm/org7003757385/settings/workflow-rules/52330000002460231'>Push Invoice to Xero</a><br/><small>ID: 52330000002460231</small><br/><small>Field: Status = Paid</small>"]
+        S3["<a href='https://crm.zoho.com.au/crm/org7003757385/settings/workflow-rules/52330000002610986'>Invoice Update</a><br/><small>ID: 52330000002610986</small><br/><small>Field: Status</small>"]
+        S4["<a href='https://crm.zoho.com.au/crm/org7003757385/settings/workflow-rules/52330000009085784'>Update Amount in Deal when Inv paid</a><br/><small>ID: 52330000009085784</small><br/><small>Field: Status = Paid</small>"]
+    end
+
+    subgraph FieldUpdate["On Other Field Updates (4)"]
+        F1["<a href='https://crm.zoho.com.au/crm/org7003757385/settings/workflow-rules/52330000005069778'>When PO received</a><br/><small>ID: 52330000005069778</small><br/><small>Fields: Purchase_Order_Number, Status</small>"]
+        F2["<a href='https://crm.zoho.com.au/crm/org7003757385/settings/workflow-rules/52330000008519048'>Update URL</a><br/><small>ID: 52330000008519048</small><br/><small>Fields: Course_Name, Total, Deal_Name</small>"]
+        F3["<a href='https://crm.zoho.com.au/crm/org7003757385/settings/workflow-rules/52330000002460196'>Paid in Crez</a><br/><small>ID: 52330000002460196</small><br/><small>Field: Paid_In_CREZ</small>"]
+        F4["<a href='https://crm.zoho.com.au/crm/org7003757385/settings/workflow-rules/52330000008776519'>Refresh Payment URL</a><br/><small>ID: 52330000008776519</small><br/><small>Field: Refresh_PO_URL</small>"]
+    end
+
+    subgraph External["External Systems"]
+        E1[("<a href='https://www.xero.com'>Xero</a><br/><small>Accounting</small>")]
+        E2[("Stripe<br/><small>Payments</small>")]
+        E3[("<a href='https://crm.zoho.com.au/crm/org7003757385/tab/Deals'>Deals</a><br/><small>Module</small>")]
+        E4[("<a href='https://crm.zoho.com.au/crm/org7003757385/tab/Registration_Records'>Registration</a><br/><small>Records</small>")]
+    end
+
+    %% Create flow
+    C1 -->|"sequence"| C2
+    C2 -->|"sequence"| CE1
+    CE1 -->|"sequence"| CE2
+
+    %% Status update impacts
+    S2 -->|"API Call<br/>Sync Invoice"| E1
+    S4 -->|"Field Update<br/>Amount"| E3
+    S3 -->|"Field Update<br/>Status"| E4
+
+    %% Field updates
+    F1 -->|"triggers"| S3
+    F2 -->|"triggers"| F4
+
+    %% External connections
+    E2 -.->|"Webhook<br/>Payment Success"| S3
+
+    %% Styling
+    classDef moduleStyle fill:#e3f2fd,stroke:#1976d2,color:#0d47a1,stroke-width:2px
+    classDef createStyle fill:#c8e6c9,stroke:#2e7d32,color:#1b5e20
+    classDef createEditStyle fill:#dcedc8,stroke:#689f38,color:#33691e
+    classDef statusStyle fill:#f3e5f5,stroke:#7b1fa2,color:#4a148c
+    classDef fieldStyle fill:#fff3e0,stroke:#f57c00,color:#e65100
+    classDef extStyle fill:#e8f5e9,stroke:#4caf50,color:#1b5e20
+
+    class M moduleStyle
+    class C1,C2,C3,C4 createStyle
+    class CE1,CE2,CE3 createEditStyle
+    class S1,S2,S3,S4 statusStyle
+    class F1,F2,F3,F4 fieldStyle
+    class E1,E2,E3,E4 extStyle

@@ -1,0 +1,331 @@
+{
+  "module": "Invoices",
+  "status_field": "Status",
+  "total_statuses": 9,
+  "source": "zoho-data-model-2025-11-13.json",
+  "generated": "2025-11-18",
+  "statuses": [
+    {
+      "sequence": 1,
+      "display_value": "Draft",
+      "actual_value": "Created",
+      "colour_code": null,
+      "type": "used",
+      "id": "52330000000023323",
+      "category": "entry",
+      "description": "Invoice created but not yet ready for payment",
+      "workflows_on_entry": [
+        {
+          "name": "Update Due Date",
+          "id": "52330000005069739",
+          "trigger": "create",
+          "active": true,
+          "workflow_url": "https://crm.zoho.com.au/crm/org7003757385/settings/workflow-rules/52330000005069739"
+        },
+        {
+          "name": "Update All Fields",
+          "id": "52330000008512961",
+          "trigger": "create",
+          "active": true,
+          "workflow_url": "https://crm.zoho.com.au/crm/org7003757385/settings/workflow-rules/52330000008512961"
+        },
+        {
+          "name": "Inhouse - Calculate Overall Tax for Invoice",
+          "id": "52330000004975124",
+          "trigger": "create_or_edit",
+          "active": true,
+          "workflow_url": "https://crm.zoho.com.au/crm/org7003757385/settings/workflow-rules/52330000004975124"
+        },
+        {
+          "name": "New - Update deal and Reg record",
+          "id": "52330000004251591",
+          "trigger": "create_or_edit",
+          "active": true,
+          "workflow_url": "https://crm.zoho.com.au/crm/org7003757385/settings/workflow-rules/52330000004251591"
+        }
+      ],
+      "human_actions": [
+        "Add line items to Invoiced_Items subform",
+        "Set Payment_term_in_days",
+        "Verify Account_Name and Contact_Name",
+        "Set Email_for_Invoice"
+      ],
+      "transitions_to": [
+        "Awaiting Payment",
+        "Cancelled"
+      ]
+    },
+    {
+      "sequence": 2,
+      "display_value": "Awaiting Payment",
+      "actual_value": "Awaiting Payment",
+      "colour_code": null,
+      "type": "used",
+      "id": "52330000004436309",
+      "category": "active",
+      "description": "Invoice ready to send or auto-sending",
+      "workflows_on_entry": [
+        {
+          "name": "Send on create - Awaiting Payment",
+          "id": "52330000008694463",
+          "trigger": "create",
+          "active": true,
+          "note": "Only fires if created with this status",
+          "workflow_url": "https://crm.zoho.com.au/crm/org7003757385/settings/workflow-rules/52330000008694463"
+        }
+      ],
+      "workflows_on_field_update": [
+        {
+          "name": "When Po is received",
+          "id": "52330000005069778",
+          "trigger_fields": [
+            "Purchase_Order_Number",
+            "Status"
+          ],
+          "active": true,
+          "workflow_url": "https://crm.zoho.com.au/crm/org7003757385/settings/workflow-rules/52330000005069778"
+        }
+      ],
+      "human_actions": [
+        "Enter Purchase_Order_Number if required",
+        "Review Request_Payment_URL",
+        "Send to client if not auto-sent"
+      ],
+      "transitions_to": [
+        "Sent",
+        "Paid",
+        "Cancelled"
+      ]
+    },
+    {
+      "sequence": 3,
+      "display_value": "Sent",
+      "actual_value": "Delivered",
+      "colour_code": null,
+      "type": "used",
+      "id": "52330000000023329",
+      "category": "active",
+      "description": "Invoice has been sent to client",
+      "workflows_on_entry": [
+        {
+          "name": "Send Invoice",
+          "id": "52330000004534311",
+          "trigger": "field_update",
+          "trigger_field": "Status",
+          "active": true,
+          "workflow_url": "https://crm.zoho.com.au/crm/org7003757385/settings/workflow-rules/52330000004534311"
+        },
+        {
+          "name": "Invoice Update",
+          "id": "52330000002610986",
+          "trigger": "field_update",
+          "trigger_field": "Status",
+          "active": true,
+          "workflow_url": "https://crm.zoho.com.au/crm/org7003757385/settings/workflow-rules/52330000002610986"
+        }
+      ],
+      "human_actions": [
+        "Confirm delivery to client",
+        "Follow up on payment",
+        "Check Amount_Outstanding"
+      ],
+      "transitions_to": [
+        "Approved",
+        "Partially Paid",
+        "Paid",
+        "Cancelled"
+      ]
+    },
+    {
+      "sequence": 4,
+      "display_value": "Approved",
+      "actual_value": "Approved",
+      "colour_code": null,
+      "type": "used",
+      "id": "52330000000023326",
+      "category": "active",
+      "description": "Client has approved the invoice",
+      "workflows_on_entry": [
+        {
+          "name": "Invoice Update",
+          "id": "52330000002610986",
+          "trigger": "field_update",
+          "trigger_field": "Status",
+          "active": true,
+          "workflow_url": "https://crm.zoho.com.au/crm/org7003757385/settings/workflow-rules/52330000002610986"
+        }
+      ],
+      "human_actions": [
+        "Process payment",
+        "Monitor for payment receipt"
+      ],
+      "transitions_to": [
+        "Partially Paid",
+        "Paid",
+        "Void"
+      ]
+    },
+    {
+      "sequence": 5,
+      "display_value": "Partially Paid",
+      "actual_value": "Partially Paid",
+      "colour_code": null,
+      "type": "used",
+      "id": "52330000002455459",
+      "category": "active",
+      "description": "Partial payment received",
+      "workflows_on_entry": [
+        {
+          "name": "Invoice Update",
+          "id": "52330000002610986",
+          "trigger": "field_update",
+          "trigger_field": "Status",
+          "active": true,
+          "workflow_url": "https://crm.zoho.com.au/crm/org7003757385/settings/workflow-rules/52330000002610986"
+        }
+      ],
+      "human_actions": [
+        "Record Last_Payment_Amount and Last_Payment_Date",
+        "Follow up for remaining Amount_Outstanding",
+        "Contact client for balance"
+      ],
+      "transitions_to": [
+        "Paid",
+        "Void"
+      ]
+    },
+    {
+      "sequence": 6,
+      "display_value": "Paid",
+      "actual_value": "Paid",
+      "colour_code": null,
+      "type": "used",
+      "id": "52330000002455457",
+      "category": "terminal_success",
+      "description": "Full payment received - invoice complete",
+      "workflows_on_entry": [
+        {
+          "name": "Push Invoice to Xero",
+          "id": "52330000002460231",
+          "trigger": "field_update",
+          "trigger_field": "Status",
+          "active": true,
+          "workflow_url": "https://crm.zoho.com.au/crm/org7003757385/settings/workflow-rules/52330000002460231"
+        },
+        {
+          "name": "Invoice Update",
+          "id": "52330000002610986",
+          "trigger": "field_update",
+          "trigger_field": "Status",
+          "active": true,
+          "workflow_url": "https://crm.zoho.com.au/crm/org7003757385/settings/workflow-rules/52330000002610986"
+        },
+        {
+          "name": "Update Amount in Deal when Inv is paid",
+          "id": "52330000009085784",
+          "trigger": "field_update",
+          "trigger_field": "Status",
+          "active": true,
+          "workflow_url": "https://crm.zoho.com.au/crm/org7003757385/settings/workflow-rules/52330000009085784"
+        }
+      ],
+      "human_actions": [
+        "Verify Xero sync (check Xero_Invoice_URL)",
+        "Confirm payment details (Stripe_ID, Payment_Source)",
+        "Check linked Deal amount updated"
+      ],
+      "transitions_to": [
+        "Credit"
+      ]
+    },
+    {
+      "sequence": 7,
+      "display_value": "Cancelled",
+      "actual_value": "Cancelled",
+      "colour_code": null,
+      "type": "used",
+      "id": "52330000000023332",
+      "category": "terminal_closed",
+      "description": "Invoice cancelled before payment",
+      "workflows_on_entry": [],
+      "human_actions": [
+        "Document cancellation reason",
+        "Notify relevant parties"
+      ],
+      "transitions_to": []
+    },
+    {
+      "sequence": 8,
+      "display_value": "Void",
+      "actual_value": "Void",
+      "colour_code": null,
+      "type": "used",
+      "id": "52330000002455461",
+      "category": "terminal_closed",
+      "description": "Invoice voided after creation",
+      "workflows_on_entry": [],
+      "human_actions": [
+        "Document void reason",
+        "Create replacement invoice if needed"
+      ],
+      "transitions_to": []
+    },
+    {
+      "sequence": 9,
+      "display_value": "Credit",
+      "actual_value": "Credit",
+      "colour_code": null,
+      "type": "used",
+      "id": "52330000009966041",
+      "category": "terminal_adjustment",
+      "description": "Credit note issued for refund or adjustment",
+      "workflows_on_entry": [],
+      "human_actions": [
+        "Issue credit note in Xero",
+        "Process refund if applicable"
+      ],
+      "transitions_to": []
+    }
+  ],
+  "kanban_columns": [
+    {
+      "name": "New",
+      "statuses": [
+        "Draft"
+      ],
+      "color": "#808080"
+    },
+    {
+      "name": "Pending",
+      "statuses": [
+        "Awaiting Payment",
+        "Sent"
+      ],
+      "color": "#3498db"
+    },
+    {
+      "name": "In Progress",
+      "statuses": [
+        "Approved",
+        "Partially Paid"
+      ],
+      "color": "#f1c40f"
+    },
+    {
+      "name": "Completed",
+      "statuses": [
+        "Paid"
+      ],
+      "color": "#27ae60"
+    },
+    {
+      "name": "Closed",
+      "statuses": [
+        "Cancelled",
+        "Void",
+        "Credit"
+      ],
+      "color": "#e74c3c"
+    }
+  ]
+}

@@ -1,0 +1,47 @@
+graph TD
+    %% Invoices Customer Journey
+
+    Invoice_Created["1. Invoice Created<br/>Invoice generated from quote or deal"]
+    Awaiting_Payment["2. Awaiting Payment<br/>Invoice sent to client, awaiting payment"]
+    Payment_Processing["3. Payment Processing<br/>Purchase order received or payment in progress"]
+    Paid["4. Paid<br/>Payment received and processed"]
+    Complete["5. Complete<br/>Invoice fully processed and reconciled"]
+
+    Invoice_Created --> Awaiting_Payment
+    Awaiting_Payment --> Payment_Processing
+    Payment_Processing --> Paid
+    Paid --> Complete
+
+    Invoice_Created_WF0["Inhouse - Calculate Overall Tax for Invoice<br/>ID: 52330000004975124"]
+    style Invoice_Created_WF0 fill:#90EE90
+    Invoice_Created -.->|triggers| Invoice_Created_WF0
+    Invoice_Created_WF1["Update Due Date<br/>ID: 52330000005069739"]
+    style Invoice_Created_WF1 fill:#90EE90
+    Invoice_Created -.->|triggers| Invoice_Created_WF1
+    Invoice_Created_WF2["Update All Fields<br/>ID: 52330000008512961"]
+    style Invoice_Created_WF2 fill:#90EE90
+    Invoice_Created -.->|triggers| Invoice_Created_WF2
+    Awaiting_Payment_WF0["Send Invoice<br/>ID: 52330000004534311"]
+    style Awaiting_Payment_WF0 fill:#90EE90
+    Awaiting_Payment -.->|triggers| Awaiting_Payment_WF0
+    Awaiting_Payment_WF1["Send on create - Awaiting Payment<br/>ID: 52330000008694463"]
+    style Awaiting_Payment_WF1 fill:#90EE90
+    Awaiting_Payment -.->|triggers| Awaiting_Payment_WF1
+    Awaiting_Payment_WF2["Invoice Udpate<br/>ID: 52330000002610986"]
+    style Awaiting_Payment_WF2 fill:#90EE90
+    Awaiting_Payment -.->|triggers| Awaiting_Payment_WF2
+    Payment_Processing_WF0["When Po is received<br/>ID: 52330000005069778"]
+    style Payment_Processing_WF0 fill:#90EE90
+    Payment_Processing -.->|triggers| Payment_Processing_WF0
+    Payment_Processing_WF1["Push Invoice to Xero<br/>ID: 52330000002460231"]
+    style Payment_Processing_WF1 fill:#90EE90
+    Payment_Processing -.->|triggers| Payment_Processing_WF1
+    Paid_WF0["Paid in Crez<br/>ID: 52330000002460196"]
+    style Paid_WF0 fill:#90EE90
+    Paid -.->|triggers| Paid_WF0
+    Paid_WF1["Push Invoice to Xero<br/>ID: 52330000002460231"]
+    style Paid_WF1 fill:#90EE90
+    Paid -.->|triggers| Paid_WF1
+    Paid_WF2["Invoice Udpate<br/>ID: 52330000002610986"]
+    style Paid_WF2 fill:#90EE90
+    Paid -.->|triggers| Paid_WF2

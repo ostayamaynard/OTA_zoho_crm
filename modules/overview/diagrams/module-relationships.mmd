@@ -1,0 +1,46 @@
+erDiagram
+    %% Module Relationships - Lookup Fields
+
+    Leads ||--o{ Contacts : converts
+    Leads ||--o{ Accounts : converts
+    Leads ||--o{ Deals : converts
+    Leads }o--|| RELATED : "Converted_Account"
+    Leads }o--|| RELATED : "Converted_Contact"
+    Leads }o--|| RELATED : "Converted_Deal"
+    Leads }o--|| RELATED : "Course"
+    Leads }o--|| RELATED : "Existing_Company_Record"
+    Contacts }o--|| RELATED : "Account_Name"
+    Accounts }o--|| RELATED : "Parent_Account"
+    Deals ||--o{ Quotes (via workflow) : creates
+    Deals ||--o{ Invoices (via Quote acceptance) : creates
+    Deals }o--|| RELATED : "Account_Name"
+    Deals }o--|| RELATED : "Contact_Name"
+    Deals }o--|| RELATED : "Courseaa"
+    Deals }o--|| RELATED : "Course"
+    Courses ||--o{ Team_Tasks (via workflow) : creates
+    Courses ||--o{ Course_Performance (via workflow) : creates
+    Courses }o--|| RELATED : "Course_Trainer"
+    Courses }o--|| RELATED : "Course_Qualification"
+    Courses }o--|| RELATED : "Select_Venue"
+    Courses }o--|| RELATED : "Private_Course_Client"
+    Registration_Records ||--o{ Course_Days subform entries (via workflow) : creates
+    Registration_Records }o--|| RELATED : "Course"
+    Registration_Records }o--|| RELATED : "Attendee"
+    Registration_Records }o--|| RELATED : "Trainer"
+    Registration_Records }o--|| RELATED : "Deal"
+    Registration_Records }o--|| RELATED : "Invoice"
+    Quotes ||--o{ Invoices (when Quote_Stage = Accepted) : creates
+    Quotes }o--|| RELATED : "Deal_Name"
+    Quotes }o--|| RELATED : "Account_Name"
+    Quotes }o--|| RELATED : "Contact_Name"
+    Quotes }o--|| RELATED : "Course_Name"
+    Invoices }o--|| RELATED : "Account_Name"
+    Invoices }o--|| RELATED : "Contact_Name"
+    Invoices }o--|| RELATED : "Deal_Name__s"
+    Invoices }o--|| RELATED : "Course_Name"
+    Team_Tasks }o--|| RELATED : "Course"
+    Team_Tasks }o--|| RELATED : "Course_Attendee"
+    Team_Tasks }o--|| RELATED : "Deal"
+    Team_Tasks }o--|| RELATED : "Invoice"
+    Team_Tasks }o--|| RELATED : "Quote"
+    Course_Performance }o--|| RELATED : "Course"

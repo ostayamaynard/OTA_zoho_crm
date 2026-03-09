@@ -1,0 +1,1106 @@
+{
+  "metadata": {
+    "name": "Deal Stages - Kanban Board View",
+    "description": "Detailed workflow mapping for each Deal stage with clickable workflow URLs",
+    "module": "Deals",
+    "stage_field": "Stage",
+    "zoho_instance": "https://crm.zoho.com.au/crm/org7003757385",
+    "workflow_base_url": "https://crm.zoho.com.au/crm/org7003757385/settings/workflow-rules/",
+    "created_date": "2025-11-13"
+  },
+  "kanban_stages": {
+    "Qualification": {
+      "stage_order": 1,
+      "description": "Initial deal assessment and data gathering",
+      "color": "#ffc6c6",
+      "icon": "🔍",
+      "entry_triggers": {
+        "lead_conversion": {
+          "source": "Lead converted to Deal",
+          "type": "automatic",
+          "workflows": [
+            {
+              "workflow_id": "52330000008292523",
+              "workflow_name": "Convert on Payment Success",
+              "url": "https://crm.zoho.com.au/crm/org7003757385/settings/workflow-rules/52330000008292523",
+              "trigger": "Stripe payment webhook",
+              "description": "Auto-creates Deal when lead pays",
+              "workflow_url": "https://crm.zoho.com.au/crm/org7003757385/settings/workflow-rules/52330000008292523"
+            },
+            {
+              "workflow_id": "52330000008920352",
+              "workflow_name": "Convert Pay Via Invoice",
+              "url": "https://crm.zoho.com.au/crm/org7003757385/settings/workflow-rules/52330000008920352",
+              "trigger": "Manual - WF_Action field",
+              "description": "Creates Deal for invoice payment path",
+              "workflow_url": "https://crm.zoho.com.au/crm/org7003757385/settings/workflow-rules/52330000008920352"
+            },
+            {
+              "workflow_id": "52330000008250081",
+              "workflow_name": "Convert Non Paying Lead",
+              "url": "https://crm.zoho.com.au/crm/org7003757385/settings/workflow-rules/52330000008250081",
+              "trigger": "Manual - WF_Action field",
+              "description": "Creates Deal for private courses",
+              "workflow_url": "https://crm.zoho.com.au/crm/org7003757385/settings/workflow-rules/52330000008250081"
+            }
+          ]
+        },
+        "manual_creation": {
+          "source": "User creates Deal directly",
+          "type": "human_input",
+          "required_fields": [
+            "Deal_Name",
+            "Stage"
+          ]
+        }
+      },
+      "workflows_on_enter": [
+        {
+          "workflow_id": "52330000002444572",
+          "workflow_name": "Update Deal ID",
+          "url": "https://crm.zoho.com.au/crm/org7003757385/settings/workflow-rules/52330000002444572",
+          "trigger_type": "create",
+          "trigger": "automatic",
+          "fires_when": "Deal record created",
+          "action": "Assigns Deal_CRM_ID field",
+          "timing": "Immediate",
+          "workflow_url": "https://crm.zoho.com.au/crm/org7003757385/settings/workflow-rules/52330000002444572"
+        },
+        {
+          "workflow_id": "52330000002967279",
+          "workflow_name": "Deal Naming Convention",
+          "url": "https://crm.zoho.com.au/crm/org7003757385/settings/workflow-rules/52330000002967279",
+          "trigger_type": "create",
+          "trigger": "automatic",
+          "fires_when": "Deal record created",
+          "action": "Formats Deal_Name field: [Course Type] - [Course] - [Date]",
+          "timing": "Immediate",
+          "workflow_url": "https://crm.zoho.com.au/crm/org7003757385/settings/workflow-rules/52330000002967279"
+        },
+        {
+          "workflow_id": "52330000003995130",
+          "workflow_name": "Update Amount on create",
+          "url": "https://crm.zoho.com.au/crm/org7003757385/settings/workflow-rules/52330000003995130",
+          "trigger_type": "create_or_edit",
+          "trigger": "automatic",
+          "fires_when": "Deal created or edited",
+          "action": "Calculates Amount from course fee × number of attendees",
+          "timing": "Immediate",
+          "workflow_url": "https://crm.zoho.com.au/crm/org7003757385/settings/workflow-rules/52330000003995130"
+        },
+        {
+          "workflow_id": "52330000004452015",
+          "workflow_name": "Workflow - Update Deal ID",
+          "url": "https://crm.zoho.com.au/crm/org7003757385/settings/workflow-rules/52330000004452015",
+          "trigger_type": "create_or_edit",
+          "trigger": "automatic",
+          "fires_when": "Deal created or edited",
+          "action": "Maintains Deal ID consistency",
+          "timing": "Immediate",
+          "workflow_url": "https://crm.zoho.com.au/crm/org7003757385/settings/workflow-rules/52330000004452015"
+        },
+        {
+          "workflow_id": "52330000005157945",
+          "workflow_name": "If Website Account Name",
+          "url": "https://crm.zoho.com.au/crm/org7003757385/settings/workflow-rules/52330000005157945",
+          "trigger_type": "create",
+          "trigger": "automatic",
+          "fires_when": "Deal created from website",
+          "action": "Populates account name for web-originated deals",
+          "timing": "Immediate",
+          "workflow_url": "https://crm.zoho.com.au/crm/org7003757385/settings/workflow-rules/52330000005157945"
+        }
+      ],
+      "workflows_on_field_update": [
+        {
+          "workflow_id": "52330000004013962",
+          "workflow_name": "Copy of Deal Naming Convention",
+          "url": "https://crm.zoho.com.au/crm/org7003757385/settings/workflow-rules/52330000004013962",
+          "trigger_type": "field_update",
+          "trigger": "automatic",
+          "condition_fields": [
+            "Courseaa",
+            "Course_Type"
+          ],
+          "fires_when": "User selects Course or Course Type",
+          "action": "Updates Deal_Name to include course details",
+          "timing": "When field changes",
+          "workflow_url": "https://crm.zoho.com.au/crm/org7003757385/settings/workflow-rules/52330000004013962"
+        },
+        {
+          "workflow_id": "52330000005069264",
+          "workflow_name": "When Account name is not blank",
+          "url": "https://crm.zoho.com.au/crm/org7003757385/settings/workflow-rules/52330000005069264",
+          "trigger_type": "field_update",
+          "trigger": "automatic",
+          "condition_fields": [
+            "Account_Name"
+          ],
+          "fires_when": "Account linked to deal",
+          "action": "Updates parent account and contact fields",
+          "timing": "When Account_Name changes",
+          "workflow_url": "https://crm.zoho.com.au/crm/org7003757385/settings/workflow-rules/52330000005069264"
+        }
+      ],
+      "human_actions_required": [
+        {
+          "action": "Verify deal details",
+          "fields": [
+            "Deal_Name",
+            "Account_Name",
+            "Contact_Name"
+          ],
+          "description": "Confirm all contact information is correct"
+        },
+        {
+          "action": "Select course",
+          "fields": [
+            "Courseaa",
+            "Course_Type"
+          ],
+          "description": "Link to Course record or select course type",
+          "triggers_workflow": "Copy of Deal Naming Convention"
+        },
+        {
+          "action": "Set number of attendees",
+          "fields": [
+            "Number_of_Attendees"
+          ],
+          "description": "Enter expected participant count",
+          "triggers_workflow": "Update Amount on create"
+        },
+        {
+          "action": "Verify amount",
+          "fields": [
+            "Amount"
+          ],
+          "description": "Check auto-calculated amount is correct"
+        }
+      ],
+      "exit_criteria": {
+        "ready_to_advance": "Deal details verified, course selected, amount confirmed",
+        "next_stage": "Negotiation/Review",
+        "user_action": "Change Stage field to 'Negotiation/Review'"
+      },
+      "typical_duration": "1-3 days",
+      "success_metrics": [
+        "Deal details complete",
+        "Course linked",
+        "Amount > $0"
+      ]
+    },
+    "Negotiation_Review": {
+      "stage_order": 2,
+      "description": "Quote sent, awaiting client decision and purchase order",
+      "color": "#ced9ff",
+      "icon": "💬",
+      "workflows_on_enter": [],
+      "workflows_available": [
+        {
+          "workflow_id": "52330000002967852",
+          "workflow_name": "Email to training Coordinator from DEALS",
+          "url": "https://crm.zoho.com.au/crm/org7003757385/settings/workflow-rules/52330000002967852",
+          "trigger_type": "field_update",
+          "trigger": "manual",
+          "condition_fields": [
+            "Request_Attendees"
+          ],
+          "fires_when": "User sets Request_Attendees = true",
+          "action": "Sends email to Training Coordinator requesting attendee details",
+          "timing": "When Request_Attendees checked",
+          "manual_trigger": true,
+          "how_to_trigger": "Set Request_Attendees checkbox to TRUE",
+          "note": "Field-based trigger - works in any stage",
+          "workflow_url": "https://crm.zoho.com.au/crm/org7003757385/settings/workflow-rules/52330000002967852"
+        },
+        {
+          "workflow_id": "52330000002460147",
+          "workflow_name": "Create Team Task from Deals",
+          "url": "https://crm.zoho.com.au/crm/org7003757385/settings/workflow-rules/52330000002460147",
+          "trigger_type": "field_update",
+          "trigger": "manual",
+          "condition_fields": [
+            "Create_Follow_up_Task"
+          ],
+          "fires_when": "User sets Create_Follow_up_Task = true",
+          "action": "Creates Team Task for follow-up",
+          "timing": "When checkbox set",
+          "manual_trigger": true,
+          "how_to_trigger": "Set Create_Follow_up_Task checkbox to TRUE",
+          "note": "Field-based trigger - works in any stage",
+          "workflow_url": "https://crm.zoho.com.au/crm/org7003757385/settings/workflow-rules/52330000002460147"
+        }
+      ],
+      "time_based_workflows": [
+        {
+          "workflow_id": "52330000002638311",
+          "workflow_name": "Follow up on Purchase Order 28 days before",
+          "url": "https://crm.zoho.com.au/crm/org7003757385/settings/workflow-rules/52330000002638311",
+          "trigger_type": "date_or_datetime",
+          "trigger": "automatic",
+          "fires_when": "28 days before Course_Start_Date",
+          "action": "Creates Team Task to chase PO if not received",
+          "timing": "28 days before course",
+          "creates_record": "Team_Task",
+          "reminder_type": "first_reminder",
+          "workflow_url": "https://crm.zoho.com.au/crm/org7003757385/settings/workflow-rules/52330000002638311"
+        },
+        {
+          "workflow_id": "52330000002638269",
+          "workflow_name": "Follow up on Purchase Order 14 days before course",
+          "url": "https://crm.zoho.com.au/crm/org7003757385/settings/workflow-rules/52330000002638269",
+          "trigger_type": "date_or_datetime",
+          "trigger": "automatic",
+          "fires_when": "14 days before Course_Start_Date",
+          "action": "Creates Team Task to chase PO",
+          "timing": "14 days before course",
+          "creates_record": "Team_Task",
+          "reminder_type": "second_reminder",
+          "workflow_url": "https://crm.zoho.com.au/crm/org7003757385/settings/workflow-rules/52330000002638269"
+        },
+        {
+          "workflow_id": "52330000002638411",
+          "workflow_name": "Follow up on Purchase Order 1 days before",
+          "url": "https://crm.zoho.com.au/crm/org7003757385/settings/workflow-rules/52330000002638411",
+          "trigger_type": "date_or_datetime",
+          "trigger": "automatic",
+          "fires_when": "1 day before Course_Start_Date",
+          "action": "Creates urgent Team Task - PO still missing",
+          "timing": "1 day before course",
+          "creates_record": "Team_Task",
+          "reminder_type": "urgent_reminder",
+          "workflow_url": "https://crm.zoho.com.au/crm/org7003757385/settings/workflow-rules/52330000002638411"
+        },
+        {
+          "workflow_id": "52330000009085891",
+          "workflow_name": "Follow up on Purchase Order 5 days before course",
+          "url": "https://crm.zoho.com.au/crm/org7003757385/settings/workflow-rules/52330000009085891",
+          "trigger_type": "field_update",
+          "trigger": "automatic",
+          "condition_fields": [
+            "Stage"
+          ],
+          "fires_when": "Deal in Negotiation stage AND 5 days before course",
+          "action": "Creates Team Task if still in negotiation",
+          "timing": "5 days before course",
+          "creates_record": "Team_Task",
+          "reminder_type": "third_reminder",
+          "workflow_url": "https://crm.zoho.com.au/crm/org7003757385/settings/workflow-rules/52330000009085891"
+        },
+        {
+          "workflow_id": "52330000001178038",
+          "workflow_name": "Follow up future deals",
+          "url": "https://crm.zoho.com.au/crm/org7003757385/settings/workflow-rules/52330000001178038",
+          "trigger_type": "date_or_datetime",
+          "trigger": "automatic",
+          "fires_when": "Based on Follow_up_date field",
+          "action": "Creates follow-up task for future dated deals",
+          "timing": "On follow-up date",
+          "creates_record": "Task",
+          "workflow_url": "https://crm.zoho.com.au/crm/org7003757385/settings/workflow-rules/52330000001178038"
+        }
+      ],
+      "human_actions_required": [
+        {
+          "action": "Chase purchase order",
+          "description": "Contact client to obtain PO number",
+          "fields": [
+            "Purchase_Order_Number",
+            "Po_Expected_Date"
+          ],
+          "urgency": "high"
+        },
+        {
+          "action": "Negotiate terms",
+          "fields": [
+            "Quote_Amount",
+            "Po_Expected_Date"
+          ],
+          "description": "Discuss pricing, dates, terms with client"
+        },
+        {
+          "action": "Update PO details in Quote",
+          "module": "Quotes",
+          "fields": [
+            "Expected_PO_Date",
+            "PO_Number"
+          ],
+          "description": "Enter PO details when received",
+          "triggers_workflow": "Update Deal with PO Number and Date"
+        },
+        {
+          "action": "Set Quote status",
+          "module": "Quotes",
+          "fields": [
+            "Quote_Stage"
+          ],
+          "description": "Update to Accepted when client confirms"
+        }
+      ],
+      "exit_criteria": {
+        "win_path": {
+          "condition": "Quote accepted, PO received (or payment confirmed)",
+          "next_stage": "Ready to Quote or Awaiting Purchase Order",
+          "user_action": "Change Stage to 'Ready to Quote' OR 'Awaiting Purchase Order' OR Quote.Quote_Stage to 'Accepted'"
+        },
+        "loss_path": {
+          "condition": "Client declines or no response",
+          "next_stage": "Closed Lost",
+          "user_action": "Change Stage to 'Closed Lost'",
+          "required_field": "Loss_Reason"
+        }
+      },
+      "typical_duration": "7-30 days (depends on PO process)",
+      "success_metrics": [
+        "PO received",
+        "Quote accepted",
+        "Course date confirmed"
+      ],
+      "warnings": [
+        "⚠️ If Deal sits here too long, multiple reminder tasks will be created",
+        "⚠️ Set Course_Start_Date to trigger appropriate PO follow-up timeline"
+      ]
+    },
+    "Ready_to_Quote": {
+      "stage_order": 3,
+      "description": "Quote automatically generated when stage entered",
+      "color": "#ffda62",
+      "icon": "📝",
+      "workflows_on_enter": [
+        {
+          "workflow_id": "52330000002460308",
+          "workflow_name": "Create Quote - Stage Update Ready to quote",
+          "url": "https://crm.zoho.com.au/crm/org7003757385/settings/workflow-rules/52330000002460308",
+          "trigger_type": "field_update",
+          "trigger": "automatic",
+          "condition_fields": [
+            "Stage"
+          ],
+          "fires_when": "Stage changes to 'Ready to Quote'",
+          "action": "AUTO-CREATES Quote record linked to this Deal",
+          "timing": "Immediate when stage changed",
+          "creates_record": "Quote",
+          "important": "⚠️ This automatically creates a Quote - check Quotes module after stage change",
+          "workflow_url": "https://crm.zoho.com.au/crm/org7003757385/settings/workflow-rules/52330000002460308"
+        }
+      ],
+      "human_actions_required": [
+        {
+          "action": "Review auto-generated quote",
+          "module": "Quotes",
+          "description": "Check Quote module for new quote linked to this deal",
+          "fields_to_verify": [
+            "Quoted_Items",
+            "sbhtc__Total_inc_GST0",
+            "Account_Name",
+            "Contact_Name"
+          ]
+        },
+        {
+          "action": "Adjust pricing if needed",
+          "module": "Quotes",
+          "fields": [
+            "Quoted_Items (subform)",
+            "Discount"
+          ],
+          "description": "Modify line items or add discounts"
+        },
+        {
+          "action": "Set valid until date",
+          "module": "Quotes",
+          "fields": [
+            "Valid_Till"
+          ],
+          "description": "Quote expiry date"
+        },
+        {
+          "action": "Send quote to client",
+          "module": "Quotes",
+          "fields": [
+            "Send_Quote_as_EMAIL"
+          ],
+          "description": "Set to TRUE to email quote",
+          "triggers_workflow": "Send Quote (in Quotes module)"
+        }
+      ],
+      "exit_criteria": {
+        "ready_to_advance": "Quote sent to client",
+        "next_stage": "Negotiation/Review or Awaiting ZipPay Confirmation",
+        "user_action": "Change Stage field to 'Negotiation/Review' or 'Awaiting ZipPay Confirmation'"
+      },
+      "created_records": {
+        "Quote": {
+          "module": "Quotes",
+          "created_by_workflow": "52330000002460308",
+          "url_pattern": "https://crm.zoho.com.au/crm/org7003757385/tab/Deals/{deal_id}"
+        }
+      },
+      "typical_duration": "1-2 days",
+      "success_metrics": [
+        "Quote created",
+        "Quote sent",
+        "Valid_Till date set"
+      ]
+    },
+    "Awaiting_ZipPay_Confirmation": {
+      "stage_order": 4,
+      "description": "Awaiting ZipPay payment confirmation",
+      "color": "#af38fa",
+      "icon": "💳",
+      "workflows_on_enter": [],
+      "human_actions_required": [
+        {
+          "action": "Monitor ZipPay payment status",
+          "description": "Check if ZipPay payment has been confirmed",
+          "fields": [
+            "Payment_source",
+            "Payment_Status"
+          ]
+        },
+        {
+          "action": "Set course start date",
+          "fields": [
+            "Course_Start_Date"
+          ],
+          "description": "When will course run"
+        }
+      ],
+      "exit_criteria": {
+        "win_path": {
+          "condition": "ZipPay payment confirmed",
+          "next_stage": "Awaiting Purchase Order or Closed Won",
+          "user_action": "Change Stage based on payment confirmation"
+        },
+        "loss_path": {
+          "condition": "Payment declined or cancelled",
+          "next_stage": "Closed Lost",
+          "user_action": "Change Stage to 'Closed Lost'",
+          "required_field": "Loss_Reason"
+        }
+      },
+      "typical_duration": "1-3 days",
+      "success_metrics": [
+        "Payment confirmed",
+        "Course date set"
+      ]
+    },
+    "Awaiting_Purchase_Order": {
+      "stage_order": 5,
+      "description": "Quote accepted, awaiting purchase order from client",
+      "color": "#dbdbdb",
+      "icon": "📋",
+      "workflows_on_enter": [],
+      "human_actions_required": [
+        {
+          "action": "Chase purchase order",
+          "description": "Contact client to obtain PO number",
+          "fields": [
+            "Purchase_Order_Number",
+            "Po_Expected_Date"
+          ],
+          "urgency": "high"
+        },
+        {
+          "action": "Update PO details when received",
+          "fields": [
+            "Purchase_Order_Number"
+          ],
+          "description": "Enter PO number when received from client",
+          "triggers_workflow": "Purchase Order Received + Update Registration records"
+        }
+      ],
+      "exit_criteria": {
+        "win_path": {
+          "condition": "PO received",
+          "next_stage": "Awaiting Invoice Payment or Closed Won",
+          "user_action": "Enter Purchase_Order_Number or change Stage to 'Closed Won'"
+        },
+        "loss_path": {
+          "condition": "PO not received or deal cancelled",
+          "next_stage": "Closed Lost",
+          "user_action": "Change Stage to 'Closed Lost'",
+          "required_field": "Loss_Reason"
+        }
+      },
+      "typical_duration": "7-14 days",
+      "success_metrics": [
+        "PO received",
+        "PO number entered"
+      ]
+    },
+    "Awaiting_Invoice_Payment": {
+      "stage_order": 6,
+      "description": "Invoice sent, awaiting payment from client",
+      "color": "#acacac",
+      "icon": "💰",
+      "workflows_on_enter": [],
+      "human_actions_required": [
+        {
+          "action": "Monitor invoice payment status",
+          "module": "Invoices",
+          "fields": [
+            "Status"
+          ],
+          "description": "Track invoice payment status"
+        },
+        {
+          "action": "Follow up on payment",
+          "description": "Contact client if payment overdue",
+          "fields": [
+            "Payment_Status"
+          ]
+        }
+      ],
+      "exit_criteria": {
+        "win_path": {
+          "condition": "Payment received",
+          "next_stage": "Closed Won",
+          "user_action": "Change Stage to 'Closed Won' when payment confirmed"
+        },
+        "loss_path": {
+          "condition": "Payment not received or deal cancelled",
+          "next_stage": "Closed Lost",
+          "user_action": "Change Stage to 'Closed Lost'",
+          "required_field": "Loss_Reason"
+        }
+      },
+      "typical_duration": "7-30 days",
+      "success_metrics": [
+        "Payment received",
+        "Invoice paid"
+      ]
+    },
+    "Unused": {
+      "stage_order": 7,
+      "description": "Deal temporarily set aside or on hold",
+      "color": "#ffc6c6",
+      "icon": "⏸️",
+      "workflows_on_enter": [],
+      "human_actions_required": [
+        {
+          "action": "Document reason for hold",
+          "fields": [
+            "Follow_Up_Notes"
+          ],
+          "description": "Note why deal is on hold"
+        },
+        {
+          "action": "Set follow-up date",
+          "fields": [
+            "Follow_up_date"
+          ],
+          "description": "When to follow up on this deal",
+          "triggers_workflow": "Follow up future deals"
+        }
+      ],
+      "exit_criteria": {
+        "ready_to_advance": "Deal reactivated",
+        "next_stage": "Any active stage based on deal status",
+        "user_action": "Change Stage to appropriate stage when deal reactivated"
+      },
+      "typical_duration": "Variable",
+      "success_metrics": [
+        "Follow-up date set",
+        "Reason documented"
+      ]
+    },
+    "Closed_Won": {
+      "stage_order": 8,
+      "description": "Quote accepted, PO received, deal won",
+      "color": "#25b52a",
+      "icon": "✅",
+      "entry_triggers": {
+        "quote_acceptance": {
+          "source": "Quote.Quote_Stage = Accepted",
+          "type": "automatic",
+          "workflow_id": "52330000002460325",
+          "workflow_name": "Update Deal and Invoice on Quote Closed Won",
+          "url": "https://crm.zoho.com.au/crm/org7003757385/settings/workflow-rules/52330000002460325",
+          "description": "Quote acceptance auto-updates Deal to Closed Won",
+          "module": "Quotes",
+          "workflow_url": "https://crm.zoho.com.au/crm/org7003757385/settings/workflow-rules/52330000002460325"
+        },
+        "manual_update": {
+          "source": "User changes Stage to Closed Won",
+          "type": "human_input"
+        }
+      },
+      "workflows_on_enter": [
+        {
+          "workflow_id": "52330000002460283",
+          "workflow_name": "Purchase Order Received",
+          "url": "https://crm.zoho.com.au/crm/org7003757385/settings/workflow-rules/52330000002460283",
+          "trigger_type": "field_update",
+          "trigger": "automatic",
+          "condition_fields": [
+            "Purchase_Order_Number"
+          ],
+          "fires_when": "PO Number entered",
+          "action": "Updates deal status, notifies team, timestamps PO receipt",
+          "timing": "When PO_Number field populated",
+          "workflow_url": "https://crm.zoho.com.au/crm/org7003757385/settings/workflow-rules/52330000002460283"
+        },
+        {
+          "workflow_id": "52330000006993545",
+          "workflow_name": "Update Registration records when PO Is received",
+          "url": "https://crm.zoho.com.au/crm/org7003757385/settings/workflow-rules/52330000006993545",
+          "trigger_type": "field_update",
+          "trigger": "automatic",
+          "condition_fields": [
+            "Purchase_Order_Number"
+          ],
+          "fires_when": "PO Number entered",
+          "action": "Updates all Registration_Records linked to this Deal → Status = Confirmed",
+          "timing": "When PO_Number field populated",
+          "updates_module": "Registration_Records",
+          "workflow_url": "https://crm.zoho.com.au/crm/org7003757385/settings/workflow-rules/52330000006993545"
+        },
+        {
+          "workflow_id": "52330000004335567",
+          "workflow_name": "On stage Update related Attendees",
+          "url": "https://crm.zoho.com.au/crm/org7003757385/settings/workflow-rules/52330000004335567",
+          "trigger_type": "field_update",
+          "trigger": "automatic",
+          "condition_fields": [
+            "Stage"
+          ],
+          "fires_when": "Stage changes to Closed Won",
+          "action": "Updates Registration_Records → Status = Confirmed (if payment confirmed)",
+          "timing": "When Stage changes",
+          "updates_module": "Registration_Records",
+          "workflow_url": "https://crm.zoho.com.au/crm/org7003757385/settings/workflow-rules/52330000004335567"
+        }
+      ],
+      "human_actions_required": [
+        {
+          "action": "Enter Purchase Order Number",
+          "fields": [
+            "Purchase_Order_Number"
+          ],
+          "description": "Enter PO number from client",
+          "triggers_workflow": "Purchase Order Received + Update Registration records",
+          "important": "⚠️ Triggers 2 workflows that update registrations"
+        },
+        {
+          "action": "Verify invoice created",
+          "module": "Invoices",
+          "description": "Check if invoice was auto-created by Quote acceptance",
+          "check_workflow": "Update Deal and Invoice on Quote Closed Won (from Quotes module)"
+        },
+        {
+          "action": "Verify registrations confirmed",
+          "module": "Registration_Records",
+          "description": "Check all Registration_Records for this course have Status = Confirmed"
+        },
+        {
+          "action": "Monitor payment",
+          "module": "Invoices",
+          "fields": [
+            "Status"
+          ],
+          "description": "Track invoice payment status"
+        }
+      ],
+      "exit_criteria": {
+        "completion": "Deal won, invoice created/paid, registrations confirmed",
+        "remains_in_stage": "Closed Won is terminal stage",
+        "related_actions": [
+          "Invoice sent to client",
+          "Payment received",
+          "Course delivery proceeds"
+        ]
+      },
+      "typical_duration": "Ongoing (terminal stage)",
+      "success_metrics": [
+        "PO received",
+        "Invoice paid",
+        "Registrations confirmed",
+        "Course delivered"
+      ],
+      "cascade_effects": [
+        "Registration_Records → Status = Confirmed",
+        "Course → Registrations_Confirmed incremented",
+        "Invoice → Created and sent",
+        "Team_Tasks → Admin tasks created"
+      ]
+    },
+    "Closed_Lost": {
+      "stage_order": 9,
+      "description": "Quote declined or deal abandoned",
+      "color": "#eb4d4d",
+      "icon": "❌",
+      "workflows_on_enter": [],
+      "human_actions_required": [
+        {
+          "action": "Enter loss reason",
+          "fields": [
+            "Loss_Reason"
+          ],
+          "description": "Document why deal was lost (MANDATORY)",
+          "mandatory": true
+        },
+        {
+          "action": "Update Quote status",
+          "module": "Quotes",
+          "fields": [
+            "Quote_Stage"
+          ],
+          "description": "Set Quote_Stage to 'Declined' or 'Closed Lost'"
+        },
+        {
+          "action": "Cancel registrations if created",
+          "module": "Registration_Records",
+          "fields": [
+            "Status"
+          ],
+          "description": "Set Status to 'Cancelled' for any registrations"
+        }
+      ],
+      "exit_criteria": {
+        "completion": "Loss documented",
+        "remains_in_stage": "Closed Lost is terminal stage",
+        "no_further_actions": true
+      },
+      "typical_duration": "N/A (terminal stage)",
+      "success_metrics": [
+        "Loss_Reason documented",
+        "Quote closed",
+        "Registrations cancelled"
+      ]
+    }
+  },
+  "deal_workflow_summary": {
+    "total_workflows": 13,
+    "automatic_on_create": 5,
+    "automatic_on_field_update": 5,
+    "time_based_reminders": 4,
+    "manual_triggers": 2,
+    "creates_records": [
+      "Quote",
+      "Team_Tasks",
+      "Invoice (via Quote)"
+    ]
+  },
+  "key_trigger_fields": {
+    "Stage": {
+      "field_type": "picklist",
+      "system_mandatory": true,
+      "triggers_workflows": [
+        "Create Quote - Stage Update Ready to quote (when = Ready to Quote)",
+        "On stage Update related Attendees (when = Closed Won)",
+        "Follow up on Purchase Order 5 days before course"
+      ],
+      "user_action": "Select from dropdown",
+      "workflow_urls": [
+        "https://crm.zoho.com.au/crm/org7003757385/settings/workflow-rules/52330000002460308",
+        "https://crm.zoho.com.au/crm/org7003757385/settings/workflow-rules/52330000004335567",
+        "https://crm.zoho.com.au/crm/org7003757385/settings/workflow-rules/52330000009085891"
+      ]
+    },
+    "Purchase_Order_Number": {
+      "field_type": "text",
+      "triggers_workflows": [
+        "Purchase Order Received",
+        "Update Registration records when PO Is received"
+      ],
+      "user_action": "Enter PO number",
+      "workflow_urls": [
+        "https://crm.zoho.com.au/crm/org7003757385/settings/workflow-rules/52330000002460283",
+        "https://crm.zoho.com.au/crm/org7003757385/settings/workflow-rules/52330000006993545"
+      ]
+    },
+    "Courseaa": {
+      "field_type": "lookup",
+      "lookup_module": "Courses",
+      "triggers_workflows": [
+        "Copy of Deal Naming Convention"
+      ],
+      "user_action": "Select course from lookup",
+      "workflow_urls": [
+        "https://crm.zoho.com.au/crm/org7003757385/settings/workflow-rules/52330000004013962"
+      ]
+    },
+    "Request_Attendees": {
+      "field_type": "boolean",
+      "triggers_workflows": [
+        "Email to training Coordinator from DEALS"
+      ],
+      "user_action": "Check box to trigger",
+      "manual_trigger": true,
+      "workflow_urls": [
+        "https://crm.zoho.com.au/crm/org7003757385/settings/workflow-rules/52330000002967852"
+      ]
+    },
+    "Create_Follow_up_Task": {
+      "field_type": "boolean",
+      "triggers_workflows": [
+        "Create Team Task from Deals"
+      ],
+      "user_action": "Check box to trigger",
+      "manual_trigger": true,
+      "workflow_urls": [
+        "https://crm.zoho.com.au/crm/org7003757385/settings/workflow-rules/52330000002460147"
+      ]
+    }
+  },
+  "kanban_board_config": {
+    "columns": [
+      {
+        "stage": "Qualification",
+        "color": "#ffc6c6",
+        "card_color": "#FFF9C4",
+        "show_fields": [
+          "Deal_Name",
+          "Account_Name",
+          "Courseaa",
+          "Amount",
+          "Number_of_Attendees"
+        ],
+        "show_workflows": true,
+        "workflow_count": 5
+      },
+      {
+        "stage": "Negotiation/Review",
+        "color": "#ced9ff",
+        "card_color": "#E3E9FF",
+        "show_fields": [
+          "Deal_Name",
+          "Po_Expected_Date",
+          "Purchase_Order_Number",
+          "Quote_Stage"
+        ],
+        "show_workflows": true,
+        "workflow_count": 5,
+        "show_timeline": true,
+        "timeline_based_on": "Course_Start_Date"
+      },
+      {
+        "stage": "Ready to Quote",
+        "color": "#ffda62",
+        "card_color": "#FFF4C4",
+        "show_fields": [
+          "Deal_Name",
+          "Quote_ID",
+          "Quote_Amount",
+          "Valid_Till"
+        ],
+        "show_workflows": true,
+        "workflow_count": 1,
+        "important_note": "Quote auto-created on entry"
+      },
+      {
+        "stage": "Awaiting ZipPay Confirmation",
+        "color": "#af38fa",
+        "card_color": "#E8D5FF",
+        "show_fields": [
+          "Deal_Name",
+          "Payment_source",
+          "Payment_Status",
+          "Course_Start_Date"
+        ],
+        "show_workflows": false,
+        "workflow_count": 0
+      },
+      {
+        "stage": "Awaiting Purchase Order",
+        "color": "#dbdbdb",
+        "card_color": "#F5F5F5",
+        "show_fields": [
+          "Deal_Name",
+          "Po_Expected_Date",
+          "Purchase_Order_Number",
+          "Quote_Stage"
+        ],
+        "show_workflows": false,
+        "workflow_count": 0
+      },
+      {
+        "stage": "Awaiting Invoice Payment",
+        "color": "#acacac",
+        "card_color": "#E8E8E8",
+        "show_fields": [
+          "Deal_Name",
+          "Invoice_ID",
+          "Payment_Status",
+          "Amount"
+        ],
+        "show_workflows": false,
+        "workflow_count": 0
+      },
+      {
+        "stage": "Unused",
+        "color": "#ffc6c6",
+        "card_color": "#FFE8E8",
+        "show_fields": [
+          "Deal_Name",
+          "Follow_Up_Notes",
+          "Follow_up_date"
+        ],
+        "show_workflows": false,
+        "workflow_count": 0
+      },
+      {
+        "stage": "Closed Won",
+        "color": "#25b52a",
+        "card_color": "#C8E6C9",
+        "show_fields": [
+          "Deal_Name",
+          "Purchase_Order_Number",
+          "Amount",
+          "Closing_Date"
+        ],
+        "show_workflows": true,
+        "workflow_count": 3
+      },
+      {
+        "stage": "Closed Lost",
+        "color": "#eb4d4d",
+        "card_color": "#FFCDD2",
+        "show_fields": [
+          "Deal_Name",
+          "Loss_Reason",
+          "Closing_Date"
+        ],
+        "show_workflows": false,
+        "workflow_count": 0
+      }
+    ],
+    "card_template": {
+      "header": "Deal_Name",
+      "subheader": "Account_Name",
+      "body_fields": [
+        "Courseaa",
+        "Course_Start_Date",
+        "Amount"
+      ],
+      "footer": "Last_Activity_Time",
+      "badge": "Number_of_Attendees",
+      "workflow_indicator": "Show count of active workflows",
+      "color_code_by": "Course_Type"
+    }
+  },
+  "workflow_decision_tree": {
+    "when_deal_created": [
+      {
+        "step": 1,
+        "event": "Deal record created",
+        "triggers": "5 automatic workflows fire immediately",
+        "workflows": [
+          "Update Deal ID",
+          "Deal Naming Convention",
+          "Update Amount on create",
+          "Workflow - Update Deal ID",
+          "If Website Account Name"
+        ],
+        "color": "green",
+        "type": "automatic"
+      }
+    ],
+    "when_stage_changed_to_ready_to_quote": [
+      {
+        "step": 1,
+        "event": "User changes Stage to 'Ready to Quote'",
+        "triggers": "1 automatic workflow fires",
+        "workflows": [
+          "Create Quote - Stage Update Ready to quote"
+        ],
+        "action": "Quote record AUTO-CREATED in Quotes module",
+        "color": "green",
+        "type": "automatic",
+        "important": true
+      }
+    ],
+    "when_stage_changed_to_closed_won": [
+      {
+        "step": 1,
+        "event": "User changes Stage to 'Closed Won' OR Quote accepted",
+        "triggers": "1-3 automatic workflows fire",
+        "workflows": [
+          "On stage Update related Attendees",
+          "Purchase Order Received (if PO entered)",
+          "Update Registration records when PO Is received (if PO entered)"
+        ],
+        "action": "Registration records updated to Confirmed",
+        "color": "green",
+        "type": "automatic"
+      }
+    ],
+    "when_po_number_entered": [
+      {
+        "step": 1,
+        "event": "User enters Purchase_Order_Number",
+        "triggers": "2 automatic workflows fire",
+        "workflows": [
+          "Purchase Order Received",
+          "Update Registration records when PO Is received"
+        ],
+        "action": "Deal and registrations updated",
+        "color": "green",
+        "type": "automatic",
+        "can_happen_in_stage": [
+          "Negotiation/Review",
+          "Closed Won"
+        ]
+      }
+    ],
+    "when_request_attendees_checked": [
+      {
+        "step": 1,
+        "event": "User sets Request_Attendees = TRUE",
+        "triggers": "1 manual workflow fires",
+        "workflows": [
+          "Email to training Coordinator from DEALS"
+        ],
+        "action": "Email sent to Training Coordinator",
+        "color": "blue",
+        "type": "manual",
+        "stage": "Negotiation/Review"
+      }
+    ]
+  },
+  "visual_kanban_structure": {
+    "mermaid_diagram": "Use this for Mermaid flowchart visualization",
+    "draw_io_template": "Import stages as swimlanes",
+    "lucidchart_template": "Each column = stage, cards = deals",
+    "recommended_colors": {
+      "Qualification": "#ffc6c6",
+      "Negotiation/Review": "#ced9ff",
+      "Ready to Quote": "#ffda62",
+      "Awaiting ZipPay Confirmation": "#af38fa",
+      "Awaiting Purchase Order": "#dbdbdb",
+      "Awaiting Invoice Payment": "#acacac",
+      "Unused": "#ffc6c6",
+      "Closed Won": "#25b52a",
+      "Closed Lost": "#eb4d4d"
+    }
+  },
+  "troubleshooting_by_stage": {
+    "quote_not_created_in_ready_to_quote": {
+      "check": [
+        "Is workflow 52330000002460308 active?",
+        "Did you set Stage to exact value 'Ready to Quote'?",
+        "Does Deal have Courseaa field populated?",
+        "Check workflow here: https://crm.zoho.com.au/crm/org7003757385/settings/workflow-rules/52330000002460308"
+      ],
+      "solution": "Verify workflow is active in Zoho, ensure Stage value matches exactly"
+    },
+    "registrations_not_confirming_in_closed_won": {
+      "check": [
+        "Did you enter Purchase_Order_Number?",
+        "Are workflows 52330000002460283 and 52330000006993545 active?",
+        "Do Registration_Records exist for this Deal?",
+        "Check workflows here: https://crm.zoho.com.au/crm/org7003757385/settings/workflow-rules/52330000002460283"
+      ],
+      "solution": "Enter PO number to trigger workflows, or manually update Registration statuses"
+    },
+    "po_reminders_not_firing": {
+      "check": [
+        "Is Course_Start_Date populated?",
+        "Are time-based workflows active?",
+        "Has the trigger date passed?",
+        "Check workflows: https://crm.zoho.com.au/crm/org7003757385/settings/workflow-rules/52330000002638311"
+      ],
+      "solution": "Ensure Course_Start_Date is set, workflows are active, and wait for trigger date"
+    }
+  }
+}

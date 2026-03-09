@@ -1,0 +1,74 @@
+graph TD
+    %% Courses Customer Journey
+
+    Course_Created["1. Course Created<br/>Initial course record creation and setup"]
+    Course_Approved["2. Course Approved<br/>Validate minimum registrations and publish course"]
+    Coursework["3. Coursework<br/>Prepare and distribute course materials"]
+    Course_Logistics["4. Course Logistics<br/>Arrange trainer travel, accommodation, and venue"]
+    Course_Enrolment["5. Course Enrolment<br/>Student enrolment and compliance (handled in Registration_Records)"]
+    Course_Delivery["6. Course Delivery<br/>Actual course delivery and attendance tracking"]
+    Certification["7. Certification<br/>Certificate processing and distribution"]
+    Archiving["8. Archiving<br/>Final documentation and performance metrics"]
+
+    Course_Created --> Course_Approved
+    Course_Approved --> Coursework
+    Coursework --> Course_Logistics
+    Course_Logistics --> Course_Enrolment
+    Course_Enrolment --> Course_Delivery
+    Course_Delivery --> Certification
+    Certification --> Archiving
+
+    Course_Created_WF0["Udpate Course ID<br/>ID: 52330000002444506"]
+    style Course_Created_WF0 fill:#90EE90
+    Course_Created -.->|triggers| Course_Created_WF0
+    Course_Created_WF1["Create Tasks for Course<br/>ID: 52330000002661635"]
+    style Course_Created_WF1 fill:#90EE90
+    Course_Created -.->|triggers| Course_Created_WF1
+    Course_Created_WF2["Naming Convention - Course<br/>ID: 52330000004013116"]
+    style Course_Created_WF2 fill:#90EE90
+    Course_Created -.->|triggers| Course_Created_WF2
+    Course_Approved_WF0["Check Min registration<br/>ID: 52330000003463406"]
+    style Course_Approved_WF0 fill:#90EE90
+    Course_Approved -.->|triggers| Course_Approved_WF0
+    Course_Approved_WF1["Sync Course to Wordpress<br/>ID: 52330000006315389"]
+    style Course_Approved_WF1 fill:#90EE90
+    Course_Approved -.->|triggers| Course_Approved_WF1
+    Course_Approved_WF2["Course Confirmed - Website Calendar<br/>ID: 52330000011998036"]
+    style Course_Approved_WF2 fill:#90EE90
+    Course_Approved -.->|triggers| Course_Approved_WF2
+    Course_Logistics_WF0["Send Trainer Email<br/>ID: 52330000002570460"]
+    style Course_Logistics_WF0 fill:#2196F3
+    Course_Logistics -.->|triggers| Course_Logistics_WF0
+    Course_Logistics_WF1["10 days before course SMS to Trainer<br/>ID: 52330000002656676"]
+    style Course_Logistics_WF1 fill:#90EE90
+    Course_Logistics -.->|triggers| Course_Logistics_WF1
+    Course_Logistics_WF2["1 day before course SMS to Trainer<br/>ID: 52330000002656692"]
+    style Course_Logistics_WF2 fill:#90EE90
+    Course_Logistics -.->|triggers| Course_Logistics_WF2
+    Course_Enrolment_WF0["Update Registration Course Days<br/>ID: 52330000002179"]
+    style Course_Enrolment_WF0 fill:#90EE90
+    Course_Enrolment -.->|triggers| Course_Enrolment_WF0
+    Course_Enrolment_WF1["Update Registration records<br/>ID: 52330000003999102"]
+    style Course_Enrolment_WF1 fill:#2196F3
+    Course_Enrolment -.->|triggers| Course_Enrolment_WF1
+    Course_Delivery_WF0["Send Attendance App email 11 days prior to start<br/>ID: 52330000002569380"]
+    style Course_Delivery_WF0 fill:#90EE90
+    Course_Delivery -.->|triggers| Course_Delivery_WF0
+    Course_Delivery_WF1["1 Day prior Attendance PDF<br/>ID: 52330000012545268"]
+    style Course_Delivery_WF1 fill:#90EE90
+    Course_Delivery -.->|triggers| Course_Delivery_WF1
+    Course_Delivery_WF2["Manual Trigger for Attendance PDF<br/>ID: 52330000004569126"]
+    style Course_Delivery_WF2 fill:#2196F3
+    Course_Delivery -.->|triggers| Course_Delivery_WF2
+    Certification_WF0["Status updated to completed<br/>ID: 52330000004037507"]
+    style Certification_WF0 fill:#90EE90
+    Certification -.->|triggers| Certification_WF0
+    Archiving_WF0["Course Performance<br/>ID: 52330000008928375"]
+    style Archiving_WF0 fill:#90EE90
+    Archiving -.->|triggers| Archiving_WF0
+    Archiving_WF1["Cancelled Course WF<br/>ID: 52330000003995688"]
+    style Archiving_WF1 fill:#90EE90
+    Archiving -.->|triggers| Archiving_WF1
+    Archiving_WF2["Notification for Course Archive or Cancel<br/>ID: 52330000011362374"]
+    style Archiving_WF2 fill:#90EE90
+    Archiving -.->|triggers| Archiving_WF2

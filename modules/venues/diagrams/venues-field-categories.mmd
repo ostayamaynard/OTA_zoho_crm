@@ -1,0 +1,37 @@
+---
+title: Venues Module - Field Categories
+---
+flowchart TB
+    subgraph Venue["Venue Record"]
+        Name["**Name**<br/>(required)"]
+    end
+
+    subgraph Address["Address Fields"]
+        Street["Street Address"]
+        Suburb["Suburb"]
+        State["State"]
+        Postcode["Postcode"]
+        Location["Location Details"]
+        URL["MAP URL"]
+    end
+
+    subgraph Info["Venue Information"]
+        Type["Type<br/>Onsite / Client"]
+        Rooms["Available Rooms<br/>(multi-select)"]
+        Parking["Parking Info"]
+        Directions["Directions"]
+        Contact["Venue Contact<br/>→ Contacts"]
+    end
+
+    subgraph Integration["Integration"]
+        WPID["WP Venue ID<br/>→ WordPress"]
+    end
+
+    Name --> Address
+    Name --> Info
+    Name --> Integration
+
+    style Venue fill:#3498db,color:#fff
+    style Address fill:#e8f4f8,stroke:#2980b9
+    style Info fill:#fdf2e9,stroke:#e67e22
+    style Integration fill:#eafaf1,stroke:#27ae60

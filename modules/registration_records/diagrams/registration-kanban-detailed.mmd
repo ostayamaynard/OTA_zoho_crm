@@ -1,0 +1,164 @@
+%%{init: {'theme': 'base', 'themeVariables': { 'primaryColor': '#FFF3E0'}}}%%
+graph TB
+    %% Registration Records Kanban - Detailed View with All Workflows
+
+    subgraph Tentative["⏳ SPOT TENTATIVE - Initial Booking"]
+        direction TB
+        T_header["<b>Stage 1: Enquiry/Tentative</b><br/>Color: #FFF3E0"]
+
+        T_auto["<b>⚡ Auto Workflows (6)</b>"]
+        T_wf1["<a href='https://crm.zoho.com.au/crm/org7003757385/settings/workflow-rules/52330000002460165'>Populate Course Days</a>"]
+        T_wf2["<a href='https://crm.zoho.com.au/crm/org7003757385/settings/workflow-rules/52330000002518044'>Calculate Registrations + Task</a>"]
+        T_wf3["<a href='https://crm.zoho.com.au/crm/org7003757385/settings/workflow-rules/52330000005138075'>Workdrive Folder Creation</a>"]
+        T_wf4["<a href='https://crm.zoho.com.au/crm/org7003757385/settings/workflow-rules/52330000005789649'>Generate SMS Shorten Link</a>"]
+        T_wf5["<a href='https://crm.zoho.com.au/crm/org7003757385/settings/workflow-rules/52330000005163090'>Private Attendee Spot Tentative</a>"]
+        T_wf6["<a href='https://crm.zoho.com.au/crm/org7003757385/settings/workflow-rules/52330000007826269'>Set Opt-Outs to False</a>"]
+
+        T_actions["<b>👤 Human Actions</b><br/>• Verify attendee details<br/>• Link to deal<br/>• Send payment link 🔵"]
+
+        T_exit["<b>Exit:</b> Payment confirmed → Spot Booked"]
+    end
+
+    subgraph Booked["✅ SPOT BOOKED - Payment Confirmed"]
+        direction TB
+        B_header["<b>Stage 2: Payment Secured</b><br/>Color: #E8F5E9"]
+
+        B_payment["<b>⚡ Payment Workflows (6)</b>"]
+        B_wf1["<a href='https://crm.zoho.com.au/crm/org7003757385/settings/workflow-rules/52330000002582386'>Email - Credit Card Payment</a>"]
+        B_wf2["<a href='https://crm.zoho.com.au/crm/org7003757385/settings/workflow-rules/52330000005157463'>Email - Invoice Payment</a>"]
+        B_wf3["<a href='https://crm.zoho.com.au/crm/org7003757385/settings/workflow-rules/52330000004534986'>IF paid via credcard</a>"]
+        B_wf4["<a href='https://crm.zoho.com.au/crm/org7003757385/settings/workflow-rules/52330000002518060'>Calculate Registrations</a>"]
+        B_wf5["<a href='https://crm.zoho.com.au/crm/org7003757385/settings/workflow-rules/52330000005789634'>SMS Attendance Link</a>"]
+        B_wf6["<a href='https://crm.zoho.com.au/crm/org7003757385/settings/workflow-rules/52330000004335393'>Update with DEAL</a>"]
+
+        B_time["<b>⏰ Time-Based Reminders (6)</b>"]
+        B_wf7["<a href='https://crm.zoho.com.au/crm/org7003757385/settings/workflow-rules/52330000005789664'>SMS Link 15 days prior</a>"]
+        B_wf8["<a href='https://crm.zoho.com.au/crm/org7003757385/settings/workflow-rules/52330000005789721'>SMS 14 days prior</a>"]
+        B_wf9["<a href='https://crm.zoho.com.au/crm/org7003757385/settings/workflow-rules/52330000002582766'>Email 7 days (Public)</a>"]
+        B_wf10["<a href='https://crm.zoho.com.au/crm/org7003757385/settings/workflow-rules/52330000002597951'>SMS 7 days (Public)</a>"]
+        B_wf11["<a href='https://crm.zoho.com.au/crm/org7003757385/settings/workflow-rules/52330000005163385'>Email 7 days (Private)</a>"]
+        B_wf12["<a href='https://crm.zoho.com.au/crm/org7003757385/settings/workflow-rules/52330000005163433'>SMS 7 days (Private)</a>"]
+
+        B_manual["<b>🔵 Manual Triggers</b>"]
+        B_wf13["<a href='https://crm.zoho.com.au/crm/org7003757385/settings/workflow-rules/52330000003024548'>Send payment link</a>"]
+        B_wf14["<a href='https://crm.zoho.com.au/crm/org7003757385/settings/workflow-rules/52330000003121331'>Create Team Task</a>"]
+
+        B_actions["<b>👤 Human Actions</b><br/>• Verify payment<br/>• Complete compliance<br/>• Confirm attendance"]
+
+        B_exit["<b>Exit:</b> Compliance done → Details Confirmed"]
+    end
+
+    subgraph Waitlist["📝 WAITING LIST"]
+        direction TB
+        W_header["<b>Stage 4: Course Full</b><br/>Color: #FFF8E1"]
+        W_wf1["<a href='https://crm.zoho.com.au/crm/org7003757385/settings/workflow-rules/52330000007034348'>Waitlist Record</a>"]
+        W_actions["<b>👤 Actions</b><br/>• Monitor availability<br/>• Offer alternative"]
+    end
+
+    subgraph Rebook["🔄 TO BE REBOOKED"]
+        direction TB
+        R_header["<b>Stage 3: Move Course</b><br/>Color: #FCE4EC"]
+        R_actions["<b>👤 Actions</b><br/>• Find alternative<br/>• Update Course lookup"]
+    end
+
+    subgraph Confirmed["📋 DETAILS CONFIRMED"]
+        direction TB
+        DC_header["<b>Stage 7: Ready</b><br/>Color: #E3F2FD"]
+        DC_wf1["<a href='https://crm.zoho.com.au/crm/org7003757385/settings/workflow-rules/52330000004045787'>status update</a>"]
+        DC_exit["<b>Exit:</b> Course delivered"]
+    end
+
+    subgraph Attended["🎓 FULLY ATTENDED"]
+        direction TB
+        FA_header["<b>Stage 8: Complete</b><br/>Color: #C8E6C9"]
+        FA_wf1["<a href='https://crm.zoho.com.au/crm/org7003757385/settings/workflow-rules/52330000003014499'>Update 1 Day after</a>"]
+        FA_wf2["<a href='https://crm.zoho.com.au/crm/org7003757385/settings/workflow-rules/52330000002656733'>Thank you SMS</a>"]
+        FA_wf3["<a href='https://crm.zoho.com.au/crm/org7003757385/settings/workflow-rules/52330000002633996'>Feedback Email</a>"]
+        FA_wf4["<a href='https://crm.zoho.com.au/crm/org7003757385/settings/workflow-rules/52330000006676878'>Attendance Acknowledgement</a>"]
+    end
+
+    subgraph Partial["⚠️ PARTIALLY ATTENDED"]
+        direction TB
+        PA_header["<b>Stage 9: Missed Days</b><br/>Color: #FFECB3"]
+        PA_actions["<b>👤 Actions</b><br/>• Document missed<br/>• Arrange makeup"]
+    end
+
+    subgraph Completed["📚 COURSE COMPLETED"]
+        direction TB
+        CC_header["<b>Stage 5: Certificate</b><br/>Color: #B2DFDB"]
+        CC_wf1["<a href='https://crm.zoho.com.au/crm/org7003757385/settings/workflow-rules/52330000003014483'>Update 1 week after</a>"]
+        CC_actions["<b>👤 Actions</b><br/>• Submit coursework<br/>• Process certificate"]
+    end
+
+    subgraph Resources["🏆 RESOURCES UPLOADED"]
+        direction TB
+        RU_header["<b>Stage 10: Final</b><br/>Color: #DCEDC8"]
+        RU_wf1["<a href='https://crm.zoho.com.au/crm/org7003757385/settings/workflow-rules/52330000002667069'>Certificate Held Back</a>"]
+        RU_terminal["<b>TERMINAL STAGE</b>"]
+    end
+
+    subgraph Cancelled["❌ CANCELLED"]
+        direction TB
+        X_header["<b>Stage 6: Withdrawn</b><br/>Color: #FFCDD2"]
+        X_wf1["<a href='https://crm.zoho.com.au/crm/org7003757385/settings/workflow-rules/52330000009966152'>Registration Cancelled</a>"]
+        X_terminal["<b>TERMINAL STAGE</b>"]
+    end
+
+    %% Course Change Workflows
+    subgraph CourseChange["📂 COURSE CHANGE WORKFLOWS"]
+        CC_wf2["<a href='https://crm.zoho.com.au/crm/org7003757385/settings/workflow-rules/52330000005375288'>Move Folder on Change</a>"]
+        CC_wf3["<a href='https://crm.zoho.com.au/crm/org7003757385/settings/workflow-rules/52330000009066119'>Update Name on Change</a>"]
+        CC_wf4["<a href='https://crm.zoho.com.au/crm/org7003757385/settings/workflow-rules/52330000003014626'>Update course details</a>"]
+    end
+
+    %% Flow connections
+    Tentative --> Booked
+    Tentative --> Waitlist
+    Booked --> Confirmed
+    Booked --> Rebook
+    Waitlist --> Booked
+    Rebook --> Booked
+    Confirmed --> Attended
+    Confirmed --> Partial
+    Attended --> Completed
+    Partial --> Completed
+    Partial --> Rebook
+    Completed --> Resources
+
+    %% Cancel paths
+    Tentative -.-> Cancelled
+    Booked -.-> Cancelled
+    Waitlist -.-> Cancelled
+    Rebook -.-> Cancelled
+
+    %% Legend
+    subgraph Legend["📋 LEGEND"]
+        leg1["⚡ = Auto workflow<br/>⏰ = Time-based<br/>🔵 = Manual trigger"]
+    end
+
+    %% Styling
+    classDef tentative fill:#FFF3E0,stroke:#F57C00,stroke-width:2px
+    classDef booked fill:#E8F5E9,stroke:#388E3C,stroke-width:2px
+    classDef waitlist fill:#FFF8E1,stroke:#FFA000,stroke-width:2px
+    classDef rebook fill:#FCE4EC,stroke:#C2185B,stroke-width:2px
+    classDef confirmed fill:#E3F2FD,stroke:#1976D2,stroke-width:2px
+    classDef attended fill:#C8E6C9,stroke:#2E7D32,stroke-width:2px
+    classDef partial fill:#FFECB3,stroke:#FFA000,stroke-width:2px
+    classDef completed fill:#B2DFDB,stroke:#00796B,stroke-width:2px
+    classDef resources fill:#DCEDC8,stroke:#689F38,stroke-width:2px
+    classDef cancelled fill:#FFCDD2,stroke:#D32F2F,stroke-width:2px
+    classDef coursechange fill:#F3E5F5,stroke:#7B1FA2,stroke-width:1px
+    classDef legend fill:#FAFAFA,stroke:#9E9E9E,stroke-width:1px
+
+    class Tentative tentative
+    class Booked booked
+    class Waitlist waitlist
+    class Rebook rebook
+    class Confirmed confirmed
+    class Attended attended
+    class Partial partial
+    class Completed completed
+    class Resources resources
+    class Cancelled cancelled
+    class CourseChange coursechange
+    class Legend legend

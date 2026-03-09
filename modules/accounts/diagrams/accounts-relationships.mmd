@@ -1,0 +1,54 @@
+%%{init: {'theme': 'base', 'themeVariables': { 'primaryColor': '#fff3e0', 'primaryTextColor': '#e65100', 'primaryBorderColor': '#f57c00', 'lineColor': '#f57c00'}}}%%
+
+flowchart TB
+    subgraph accounts["<a href='https://crm.zoho.com.au/crm/org7003757385/tab/Accounts'>Accounts Module</a>"]
+        direction TB
+        A["<a href='https://crm.zoho.com.au/crm/org7003757385/tab/Accounts'>Accounts</a><br/><small>61 fields | 4 workflows</small>"]
+    end
+
+    subgraph outbound["Outbound Lookups (6)"]
+        direction TB
+        PARENT["<a href='https://crm.zoho.com.au/crm/org7003757385/tab/Accounts'>Accounts</a><br/><small>Self-reference</small>"]
+        PRIMARY["<a href='https://crm.zoho.com.au/crm/org7003757385/tab/Contacts'>Contacts</a><br/><small>Primary Contact</small>"]
+        ACCT_CONTACT["<a href='https://crm.zoho.com.au/crm/org7003757385/tab/Contacts'>Contacts</a><br/><small>Account Contact</small>"]
+        PAYABLE["<a href='https://crm.zoho.com.au/crm/org7003757385/tab/Contacts'>Contacts</a><br/><small>Account Payable</small>"]
+        SECONDARY["<a href='https://crm.zoho.com.au/crm/org7003757385/tab/Contacts'>Contacts</a><br/><small>Secondary Contact</small>"]
+        COURSE["<a href='https://crm.zoho.com.au/crm/org7003757385/tab/Courses'>Courses</a><br/><small>Last Course</small>"]
+    end
+
+    subgraph inbound["Modules Referencing Accounts (7)"]
+        direction TB
+        COURSES["<a href='https://crm.zoho.com.au/crm/org7003757385/tab/Courses'>Courses</a><br/><small>1 lookup field</small>"]
+        REG["<a href='https://crm.zoho.com.au/crm/org7003757385/tab/Registration_Records'>Registration Records</a><br/><small>1 lookup field</small>"]
+        DEALS["<a href='https://crm.zoho.com.au/crm/org7003757385/tab/Deals'>Deals</a><br/><small>2 lookup fields</small>"]
+        CONTACTS["<a href='https://crm.zoho.com.au/crm/org7003757385/tab/Contacts'>Contacts</a><br/><small>1 lookup field</small>"]
+        LEADS["<a href='https://crm.zoho.com.au/crm/org7003757385/tab/Leads'>Leads</a><br/><small>2 lookup fields</small>"]
+        INVOICES["<a href='https://crm.zoho.com.au/crm/org7003757385/tab/Invoices'>Invoices</a><br/><small>2 lookup fields</small>"]
+        QUOTES["<a href='https://crm.zoho.com.au/crm/org7003757385/tab/Quotes'>Quotes</a><br/><small>2 lookup fields</small>"]
+    end
+
+    %% Outbound relationships with field API names
+    A -->|"Parent_Account<br/>lookup (self)"| PARENT
+    A -->|"Primary_Contact<br/>lookup"| PRIMARY
+    A -->|"Account_Contact<br/>lookup"| ACCT_CONTACT
+    A -->|"Account_Payable<br/>lookup"| PAYABLE
+    A -->|"Secondary_Contact<br/>lookup"| SECONDARY
+    A -->|"Last_Course<br/>lookup"| COURSE
+
+    %% Inbound relationships with field API names
+    COURSES -->|"Private_Course_Client<br/>lookup"| A
+    REG -->|"Account_Name<br/>lookup"| A
+    DEALS -->|"Account_Name<br/>Parent_Account<br/>lookup"| A
+    CONTACTS -->|"Account_Name<br/>lookup"| A
+    LEADS -->|"Converted_Account<br/>Existing_Company_Record<br/>lookup"| A
+    INVOICES -->|"Account_Name<br/>Parent_Account<br/>lookup"| A
+    QUOTES -->|"Account_Name<br/>Parent_Account<br/>lookup"| A
+
+    %% Styling
+    classDef accountStyle fill:#fff3e0,stroke:#f57c00,color:#e65100,stroke-width:3px
+    classDef outStyle fill:#c8e6c9,stroke:#2e7d32,color:#1b5e20
+    classDef inStyle fill:#e3f2fd,stroke:#1976d2,color:#0d47a1
+
+    class A accountStyle
+    class PARENT,PRIMARY,ACCT_CONTACT,PAYABLE,SECONDARY,COURSE outStyle
+    class COURSES,REG,DEALS,CONTACTS,LEADS,INVOICES,QUOTES inStyle

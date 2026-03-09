@@ -1,0 +1,41 @@
+graph TD
+    %% Leads Customer Journey
+
+    Lead_Entry["1. Lead Entry<br/>Lead enters system through various channels"]
+    Lead_Created["2. Lead Created<br/>Lead record created, automatic workflows fire"]
+    Lead_Engagement["3. Lead Engagement<br/>Team member engages with lead"]
+    Lead_Qualification["4. Lead Qualification<br/>Decision point - qualified or not qualified"]
+    Payment_Link_Generated["5. Payment Link Generated<br/>Payment link sent to lead (credit card path)"]
+    Lead_Conversion["6. Lead Conversion<br/>Lead converted to Contact, Account, Deal, etc."]
+
+    Lead_Entry --> Lead_Created
+    Lead_Created --> Lead_Engagement
+    Lead_Engagement --> Lead_Qualification
+    Lead_Qualification --> Payment_or_Conversion
+    Lead_Qualification --> Lead_Qualification_Decision{qualified public credit card}
+    Payment_Link_Generated --> Lead_Conversion
+
+    Lead_Created_WF0["New Lead Notification<br/>ID: 52330000000427010"]
+    style Lead_Created_WF0 fill:#90EE90
+    Lead_Created -.->|triggers| Lead_Created_WF0
+    Lead_Created_WF1["CallWithIn24Hours and Team Task<br/>ID: 52330000000864146"]
+    style Lead_Created_WF1 fill:#90EE90
+    Lead_Created -.->|triggers| Lead_Created_WF1
+    Lead_Created_WF2["Format Number<br/>ID: 52330000005789994"]
+    style Lead_Created_WF2 fill:#90EE90
+    Lead_Created -.->|triggers| Lead_Created_WF2
+    Lead_Engagement_WF0["Course Details Udpated<br/>ID: 52330000005569771"]
+    style Lead_Engagement_WF0 fill:#90EE90
+    Lead_Engagement -.->|triggers| Lead_Engagement_WF0
+    Lead_Engagement_WF1["Format Number on Edit<br/>ID: 52330000005817040"]
+    style Lead_Engagement_WF1 fill:#90EE90
+    Lead_Engagement -.->|triggers| Lead_Engagement_WF1
+    Lead_Engagement_WF2["Create Team task in leads<br/>ID: 52330000002758376"]
+    style Lead_Engagement_WF2 fill:#2196F3
+    Lead_Engagement -.->|triggers| Lead_Engagement_WF2
+    Lead_Qualification_WF0["Generate Payment URL<br/>ID: 52330000008228472"]
+    style Lead_Qualification_WF0 fill:#2196F3
+    Lead_Qualification -.->|triggers| Lead_Qualification_WF0
+    Lead_Qualification_WF1["Update Location URL<br/>ID: 52330000008158816"]
+    style Lead_Qualification_WF1 fill:#2196F3
+    Lead_Qualification -.->|triggers| Lead_Qualification_WF1

@@ -1,0 +1,42 @@
+---
+title: Quotes Module - Stage Kanban with Workflows
+---
+flowchart TB
+    subgraph New["New"]
+        Draft["**Draft**<br/>- Update Quote Details<br/>- Update Naming<br/>- Calculate Tax"]
+    end
+
+    subgraph InProgress["In Progress"]
+        Negotiation["**Negotiation**<br/>- Update Deal PO"]
+    end
+
+    subgraph SentCol["Sent"]
+        Sent["**Sent**<br/>- Update quote dates<br/>- Send Quote email"]
+    end
+
+    subgraph Won["Won"]
+        ClosedWon["**Closed Won**<br/>- Create Invoice<br/>- Update Deal"]
+    end
+
+    subgraph Lost["Lost"]
+        ClosedLost["**Closed Lost**"]
+        Unused["**Unused**"]
+    end
+
+    Draft -->|"Ready for client"| Negotiation
+    Draft -->|"Send directly"| Sent
+    Draft -->|"Not needed"| Unused
+
+    Negotiation -->|"Terms agreed"| Sent
+    Negotiation -->|"Declined"| ClosedLost
+    Negotiation -->|"Set aside"| Unused
+
+    Sent -->|"Client accepts"| ClosedWon
+    Sent -->|"Client declines"| ClosedLost
+    Sent -->|"Needs changes"| Negotiation
+
+    style New fill:#616e88,color:#fff
+    style InProgress fill:#ffd6bc,color:#000
+    style SentCol fill:#add9ff,color:#000
+    style Won fill:#67c480,color:#fff
+    style Lost fill:#eb4d4d,color:#fff

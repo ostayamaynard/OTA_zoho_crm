@@ -1,0 +1,1345 @@
+{
+  "metadata": {
+    "name": "Lead Status - Kanban Board View",
+    "description": "Detailed workflow mapping for each Lead Status with clickable workflow URLs",
+    "module": "Leads",
+    "status_field": "Lead_Status",
+    "zoho_instance": "https://crm.zoho.com.au/crm/org7003757385",
+    "workflow_base_url": "https://crm.zoho.com.au/crm/org7003757385/settings/workflow-rules/",
+    "created_date": "2025-11-13"
+  },
+  "kanban_stages": {
+    "New_Lead": {
+      "stage_order": 1,
+      "description": "New lead entry - initial status",
+      "color": "#ffda62",
+      "icon": "🆕",
+      "entry_triggers": {
+        "website_form": {
+          "source": "WordPress website form",
+          "type": "automatic",
+          "creates": "Lead record",
+          "status_set_to": "New Lead: Website"
+        },
+        "google_ads": {
+          "source": "Google Ads conversion",
+          "type": "automatic",
+          "status_set_to": "New Lead: Google Ads"
+        },
+        "facebook_ads": {
+          "source": "Facebook lead form",
+          "type": "automatic",
+          "status_set_to": "New Lead: Facebook"
+        },
+        "linkedin_ads": {
+          "source": "LinkedIn lead form",
+          "type": "automatic",
+          "status_set_to": "New Lead: LinkedIn"
+        },
+        "manual_entry": {
+          "source": "CRM user creates lead",
+          "type": "human_input",
+          "status_set_to": "New Lead"
+        }
+      },
+      "workflows_on_enter": [
+        {
+          "workflow_id": "52330000000427010",
+          "workflow_name": "New Lead Notification",
+          "url": "https://crm.zoho.com.au/crm/org7003757385/settings/workflow-rules/52330000000427010",
+          "trigger_type": "create",
+          "trigger": "automatic",
+          "fires_when": "Lead record created",
+          "action": "Sends email notification to team",
+          "timing": "Immediate",
+          "workflow_url": "https://crm.zoho.com.au/crm/org7003757385/settings/workflow-rules/52330000000427010"
+        },
+        {
+          "workflow_id": "52330000000864146",
+          "workflow_name": "CallWithIn24Hours and Team Task",
+          "url": "https://crm.zoho.com.au/crm/org7003757385/settings/workflow-rules/52330000000864146",
+          "trigger_type": "create",
+          "trigger": "automatic",
+          "fires_when": "Lead record created",
+          "action": "Creates call task and team task for follow-up",
+          "timing": "Immediate",
+          "creates_record": "Team_Task",
+          "workflow_url": "https://crm.zoho.com.au/crm/org7003757385/settings/workflow-rules/52330000000864146"
+        },
+        {
+          "workflow_id": "52330000005789994",
+          "workflow_name": "Format Number",
+          "url": "https://crm.zoho.com.au/crm/org7003757385/settings/workflow-rules/52330000005789994",
+          "trigger_type": "create",
+          "trigger": "automatic",
+          "fires_when": "Lead record created",
+          "action": "Formats phone numbers to standard format",
+          "timing": "Immediate",
+          "workflow_url": "https://crm.zoho.com.au/crm/org7003757385/settings/workflow-rules/52330000005789994"
+        },
+        {
+          "workflow_id": "52330000007257288",
+          "workflow_name": "Lead Owner Assignment",
+          "url": "https://crm.zoho.com.au/crm/org7003757385/settings/workflow-rules/52330000007257288",
+          "trigger_type": "create",
+          "trigger": "automatic",
+          "fires_when": "Lead record created",
+          "action": "Assigns lead to appropriate owner based on rules",
+          "timing": "Immediate",
+          "workflow_url": "https://crm.zoho.com.au/crm/org7003757385/settings/workflow-rules/52330000007257288"
+        },
+        {
+          "workflow_id": "52330000007732209",
+          "workflow_name": "Tag G-Series Leadership Leads",
+          "url": "https://crm.zoho.com.au/crm/org7003757385/settings/workflow-rules/52330000007732209",
+          "trigger_type": "create",
+          "trigger": "automatic",
+          "fires_when": "Lead record created",
+          "action": "Tags specific course type leads",
+          "timing": "Immediate",
+          "workflow_url": "https://crm.zoho.com.au/crm/org7003757385/settings/workflow-rules/52330000007732209"
+        }
+      ],
+      "workflows_on_field_update": [
+        {
+          "workflow_id": "52330000005817040",
+          "workflow_name": "Format Number on Edit",
+          "url": "https://crm.zoho.com.au/crm/org7003757385/settings/workflow-rules/52330000005817040",
+          "trigger_type": "field_update",
+          "trigger": "automatic",
+          "condition_fields": [
+            "Phone",
+            "Mobile"
+          ],
+          "fires_when": "Phone or Mobile field changes",
+          "action": "Formats phone numbers when edited",
+          "timing": "When field changes",
+          "workflow_url": "https://crm.zoho.com.au/crm/org7003757385/settings/workflow-rules/52330000005817040"
+        },
+        {
+          "workflow_id": "52330000005569771",
+          "workflow_name": "Course Details Udpated",
+          "url": "https://crm.zoho.com.au/crm/org7003757385/settings/workflow-rules/52330000005569771",
+          "trigger_type": "field_update",
+          "trigger": "automatic",
+          "condition_fields": [
+            "Course"
+          ],
+          "fires_when": "User selects Course lookup field",
+          "action": "Updates lead with course details when course selected",
+          "timing": "When Course field changes",
+          "workflow_url": "https://crm.zoho.com.au/crm/org7003757385/settings/workflow-rules/52330000005569771"
+        },
+        {
+          "workflow_id": "52330000005569800",
+          "workflow_name": "Update Address",
+          "url": "https://crm.zoho.com.au/crm/org7003757385/settings/workflow-rules/52330000005569800",
+          "trigger_type": "field_update",
+          "trigger": "automatic",
+          "condition_fields": [
+            "State1"
+          ],
+          "fires_when": "State field changes",
+          "action": "Updates address fields when state changes",
+          "timing": "When State1 changes",
+          "workflow_url": "https://crm.zoho.com.au/crm/org7003757385/settings/workflow-rules/52330000005569800"
+        },
+        {
+          "workflow_id": "52330000010756411",
+          "workflow_name": "updateLeadAddressAndRemoveMapFileds",
+          "url": "https://crm.zoho.com.au/crm/org7003757385/settings/workflow-rules/52330000010756411",
+          "trigger_type": "field_update",
+          "trigger": "automatic",
+          "condition_fields": [
+            "Country",
+            "City",
+            "State"
+          ],
+          "fires_when": "Address fields change",
+          "action": "Updates address and removes map fields",
+          "timing": "When address fields change",
+          "workflow_url": "https://crm.zoho.com.au/crm/org7003757385/settings/workflow-rules/52330000010756411"
+        }
+      ],
+      "human_actions_required": [
+        {
+          "action": "Contact lead within 24 hours",
+          "description": "Call or email lead as per task created",
+          "fields": [
+            "Phone",
+            "Mobile",
+            "Email"
+          ]
+        },
+        {
+          "action": "Select course",
+          "fields": [
+            "Course"
+          ],
+          "description": "Link to Course record if lead interested in specific course",
+          "triggers_workflow": "Course Details Udpated"
+        },
+        {
+          "action": "Update lead details",
+          "fields": [
+            "First_Name",
+            "Last_Name",
+            "Phone",
+            "Mobile",
+            "Email",
+            "Company"
+          ],
+          "description": "Complete lead information"
+        }
+      ],
+      "exit_criteria": {
+        "ready_to_advance": "Lead contacted or attempted contact",
+        "next_status": "Contacted, Attempted to Contact, or Not Qualified",
+        "user_action": "Change Lead_Status field"
+      },
+      "typical_duration": "0-24 hours",
+      "success_metrics": [
+        "Lead contacted within 24 hours",
+        "Course selected if applicable",
+        "Lead details complete"
+      ]
+    },
+    "New_Lead_Website": {
+      "stage_order": 2,
+      "display_name": "New Lead: Website",
+      "description": "Lead from website form submission",
+      "color": "#ffda62",
+      "icon": "🌐",
+      "workflows_on_enter": [],
+      "note": "Same workflows as New Lead - fires on create",
+      "human_actions_required": [
+        {
+          "action": "Contact lead within 24 hours",
+          "description": "Website leads typically more qualified - prioritize contact"
+        },
+        {
+          "action": "Review course selection",
+          "fields": [
+            "Course",
+            "Course_Type"
+          ],
+          "description": "Check if lead selected course on website"
+        }
+      ],
+      "exit_criteria": {
+        "ready_to_advance": "Lead contacted",
+        "next_status": "Contacted, Attempted to Contact, or Interested",
+        "user_action": "Change Lead_Status field"
+      },
+      "typical_duration": "0-24 hours"
+    },
+    "New_Lead_Google_Ads": {
+      "stage_order": 3,
+      "display_name": "New Lead: Google Ads",
+      "description": "Lead from Google Ads campaign",
+      "color": "#f8e199",
+      "icon": "📢",
+      "workflows_on_enter": [],
+      "note": "Same workflows as New Lead - fires on create",
+      "human_actions_required": [
+        {
+          "action": "Review campaign details",
+          "fields": [
+            "GCLID",
+            "ZCAMPAIGNID",
+            "Keyword"
+          ],
+          "description": "Check which ad campaign generated lead"
+        },
+        {
+          "action": "Contact lead",
+          "description": "Follow up on Google Ads lead"
+        }
+      ],
+      "exit_criteria": {
+        "ready_to_advance": "Lead contacted",
+        "next_status": "Contacted, Attempted to Contact",
+        "user_action": "Change Lead_Status field"
+      },
+      "typical_duration": "0-24 hours"
+    },
+    "New_Lead_LinkedIn": {
+      "stage_order": 4,
+      "display_name": "New Lead: LinkedIn",
+      "description": "Lead from LinkedIn campaign",
+      "color": "#f8e199",
+      "icon": "💼",
+      "workflows_on_enter": [],
+      "note": "Same workflows as New Lead - fires on create",
+      "human_actions_required": [
+        {
+          "action": "Contact lead",
+          "description": "Follow up on LinkedIn lead"
+        }
+      ],
+      "exit_criteria": {
+        "ready_to_advance": "Lead contacted",
+        "next_status": "Contacted, Attempted to Contact",
+        "user_action": "Change Lead_Status field"
+      },
+      "typical_duration": "0-24 hours"
+    },
+    "New_Lead_Facebook": {
+      "stage_order": 5,
+      "display_name": "New Lead: Facebook",
+      "description": "Lead from Facebook campaign",
+      "color": "#f8e199",
+      "icon": "📱",
+      "workflows_on_enter": [],
+      "note": "Same workflows as New Lead - fires on create",
+      "human_actions_required": [
+        {
+          "action": "Contact lead",
+          "description": "Follow up on Facebook lead"
+        }
+      ],
+      "exit_criteria": {
+        "ready_to_advance": "Lead contacted",
+        "next_status": "Contacted, Attempted to Contact",
+        "user_action": "Change Lead_Status field"
+      },
+      "typical_duration": "0-24 hours"
+    },
+    "Contacted": {
+      "stage_order": 6,
+      "description": "Lead successfully contacted",
+      "color": "#98d681",
+      "icon": "✅",
+      "workflows_on_enter": [],
+      "workflows_available": [
+        {
+          "workflow_id": "52330000002758376",
+          "workflow_name": "Create Team task in leads",
+          "url": "https://crm.zoho.com.au/crm/org7003757385/settings/workflow-rules/52330000002758376",
+          "trigger_type": "field_update",
+          "trigger": "manual",
+          "condition_fields": [
+            "Create_task"
+          ],
+          "fires_when": "User sets Create_task = true",
+          "action": "Creates team task for follow-up",
+          "timing": "When checkbox set",
+          "manual_trigger": true,
+          "how_to_trigger": "Set Create_task checkbox to TRUE",
+          "workflow_url": "https://crm.zoho.com.au/crm/org7003757385/settings/workflow-rules/52330000002758376"
+        },
+        {
+          "workflow_id": "52330000006093561",
+          "workflow_name": "Send Course email",
+          "url": "https://crm.zoho.com.au/crm/org7003757385/settings/workflow-rules/52330000006093561",
+          "trigger_type": "field_update",
+          "trigger": "manual",
+          "condition_fields": [
+            "Course_Email"
+          ],
+          "fires_when": "User sets Course_Email = true",
+          "action": "Sends course details email to lead",
+          "timing": "When checkbox set",
+          "manual_trigger": true,
+          "how_to_trigger": "Set Course_Email checkbox to TRUE",
+          "workflow_url": "https://crm.zoho.com.au/crm/org7003757385/settings/workflow-rules/52330000006093561"
+        }
+      ],
+      "human_actions_required": [
+        {
+          "action": "Assess lead interest",
+          "description": "Determine if lead is interested in courses",
+          "fields": [
+            "Course",
+            "Course_Type"
+          ]
+        },
+        {
+          "action": "Determine payment method",
+          "description": "Discuss payment options (credit card, invoice, private)",
+          "fields": [
+            "Payment_source"
+          ]
+        },
+        {
+          "action": "Set WF_Action if ready to convert",
+          "fields": [
+            "WF_Action"
+          ],
+          "description": "Set conversion action if lead qualified",
+          "triggers_workflow": "Various conversion workflows"
+        }
+      ],
+      "exit_criteria": {
+        "qualified_path": {
+          "condition": "Lead interested and qualified",
+          "next_status": "Interested or Convert: Create Records",
+          "user_action": "Change Lead_Status or set WF_Action"
+        },
+        "not_qualified_path": {
+          "condition": "Lead not interested or not qualified",
+          "next_status": "Not Qualified or Lost Lead",
+          "user_action": "Change Lead_Status to Not Qualified or Lost Lead"
+        },
+        "re_attempt_path": {
+          "condition": "Could not reach lead",
+          "next_status": "Attempted to Contact or No Answer 1",
+          "user_action": "Change Lead_Status"
+        }
+      },
+      "typical_duration": "1-3 days",
+      "success_metrics": [
+        "Lead qualified",
+        "Course selected",
+        "Payment method determined"
+      ]
+    },
+    "Attempted_to_Contact": {
+      "stage_order": 7,
+      "description": "Attempted to contact lead but no response",
+      "color": "#add9ff",
+      "icon": "📞",
+      "workflows_on_enter": [],
+      "human_actions_required": [
+        {
+          "action": "Schedule follow-up",
+          "description": "Set follow-up date for next contact attempt",
+          "fields": [
+            "Follow_up_date"
+          ]
+        },
+        {
+          "action": "Try alternative contact method",
+          "description": "Try email if phone didn't work, or vice versa"
+        }
+      ],
+      "exit_criteria": {
+        "contacted": {
+          "condition": "Lead responds",
+          "next_status": "Contacted",
+          "user_action": "Change Lead_Status to Contacted"
+        },
+        "re_attempt": {
+          "condition": "Another attempt needed",
+          "next_status": "No Answer 1",
+          "user_action": "Change Lead_Status to No Answer 1"
+        },
+        "lost": {
+          "condition": "Multiple attempts failed",
+          "next_status": "Lost Lead or Junk Lead",
+          "user_action": "Change Lead_Status to Lost Lead or Junk Lead"
+        }
+      },
+      "typical_duration": "1-2 days",
+      "success_metrics": [
+        "Lead contacted",
+        "Follow-up scheduled"
+      ]
+    },
+    "No_Answer_1": {
+      "stage_order": 8,
+      "display_name": "No Answer 1",
+      "description": "First re-attempt to contact lead",
+      "color": "#ffc6c6",
+      "icon": "🔄",
+      "workflows_on_enter": [],
+      "human_actions_required": [
+        {
+          "action": "Try different contact method",
+          "description": "Use alternative phone number or email"
+        },
+        {
+          "action": "Schedule next attempt",
+          "fields": [
+            "Follow_up_date"
+          ]
+        }
+      ],
+      "exit_criteria": {
+        "contacted": {
+          "condition": "Lead responds",
+          "next_status": "Contacted",
+          "user_action": "Change Lead_Status to Contacted"
+        },
+        "re_attempt": {
+          "condition": "Another attempt needed",
+          "next_status": "No Answer 2",
+          "user_action": "Change Lead_Status to No Answer 2"
+        },
+        "lost": {
+          "condition": "Still no response",
+          "next_status": "Lost Lead or Junk Lead",
+          "user_action": "Change Lead_Status"
+        }
+      },
+      "typical_duration": "1-2 days"
+    },
+    "No_Answer_2": {
+      "stage_order": 9,
+      "display_name": "No Answer 2",
+      "description": "Second re-attempt to contact lead",
+      "color": "#fd8989",
+      "icon": "🔄🔄",
+      "workflows_on_enter": [],
+      "human_actions_required": [
+        {
+          "action": "Final attempt",
+          "description": "Last attempt before marking as lost"
+        }
+      ],
+      "exit_criteria": {
+        "contacted": {
+          "condition": "Lead responds",
+          "next_status": "Contacted",
+          "user_action": "Change Lead_Status to Contacted"
+        },
+        "re_attempt": {
+          "condition": "One more attempt",
+          "next_status": "No Answer 3",
+          "user_action": "Change Lead_Status to No Answer 3"
+        },
+        "lost": {
+          "condition": "No response after multiple attempts",
+          "next_status": "Lost Lead or Junk Lead",
+          "user_action": "Change Lead_Status"
+        }
+      },
+      "typical_duration": "1-2 days"
+    },
+    "No_Answer_3": {
+      "stage_order": 10,
+      "display_name": "No Answer 3",
+      "description": "Third and final re-attempt to contact lead",
+      "color": "#eb4d4d",
+      "icon": "🔄🔄🔄",
+      "workflows_on_enter": [],
+      "human_actions_required": [
+        {
+          "action": "Final contact attempt",
+          "description": "Last attempt - if no response, mark as lost"
+        }
+      ],
+      "exit_criteria": {
+        "contacted": {
+          "condition": "Lead responds",
+          "next_status": "Contacted",
+          "user_action": "Change Lead_Status to Contacted"
+        },
+        "lost": {
+          "condition": "No response after 3+ attempts",
+          "next_status": "Lost Lead or Junk Lead",
+          "user_action": "Change Lead_Status to Lost Lead or Junk Lead"
+        }
+      },
+      "typical_duration": "1-2 days",
+      "warnings": [
+        "⚠️ After 3 no answers, lead should be marked as Lost Lead or Junk Lead"
+      ]
+    },
+    "Interested": {
+      "stage_order": 11,
+      "description": "Lead is interested and qualified",
+      "color": "#25b52a",
+      "icon": "👍",
+      "workflows_on_enter": [],
+      "workflows_available": [
+        {
+          "workflow_id": "52330000008228472",
+          "workflow_name": "Generate Payment URL",
+          "url": "https://crm.zoho.com.au/crm/org7003757385/settings/workflow-rules/52330000008228472",
+          "trigger_type": "field_update",
+          "trigger": "manual",
+          "condition_fields": [
+            "WF_Action"
+          ],
+          "condition_value": "Generate Payment URL",
+          "fires_when": "User sets WF_Action = 'Generate Payment URL'",
+          "action": "Generates Zoho Form payment link",
+          "timing": "When WF_Action set",
+          "manual_trigger": true,
+          "how_to_trigger": "Set WF_Action field to 'Generate Payment URL'",
+          "creates_field": "Zoho_Form_Payment_URL",
+          "workflow_url": "https://crm.zoho.com.au/crm/org7003757385/settings/workflow-rules/52330000008228472"
+        },
+        {
+          "workflow_id": "52330000008158816",
+          "workflow_name": "Update Location URL",
+          "url": "https://crm.zoho.com.au/crm/org7003757385/settings/workflow-rules/52330000008158816",
+          "trigger_type": "field_update",
+          "trigger": "manual",
+          "condition_fields": [
+            "WF_Action"
+          ],
+          "fires_when": "User sets WF_Action field",
+          "action": "Generates location selection form",
+          "timing": "When WF_Action set",
+          "manual_trigger": true,
+          "creates_field": "Location_URL",
+          "workflow_url": "https://crm.zoho.com.au/crm/org7003757385/settings/workflow-rules/52330000008158816"
+        }
+      ],
+      "human_actions_required": [
+        {
+          "action": "Determine conversion path",
+          "description": "Decide how to convert lead",
+          "fields": [
+            "WF_Action"
+          ],
+          "options": [
+            "Generate Payment URL (for credit card payment)",
+            "Convert Pay Via Invoice (for invoice payment)",
+            "Convert Non Paying Lead (for private courses)",
+            "Convert to Only Create a contact (contact only)"
+          ]
+        },
+        {
+          "action": "Set WF_Action field",
+          "fields": [
+            "WF_Action"
+          ],
+          "description": "Set appropriate conversion action",
+          "triggers_workflow": "Various conversion workflows"
+        }
+      ],
+      "exit_criteria": {
+        "conversion_paths": {
+          "credit_card": {
+            "condition": "WF_Action = Generate Payment URL",
+            "next_status": "Convert: Create Records",
+            "workflow": "Generate Payment URL",
+            "user_action": "Set WF_Action = 'Generate Payment URL'"
+          },
+          "invoice": {
+            "condition": "WF_Action = Convert Pay Via Invoice",
+            "next_status": "Convert: Create Records",
+            "workflow": "Convert Pay Via Invoice",
+            "user_action": "Set WF_Action = 'Convert Pay Via Invoice'"
+          },
+          "private": {
+            "condition": "WF_Action = Convert Non Paying Lead",
+            "next_status": "Convert: Create Records",
+            "workflow": "Convert Non Paying Lead",
+            "user_action": "Set WF_Action = 'Convert Non Paying Lead'"
+          },
+          "contact_only": {
+            "condition": "WF_Action = Convert to Only Create a contact",
+            "next_status": "Convert: Create Records",
+            "workflow": "Convert to Only Create a contact",
+            "user_action": "Set WF_Action = 'Convert to Only Create a contact'"
+          }
+        }
+      },
+      "typical_duration": "1-7 days",
+      "success_metrics": [
+        "WF_Action set",
+        "Conversion path determined",
+        "Payment method selected"
+      ]
+    },
+    "Convert_Create_Records": {
+      "stage_order": 12,
+      "display_name": "Convert: Create Records",
+      "description": "Lead converted - records created",
+      "color": "#c4f0b3",
+      "icon": "✨",
+      "workflows_on_enter": [],
+      "conversion_workflows": [
+        {
+          "workflow_id": "52330000008292523",
+          "workflow_name": "Convert on Payment Success",
+          "url": "https://crm.zoho.com.au/crm/org7003757385/settings/workflow-rules/52330000008292523",
+          "trigger_type": "field_update",
+          "trigger": "automatic",
+          "condition_fields": [
+            "WF_Action"
+          ],
+          "triggered_by": "Stripe payment webhook",
+          "creates": [
+            "Contact",
+            "Account",
+            "Deal",
+            "Registration_Record",
+            "Invoice"
+          ],
+          "payment_method": "Credit Card",
+          "workflow_url": "https://crm.zoho.com.au/crm/org7003757385/settings/workflow-rules/52330000008292523"
+        },
+        {
+          "workflow_id": "52330000008920352",
+          "workflow_name": "Convert Pay Via Invoice",
+          "url": "https://crm.zoho.com.au/crm/org7003757385/settings/workflow-rules/52330000008920352",
+          "trigger_type": "field_update",
+          "trigger": "manual",
+          "condition_fields": [
+            "WF_Action"
+          ],
+          "creates": [
+            "Contact",
+            "Account",
+            "Deal",
+            "Registration_Record",
+            "Invoice"
+          ],
+          "payment_method": "Invoice",
+          "workflow_url": "https://crm.zoho.com.au/crm/org7003757385/settings/workflow-rules/52330000008920352"
+        },
+        {
+          "workflow_id": "52330000008250081",
+          "workflow_name": "Convert Non Paying Lead",
+          "url": "https://crm.zoho.com.au/crm/org7003757385/settings/workflow-rules/52330000008250081",
+          "trigger_type": "field_update",
+          "trigger": "manual",
+          "condition_fields": [
+            "WF_Action"
+          ],
+          "creates": [
+            "Contact",
+            "Account",
+            "Deal"
+          ],
+          "use_case": "Private course enquiry",
+          "workflow_url": "https://crm.zoho.com.au/crm/org7003757385/settings/workflow-rules/52330000008250081"
+        },
+        {
+          "workflow_id": "52330000008405346",
+          "workflow_name": "Convert to Only Create a contact",
+          "url": "https://crm.zoho.com.au/crm/org7003757385/settings/workflow-rules/52330000008405346",
+          "trigger_type": "field_update",
+          "trigger": "manual",
+          "condition_fields": [
+            "WF_Action"
+          ],
+          "creates": [
+            "Contact"
+          ],
+          "use_case": "Contact only, no sales opportunity",
+          "workflow_url": "https://crm.zoho.com.au/crm/org7003757385/settings/workflow-rules/52330000008405346"
+        }
+      ],
+      "human_actions_required": [
+        {
+          "action": "Verify conversion records",
+          "description": "Check created records in related modules",
+          "check_fields": [
+            "Converted_Contact",
+            "Converted_Account",
+            "Converted_Deal"
+          ]
+        },
+        {
+          "action": "Verify Converted__s = TRUE",
+          "fields": [
+            "Converted__s"
+          ],
+          "description": "Ensure conversion flag is set"
+        }
+      ],
+      "exit_criteria": {
+        "completion": "Lead converted, records created",
+        "remains_in_stage": "Lead remains in this status after conversion",
+        "related_actions": [
+          "Deal progresses through Deal stages",
+          "Contact available for future courses",
+          "Registration_Record created if course purchased"
+        ]
+      },
+      "typical_duration": "Ongoing (terminal status)",
+      "success_metrics": [
+        "Records created",
+        "Converted__s = TRUE",
+        "Related records linked"
+      ]
+    },
+    "Private_Lead": {
+      "stage_order": 13,
+      "description": "Private course enquiry - requires quote/PO process",
+      "color": "#5cb3fd",
+      "icon": "🏢",
+      "workflows_on_enter": [],
+      "human_actions_required": [
+        {
+          "action": "Set WF_Action to Convert Non Paying Lead",
+          "fields": [
+            "WF_Action"
+          ],
+          "description": "Convert to Deal for private course quote process",
+          "triggers_workflow": "Convert Non Paying Lead"
+        },
+        {
+          "action": "Gather requirements",
+          "description": "Document private course requirements",
+          "fields": [
+            "Course",
+            "Course_Type",
+            "Number_of_Attendees"
+          ]
+        }
+      ],
+      "exit_criteria": {
+        "conversion": {
+          "condition": "WF_Action = Convert Non Paying Lead",
+          "next_status": "Convert: Create Records",
+          "workflow": "Convert Non Paying Lead",
+          "user_action": "Set WF_Action = 'Convert Non Paying Lead'"
+        }
+      },
+      "typical_duration": "1-7 days",
+      "success_metrics": [
+        "Requirements documented",
+        "Converted to Deal"
+      ]
+    },
+    "Junk_Lead": {
+      "stage_order": 14,
+      "description": "Invalid or spam lead",
+      "color": "#eb4d4d",
+      "icon": "🗑️",
+      "workflows_on_enter": [],
+      "human_actions_required": [
+        {
+          "action": "Document reason",
+          "description": "Note why lead is junk",
+          "fields": [
+            "Description"
+          ]
+        }
+      ],
+      "exit_criteria": {
+        "completion": "Lead marked as junk",
+        "remains_in_stage": "Junk Lead is terminal status",
+        "no_further_actions": true
+      },
+      "typical_duration": "N/A (terminal status)",
+      "success_metrics": [
+        "Reason documented"
+      ]
+    },
+    "Lost_Lead": {
+      "stage_order": 15,
+      "description": "Lead lost - not interested or unresponsive",
+      "color": "#9a2e47",
+      "icon": "❌",
+      "workflows_on_enter": [],
+      "human_actions_required": [
+        {
+          "action": "Document loss reason",
+          "description": "Note why lead was lost",
+          "fields": [
+            "Description"
+          ]
+        }
+      ],
+      "exit_criteria": {
+        "completion": "Loss documented",
+        "remains_in_stage": "Lost Lead is terminal status",
+        "no_further_actions": true
+      },
+      "typical_duration": "N/A (terminal status)",
+      "success_metrics": [
+        "Loss reason documented"
+      ]
+    },
+    "Not_Qualified": {
+      "stage_order": 16,
+      "description": "Lead not qualified for courses",
+      "color": "#ffc6c6",
+      "icon": "🚫",
+      "workflows_on_enter": [],
+      "human_actions_required": [
+        {
+          "action": "Document qualification reason",
+          "description": "Note why lead is not qualified",
+          "fields": [
+            "Description"
+          ]
+        },
+        {
+          "action": "Consider converting to contact only",
+          "description": "May still convert to Contact for future reference",
+          "fields": [
+            "WF_Action"
+          ],
+          "optional": true
+        }
+      ],
+      "exit_criteria": {
+        "completion": "Not qualified documented",
+        "remains_in_stage": "Not Qualified is terminal status",
+        "optional_conversion": "May convert to Contact only if useful"
+      },
+      "typical_duration": "N/A (terminal status)",
+      "success_metrics": [
+        "Reason documented"
+      ]
+    }
+  },
+  "lead_workflow_summary": {
+    "total_workflows": 13,
+    "automatic_on_create": 5,
+    "automatic_on_field_update": 7,
+    "manual_triggers": 2,
+    "conversion_workflows": 4,
+    "creates_records": [
+      "Contact",
+      "Account",
+      "Deal",
+      "Registration_Record",
+      "Invoice",
+      "Team_Task"
+    ]
+  },
+  "key_trigger_fields": {
+    "WF_Action": {
+      "field_type": "picklist",
+      "triggers_workflows": [
+        "Generate Payment URL",
+        "Convert Pay Via Invoice",
+        "Convert Non Paying Lead",
+        "Convert to Only Create a contact",
+        "Convert on Payment Success"
+      ],
+      "user_action": "Select from dropdown",
+      "manual_trigger": true,
+      "workflow_urls": [
+        "https://crm.zoho.com.au/crm/org7003757385/settings/workflow-rules/52330000008228472",
+        "https://crm.zoho.com.au/crm/org7003757385/settings/workflow-rules/52330000008920352",
+        "https://crm.zoho.com.au/crm/org7003757385/settings/workflow-rules/52330000008250081",
+        "https://crm.zoho.com.au/crm/org7003757385/settings/workflow-rules/52330000008405346",
+        "https://crm.zoho.com.au/crm/org7003757385/settings/workflow-rules/52330000008292523"
+      ]
+    },
+    "Course": {
+      "field_type": "lookup",
+      "lookup_module": "Courses",
+      "triggers_workflows": [
+        "Course Details Udpated"
+      ],
+      "user_action": "Select course from lookup",
+      "workflow_urls": [
+        "https://crm.zoho.com.au/crm/org7003757385/settings/workflow-rules/52330000005569771"
+      ]
+    },
+    "Create_task": {
+      "field_type": "boolean",
+      "triggers_workflows": [
+        "Create Team task in leads"
+      ],
+      "user_action": "Check box to trigger",
+      "manual_trigger": true,
+      "workflow_urls": [
+        "https://crm.zoho.com.au/crm/org7003757385/settings/workflow-rules/52330000002758376"
+      ]
+    },
+    "Course_Email": {
+      "field_type": "boolean",
+      "triggers_workflows": [
+        "Send Course email"
+      ],
+      "user_action": "Check box to trigger",
+      "manual_trigger": true,
+      "workflow_urls": [
+        "https://crm.zoho.com.au/crm/org7003757385/settings/workflow-rules/52330000006093561"
+      ]
+    }
+  },
+  "kanban_board_config": {
+    "columns": [
+      {
+        "status": "New Lead",
+        "color": "#ffda62",
+        "card_color": "#FFF4C4",
+        "show_fields": [
+          "First_Name",
+          "Last_Name",
+          "Company",
+          "Email",
+          "Mobile"
+        ],
+        "show_workflows": true,
+        "workflow_count": 5
+      },
+      {
+        "status": "New Lead: Website",
+        "color": "#ffda62",
+        "card_color": "#FFF4C4",
+        "show_fields": [
+          "First_Name",
+          "Last_Name",
+          "Course",
+          "Email",
+          "Mobile"
+        ],
+        "show_workflows": true,
+        "workflow_count": 5
+      },
+      {
+        "status": "New Lead: Google Ads",
+        "color": "#f8e199",
+        "card_color": "#FCF8E8",
+        "show_fields": [
+          "First_Name",
+          "Last_Name",
+          "GCLID",
+          "Keyword",
+          "Email"
+        ],
+        "show_workflows": true,
+        "workflow_count": 5
+      },
+      {
+        "status": "New Lead: LinkedIn",
+        "color": "#f8e199",
+        "card_color": "#FCF8E8",
+        "show_fields": [
+          "First_Name",
+          "Last_Name",
+          "Email",
+          "Mobile"
+        ],
+        "show_workflows": true,
+        "workflow_count": 5
+      },
+      {
+        "status": "New Lead: Facebook",
+        "color": "#f8e199",
+        "card_color": "#FCF8E8",
+        "show_fields": [
+          "First_Name",
+          "Last_Name",
+          "Email",
+          "Mobile"
+        ],
+        "show_workflows": true,
+        "workflow_count": 5
+      },
+      {
+        "status": "Contacted",
+        "color": "#98d681",
+        "card_color": "#E8F5E9",
+        "show_fields": [
+          "First_Name",
+          "Last_Name",
+          "Course",
+          "WF_Action",
+          "Phone"
+        ],
+        "show_workflows": true,
+        "workflow_count": 2
+      },
+      {
+        "status": "Attempted to Contact",
+        "color": "#add9ff",
+        "card_color": "#E3F2FD",
+        "show_fields": [
+          "First_Name",
+          "Last_Name",
+          "Follow_up_date",
+          "Phone"
+        ],
+        "show_workflows": false,
+        "workflow_count": 0
+      },
+      {
+        "status": "No Answer 1",
+        "color": "#ffc6c6",
+        "card_color": "#FFE8E8",
+        "show_fields": [
+          "First_Name",
+          "Last_Name",
+          "Follow_up_date",
+          "Phone"
+        ],
+        "show_workflows": false,
+        "workflow_count": 0
+      },
+      {
+        "status": "No Answer 2",
+        "color": "#fd8989",
+        "card_color": "#FFE0E0",
+        "show_fields": [
+          "First_Name",
+          "Last_Name",
+          "Follow_up_date",
+          "Phone"
+        ],
+        "show_workflows": false,
+        "workflow_count": 0
+      },
+      {
+        "status": "No Answer 3",
+        "color": "#eb4d4d",
+        "card_color": "#FFCDD2",
+        "show_fields": [
+          "First_Name",
+          "Last_Name",
+          "Follow_up_date",
+          "Phone"
+        ],
+        "show_workflows": false,
+        "workflow_count": 0
+      },
+      {
+        "status": "Interested",
+        "color": "#25b52a",
+        "card_color": "#C8E6C9",
+        "show_fields": [
+          "First_Name",
+          "Last_Name",
+          "Course",
+          "WF_Action",
+          "Payment_source"
+        ],
+        "show_workflows": true,
+        "workflow_count": 2
+      },
+      {
+        "status": "Convert: Create Records",
+        "color": "#c4f0b3",
+        "card_color": "#E8F5E9",
+        "show_fields": [
+          "First_Name",
+          "Last_Name",
+          "Converted__s",
+          "Converted_Contact"
+        ],
+        "show_workflows": false,
+        "workflow_count": 0
+      },
+      {
+        "status": "Private Lead",
+        "color": "#5cb3fd",
+        "card_color": "#E3F2FD",
+        "show_fields": [
+          "First_Name",
+          "Last_Name",
+          "Course",
+          "WF_Action"
+        ],
+        "show_workflows": false,
+        "workflow_count": 0
+      },
+      {
+        "status": "Junk Lead",
+        "color": "#eb4d4d",
+        "card_color": "#FFCDD2",
+        "show_fields": [
+          "First_Name",
+          "Last_Name",
+          "Description"
+        ],
+        "show_workflows": false,
+        "workflow_count": 0
+      },
+      {
+        "status": "Lost Lead",
+        "color": "#9a2e47",
+        "card_color": "#E8C4C4",
+        "show_fields": [
+          "First_Name",
+          "Last_Name",
+          "Description"
+        ],
+        "show_workflows": false,
+        "workflow_count": 0
+      },
+      {
+        "status": "Not Qualified",
+        "color": "#ffc6c6",
+        "card_color": "#FFE8E8",
+        "show_fields": [
+          "First_Name",
+          "Last_Name",
+          "Description"
+        ],
+        "show_workflows": false,
+        "workflow_count": 0
+      }
+    ],
+    "card_template": {
+      "header": "First_Name + Last_Name",
+      "subheader": "Company",
+      "body_fields": [
+        "Course",
+        "Email",
+        "Mobile"
+      ],
+      "footer": "Last_Activity_Time",
+      "badge": "Lead_Status",
+      "workflow_indicator": "Show count of active workflows",
+      "color_code_by": "Lead_Source"
+    }
+  },
+  "workflow_decision_tree": {
+    "when_lead_created": [
+      {
+        "step": 1,
+        "event": "Lead record created",
+        "triggers": "5 automatic workflows fire immediately",
+        "workflows": [
+          "New Lead Notification",
+          "CallWithIn24Hours and Team Task",
+          "Format Number",
+          "Lead Owner Assignment",
+          "Tag G-Series Leadership Leads"
+        ],
+        "color": "green",
+        "type": "automatic"
+      }
+    ],
+    "when_course_selected": [
+      {
+        "step": 1,
+        "event": "User selects Course lookup field",
+        "triggers": "1 automatic workflow fires",
+        "workflows": [
+          "Course Details Udpated"
+        ],
+        "action": "Lead updated with course details",
+        "color": "green",
+        "type": "automatic"
+      }
+    ],
+    "when_wf_action_set_to_generate_payment_url": [
+      {
+        "step": 1,
+        "event": "User sets WF_Action = 'Generate Payment URL'",
+        "triggers": "1-2 manual workflows fire",
+        "workflows": [
+          "Generate Payment URL",
+          "Update Location URL"
+        ],
+        "action": "Payment URL generated, lead proceeds to conversion",
+        "color": "blue",
+        "type": "manual"
+      }
+    ],
+    "when_payment_received": [
+      {
+        "step": 1,
+        "event": "Stripe payment webhook received",
+        "triggers": "1 automatic workflow fires",
+        "workflows": [
+          "Convert on Payment Success"
+        ],
+        "action": "Lead converted to Contact, Account, Deal, Registration, Invoice",
+        "color": "green",
+        "type": "automatic",
+        "important": true
+      }
+    ],
+    "when_wf_action_set_to_convert": [
+      {
+        "step": 1,
+        "event": "User sets WF_Action to conversion option",
+        "triggers": "1 manual workflow fires",
+        "workflows": [
+          "Convert Pay Via Invoice",
+          "Convert Non Paying Lead",
+          "Convert to Only Create a contact"
+        ],
+        "action": "Lead converted based on WF_Action value",
+        "color": "blue",
+        "type": "manual"
+      }
+    ]
+  },
+  "visual_kanban_structure": {
+    "mermaid_diagram": "Use this for Mermaid flowchart visualization",
+    "draw_io_template": "Import statuses as swimlanes",
+    "lucidchart_template": "Each column = status, cards = leads",
+    "recommended_colors": {
+      "New Lead": "#ffda62",
+      "New Lead: Website": "#ffda62",
+      "New Lead: Google Ads": "#f8e199",
+      "New Lead: LinkedIn": "#f8e199",
+      "New Lead: Facebook": "#f8e199",
+      "Contacted": "#98d681",
+      "Attempted to Contact": "#add9ff",
+      "No Answer 1": "#ffc6c6",
+      "No Answer 2": "#fd8989",
+      "No Answer 3": "#eb4d4d",
+      "Interested": "#25b52a",
+      "Convert: Create Records": "#c4f0b3",
+      "Private Lead": "#5cb3fd",
+      "Junk Lead": "#eb4d4d",
+      "Lost Lead": "#9a2e47",
+      "Not Qualified": "#ffc6c6"
+    }
+  },
+  "conversion_paths": {
+    "public_credit_card": {
+      "steps": [
+        "Lead created",
+        "Lead contacted and qualified",
+        "WF_Action = Generate Payment URL",
+        "Payment link generated",
+        "Lead pays via Stripe",
+        "Stripe webhook triggers Convert on Payment Success",
+        "Creates: Contact, Account, Deal, Registration, Invoice"
+      ],
+      "workflow_id": "52330000008292523",
+      "workflow_url": "https://crm.zoho.com.au/crm/org7003757385/settings/workflow-rules/52330000008292523"
+    },
+    "public_invoice": {
+      "steps": [
+        "Lead created",
+        "Lead contacted and qualified",
+        "WF_Action = Convert Pay Via Invoice",
+        "Creates: Contact, Account, Deal, Registration, Invoice",
+        "Invoice sent for payment"
+      ],
+      "workflow_id": "52330000008920352",
+      "workflow_url": "https://crm.zoho.com.au/crm/org7003757385/settings/workflow-rules/52330000008920352"
+    },
+    "private_course": {
+      "steps": [
+        "Lead created",
+        "Lead identified as private course enquiry",
+        "Lead_Status = Private Lead",
+        "WF_Action = Convert Non Paying Lead",
+        "Creates: Contact, Account, Deal",
+        "Deal progresses through quote/PO process"
+      ],
+      "workflow_id": "52330000008250081",
+      "workflow_url": "https://crm.zoho.com.au/crm/org7003757385/settings/workflow-rules/52330000008250081"
+    },
+    "contact_only": {
+      "steps": [
+        "Lead created",
+        "Lead not qualified for courses but useful contact",
+        "WF_Action = Convert to Only Create a contact",
+        "Creates: Contact only",
+        "No sales opportunity"
+      ],
+      "workflow_id": "52330000008405346",
+      "workflow_url": "https://crm.zoho.com.au/crm/org7003757385/settings/workflow-rules/52330000008405346"
+    }
+  },
+  "troubleshooting_by_status": {
+    "lead_not_contacted": {
+      "check": [
+        "Is workflow 52330000000864146 active?",
+        "Was team task created?",
+        "Check workflow here: https://crm.zoho.com.au/crm/org7003757385/settings/workflow-rules/52330000000864146"
+      ],
+      "solution": "Verify workflow is active, check Team_Tasks module for created task"
+    },
+    "payment_url_not_generated": {
+      "check": [
+        "Is workflow 52330000008228472 active?",
+        "Did you set WF_Action to exact value 'Generate Payment URL'?",
+        "Check workflow here: https://crm.zoho.com.au/crm/org7003757385/settings/workflow-rules/52330000008228472"
+      ],
+      "solution": "Verify workflow is active, ensure WF_Action value matches exactly"
+    },
+    "conversion_not_happening": {
+      "check": [
+        "Is conversion workflow active?",
+        "Did you set WF_Action field?",
+        "Are required fields populated?",
+        "Check workflows: https://crm.zoho.com.au/crm/org7003757385/settings/workflow-rules/52330000008292523"
+      ],
+      "solution": "Verify workflow is active, set WF_Action field, ensure all required fields are populated"
+    }
+  }
+}

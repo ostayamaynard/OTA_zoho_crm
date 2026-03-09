@@ -1,0 +1,438 @@
+{
+  "workflow_metadata": {
+    "name": "Quote Customer Journey",
+    "description": "Quotation lifecycle from creation to acceptance/rejection",
+    "primary_module": "Quotes",
+    "created_date": "2025-11-13",
+    "data_source": "Zoho CRM Data Model 2025-11-13"
+  },
+  "customer_journey": {
+    "Quote_Created": {
+      "stage_order": 1,
+      "description": "Quote generated from deal",
+      "zoho_stage": "Draft / Created",
+      "outputs": {
+        "Quote_Details": {
+          "fields": [
+            {
+              "field_name": "Subject",
+              "field_label": "Subject",
+              "data_type": "text",
+              "system_mandatory": true
+            },
+            {
+              "field_name": "Deal_Name",
+              "field_label": "Deal Name",
+              "data_type": "lookup",
+              "lookup_module": "Deals"
+            },
+            {
+              "field_name": "Account_Name",
+              "field_label": "Account Name",
+              "data_type": "lookup",
+              "lookup_module": "Accounts"
+            },
+            {
+              "field_name": "Contact_Name",
+              "field_label": "Contact Name",
+              "data_type": "lookup",
+              "lookup_module": "Contacts"
+            }
+          ]
+        },
+        "Quote_Items": {
+          "field_name": "Quoted_Items",
+          "field_label": "Quoted Items",
+          "data_type": "subform",
+          "system_mandatory": true
+        },
+        "Quote_Reference": {
+          "field_name": "Quote_Ref_Number",
+          "field_label": "Quote Ref Number",
+          "data_type": "autonumber",
+          "description": "Auto-generated quote number"
+        }
+      },
+      "related_workflows": [
+        {
+          "workflow_id": "52330000002597194",
+          "workflow_name": "Update Quote Details",
+          "trigger_type": "create",
+          "description": "Populates quote fields from deal",
+          "workflow_url": "https://crm.zoho.com.au/crm/org7003757385/settings/workflow-rules/52330000002597194"
+        },
+        {
+          "workflow_id": "52330000002856364",
+          "workflow_name": "Update Quote Naming convention",
+          "trigger_type": "create_or_edit",
+          "description": "Formats quote subject line",
+          "workflow_url": "https://crm.zoho.com.au/crm/org7003757385/settings/workflow-rules/52330000002856364"
+        },
+        {
+          "workflow_id": "52330000004975235",
+          "workflow_name": "Inhouse - Calculate Overall Tax for Quote",
+          "trigger_type": "create_or_edit",
+          "description": "Calculates GST for quote",
+          "workflow_url": "https://crm.zoho.com.au/crm/org7003757385/settings/workflow-rules/52330000004975235"
+        }
+      ],
+      "tax_calculation": {
+        "fields": [
+          "sbhtc__Subtotal_ex_GST0",
+          "sbhtc__Total_GST0",
+          "sbhtc__Total_inc_GST0"
+        ],
+        "workflow": "Inhouse - Calculate Overall Tax for Quote"
+      },
+      "next": "Quote_Sent"
+    },
+    "Quote_Sent": {
+      "stage_order": 2,
+      "description": "Quote delivered to client for review",
+      "zoho_stage": "Presented / Sent",
+      "outputs": {
+        "Quote_Stage_Updated": {
+          "field_name": "Quote_Stage",
+          "field_label": "Quote Stage",
+          "data_type": "picklist",
+          "value": "Presented / Sent"
+        },
+        "Quote_Sent_Date": {
+          "field_name": "Quote_Sent_Date",
+          "field_label": "Quote Sent Date",
+          "data_type": "date"
+        },
+        "Valid_Until": {
+          "field_name": "Valid_Till",
+          "field_label": "Valid Until",
+          "data_type": "date"
+        }
+      },
+      "related_workflows": [
+        {
+          "workflow_id": "52330000006984913",
+          "workflow_name": "Send Quote",
+          "trigger_type": "field_update",
+          "condition_fields": [
+            "Send_Quote_as_EMAIL"
+          ],
+          "description": "Emails quote to client",
+          "workflow_url": "https://crm.zoho.com.au/crm/org7003757385/settings/workflow-rules/52330000006984913"
+        },
+        {
+          "workflow_id": "52330000003995201",
+          "workflow_name": "Update quote when quote is sent or won",
+          "trigger_type": "field_update",
+          "condition_fields": [
+            "Quote_Stage"
+          ],
+          "description": "Updates timestamps when stage changes",
+          "workflow_url": "https://crm.zoho.com.au/crm/org7003757385/settings/workflow-rules/52330000003995201"
+        }
+      ],
+      "manual_trigger": {
+        "field": "Send_Quote_as_EMAIL",
+        "type": "boolean",
+        "action": "Set to true to send quote via email"
+      },
+      "quote_versions": {
+        "field": "Quote_Version",
+        "allows_multiple": true,
+        "purpose": "Track quote revisions"
+      },
+      "next": "Under_Review"
+    },
+    "Under_Review": {
+      "stage_order": 3,
+      "description": "Client reviewing quote, may request changes",
+      "zoho_stage": "Presented / Under Review",
+      "outputs": {
+        "PO_Details_Expected": {
+          "fields": [
+            {
+              "field_name": "Expected_PO_Date",
+              "field_label": "Expected PO Date",
+              "data_type": "date"
+            },
+            {
+              "field_name": "PO_Number",
+              "field_label": "PO Number",
+              "data_type": "text"
+            }
+          ]
+        },
+        "Accept_Quote_URL": {
+          "field_name": "Accept_Quote_URL",
+          "field_label": "Accept Quote URL",
+          "data_type": "website",
+          "description": "Online quote acceptance form"
+        }
+      },
+      "related_workflows": [
+        {
+          "workflow_id": "52330000006993468",
+          "workflow_name": "Update Deal with PO Number and Date",
+          "trigger_type": "field_update",
+          "condition_fields": [
+            "Expected_PO_Date",
+            "PO_Number"
+          ],
+          "description": "Syncs PO details to deal",
+          "workflow_url": "https://crm.zoho.com.au/crm/org7003757385/settings/workflow-rules/52330000006993468"
+        }
+      ],
+      "updates_deal": {
+        "fields_synced": [
+          "Purchase_Order_Number",
+          "Po_Expected_Date"
+        ],
+        "workflow": "Update Deal with PO Number and Date"
+      },
+      "next": "Accepted_or_Rejected"
+    },
+    "Accepted_or_Rejected": {
+      "stage_order": 4,
+      "description": "Quote accepted (won) or rejected (lost)",
+      "zoho_stage": "Accepted / Declined",
+      "outputs": {
+        "Final_Stage": {
+          "field_name": "Quote_Stage",
+          "field_label": "Quote Stage",
+          "data_type": "picklist",
+          "values": [
+            "Accepted",
+            "Declined",
+            "Closed Lost"
+          ]
+        },
+        "Quote_Won_Date": {
+          "field_name": "Quote_Won_Date",
+          "field_label": "Quote Won Date",
+          "data_type": "date",
+          "populated_when": "Accepted"
+        }
+      },
+      "related_workflows": [
+        {
+          "workflow_id": "52330000002460325",
+          "workflow_name": "Update Deal and Invoice on Quote Closed Won",
+          "trigger_type": "field_update",
+          "condition_fields": [
+            "Quote_Stage"
+          ],
+          "description": "Creates invoice and updates deal when quote accepted",
+          "workflow_url": "https://crm.zoho.com.au/crm/org7003757385/settings/workflow-rules/52330000002460325"
+        },
+        {
+          "workflow_id": "52330000003995201",
+          "workflow_name": "Update quote when quote is sent or won",
+          "trigger_type": "field_update",
+          "condition_fields": [
+            "Quote_Stage"
+          ],
+          "description": "Updates timestamps and related records",
+          "workflow_url": "https://crm.zoho.com.au/crm/org7003757385/settings/workflow-rules/52330000003995201"
+        }
+      ],
+      "accepted_path": {
+        "stage_value": "Accepted / Closed Won",
+        "triggers": [
+          "Invoice created automatically",
+          "Deal stage updated to Closed Won",
+          "Registration records confirmed",
+          "Quote_Won_Date populated"
+        ],
+        "created_records": {
+          "Invoice": {
+            "workflow": "Update Deal and Invoice on Quote Closed Won",
+            "copies_data": "Quoted_Items → Invoiced_Items"
+          }
+        }
+      },
+      "declined_path": {
+        "stage_value": "Declined / Closed Lost",
+        "triggers": [
+          "Deal stage updated to Closed Lost",
+          "Notifications sent"
+        ]
+      },
+      "next": null
+    }
+  },
+  "quoted_items_subform": {
+    "subform_name": "Quoted_Items",
+    "mandatory": true,
+    "fields": [
+      {
+        "field_name": "Product_Name",
+        "field_label": "Course Template Name",
+        "data_type": "lookup",
+        "lookup_module": "Products",
+        "system_mandatory": true
+      },
+      {
+        "field_name": "Quantity",
+        "field_label": "Quantity",
+        "data_type": "double",
+        "description": "Number of attendees"
+      },
+      {
+        "field_name": "List_Price",
+        "field_label": "List Price",
+        "data_type": "currency",
+        "from_product": true
+      },
+      {
+        "field_name": "Discount",
+        "field_label": "Discount",
+        "data_type": "currency"
+      },
+      {
+        "field_name": "Total",
+        "field_label": "Amount",
+        "data_type": "formula"
+      },
+      {
+        "field_name": "Total_After_Discount",
+        "field_label": "Total After Discount",
+        "data_type": "formula"
+      },
+      {
+        "field_name": "Tax",
+        "field_label": "Tax",
+        "data_type": "currency"
+      },
+      {
+        "field_name": "Net_Total",
+        "field_label": "Total",
+        "data_type": "formula"
+      }
+    ]
+  },
+  "linked_modules": {
+    "Deals": {
+      "lookup_field": "Deal_Name",
+      "mandatory": false,
+      "bidirectional_sync": true,
+      "deal_fields_updated": [
+        "Quote_ID",
+        "Quote_Amount"
+      ]
+    },
+    "Accounts": {
+      "lookup_field": "Account_Name",
+      "provides_data": [
+        "Billing address",
+        "Payment terms",
+        "Po_Required"
+      ]
+    },
+    "Contacts": {
+      "lookup_fields": [
+        "Contact_Name",
+        "Account_Contact",
+        "Public_Attendee"
+      ],
+      "provides_data": [
+        "Email address",
+        "Contact details"
+      ]
+    },
+    "Courses": {
+      "lookup_field": "Course_Name",
+      "provides_course_details": true,
+      "syncs_field": "Course_ID"
+    },
+    "Products": {
+      "lookup_field": "Product_Name",
+      "in_subform": "Quoted_Items",
+      "provides_pricing": true
+    },
+    "Invoices": {
+      "created_when": "Quote_Stage = Accepted",
+      "workflow": "Update Deal and Invoice on Quote Closed Won"
+    }
+  },
+  "private_vs_public": {
+    "public_course_quotes": {
+      "course_type": "Public",
+      "typically": "Individual attendee quotes",
+      "payment_field": "Public_Attendee",
+      "payment_method": "Credit card or individual invoice"
+    },
+    "private_course_quotes": {
+      "course_type": "Private",
+      "typically": "Consolidated corporate quote",
+      "requires": [
+        "Purchase order",
+        "Account_Name",
+        "Training_Coordinator"
+      ],
+      "multiple_attendees": "Single quote covers all",
+      "invoice_to": "Account (company)"
+    }
+  },
+  "automation_summary": {
+    "total_workflows": 7,
+    "create_triggers": 1,
+    "field_update_triggers": 5,
+    "create_or_edit_triggers": 2,
+    "key_trigger_fields": [
+      "Quote_Stage",
+      "Send_Quote_as_EMAIL",
+      "Expected_PO_Date",
+      "PO_Number"
+    ]
+  },
+  "stage_progression": {
+    "quote_stages": [
+      "Draft",
+      "Created",
+      "Presented",
+      "Sent",
+      "Accepted",
+      "Declined",
+      "Closed Won",
+      "Closed Lost"
+    ],
+    "field": "Quote_Stage",
+    "system_field": true
+  },
+  "deal_sync": {
+    "quote_to_deal": {
+      "updates_fields": [
+        "Quote_ID (text field on Deal)",
+        "Quote_Amount"
+      ],
+      "when": "Quote created or updated"
+    },
+    "deal_to_quote": {
+      "provides_fields": [
+        "Account_Name",
+        "Contact_Name",
+        "Course details",
+        "Number_of_Attendees"
+      ],
+      "on_creation": true
+    }
+  },
+  "quote_acceptance_flow": {
+    "online_acceptance": {
+      "url_field": "Accept_Quote_URL",
+      "updates": "Quote_Stage = Accepted"
+    },
+    "manual_acceptance": {
+      "method": "Set Quote_Stage = Accepted manually",
+      "triggers": "Update Deal and Invoice on Quote Closed Won"
+    },
+    "creates_invoice": {
+      "automatic": true,
+      "workflow": "Update Deal and Invoice on Quote Closed Won",
+      "invoice_status": "Created/Draft"
+    },
+    "updates_deal": {
+      "deal_stage": "Closed Won",
+      "workflow": "Update Deal and Invoice on Quote Closed Won"
+    }
+  }
+}

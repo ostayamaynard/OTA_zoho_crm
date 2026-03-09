@@ -1,0 +1,37 @@
+graph TB
+    %% Complete Customer Journey - All Modules
+
+    subgraph Leads["Leads"]
+        1_lead_entry["1 lead entry<br/>"]
+        2_lead_qualification["2 lead qualification<br/>"]
+        3_lead_conversion["3 lead conversion<br/>"]
+    end
+
+    subgraph Deals["Deals"]
+        4_deal_progression["4 deal progression<br/>"]
+    end
+
+    subgraph Quotes["Quotes"]
+        5_quote_process["5 quote process<br/>"]
+    end
+
+    subgraph Invoices["Invoices"]
+        6_invoice_payment["6 invoice payment<br/>"]
+    end
+
+    subgraph Courses["Courses"]
+        11_archiving["11 archiving<br/>"]
+    end
+
+    subgraph Registration_Records["Registration_Records"]
+        7_course_enrolment["7 course enrolment<br/>"]
+        8_pre_course_communications["8 pre course communications<br/>"]
+        10_certification["10 certification<br/>"]
+    end
+
+    1_lead_entry --> 2_lead_qualification
+    2_lead_qualification --> 3_lead_conversion
+    3_lead_conversion --> 4_deal_progression
+    8_pre_course_communications --> 9_course_delivery
+    9_course_delivery --> 10_certification
+    10_certification --> 11_archiving

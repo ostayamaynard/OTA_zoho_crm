@@ -1,0 +1,123 @@
+flowchart TD
+    %% Public Invoice SOP Flow Diagram
+    %% Source: SOPs/raw_sops/public_invoice_sop.md
+    %% Coverage: 46%
+    %% Related CRM Diagrams:
+    %%   - modules/deals/diagrams/deals-workflow.mmd
+    %%   - modules/quotes/diagrams/quotes-lifecycle.mmd
+    %%   - modules/invoices/diagrams/invoices-payment-flow.mmd
+
+    Start([Start: Public Invoice SOP])
+
+    %% Step 1: Move Deal to Ready to Quote
+    subgraph Step1["Step 1: Move Deal Stage to Ready to Quote"]
+        S1_Nav["👤 Navigate to Deal<br/>(Manual search)"]
+        S1_Stage["👤 Set Stage = Ready to Quote"]
+        S1_Auto["🤖 WF: Create Quote<br/>ID: 52330000002460308<br/>Auto-creates Quote"]
+        S1_Gap["⚠️ GAP: SOP says refresh<br/>but doesn't explain Quote<br/>appears in Quotes module"]
+    end
+
+    Start --> S1_Nav
+    S1_Nav --> S1_Stage
+    S1_Stage -->|triggers| S1_Auto
+    S1_Auto --> S1_Gap
+
+    %% Step 2: Review Quote
+    subgraph Step2["Step 2: Open & Review Quote"]
+        S2_Nav["👤 Navigate to Quotes module<br/>(No link provided)"]
+        S2_Decision{Add Public<br/>to title?}
+        S2_Title["👤 Edit Subject field"]
+        S2_Override["🟡 WF may override<br/>ID: 52330000002856364"]
+        S2_Review["👤 Review student details"]
+        S2_AutoPop["🟡 Fields auto-populated<br/>WF: 52330000002597194"]
+        S2_Tax["🟡 Tax auto-calculated<br/>WF: 52330000004975235"]
+    end
+
+    S1_Gap --> S2_Nav
+    S2_Nav --> S2_Decision
+    S2_Decision -->|Yes| S2_Title
+    S2_Decision -->|No| S2_Review
+    S2_Title --> S2_Override
+    S2_Override --> S2_Review
+    S2_Review --> S2_AutoPop
+    S2_AutoPop --> S2_Tax
+
+    %% Step 3: Convert to Invoice
+    subgraph Step3["Step 3: Create Invoice"]
+        S3_SOP["📋 SOP: Click Convert > Invoice"]
+        S3_Conflict["❌ CONTRADICTS CRM"]
+        S3_Reality["🤖 WF: Auto-create Invoice<br/>ID: 52330000002460325<br/>Trigger: Quote_Stage = Closed Won"]
+        S3_Correct["✅ CORRECT: Set Quote_Stage<br/>to 'Closed Won'"]
+        S3_Date["👤 Verify Invoice Date"]
+        S3_Due["🤖 WF: Update Due Date<br/>ID: 52330000005069739<br/>Auto-calculates"]
+        S3_Plan{Payment<br/>plan?}
+        S3_AdjustDue["👤 Manually adjust Due Date"]
+        S3_Draft["👤 Leave Status as Draft"]
+    end
+
+    S2_Tax --> S3_SOP
+    S3_SOP -.->|"SOP incorrect"| S3_Conflict
+    S3_Conflict -.->|"Actual behavior"| S3_Reality
+    S3_Reality --> S3_Correct
+    S3_Correct --> S3_Date
+    S3_Date --> S3_Due
+    S3_Due --> S3_Plan
+    S3_Plan -->|Yes| S3_AdjustDue
+    S3_Plan -->|No| S3_Draft
+    S3_AdjustDue --> S3_Draft
+
+    %% Step 4: Send Invoice
+    subgraph Step4["Step 4: Send Invoice"]
+        S4_SOP["📋 SOP: Click Send Email"]
+        S4_Conflict2["❌ CONTRADICTS CRM"]
+        S4_Reality2["🤖 WF: Send Invoice<br/>ID: 52330000004534311<br/>Trigger: Status = Sent"]
+        S4_Correct2["✅ CORRECT: Set Status<br/>to 'Sent'"]
+        S4_Template["🔴 GAP: Cannot select<br/>template with workflow"]
+        S4_Auto["🤖 Email sent automatically<br/>Invoice_Sent_Date set"]
+    end
+
+    S3_Draft --> S4_SOP
+    S4_SOP -.->|"SOP incorrect"| S4_Conflict2
+    S4_Conflict2 -.->|"Actual behavior"| S4_Reality2
+    S4_Reality2 --> S4_Correct2
+    S4_Correct2 --> S4_Template
+    S4_Template --> S4_Auto
+
+    S4_Auto --> End([End: Invoice Sent])
+
+    %% Styling
+    classDef human fill:#2196F3,stroke:#000,stroke-width:2px,color:#fff
+    classDef auto fill:#90EE90,stroke:#000,stroke-width:2px
+    classDef decision fill:#FFEB3B,stroke:#000,stroke-width:2px
+    classDef gap fill:#FF9800,stroke:#000,stroke-width:2px
+    classDef conflict fill:#F44336,stroke:#000,stroke-width:3px,color:#fff
+    classDef correct fill:#4CAF50,stroke:#000,stroke-width:2px,color:#fff
+    classDef sop fill:#E1BEE7,stroke:#000,stroke-width:1px
+    classDef undoc fill:#FFE082,stroke:#000,stroke-width:2px
+
+    class S1_Nav,S1_Stage,S2_Nav,S2_Title,S2_Review,S3_Date,S3_AdjustDue,S3_Draft human
+    class S1_Auto,S3_Reality,S3_Due,S4_Reality2,S4_Auto auto
+    class S2_Decision,S3_Plan decision
+    class S1_Gap,S4_Template gap
+    class S3_Conflict,S4_Conflict2 conflict
+    class S3_Correct,S4_Correct2 correct
+    class S3_SOP,S4_SOP sop
+    class S2_Override,S2_AutoPop,S2_Tax undoc
+
+    %% Clickable workflow links
+    click S1_Auto href "https://crm.zoho.com.au/crm/org7003757385/settings/workflow-rules/52330000002460308" "Open: Create Quote workflow"
+    click S2_Override href "https://crm.zoho.com.au/crm/org7003757385/settings/workflow-rules/52330000002856364" "Open: Quote Naming Convention workflow"
+    click S2_AutoPop href "https://crm.zoho.com.au/crm/org7003757385/settings/workflow-rules/52330000002597194" "Open: Update Quote Details workflow"
+    click S2_Tax href "https://crm.zoho.com.au/crm/org7003757385/settings/workflow-rules/52330000004975235" "Open: Calculate Tax workflow"
+    click S3_Reality href "https://crm.zoho.com.au/crm/org7003757385/settings/workflow-rules/52330000002460325" "Open: Quote to Invoice workflow"
+    click S3_Due href "https://crm.zoho.com.au/crm/org7003757385/settings/workflow-rules/52330000005069739" "Open: Update Due Date workflow"
+    click S4_Reality2 href "https://crm.zoho.com.au/crm/org7003757385/settings/workflow-rules/52330000004534311" "Open: Send Invoice workflow"
+
+    %% Legend
+    subgraph Legend["Legend"]
+        L1["👤 Human Action"]
+        L2["🤖 Automated Workflow"]
+        L3["❌ SOP Contradicts CRM"]
+        L4["⚠️/🔴 Gap Identified"]
+        L5["🟡 Undocumented Automation"]
+    end

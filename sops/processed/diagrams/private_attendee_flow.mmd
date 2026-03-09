@@ -1,0 +1,94 @@
+flowchart TD
+    %% Private Attendee in Public Course Invoicing SOP Flow
+    %% Source: SOPs/raw_sops/private_attendee_invoicing_sop.md
+    %% Coverage: 29%
+    %% Related CRM Diagrams:
+    %%   - modules/invoices/diagrams/invoices-payment-flow.mmd
+    %%   - modules/deals/diagrams/deals-workflow.mmd
+    %%   - modules/registration_records/diagrams/registration-kanban-detailed.mmd
+
+    Start([Start: Private Attendee Invoicing])
+
+    %% Step 1: Confirm Status
+    subgraph Step1["Step 1: Confirm Deal & Registration Status"]
+        S1_Nav["👤 Navigate to Course<br/>(Manual search)"]
+        S1_CheckReg["👤 Check Registration Records<br/>for student"]
+        S1_CheckDeal["👤 Check Deals section<br/>for linked Deal"]
+        S1_Decision{Registration<br/>exists?}
+        S1_RegSOP["📋 Follow Registration<br/>SOP first"]
+    end
+
+    Start --> S1_Nav
+    S1_Nav --> S1_CheckReg
+    S1_CheckReg --> S1_CheckDeal
+    S1_CheckDeal --> S1_Decision
+    S1_Decision -->|No| S1_RegSOP
+    S1_RegSOP -.->|"Return when complete"| S1_Decision
+
+    %% Step 2: Open Deal
+    subgraph Step2["Step 2: Open Private Student Deal"]
+        S2_Find["👤 Find Deal for<br/>private student"]
+        S2_VerifyLink["👤 Verify Deal linked<br/>to course & student"]
+        S2_AcctProp["🟡 WF: Account propagates<br/>ID: 52330000005069264"]
+        S2_Billing["👤 Verify billing = payer<br/>(individual or employer)"]
+    end
+
+    S1_Decision -->|Yes| S2_Find
+    S2_Find --> S2_VerifyLink
+    S2_VerifyLink --> S2_AcctProp
+    S2_AcctProp --> S2_Billing
+
+    %% Step 3: Edit Invoice
+    subgraph Step3["Step 3: Edit & Finalise Invoice"]
+        S3_Open["👤 Open Invoice from Deal"]
+        S3_Review["👤 Review items, pricing"]
+        S3_Tax["🟡 Tax auto-calculated<br/>WF: 52330000004975124<br/>Do not edit manually"]
+        S3_Adjust["👤 Adjust fees if needed"]
+        S3_NoAudit["🔴 GAP: No audit trail<br/>for price changes"]
+    end
+
+    S2_Billing --> S3_Open
+    S3_Open --> S3_Review
+    S3_Review --> S3_Tax
+    S3_Tax --> S3_Adjust
+    S3_Adjust --> S3_NoAudit
+
+    %% Step 4: Send Invoice
+    subgraph Step4["Step 4: Send to Private Payer"]
+        S4_Template["👤 Template set in workflow<br/>(not user-selectable)"]
+        S4_Email["👤 Verify recipient email"]
+        S4_Status["👤 Set Status = Sent"]
+        S4_Send["🤖 WF: Send Invoice<br/>ID: 52330000004534311"]
+        S4_Notes["👤 Add payment term notes<br/>to Description field"]
+        S4_Sync["🟡 WF: Updates Deal & Reg<br/>ID: 52330000004251591"]
+    end
+
+    S3_NoAudit --> S4_Template
+    S4_Template --> S4_Email
+    S4_Email --> S4_Status
+    S4_Status -->|triggers| S4_Send
+    S4_Send --> S4_Notes
+    S4_Notes --> S4_Sync
+
+    S4_Sync --> End([End: Invoice Sent to Private Payer])
+
+    %% Styling
+    classDef human fill:#2196F3,stroke:#000,stroke-width:2px,color:#fff
+    classDef auto fill:#90EE90,stroke:#000,stroke-width:2px
+    classDef decision fill:#FFEB3B,stroke:#000,stroke-width:2px
+    classDef gap fill:#FF9800,stroke:#000,stroke-width:2px
+    classDef sop fill:#E1BEE7,stroke:#000,stroke-width:1px
+    classDef undoc fill:#FFE082,stroke:#000,stroke-width:2px
+
+    class S1_Nav,S1_CheckReg,S1_CheckDeal,S2_Find,S2_VerifyLink,S2_Billing,S3_Open,S3_Review,S3_Adjust,S4_Template,S4_Email,S4_Status,S4_Notes human
+    class S4_Send auto
+    class S1_Decision decision
+    class S3_NoAudit gap
+    class S1_RegSOP sop
+    class S2_AcctProp,S3_Tax,S4_Sync undoc
+
+    %% Clickable workflow links
+    click S2_AcctProp href "https://crm.zoho.com.au/crm/org7003757385/settings/workflow-rules/52330000005069264" "Open: Account propagates workflow"
+    click S3_Tax href "https://crm.zoho.com.au/crm/org7003757385/settings/workflow-rules/52330000004975124" "Open: Calculate Tax workflow"
+    click S4_Send href "https://crm.zoho.com.au/crm/org7003757385/settings/workflow-rules/52330000004534311" "Open: Send Invoice workflow"
+    click S4_Sync href "https://crm.zoho.com.au/crm/org7003757385/settings/workflow-rules/52330000004251591" "Open: Update Deal & Registration workflow"

@@ -1,0 +1,146 @@
+flowchart TD
+    %% Auto-generated on 2025-11-18
+    %% Source: zoho-data-model-2025-11-13.json + zoho-dependencies-2025-11-13.json
+    %% Do not manually edit. Update via Claude Code only.
+    %% Scope: Attendee/Registration lifecycle workflows (5 of 19)
+
+    %% ========== STAGE DEFINITIONS (Style B - Dominant) ==========
+    Qualification["🔍 QUALIFICATION"]
+    Negotiation_Review["💬 NEGOTIATION/REVIEW"]
+    Ready_to_Quote["📝 READY TO QUOTE"]
+    Awaiting_ZipPay_Confirmation["💳 AWAITING ZIPPAY"]
+    Awaiting_PO["📋 AWAITING PO"]
+    Awaiting_Invoice_Payment["💰 AWAITING PAYMENT"]
+    Unused["⏸️ UNUSED"]
+    Closed_Won["✅ CLOSED WON"]
+    Closed_Lost["❌ CLOSED LOST"]
+    UnAccounted["🔍 UNACCOUNTED<br/>(Kanban filter only)"]
+
+    %% ========== STAGE FLOW ==========
+    Qualification --> Negotiation_Review
+    Negotiation_Review --> Ready_to_Quote
+    Ready_to_Quote --> Awaiting_ZipPay_Confirmation
+    Awaiting_ZipPay_Confirmation --> Awaiting_PO
+    Ready_to_Quote --> Awaiting_PO
+    Awaiting_PO --> Awaiting_Invoice_Payment
+    Awaiting_Invoice_Payment --> Closed_Won
+    Awaiting_PO --> Closed_Won
+    Negotiation_Review --> Unused
+    Unused --> Negotiation_Review
+    Negotiation_Review --> Closed_Lost
+    Ready_to_Quote --> Closed_Lost
+    Awaiting_ZipPay_Confirmation --> Closed_Lost
+    Awaiting_PO --> Closed_Lost
+    Awaiting_Invoice_Payment --> Closed_Lost
+
+    %% ========== REGISTRATION RECORD MODULE ==========
+    Registration_Records[("📋 Registration_Records<br/>Module")]
+
+    %% ========== ATTENDEE REQUEST WORKFLOWS ==========
+
+    %% WF: Email to training Coordinator from DEALS (field_update:Request_Attendees)
+    WF_EmailCoordinator["Email to training Coordinator<br/>Action: Sends email requesting<br/>attendee details"]
+    click WF_EmailCoordinator "https://crm.zoho.com.au/crm/org7003757385/settings/workflow-rules/52330000002967852" _blank
+    Qualification -.->|"field_update:Request_Attendees<br/>[any stage, repeatable]"| WF_EmailCoordinator
+    Negotiation_Review -.->|"field_update:Request_Attendees<br/>[any stage, repeatable]"| WF_EmailCoordinator
+    Ready_to_Quote -.->|"field_update:Request_Attendees<br/>[any stage, repeatable]"| WF_EmailCoordinator
+
+    %% WF: Create Team Task from Deals (field_update:Create_Follow_up_Task)
+    WF_CreateTeamTask["Create Team Task from Deals<br/>Action: Creates Team Task<br/>for attendee/deal follow-up"]
+    click WF_CreateTeamTask "https://crm.zoho.com.au/crm/org7003757385/settings/workflow-rules/52330000002460147" _blank
+    Qualification -.->|"field_update:Create_Follow_up_Task<br/>[any stage, repeatable]"| WF_CreateTeamTask
+    Negotiation_Review -.->|"field_update:Create_Follow_up_Task<br/>[any stage, repeatable]"| WF_CreateTeamTask
+    Ready_to_Quote -.->|"field_update:Create_Follow_up_Task<br/>[any stage, repeatable]"| WF_CreateTeamTask
+
+    %% ========== ACCOUNT UPDATE WORKFLOWS ==========
+
+    %% WF: When Account name is not blank (field_update:Account_Name)
+    WF_AccountUpdate["When Account name is not blank<br/>Action: Updates Registration records,<br/>Quotes, Invoices"]
+    click WF_AccountUpdate "https://crm.zoho.com.au/crm/org7003757385/settings/workflow-rules/52330000005069264" _blank
+    Qualification -.->|"field_update:Account_Name"| WF_AccountUpdate
+    WF_AccountUpdate --> Registration_Records
+
+    %% ========== REGISTRATION STATUS WORKFLOWS ==========
+
+    %% WF: On stage Update related Attendees (field_update:Stage)
+    WF_StageUpdateAttendees["On stage Update related Attendees<br/>Action: Updates Registration_Records<br/>→ Status = Confirmed"]
+    click WF_StageUpdateAttendees "https://crm.zoho.com.au/crm/org7003757385/settings/workflow-rules/52330000004335567" _blank
+    Closed_Won -.->|"field_update:Stage<br/>[any stage change, internal logic]"| WF_StageUpdateAttendees
+    WF_StageUpdateAttendees --> Registration_Records
+
+    %% WF: Update Registration records when PO Is received (field_update:Purchase_Order_Number)
+    WF_POUpdateRegistrations["Update Registration records<br/>when PO Is received<br/>Action: Registration_Records<br/>→ Status = Confirmed"]
+    click WF_POUpdateRegistrations "https://crm.zoho.com.au/crm/org7003757385/settings/workflow-rules/52330000006993545" _blank
+    Awaiting_PO -.->|"field_update:Purchase_Order_Number<br/>[any stage]"| WF_POUpdateRegistrations
+    Closed_Won -.->|"field_update:Purchase_Order_Number<br/>[any stage]"| WF_POUpdateRegistrations
+    WF_POUpdateRegistrations --> Registration_Records
+
+    %% ========== ATTENDEE DATA FLOW ==========
+
+    %% Attendee form submission flow
+    AttendeeForm["📝 Attendee Form Submitted<br/>Field: Attendee_Form_submitted"]
+    WF_EmailCoordinator -.->|"Coordinator receives email"| AttendeeForm
+    AttendeeForm -.->|"Form data creates"| Registration_Records
+
+    %% ========== HUMAN SOP PLACEHOLDERS ==========
+
+    %% Human SOP placeholder for attendee request
+    SOP_AttendeeRequest["👤 Human Review Needed<br/>(See SOP link TBD)<br/>Set Request_Attendees checkbox"]
+    Negotiation_Review --> SOP_AttendeeRequest
+
+    %% Human SOP placeholder for registration verification
+    SOP_VerifyRegistrations["👤 Human Review Needed<br/>(See SOP link TBD)<br/>Verify Registration_Records Status"]
+    Closed_Won --> SOP_VerifyRegistrations
+
+    %% ========== LEGEND ==========
+    subgraph Legend["📋 LEGEND"]
+        L_Stage["STAGE NODE<br/>(Dominant, 3px border)"]
+        L_WF["Workflow Automation<br/>(Click to open in Zoho)"]
+        L_Field["field_update:Field<br/>(Field-based trigger)"]
+        L_Module[("External Module")]
+        L_Human["👤 Human/SOP Touchpoint"]
+        L_Data["Data Flow"]
+    end
+
+    %% ========== STYLING ==========
+    classDef stageQual fill:#FFE8E8,stroke:#000,stroke-width:3px,stroke-dasharray:5 5
+    classDef stageNegot fill:#E3E9FF,stroke:#000,stroke-width:3px,stroke-dasharray:5 5
+    classDef stageQuote fill:#FFF4C4,stroke:#000,stroke-width:3px,stroke-dasharray:5 5
+    classDef stageZip fill:#E8D5FF,stroke:#000,stroke-width:3px,stroke-dasharray:5 5
+    classDef stagePO fill:#F5F5F5,stroke:#000,stroke-width:3px,stroke-dasharray:5 5
+    classDef stageInvoice fill:#E8E8E8,stroke:#000,stroke-width:3px,stroke-dasharray:5 5
+    classDef stageUnused fill:#FFE8E8,stroke:#000,stroke-width:3px,stroke-dasharray:5 5
+    classDef stageWon fill:#C8E6C9,stroke:#000,stroke-width:3px,stroke-dasharray:5 5
+    classDef stageLost fill:#FFCDD2,stroke:#000,stroke-width:3px,stroke-dasharray:5 5
+    classDef stageFilter fill:#F0F0F0,stroke:#000,stroke-width:3px,stroke-dasharray:5 5
+    classDef workflow fill:#E8F5E9,stroke:#388E3C,stroke-width:2px
+    classDef module fill:#FFF8E1,stroke:#F57C00,stroke-width:2px
+    classDef dataFlow fill:#E1F5FE,stroke:#0288D1,stroke-width:1px
+    classDef humanSOP fill:#FFF8E1,stroke:#F9A825,stroke-width:1px
+    classDef legend fill:#FAFAFA,stroke:#BDBDBD,stroke-width:1px
+
+    class Qualification,Negotiation_Review,Ready_to_Quote,Awaiting_ZipPay_Confirmation,Awaiting_PO,Awaiting_Invoice_Payment,Unused,Closed_Won,Closed_Lost stageDominant
+    class UnAccounted stageFilter
+    class WF_EmailCoordinator,WF_CreateTeamTask,WF_AccountUpdate,WF_StageUpdateAttendees,WF_POUpdateRegistrations workflow
+    class Registration_Records module
+    class AttendeeForm dataFlow
+
+    %% ========== CLICKABLE WORKFLOW LINKS ==========
+    click WF_EmailCoordinator "https://crm.zoho.com.au/crm/org7003757385/settings/workflow-rules/52330000002967852" "Open in Zoho CRM"
+    click WF_CreateTeamTask "https://crm.zoho.com.au/crm/org7003757385/settings/workflow-rules/52330000002460147" "Open in Zoho CRM"
+    click WF_AccountUpdate "https://crm.zoho.com.au/crm/org7003757385/settings/workflow-rules/52330000005069264" "Open in Zoho CRM"
+    click WF_StageUpdateAttendees "https://crm.zoho.com.au/crm/org7003757385/settings/workflow-rules/52330000004335567" "Open in Zoho CRM"
+    click WF_POUpdateRegistrations "https://crm.zoho.com.au/crm/org7003757385/settings/workflow-rules/52330000006993545" "Open in Zoho CRM"
+
+    %% ========== LEGEND ==========
+    subgraph Legend
+        direction LR
+        L_Stage["Deal Stage"]
+        L_Workflow["Workflow Rule<br/>(clickable)"]
+        L_Module[("Module")]
+        L_DataFlow["Data Flow"]
+    end
+    class L_Stage stageQual
+    class L_Workflow workflow
+    class L_Module module
+    class L_DataFlow dataFlow

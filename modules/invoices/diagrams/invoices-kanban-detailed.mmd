@@ -1,0 +1,54 @@
+---
+title: Invoices Module - Status Kanban with Workflows
+---
+flowchart TB
+    subgraph New["New"]
+        Draft["**Draft**<br/>- Update Due Date<br/>- Update All Fields<br/>- Calculate Tax<br/>- Update Deal/Reg"]
+    end
+
+    subgraph Pending["Pending"]
+        Awaiting["**Awaiting Payment**<br/>- Send on create<br/>- When PO received"]
+        Sent["**Sent**<br/>- Send Invoice<br/>- Invoice Update"]
+    end
+
+    subgraph InProgress["In Progress"]
+        Approved["**Approved**<br/>- Invoice Update"]
+        Partial["**Partially Paid**<br/>- Invoice Update"]
+    end
+
+    subgraph Completed["Completed"]
+        Paid["**Paid**<br/>- Push to Xero<br/>- Invoice Update<br/>- Update Deal Amount"]
+    end
+
+    subgraph Closed["Closed"]
+        Cancelled["**Cancelled**"]
+        Void["**Void**"]
+        Credit["**Credit**"]
+    end
+
+    Draft -->|"Ready for payment"| Awaiting
+    Draft -->|"Not needed"| Cancelled
+
+    Awaiting -->|"Invoice sent"| Sent
+    Awaiting -->|"Direct payment"| Paid
+    Awaiting -->|"Cancel"| Cancelled
+
+    Sent -->|"Client approves"| Approved
+    Sent -->|"Partial payment"| Partial
+    Sent -->|"Full payment"| Paid
+    Sent -->|"Cancel"| Cancelled
+
+    Approved -->|"Partial payment"| Partial
+    Approved -->|"Full payment"| Paid
+    Approved -->|"Void invoice"| Void
+
+    Partial -->|"Final payment"| Paid
+    Partial -->|"Void invoice"| Void
+
+    Paid -->|"Issue credit"| Credit
+
+    style New fill:#808080,color:#fff
+    style Pending fill:#3498db,color:#fff
+    style InProgress fill:#f1c40f,color:#000
+    style Completed fill:#27ae60,color:#fff
+    style Closed fill:#e74c3c,color:#fff

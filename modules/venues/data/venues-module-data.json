@@ -1,0 +1,153 @@
+{
+  "module": "Venues",
+  "api_name": "Venues",
+  "module_id": "52330000000000129",
+  "source": "zoho-data-model-2025-11-13.json",
+  "generated": "2025-11-18",
+  "total_fields": 23,
+  "standard_fields": 11,
+  "custom_fields": 12,
+  "workflows": 0,
+  "description": "Training location management module",
+  "fields": {
+    "required": [
+      {
+        "api_name": "Name",
+        "label": "Venue Name",
+        "data_type": "text"
+      }
+    ],
+    "address": [
+      {
+        "api_name": "Venue_Street_Address",
+        "label": "Venue Street Address",
+        "data_type": "text"
+      },
+      {
+        "api_name": "Venue_Suburb",
+        "label": "Venue Suburb",
+        "data_type": "text"
+      },
+      {
+        "api_name": "Venue_State",
+        "label": "Venue State",
+        "data_type": "picklist"
+      },
+      {
+        "api_name": "Venue_Postcode",
+        "label": "Venue Postcode",
+        "data_type": "text"
+      },
+      {
+        "api_name": "Venue_Location",
+        "label": "Venue Location",
+        "data_type": "text"
+      },
+      {
+        "api_name": "Venue_URL",
+        "label": "Venue MAP URL",
+        "data_type": "website"
+      }
+    ],
+    "information": [
+      {
+        "api_name": "Type",
+        "label": "Type",
+        "data_type": "picklist"
+      },
+      {
+        "api_name": "Available_Rooms",
+        "label": "Available Rooms",
+        "data_type": "multiselectpicklist"
+      },
+      {
+        "api_name": "Venue_Parking_Information",
+        "label": "Venue Parking Information",
+        "data_type": "textarea"
+      },
+      {
+        "api_name": "Venue_Directions",
+        "label": "Venue Directions",
+        "data_type": "textarea"
+      },
+      {
+        "api_name": "Venue_Contact",
+        "label": "Venue Contact",
+        "data_type": "lookup",
+        "lookup_module": "Contacts"
+      }
+    ],
+    "integration": [
+      {
+        "api_name": "WP_Venue_ID",
+        "label": "WP Venue ID",
+        "data_type": "text"
+      }
+    ]
+  },
+  "picklist_values": {
+    "Venue_State": [
+      {"sequence": 1, "value": "-None-"},
+      {"sequence": 2, "value": "VIC"},
+      {"sequence": 3, "value": "QLD"},
+      {"sequence": 4, "value": "WA"},
+      {"sequence": 5, "value": "SA"},
+      {"sequence": 6, "value": "TAS"},
+      {"sequence": 7, "value": "ACT"},
+      {"sequence": 8, "value": "NT"},
+      {"sequence": 9, "value": "NSW"}
+    ],
+    "Type": [
+      {"sequence": 1, "value": "-None-"},
+      {"sequence": 2, "value": "Onsite Training Venue"},
+      {"sequence": 3, "value": "Client Venue"}
+    ],
+    "Available_Rooms": [
+      {"sequence": 1, "value": "Classroom"},
+      {"sequence": 2, "value": "U Shape"},
+      {"sequence": 3, "value": "Theatre"},
+      {"sequence": 4, "value": "Boardroom"},
+      {"sequence": 5, "value": "Banquet"},
+      {"sequence": 6, "value": "Cocktail"}
+    ]
+  },
+  "lookup_relationships": {
+    "outgoing": [
+      {
+        "field_name": "Venue_Contact",
+        "field_label": "Venue Contact",
+        "target_module": "Contacts",
+        "required": false
+      }
+    ],
+    "incoming": [
+      {
+        "source_module": "Courses",
+        "field_name": "Select_Venue",
+        "field_label": "Select Venue",
+        "required": false
+      },
+      {
+        "source_module": "Registration_Records",
+        "field_name": "Venue",
+        "field_label": "Venue",
+        "required": false
+      }
+    ]
+  },
+  "integrations": {
+    "wordpress": {
+      "field": "WP_Venue_ID",
+      "purpose": "Links venue to WordPress listing"
+    }
+  },
+  "usage_notes": {
+    "primary_purpose": "Store training location details for courses",
+    "no_workflows": "All venue management is manual - no automated processes",
+    "key_relationships": [
+      "Selected by Courses via Select_Venue",
+      "Referenced by Registration_Records via Venue",
+      "Links to Contacts via Venue_Contact"
+    ]
+  }
+}

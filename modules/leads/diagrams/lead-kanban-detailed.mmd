@@ -1,0 +1,208 @@
+graph TB
+    %% Lead Status Kanban Board
+    %% Click on workflow boxes to open in Zoho CRM
+    
+    classDef statusNew fill:#FFF4C4,stroke:#ffda62,stroke-width:3px
+    classDef statusSource fill:#FCF8E8,stroke:#f8e199,stroke-width:3px
+    classDef statusContacted fill:#E8F5E9,stroke:#98d681,stroke-width:3px
+    classDef statusAttempted fill:#E3F2FD,stroke:#add9ff,stroke-width:3px
+    classDef statusReattempt fill:#FFE8E8,stroke:#ffc6c6,stroke-width:3px
+    classDef statusReattempt2 fill:#FFE0E0,stroke:#fd8989,stroke-width:3px
+    classDef statusReattempt3 fill:#FFCDD2,stroke:#eb4d4d,stroke-width:3px
+    classDef statusInterested fill:#C8E6C9,stroke:#25b52a,stroke-width:3px
+    classDef statusPurchased fill:#FFF4C4,stroke:#ffda62,stroke-width:3px
+    classDef statusConverted fill:#E8F5E9,stroke:#c4f0b3,stroke-width:3px
+    classDef statusPrivate fill:#E3F2FD,stroke:#5cb3fd,stroke-width:3px
+    classDef statusTerminal fill:#FFCDD2,stroke:#eb4d4d,stroke-width:3px
+    classDef autoWF fill:#90EE90,stroke:#2E7D32,stroke-width:2px
+    classDef manualWF fill:#2196F3,stroke:#0D47A1,stroke-width:2px
+    
+    %% ========== NEW LEAD STATUS ==========
+    Status1["🆕 NEW LEAD<br/>Initial entry"]
+    class Status1 statusNew
+    
+    WF1["New Lead Notification<br/>ID: 52330000000427010<br/>🔗 Click to view"]
+    click WF1 "https://crm.zoho.com.au/crm/org7003757385/settings/workflow-rules/52330000000427010" _blank
+    class WF1 autoWF
+    Status1 -.->|fires on create| WF1
+    
+    WF2["CallWithIn24Hours and Team Task<br/>ID: 52330000000864146<br/>Creates: Team Task<br/>🔗 Click to view"]
+    click WF2 "https://crm.zoho.com.au/crm/org7003757385/settings/workflow-rules/52330000000864146" _blank
+    class WF2 autoWF
+    Status1 -.->|fires on create| WF2
+    
+    WF3["Format Number<br/>ID: 52330000005789994<br/>🔗 Click to view"]
+    click WF3 "https://crm.zoho.com.au/crm/org7003757385/settings/workflow-rules/52330000005789994" _blank
+    class WF3 autoWF
+    Status1 -.->|fires on create| WF3
+    
+    WF4["Lead Owner Assignment<br/>ID: 52330000007257288<br/>🔗 Click to view"]
+    click WF4 "https://crm.zoho.com.au/crm/org7003757385/settings/workflow-rules/52330000007257288" _blank
+    class WF4 autoWF
+    Status1 -.->|fires on create| WF4
+    
+    WF5["Tag G-Series Leadership Leads<br/>ID: 52330000007732209<br/>🔗 Click to view"]
+    click WF5 "https://crm.zoho.com.au/crm/org7003757385/settings/workflow-rules/52330000007732209" _blank
+    class WF5 autoWF
+    Status1 -.->|fires on create| WF5
+    
+    WF6["Course Details Udpated<br/>ID: 52330000005569771<br/>Triggers: Course field<br/>🔗 Click to view"]
+    click WF6 "https://crm.zoho.com.au/crm/org7003757385/settings/workflow-rules/52330000005569771" _blank
+    class WF6 autoWF
+    Status1 -.->|Course selected| WF6
+    
+    Human1["👤 HUMAN ACTIONS:<br/>• Contact within 24h (task created)<br/>• Select Course<br/>• Update lead details"]
+    Status1 --> Human1
+    
+    %% ========== NEW LEAD VARIANTS ==========
+    Status2["🌐 NEW LEAD - WEBSITE<br/>From website form"]
+    Status3["📢 NEW LEAD - GOOGLE ADS<br/>From Google Ads"]
+    Status4["💼 NEW LEAD - LINKEDIN<br/>From LinkedIn"]
+    Status5["📱 NEW LEAD - FACEBOOK<br/>From Facebook"]
+    class Status2 statusSource
+    class Status3 statusSource
+    class Status4 statusSource
+    class Status5 statusSource
+    
+    Status2 -.->|same workflows| WF1
+    Status3 -.->|same workflows| WF1
+    Status4 -.->|same workflows| WF1
+    Status5 -.->|same workflows| WF1
+    
+    %% ========== CONTACTED STATUS ==========
+    Human1 --> Status6["✅ CONTACTED<br/>Lead reached"]
+    Status2 --> Status6
+    Status3 --> Status6
+    Status4 --> Status6
+    Status5 --> Status6
+    class Status6 statusContacted
+    
+    WF7["Create Team task in leads<br/>ID: 52330000002758376<br/>Trigger: Create_task = true<br/>🔗 Click to view"]
+    click WF7 "https://crm.zoho.com.au/crm/org7003757385/settings/workflow-rules/52330000002758376" _blank
+    class WF7 manualWF
+    Status6 -.->|manual trigger| WF7
+    
+    WF8["Send Course email<br/>ID: 52330000006093561<br/>Trigger: Course_Email = true<br/>🔗 Click to view"]
+    click WF8 "https://crm.zoho.com.au/crm/org7003757385/settings/workflow-rules/52330000006093561" _blank
+    class WF8 manualWF
+    Status6 -.->|manual trigger| WF8
+    
+    Human6["👤 HUMAN ACTIONS:<br/>• Assess interest & qualification<br/>• Determine payment method<br/>• Set WF_Action if ready"]
+    Status6 --> Human6
+    
+    %% ========== ATTEMPTED TO CONTACT ==========
+    Human6 --> Status7["📞 ATTEMPTED TO CONTACT<br/>No response"]
+    class Status7 statusAttempted
+    
+    Human7["👤 HUMAN ACTIONS:<br/>• Schedule follow-up<br/>• Try alternative method"]
+    Status7 --> Human7
+    
+    %% ========== RE-ATTEMPTS ==========
+    Human7 --> Status8["🔄 RE-ATTEMPT 1<br/>First retry"]
+    class Status8 statusReattempt
+    
+    Human8["👤 HUMAN ACTIONS:<br/>• Try different contact method"]
+    Status8 --> Human8
+    
+    Human8 --> Status9["🔄🔄 RE-ATTEMPT 2<br/>Second retry"]
+    class Status9 statusReattempt2
+    
+    Human9["👤 HUMAN ACTIONS:<br/>• Final attempt"]
+    Status9 --> Human9
+    
+    Human9 --> Status10["🔄🔄🔄 RE-ATTEMPT 3<br/>Last chance"]
+    class Status10 statusReattempt3
+    
+    Human10["👤 HUMAN ACTIONS:<br/>• Final contact attempt"]
+    Status10 --> Human10
+    
+    %% ========== INTERESTED STATUS ==========
+    Human6 --> Status11["👍 INTERESTED<br/>Qualified & interested"]
+    class Status11 statusInterested
+    
+    WF9["Generate Payment URL<br/>ID: 52330000008228472<br/>Trigger: WF_Action = 'Generate Payment URL'<br/>🔗 Click to view"]
+    click WF9 "https://crm.zoho.com.au/crm/org7003757385/settings/workflow-rules/52330000008228472" _blank
+    class WF9 manualWF
+    Status11 -.->|manual trigger| WF9
+    
+    WF10["Update Location URL<br/>ID: 52330000008158816<br/>Trigger: WF_Action field<br/>🔗 Click to view"]
+    click WF10 "https://crm.zoho.com.au/crm/org7003757385/settings/workflow-rules/52330000008158816" _blank
+    class WF10 manualWF
+    Status11 -.->|manual trigger| WF10
+    
+    Human11["👤 HUMAN ACTIONS:<br/>• Set WF_Action field<br/>• Send payment link if credit card<br/>• Wait for payment/conversion"]
+    Status11 --> Human11
+    
+    %% ========== COURSE PURCHASED - CONVERT ==========
+    Human11 -->|Payment received| Status12["💳 COURSE PURCHASED<br/>⚡ Auto-convert"]
+    class Status12 statusPurchased
+    
+    WF11["⚡ Convert on Payment Success<br/>ID: 52330000008292523<br/>CREATES: Contact, Account, Deal, Registration, Invoice<br/>🔗 Click to view"]
+    click WF11 "https://crm.zoho.com.au/crm/org7003757385/settings/workflow-rules/52330000008292523" _blank
+    class WF11 autoWF
+    Status12 ==>|AUTO-FIRES| WF11
+    
+    Human12["👤 HUMAN ACTIONS:<br/>• Verify payment received<br/>• Verify conversion records"]
+    Status12 --> Human12
+    
+    %% ========== CONVERT - CREATE RECORDS ==========
+    Human12 --> Status13["✨ CONVERT - CREATE RECORDS<br/>Conversion complete"]
+    Human11 -->|WF_Action set| Status13
+    class Status13 statusConverted
+    
+    WF12["Convert Pay Via Invoice<br/>ID: 52330000008920352<br/>Trigger: WF_Action = 'Convert Pay Via Invoice'<br/>🔗 Click to view"]
+    click WF12 "https://crm.zoho.com.au/crm/org7003757385/settings/workflow-rules/52330000008920352" _blank
+    class WF12 manualWF
+    Status13 -.->|manual trigger| WF12
+    
+    WF13["Convert Non Paying Lead<br/>ID: 52330000008250081<br/>Trigger: WF_Action = 'Convert Non Paying Lead'<br/>🔗 Click to view"]
+    click WF13 "https://crm.zoho.com.au/crm/org7003757385/settings/workflow-rules/52330000008250081" _blank
+    class WF13 manualWF
+    Status13 -.->|manual trigger| WF13
+    
+    WF14["Convert to Only Create a contact<br/>ID: 52330000008405346<br/>Trigger: WF_Action = 'Convert to Only Create a contact'<br/>🔗 Click to view"]
+    click WF14 "https://crm.zoho.com.au/crm/org7003757385/settings/workflow-rules/52330000008405346" _blank
+    class WF14 manualWF
+    Status13 -.->|manual trigger| WF14
+    
+    Human13["👤 HUMAN ACTIONS:<br/>• Verify conversion records<br/>• Check Converted__s = TRUE"]
+    Status13 --> Human13
+    
+    %% ========== PRIVATE LEAD ==========
+    Human6 --> Status14["🏢 PRIVATE LEAD<br/>Private course enquiry"]
+    class Status14 statusPrivate
+    
+    Human14["👤 HUMAN ACTIONS:<br/>• Gather requirements<br/>• Set WF_Action = 'Convert Non Paying Lead'"]
+    Status14 --> Human14
+    Human14 --> Status13
+    
+    %% ========== DECISION POINTS ==========
+    Human6 --> Decision1{Qualified?}
+    Human7 --> Decision2{Reached?}
+    Human8 --> Decision2
+    Human9 --> Decision2
+    Human10 --> Decision2
+    
+    %% ========== TERMINAL STATUSES ==========
+    Decision1 -->|No| Status15["🚫 NOT QUALIFIED<br/>Terminal"]
+    Decision1 -->|Lost| Status16["❌ LOST LEAD<br/>Terminal"]
+    Decision2 -->|No| Status16
+    Decision1 -->|Junk| Status17["🗑️ JUNK LEAD<br/>Terminal"]
+    class Status15 statusTerminal
+    class Status16 statusTerminal
+    class Status17 statusTerminal
+    
+    Human15["👤 HUMAN ACTIONS:<br/>• Document reason in Description"]
+    Status15 --> Human15
+    Status16 --> Human15
+    Status17 --> Human15
+    
+    %% ========== LEGEND ==========
+    subgraph Legend
+        L1[🟢 Automatic Workflow<br/>Fires without user action]
+        L2[🔵 Manual Workflow<br/>User sets field to trigger]
+        L3[👤 Human Actions Required]
+        class L1 autoWF
+        class L2 manualWF
+    end
+

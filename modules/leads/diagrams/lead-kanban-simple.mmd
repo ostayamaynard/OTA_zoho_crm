@@ -1,0 +1,76 @@
+graph LR
+    %% Simplified Lead Status Kanban Board - 17 Statuses
+    
+    classDef newLead fill:#FFF4C4,stroke:#ffda62,stroke-width:4px
+    classDef newLeadSource fill:#FCF8E8,stroke:#f8e199,stroke-width:4px
+    classDef contacted fill:#E8F5E9,stroke:#98d681,stroke-width:4px
+    classDef attempted fill:#E3F2FD,stroke:#add9ff,stroke-width:4px
+    classDef reattempt1 fill:#FFE8E8,stroke:#ffc6c6,stroke-width:4px
+    classDef reattempt2 fill:#FFE0E0,stroke:#fd8989,stroke-width:4px
+    classDef reattempt3 fill:#FFCDD2,stroke:#eb4d4d,stroke-width:4px
+    classDef interested fill:#C8E6C9,stroke:#25b52a,stroke-width:4px
+    classDef purchased fill:#FFF4C4,stroke:#ffda62,stroke-width:4px
+    classDef converted fill:#E8F5E9,stroke:#c4f0b3,stroke-width:4px
+    classDef private fill:#E3F2FD,stroke:#5cb3fd,stroke-width:4px
+    classDef terminal fill:#FFCDD2,stroke:#eb4d4d,stroke-width:4px
+    
+    S1["🆕<br/>NEW LEAD<br/>━━━━━━━<br/>5 auto workflows<br/>Contact within 24h"]
+    S2["🌐<br/>NEW LEAD<br/>WEBSITE<br/>━━━━━━━<br/>5 auto workflows<br/>Prioritize"]
+    S3["📢<br/>NEW LEAD<br/>GOOGLE ADS<br/>━━━━━━━<br/>5 auto workflows"]
+    S4["💼<br/>NEW LEAD<br/>LINKEDIN<br/>━━━━━━━<br/>5 auto workflows"]
+    S5["📱<br/>NEW LEAD<br/>FACEBOOK<br/>━━━━━━━<br/>5 auto workflows"]
+    S6["✅<br/>CONTACTED<br/>━━━━━━━<br/>2 manual workflows<br/>Assess & qualify"]
+    S7["📞<br/>ATTEMPTED<br/>━━━━━━━<br/>Schedule follow-up"]
+    S8["🔄<br/>RE-ATTEMPT 1<br/>━━━━━━━<br/>Try again"]
+    S9["🔄🔄<br/>RE-ATTEMPT 2<br/>━━━━━━━<br/>Final attempt"]
+    S10["🔄🔄🔄<br/>RE-ATTEMPT 3<br/>━━━━━━━<br/>Last chance"]
+    S11["👍<br/>INTERESTED<br/>━━━━━━━<br/>Set WF_Action<br/>Convert path"]
+    S12["💳<br/>COURSE PURCHASED<br/>━━━━━━━<br/>⚡ Auto-convert<br/>Payment received"]
+    S13["✨<br/>CONVERTED<br/>━━━━━━━<br/>Records created"]
+    S14["🏢<br/>PRIVATE LEAD<br/>━━━━━━━<br/>Quote process"]
+    S15["🗑️<br/>JUNK LEAD<br/>━━━━━━━<br/>Terminal"]
+    S16["❌<br/>LOST LEAD<br/>━━━━━━━<br/>Terminal"]
+    S17["🚫<br/>NOT QUALIFIED<br/>━━━━━━━<br/>Terminal"]
+    
+    S1 --> S6
+    S2 --> S6
+    S3 --> S6
+    S4 --> S6
+    S5 --> S6
+    S6 --> S7
+    S6 --> S11
+    S6 --> S15
+    S6 --> S16
+    S6 --> S17
+    S7 --> S8
+    S7 --> S6
+    S8 --> S9
+    S8 --> S6
+    S9 --> S10
+    S9 --> S6
+    S10 --> S6
+    S10 --> S16
+    S11 --> S12
+    S11 --> S13
+    S11 --> S14
+    S12 --> S13
+    S14 --> S13
+    
+    class S1 newLead
+    class S2 newLeadSource
+    class S3 newLeadSource
+    class S4 newLeadSource
+    class S5 newLeadSource
+    class S6 contacted
+    class S7 attempted
+    class S8 reattempt1
+    class S9 reattempt2
+    class S10 reattempt3
+    class S11 interested
+    class S12 purchased
+    class S13 converted
+    class S14 private
+    class S15 terminal
+    class S16 terminal
+    class S17 terminal
+

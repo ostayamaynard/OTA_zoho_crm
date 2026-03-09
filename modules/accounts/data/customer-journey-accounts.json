@@ -1,0 +1,37 @@
+{
+  "module": "Accounts",
+  "generated_from": "zoho-dependencies-2025-11-13.json",
+  "last_updated": "2025-11-19",
+  "total_workflows": 4,
+  "customer_journey": {
+    "Accounts_Created": {
+      "description": "When a account record is created",
+      "related_workflows": []
+    },
+    "Accounts_Updated": {
+      "description": "When a account record is updated",
+      "related_workflows": [
+        {
+          "workflow_id": "52330000002460265",
+          "workflow_name": "Push Account Updates to Xero",
+          "workflow_url": "https://crm.zoho.com.au/crm/org7003757385/settings/workflow-rules/52330000002460265"
+        },
+        {
+          "workflow_id": "52330000005584202",
+          "workflow_name": "Send Update Your Details",
+          "workflow_url": "https://crm.zoho.com.au/crm/org7003757385/settings/workflow-rules/52330000005584202"
+        },
+        {
+          "workflow_id": "52330000010756395",
+          "workflow_name": "setAccountsGMapFiledsAsEmpty",
+          "workflow_url": "https://crm.zoho.com.au/crm/org7003757385/settings/workflow-rules/52330000010756395"
+        },
+        {
+          "workflow_id": "52330000010756347",
+          "workflow_name": "updateAccountsAddressAndRemoveMapFileds\t",
+          "workflow_url": "https://crm.zoho.com.au/crm/org7003757385/settings/workflow-rules/52330000010756347"
+        }
+      ]
+    }
+  }
+}

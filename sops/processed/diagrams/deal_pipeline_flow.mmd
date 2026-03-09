@@ -1,0 +1,123 @@
+flowchart TD
+    %% Deal Pipeline Management SOP Flow
+    %% Source: SOPs/raw_sops/deal_pipeline_management.md
+    %% Coverage: 13%
+    %% Related CRM Diagrams:
+    %%   - modules/deals/diagrams/deals-workflow.mmd
+    %%   - modules/deals/diagrams/deal-kanban-commercial.mmd
+
+    Start([Start: Deal Pipeline Management])
+
+    %% Step 1: Understanding Deal Types
+    subgraph Step1["Step 1: Understanding Deal Types"]
+        S1_Concept["📋 SOP: Main & Sub Deals"]
+        S1_Gap["❌ GAP: No hierarchy exists<br/>in CRM - all Deals flat"]
+        S1_Reality["✅ Reality: Each Deal<br/>is independent"]
+    end
+
+    Start --> S1_Concept
+    S1_Concept --> S1_Gap
+    S1_Gap --> S1_Reality
+
+    %% Step 2: Creating Deals
+    subgraph Step2["Step 2: Creating Sub Deals"]
+        S2_Create["👤 Create Deal"]
+        S2_Name["📋 SOP: Enter Deal Name<br/>CourseCode + Location + Date + Name"]
+        S2_Conflict["❌ CONTRADICTS CRM"]
+        S2_AutoName["🤖 WF: Deal Naming Convention<br/>ID: 52330000002967279<br/>Format: P - [Co] - [Loc] - [Course]"]
+        S2_Fields["👤 Set: Contact, Account, Course"]
+        S2_AutoID["🟡 WF: Update Deal ID<br/>ID: 52330000002444572"]
+        S2_AutoAmt["🟡 WF: Update Amount<br/>ID: 52330000003995130"]
+    end
+
+    S1_Reality --> S2_Create
+    S2_Create --> S2_Name
+    S2_Name -.->|"SOP incorrect"| S2_Conflict
+    S2_Conflict -.->|"Actual behavior"| S2_AutoName
+    S2_AutoName --> S2_Fields
+    S2_Fields --> S2_AutoID
+    S2_AutoID --> S2_AutoAmt
+
+    %% Step 3: Stage Progression
+    subgraph Step3["Step 3: Updating Deal Stages"]
+        S3_New["📋 SOP Stage: New"]
+        S3_NewConflict["❌ Stage doesn't exist"]
+        S3_Qual["✅ CRM Stage: Qualification"]
+
+        S3_RTQ["👤 Change to Ready to Quote"]
+        S3_Quote["🤖 WF: Create Quote<br/>ID: 52330000002460308"]
+
+        S3_Quoted["📋 SOP Stage: Quoted"]
+        S3_QuotedConflict["❌ Stage doesn't exist"]
+        S3_NegRev["✅ CRM Stage: Negotiation/Review"]
+
+        S3_WonMethod{How to<br/>close Won?}
+        S3_QuoteWon["🤖 Via Quote_Stage = Closed Won<br/>WF: 52330000002460325"]
+        S3_POEntry["🤖 Via PO Number entry<br/>WF: 52330000002460283"]
+        S3_RegUpdate["🤖 WF: Update Registrations<br/>ID: 52330000006993545"]
+
+        S3_Lost["👤 Change to Closed Lost<br/>Enter Loss_Reason"]
+    end
+
+    S2_AutoAmt --> S3_New
+    S3_New -.->|"SOP incorrect"| S3_NewConflict
+    S3_NewConflict --> S3_Qual
+    S3_Qual --> S3_RTQ
+    S3_RTQ -->|triggers| S3_Quote
+    S3_Quote --> S3_Quoted
+    S3_Quoted -.->|"SOP incorrect"| S3_QuotedConflict
+    S3_QuotedConflict --> S3_NegRev
+    S3_NegRev --> S3_WonMethod
+    S3_WonMethod -->|Quote accepted| S3_QuoteWon
+    S3_WonMethod -->|PO received| S3_POEntry
+    S3_QuoteWon --> S3_RegUpdate
+    S3_POEntry --> S3_RegUpdate
+    S3_WonMethod -->|Lost| S3_Lost
+
+    %% Step 4: Pipeline Hygiene
+    subgraph Step4["Step 4: Pipeline Hygiene"]
+        S4_Review["👤 Regularly review Deals"]
+        S4_NoReminder["🔴 GAP: No review<br/>reminder workflow"]
+        S4_Stages["👤 Update stages"]
+        S4_Dupes["👤 Check duplicates"]
+        S4_NoDupe["🔴 GAP: No duplicate<br/>detection"]
+        S4_PO["🟡 PO Reminders exist<br/>28/14/5/1 days before"]
+    end
+
+    S3_RegUpdate --> S4_Review
+    S3_Lost --> S4_Review
+    S4_Review --> S4_NoReminder
+    S4_NoReminder --> S4_Stages
+    S4_Stages --> S4_Dupes
+    S4_Dupes --> S4_NoDupe
+    S4_NoDupe --> S4_PO
+
+    S4_PO --> End([End: Pipeline Managed])
+
+    %% Styling
+    classDef human fill:#2196F3,stroke:#000,stroke-width:2px,color:#fff
+    classDef auto fill:#90EE90,stroke:#000,stroke-width:2px
+    classDef decision fill:#FFEB3B,stroke:#000,stroke-width:2px
+    classDef gap fill:#FF9800,stroke:#000,stroke-width:2px
+    classDef conflict fill:#F44336,stroke:#000,stroke-width:3px,color:#fff
+    classDef correct fill:#4CAF50,stroke:#000,stroke-width:2px,color:#fff
+    classDef sop fill:#E1BEE7,stroke:#000,stroke-width:1px
+    classDef undoc fill:#FFE082,stroke:#000,stroke-width:2px
+
+    class S2_Create,S2_Fields,S3_RTQ,S3_Lost,S4_Review,S4_Stages,S4_Dupes human
+    class S2_AutoName,S3_Quote,S3_QuoteWon,S3_POEntry,S3_RegUpdate auto
+    class S3_WonMethod decision
+    class S1_Gap,S4_NoReminder,S4_NoDupe gap
+    class S2_Conflict,S3_NewConflict,S3_QuotedConflict conflict
+    class S1_Reality,S3_Qual,S3_NegRev correct
+    class S1_Concept,S2_Name,S3_New,S3_Quoted sop
+    class S2_AutoID,S2_AutoAmt,S4_PO undoc
+
+    %% Clickable workflow links
+    click S2_AutoName href "https://crm.zoho.com.au/crm/org7003757385/settings/workflow-rules/52330000002967279" "Open: Deal Naming Convention workflow"
+    click S2_AutoID href "https://crm.zoho.com.au/crm/org7003757385/settings/workflow-rules/52330000002444572" "Open: Update Deal ID workflow"
+    click S2_AutoAmt href "https://crm.zoho.com.au/crm/org7003757385/settings/workflow-rules/52330000003995130" "Open: Update Amount workflow"
+    click S3_Quote href "https://crm.zoho.com.au/crm/org7003757385/settings/workflow-rules/52330000002460308" "Open: Create Quote workflow"
+    click S3_QuoteWon href "https://crm.zoho.com.au/crm/org7003757385/settings/workflow-rules/52330000002460325" "Open: Quote Closed Won workflow"
+    click S3_POEntry href "https://crm.zoho.com.au/crm/org7003757385/settings/workflow-rules/52330000002460283" "Open: PO Received workflow"
+    click S3_RegUpdate href "https://crm.zoho.com.au/crm/org7003757385/settings/workflow-rules/52330000006993545" "Open: Update Registrations workflow"

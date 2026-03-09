@@ -1,0 +1,108 @@
+flowchart TD
+    %% Quoting Process - Private Student in Public Course Flow
+    %% Source: SOPs/raw_sops/quoting_process_private_student.md
+    %% Coverage: 53%
+    %% Related CRM Diagrams:
+    %%   - modules/deals/diagrams/deals-workflow.mmd
+    %%   - modules/quotes/diagrams/quotes-lifecycle.mmd
+    %%   - modules/courses/diagrams/registration-timeline.mmd
+
+    Start([Start: Quoting Process])
+
+    %% Step 1: Locate Course
+    subgraph Step1["Step 1: Create or Locate Course"]
+        S1_Nav["👤 Navigate to Courses"]
+        S1_Filter["👤 Filter by location/date"]
+        S1_Confirm["👤 Confirm course details"]
+    end
+
+    Start --> S1_Nav
+    S1_Nav --> S1_Filter
+    S1_Filter --> S1_Confirm
+
+    %% Step 2: Register Student
+    subgraph Step2["Step 2: Register Private Student"]
+        S2_Add["👤 Create Registration Record"]
+        S2_Task["🟡 WF: Create Team Task<br/>ID: 52330000002518044"]
+        S2_Folder["🟡 WF: Workdrive Folder<br/>ID: 52330000005138075"]
+        S2_Private["🟡 WF: Private Attendee<br/>ID: 52330000005163090"]
+        S2_Contact["👤 Verify contact details"]
+        S2_Billing["👤 Verify billing details"]
+    end
+
+    S1_Confirm --> S2_Add
+    S2_Add -->|triggers| S2_Task
+    S2_Add -->|triggers| S2_Folder
+    S2_Add -->|triggers| S2_Private
+    S2_Task --> S2_Contact
+    S2_Folder --> S2_Contact
+    S2_Private --> S2_Contact
+    S2_Contact --> S2_Billing
+
+    %% Step 3: Create Deal
+    subgraph Step3["Step 3: Create Deal for Private Student"]
+        S3_Create["👤 Create Deal from Course"]
+        S3_ID["🟡 WF: Update Deal ID<br/>ID: 52330000002444572"]
+        S3_Name["🟡 WF: Deal Naming<br/>ID: 52330000002967279<br/>Do NOT enter manually"]
+        S3_Amount["🟡 WF: Update Amount<br/>ID: 52330000003995130"]
+        S3_Stage["👤 Set Stage = Ready to Quote"]
+        S3_Quote["🤖 WF: Create Quote<br/>ID: 52330000002460308"]
+        S3_Navigate["👤 Go to Quotes module<br/>to find new Quote"]
+    end
+
+    S2_Billing --> S3_Create
+    S3_Create -->|triggers| S3_ID
+    S3_Create -->|triggers| S3_Name
+    S3_Create -->|triggers| S3_Amount
+    S3_ID --> S3_Stage
+    S3_Name --> S3_Stage
+    S3_Amount --> S3_Stage
+    S3_Stage -->|triggers| S3_Quote
+    S3_Quote --> S3_Navigate
+
+    %% Step 4: Send Quote
+    subgraph Step4["Step 4: Review & Send Quote"]
+        S4_Open["👤 Open Quote"]
+        S4_Details["🟡 WF: Update Quote Details<br/>ID: 52330000002597194<br/>Auto-populated"]
+        S4_Tax["🟡 WF: Calculate Tax<br/>ID: 52330000004975235<br/>Do not edit"]
+        S4_Verify["👤 Verify student info"]
+        S4_Send["👤 Set Send_Quote_as_EMAIL = TRUE"]
+        S4_WF["🤖 WF: Send Quote<br/>ID: 52330000006984913"]
+        S4_Date["🟡 WF: Set Quote_Sent_Date<br/>ID: 52330000003995201"]
+        S4_Template["🔴 GAP: Cannot select<br/>template per quote"]
+    end
+
+    S3_Navigate --> S4_Open
+    S4_Open --> S4_Details
+    S4_Details --> S4_Tax
+    S4_Tax --> S4_Verify
+    S4_Verify --> S4_Send
+    S4_Send -->|triggers| S4_WF
+    S4_WF --> S4_Date
+    S4_Date --> S4_Template
+
+    S4_Template --> End([End: Quote Sent])
+
+    %% Styling
+    classDef human fill:#2196F3,stroke:#000,stroke-width:2px,color:#fff
+    classDef auto fill:#90EE90,stroke:#000,stroke-width:2px
+    classDef gap fill:#FF9800,stroke:#000,stroke-width:2px
+    classDef undoc fill:#FFE082,stroke:#000,stroke-width:2px
+
+    class S1_Nav,S1_Filter,S1_Confirm,S2_Add,S2_Contact,S2_Billing,S3_Create,S3_Stage,S3_Navigate,S4_Open,S4_Verify,S4_Send human
+    class S3_Quote,S4_WF auto
+    class S4_Template gap
+    class S2_Task,S2_Folder,S2_Private,S3_ID,S3_Name,S3_Amount,S4_Details,S4_Tax,S4_Date undoc
+
+    %% Clickable workflow links
+    click S2_Task href "https://crm.zoho.com.au/crm/org7003757385/settings/workflow-rules/52330000002518044" "Open: Create Team Task workflow"
+    click S2_Folder href "https://crm.zoho.com.au/crm/org7003757385/settings/workflow-rules/52330000005138075" "Open: Workdrive Folder workflow"
+    click S2_Private href "https://crm.zoho.com.au/crm/org7003757385/settings/workflow-rules/52330000005163090" "Open: Private Attendee workflow"
+    click S3_ID href "https://crm.zoho.com.au/crm/org7003757385/settings/workflow-rules/52330000002444572" "Open: Update Deal ID workflow"
+    click S3_Name href "https://crm.zoho.com.au/crm/org7003757385/settings/workflow-rules/52330000002967279" "Open: Deal Naming workflow"
+    click S3_Amount href "https://crm.zoho.com.au/crm/org7003757385/settings/workflow-rules/52330000003995130" "Open: Update Amount workflow"
+    click S3_Quote href "https://crm.zoho.com.au/crm/org7003757385/settings/workflow-rules/52330000002460308" "Open: Create Quote workflow"
+    click S4_Details href "https://crm.zoho.com.au/crm/org7003757385/settings/workflow-rules/52330000002597194" "Open: Update Quote Details workflow"
+    click S4_Tax href "https://crm.zoho.com.au/crm/org7003757385/settings/workflow-rules/52330000004975235" "Open: Calculate Tax workflow"
+    click S4_WF href "https://crm.zoho.com.au/crm/org7003757385/settings/workflow-rules/52330000006984913" "Open: Send Quote workflow"
+    click S4_Date href "https://crm.zoho.com.au/crm/org7003757385/settings/workflow-rules/52330000003995201" "Open: Set Quote Sent Date workflow"

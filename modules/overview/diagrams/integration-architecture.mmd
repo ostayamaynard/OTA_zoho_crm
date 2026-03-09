@@ -1,0 +1,24 @@
+graph LR
+    %% External System Integrations
+
+    ZohoCRM[Zoho CRM Core]
+    style ZohoCRM fill:#E3F2FD,stroke:#1976D2,stroke-width:3px
+
+    Xero_Accounting[Xero Accounting]
+    style Xero_Accounting fill:#FF9800
+    ZohoCRM <-->|Contacts, Accounts| Xero_Accounting
+    WordPress_Website[WordPress Website]
+    style WordPress_Website fill:#FF9800
+    ZohoCRM -->|Courses| WordPress_Website
+    Workdrive_Documents[Workdrive Documents]
+    style Workdrive_Documents fill:#FF9800
+    ZohoCRM -->|Contacts, Courses| Workdrive_Documents
+    ClickSend_SMS[ClickSend SMS]
+    style ClickSend_SMS fill:#FF9800
+    ZohoCRM -->|| ClickSend_SMS
+    Stripe_Payments[Stripe Payments]
+    style Stripe_Payments fill:#FF9800
+    ZohoCRM -->|| Stripe_Payments
+    Attendance_App[Attendance App]
+    style Attendance_App fill:#FF9800
+    ZohoCRM <-->|| Attendance_App

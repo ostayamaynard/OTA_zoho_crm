@@ -1,0 +1,73 @@
+╔═══════════════════════════════════════════════════════════╗
+║        ZOHO CRM METADATA EXPORT - START HERE             ║
+╚═══════════════════════════════════════════════════════════╝
+
+👋 Hi! This package will export your Zoho CRM configuration.
+   It's 100% READ-ONLY - you can't break anything!
+
+━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━
+
+📋 SUPER QUICK START:
+
+  Windows Users:
+  ✅ Double-click: RUN_EXPORT.bat
+  
+  Mac/Linux Users:
+  ✅ Open Terminal in this folder
+  ✅ Run: chmod +x run_export.sh
+  ✅ Run: ./run_export.sh
+
+That's it! Wait 5-15 minutes and you'll get your export files.
+
+━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━
+
+📖 DETAILED INSTRUCTIONS:
+
+If the above doesn't work, follow the manual steps in README.md:
+
+  1. Install Python (if not already installed)
+  2. Install packages: pip install -r requirements.txt
+  3. Run export: python zoho_export.py
+
+━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━
+
+❓ TROUBLESHOOTING:
+
+  "Python is not installed"
+  → Download from: https://www.python.org/downloads/
+  
+  "Error getting access token"
+  → Contact Maynard - credentials might be wrong
+  
+  Script runs but no output files
+  → Check the README.md troubleshooting section
+
+━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━
+
+📦 WHAT YOU'LL GET:
+
+After running, you'll have 3 files:
+
+  ✓ zoho-data-model-[DATE].json
+    → Full metadata in JSON format
+  
+  ✓ zoho-dependencies-[DATE].json
+    → Field relationships and dependencies
+  
+  ✓ Zoho_CRM_Data_Model_[DATE].xlsx
+    → Easy-to-read Excel report (BEST FOR VIEWING!)
+
+━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━
+
+🔒 SECURITY:
+
+  ✓ This package contains credentials in the .env file
+  ✓ Keep this folder secure
+  ✓ Don't upload to GitHub or public locations
+  ✓ Delete .env after you're done (if you don't need future exports)
+
+━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━
+
+Need help? Contact Maynard (IT)
+
+Ready? Run the appropriate script above and relax! ☕

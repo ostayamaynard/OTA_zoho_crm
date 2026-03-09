@@ -1,0 +1,63 @@
+%%{init: {'theme': 'base', 'themeVariables': { 'primaryColor': '#E3F2FD', 'secondaryColor': '#C8E6C9', 'tertiaryColor': '#FFF3E0'}}}%%
+graph LR
+    %% Courses Kanban - Simple View
+    %% Shows the main stages with key information
+
+    subgraph Draft["📝 Draft"]
+        D1["<b>Course Setup</b><br/>• Create record<br/>• Set dates & venue<br/>• Assign trainer<br/>---<br/>5 auto workflows"]
+    end
+
+    subgraph Sync["🔄 Sync to Wordpress"]
+        S1["<b>Website Sync</b><br/>• Syncing to WP<br/>• Get WP_Course_ID<br/>---<br/>1 auto workflow"]
+    end
+
+    subgraph Published["🌐 Published"]
+        P1["<b>Active Course</b><br/>• Enrolment open<br/>• Logistics setup<br/>• Pre-delivery prep<br/>---<br/>25+ workflows"]
+    end
+
+    subgraph LinkOnly["🔗 Published via Link"]
+        L1["<b>Private Access</b><br/>• Direct link only<br/>• Not on calendar<br/>---<br/>0 workflows"]
+    end
+
+    subgraph Completed["✅ Completed"]
+        C1["<b>Course Delivered</b><br/>• Certificates issued<br/>• Performance logged<br/>---<br/>5 workflows"]
+    end
+
+    subgraph Cancelled["❌ Cancelled"]
+        X1["<b>Course Cancelled</b><br/>• Notify stakeholders<br/>• Process refunds<br/>---<br/>2 workflows"]
+    end
+
+    subgraph Archived["📦 Archived"]
+        A1["<b>Final Archive</b><br/>• Records preserved<br/>• For reporting<br/>---<br/>1 workflow"]
+    end
+
+    %% Normal flow
+    Draft --> Sync
+    Sync --> Published
+    Draft --> LinkOnly
+    Published --> Completed
+    LinkOnly --> Completed
+    Completed --> Archived
+
+    %% Cancel paths
+    Draft -.-> Cancelled
+    Sync -.-> Cancelled
+    Published -.-> Cancelled
+    LinkOnly -.-> Cancelled
+
+    %% Styling
+    classDef draft fill:#E3F2FD,stroke:#1976D2,stroke-width:2px
+    classDef sync fill:#FFF3E0,stroke:#F57C00,stroke-width:2px
+    classDef published fill:#E8F5E9,stroke:#388E3C,stroke-width:2px
+    classDef link fill:#FFF8E1,stroke:#FFA000,stroke-width:2px
+    classDef completed fill:#C8E6C9,stroke:#2E7D32,stroke-width:2px
+    classDef cancelled fill:#FFCDD2,stroke:#D32F2F,stroke-width:2px
+    classDef archived fill:#ECEFF1,stroke:#546E7A,stroke-width:2px
+
+    class Draft draft
+    class Sync sync
+    class Published published
+    class LinkOnly link
+    class Completed completed
+    class Cancelled cancelled
+    class Archived archived

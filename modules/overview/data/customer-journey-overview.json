@@ -1,0 +1,2755 @@
+{
+  "metadata": {
+    "name": "Zoho CRM Complete Customer Journey Map",
+    "purpose": "Visual mapping of all modules, workflows, triggers, and integrations",
+    "created": "2025-11-13",
+    "data_source": "Zoho CRM Data Model 2025-11-13",
+    "visualization_notes": "Use colors to distinguish: Automatic (green), Manual (blue), 3rd Party (orange), Human Input (yellow)"
+  },
+  "module_overview": {
+    "core_modules": {
+      "Leads": {
+        "description": "Prospective customers - entry point",
+        "record_count_field": null,
+        "created_by": [
+          "Website forms",
+          "Manual entry",
+          "Webinars",
+          "Cold outreach",
+          "Lead imports"
+        ],
+        "converts_to": [
+          "Contacts",
+          "Accounts",
+          "Deals"
+        ],
+        "workflow_count": 13,
+        "integration_points": [
+          "ClickSend SMS",
+          "Google Ads",
+          "Facebook",
+          "SalesIQ"
+        ]
+      },
+      "Contacts": {
+        "description": "Individual people records",
+        "created_by": [
+          "Lead conversion",
+          "Manual entry",
+          "Deal creation"
+        ],
+        "referenced_by": [
+          "Accounts",
+          "Deals",
+          "Registration_Records",
+          "Team_Tasks"
+        ],
+        "workflow_count": 6,
+        "integration_points": [
+          "Xero",
+          "Workdrive"
+        ]
+      },
+      "Accounts": {
+        "description": "Companies/Organizations",
+        "created_by": [
+          "Lead conversion",
+          "Manual entry"
+        ],
+        "referenced_by": [
+          "Contacts",
+          "Deals",
+          "Quotes",
+          "Invoices"
+        ],
+        "workflow_count": 4,
+        "integration_points": [
+          "Xero",
+          "Google Maps"
+        ]
+      },
+      "Deals": {
+        "description": "Sales opportunities",
+        "created_by": [
+          "Lead conversion",
+          "Manual entry",
+          "Quote acceptance"
+        ],
+        "creates": [
+          "Quotes",
+          "Invoices",
+          "Registration_Records"
+        ],
+        "workflow_count": 13,
+        "integration_points": [
+          "Xero"
+        ]
+      },
+      "Courses": {
+        "description": "Training course schedules",
+        "created_by": [
+          "Manual entry",
+          "Deal creation"
+        ],
+        "creates": [
+          "Team_Tasks",
+          "Course_Performance"
+        ],
+        "referenced_by": [
+          "Deals",
+          "Registration_Records"
+        ],
+        "workflow_count": 23,
+        "integration_points": [
+          "WordPress",
+          "Workdrive",
+          "ClickSend SMS",
+          "Calendars"
+        ]
+      },
+      "Registration_Records": {
+        "description": "Individual course attendees",
+        "created_by": [
+          "Lead conversion",
+          "Quote acceptance",
+          "Manual entry"
+        ],
+        "workflow_count": 24,
+        "integration_points": [
+          "Workdrive",
+          "ClickSend SMS",
+          "Attendance App"
+        ]
+      },
+      "Quotes": {
+        "description": "Price quotations",
+        "created_by": [
+          "Deal stage change (automatic)",
+          "Manual entry"
+        ],
+        "creates": [
+          "Invoices (when accepted)"
+        ],
+        "workflow_count": 7,
+        "integration_points": [
+          "Zoho Forms"
+        ]
+      },
+      "Invoices": {
+        "description": "Billing documents",
+        "created_by": [
+          "Quote acceptance (automatic)",
+          "Manual entry"
+        ],
+        "workflow_count": 11,
+        "integration_points": [
+          "Xero",
+          "Stripe",
+          "Zoho Forms"
+        ]
+      },
+      "Team_Tasks": {
+        "description": "Operational tasks",
+        "created_by": [
+          "Course creation",
+          "Deal updates",
+          "Manual triggers from other modules"
+        ],
+        "workflow_count": 3,
+        "integration_points": []
+      },
+      "Course_Performance": {
+        "description": "Course analytics",
+        "created_by": [
+          "Course creation (automatic)"
+        ],
+        "workflow_count": 2,
+        "integration_points": []
+      }
+    }
+  },
+  "trigger_type_legend": {
+    "automatic": {
+      "color": "green",
+      "description": "System-triggered, no human input",
+      "examples": [
+        "create",
+        "edit",
+        "date_or_datetime"
+      ]
+    },
+    "manual": {
+      "color": "blue",
+      "description": "User must set a field to trigger",
+      "examples": [
+        "Boolean field = true",
+        "Picklist value selected"
+      ]
+    },
+    "third_party": {
+      "color": "orange",
+      "description": "External system triggers",
+      "examples": [
+        "Xero sync",
+        "WordPress webhook",
+        "Stripe payment"
+      ]
+    },
+    "human_input": {
+      "color": "yellow",
+      "description": "Required user data entry",
+      "examples": [
+        "Fill mandatory fields",
+        "Update lookup",
+        "Enter data"
+      ]
+    }
+  },
+  "complete_customer_journey": {
+    "1_lead_entry": {
+      "stage": "Lead Created",
+      "module": "Leads",
+      "trigger_type": "automatic",
+      "entry_points": {
+        "website_form": {
+          "source": "WordPress website",
+          "type": "third_party",
+          "creates": "Lead record",
+          "fields_populated": [
+            "Email",
+            "First_Name",
+            "Last_Name",
+            "Course",
+            "Course_Type",
+            "Mobile"
+          ]
+        },
+        "manual_entry": {
+          "source": "CRM user",
+          "type": "human_input",
+          "required_fields": [
+            "Last_Name"
+          ]
+        },
+        "google_ads": {
+          "source": "Google Ads conversion",
+          "type": "third_party",
+          "fields_populated": [
+            "GCLID",
+            "Ad_Campaign_Name",
+            "Keyword"
+          ]
+        },
+        "facebook_ads": {
+          "source": "Facebook lead form",
+          "type": "third_party"
+        }
+      },
+      "workflows_triggered": {
+        "New_Lead_Notification": {
+          "workflow_id": "52330000000427010",
+          "trigger": "create",
+          "type": "automatic",
+          "action": "Sends email notification to team",
+          "workflow_url": "https://crm.zoho.com.au/crm/org7003757385/settings/workflow-rules/52330000000427010"
+        },
+        "CallWithIn24Hours_and_Team_Task": {
+          "workflow_id": "52330000000864146",
+          "trigger": "create",
+          "type": "automatic",
+          "action": "Creates call task and team task",
+          "workflow_url": "https://crm.zoho.com.au/crm/org7003757385/settings/workflow-rules/52330000000864146"
+        },
+        "Format_Number": {
+          "workflow_id": "52330000005789994",
+          "trigger": "create",
+          "type": "automatic",
+          "action": "Formats phone numbers to standard format",
+          "workflow_url": "https://crm.zoho.com.au/crm/org7003757385/settings/workflow-rules/52330000005789994"
+        },
+        "Lead_Owner_Assignment": {
+          "workflow_id": "52330000007257288",
+          "trigger": "create",
+          "type": "automatic",
+          "action": "Assigns lead to appropriate owner based on rules",
+          "workflow_url": "https://crm.zoho.com.au/crm/org7003757385/settings/workflow-rules/52330000007257288"
+        },
+        "Course_Details_Updated": {
+          "workflow_id": "52330000005569771",
+          "trigger": "field_update",
+          "type": "manual",
+          "condition_field": "Course",
+          "action": "Updates lead with course details when course selected",
+          "workflow_url": "https://crm.zoho.com.au/crm/org7003757385/settings/workflow-rules/52330000005569771"
+        }
+      },
+      "human_actions_required": {
+        "contact_lead": {
+          "description": "Team member calls/emails lead within 24 hours",
+          "updates_field": null,
+          "outcome": "Qualify or disqualify"
+        },
+        "select_course": {
+          "description": "User selects Course lookup field",
+          "updates_field": "Course",
+          "triggers_workflow": "Course_Details_Updated"
+        }
+      },
+      "next_stage": "2_lead_qualification"
+    },
+    "2_lead_qualification": {
+      "stage": "Lead Qualification",
+      "module": "Leads",
+      "trigger_type": "human_input",
+      "decision_point": true,
+      "outcomes": {
+        "qualified_public_credit_card": {
+          "path": "3a_convert_payment_success",
+          "description": "Public course - paying by credit card",
+          "manual_trigger_field": "WF_Action",
+          "manual_trigger_value": "Generate Payment URL",
+          "workflow": "Generate_Payment_URL"
+        },
+        "qualified_public_invoice": {
+          "path": "3b_convert_invoice",
+          "description": "Public course - paying by invoice",
+          "manual_trigger_field": "WF_Action",
+          "manual_trigger_value": "Convert Pay Via Invoice",
+          "workflow": "Convert_Pay_Via_Invoice"
+        },
+        "qualified_private": {
+          "path": "3c_convert_private",
+          "description": "Private course enquiry",
+          "manual_trigger_field": "WF_Action",
+          "manual_trigger_value": "Convert Non Paying Lead",
+          "workflow": "Convert_Non_Paying_Lead"
+        },
+        "contact_only": {
+          "path": "3d_convert_contact_only",
+          "description": "Just create contact, no deal",
+          "manual_trigger_field": "WF_Action",
+          "manual_trigger_value": "Convert to Only Create a contact",
+          "workflow": "Convert_to_Only_Create_a_contact"
+        },
+        "not_qualified": {
+          "path": "END",
+          "description": "Mark lead as lost",
+          "action": "Set Lead_Status = Lost"
+        }
+      },
+      "workflows_available": {
+        "Generate_Payment_URL": {
+          "workflow_id": "52330000008228472",
+          "trigger": "field_update",
+          "type": "manual",
+          "condition_field": "WF_Action",
+          "action": "Generates payment link via Zoho Form",
+          "workflow_url": "https://crm.zoho.com.au/crm/org7003757385/settings/workflow-rules/52330000008228472"
+        },
+        "Update_Location_URL": {
+          "workflow_id": "52330000008158816",
+          "trigger": "field_update",
+          "type": "manual",
+          "condition_field": "WF_Action",
+          "action": "Generates location selection form",
+          "workflow_url": "https://crm.zoho.com.au/crm/org7003757385/settings/workflow-rules/52330000008158816"
+        }
+      },
+      "next_stage": "3_lead_conversion"
+    },
+    "3_lead_conversion": {
+      "stage": "Lead Conversion",
+      "module": "Leads",
+      "trigger_type": "manual_or_automatic",
+      "conversion_workflows": {
+        "Convert_on_Payment_Success": {
+          "workflow_id": "52330000008292523",
+          "trigger": "field_update",
+          "type": "third_party",
+          "condition_field": "WF_Action",
+          "triggered_by": "Stripe payment webhook",
+          "creates": [
+            "Contact",
+            "Account",
+            "Deal",
+            "Registration_Record",
+            "Invoice"
+          ],
+          "workflow_url": "https://crm.zoho.com.au/crm/org7003757385/settings/workflow-rules/52330000008292523"
+        },
+        "Convert_Pay_Via_Invoice": {
+          "workflow_id": "52330000008920352",
+          "trigger": "field_update",
+          "type": "manual",
+          "condition_field": "WF_Action",
+          "creates": [
+            "Contact",
+            "Account",
+            "Deal",
+            "Registration_Record",
+            "Invoice"
+          ],
+          "workflow_url": "https://crm.zoho.com.au/crm/org7003757385/settings/workflow-rules/52330000008920352"
+        },
+        "Convert_Non_Paying_Lead": {
+          "workflow_id": "52330000008250081",
+          "trigger": "field_update",
+          "type": "manual",
+          "condition_field": "WF_Action",
+          "creates": [
+            "Contact",
+            "Account",
+            "Deal"
+          ],
+          "workflow_url": "https://crm.zoho.com.au/crm/org7003757385/settings/workflow-rules/52330000008250081"
+        },
+        "Convert_to_Only_Create_a_contact": {
+          "workflow_id": "52330000008405346",
+          "trigger": "field_update",
+          "type": "manual",
+          "condition_field": "WF_Action",
+          "creates": [
+            "Contact"
+          ],
+          "workflow_url": "https://crm.zoho.com.au/crm/org7003757385/settings/workflow-rules/52330000008405346"
+        }
+      },
+      "created_records": {
+        "Contact": {
+          "module": "Contacts",
+          "mandatory_field": "Last_Name",
+          "copied_from_lead": [
+            "First_Name",
+            "Last_Name",
+            "Email",
+            "Mobile",
+            "Phone"
+          ],
+          "workflows_triggered_on_create": [
+            "Format_Phone_field",
+            "Contacts_ZohoFlow_CRM_Contact_to_Workdrive_Folder"
+          ]
+        },
+        "Account": {
+          "module": "Accounts",
+          "mandatory_field": "Account_Name",
+          "copied_from_lead": [
+            "Company"
+          ],
+          "workflows_triggered_on_create": []
+        },
+        "Deal": {
+          "module": "Deals",
+          "mandatory_fields": [
+            "Deal_Name",
+            "Stage"
+          ],
+          "copied_from_lead": [
+            "Course",
+            "Course_Type",
+            "Number_of_Attendees"
+          ],
+          "workflows_triggered_on_create": [
+            "Update_Deal_ID",
+            "Deal_Naming_Convention",
+            "Update_Amount_on_create"
+          ],
+          "next_stage": "4_deal_progression"
+        }
+      },
+      "next_stage": "4_deal_progression"
+    },
+    "4_deal_progression": {
+      "stage": "Deal Lifecycle",
+      "module": "Deals",
+      "stage_field": "Stage",
+      "stage_progression": {
+        "Qualification": {
+          "workflows_on_enter": [
+            "Update_Deal_ID",
+            "Deal_Naming_Convention"
+          ],
+          "human_actions": [
+            "Verify deal details",
+            "Confirm course selection",
+            "Set number of attendees"
+          ],
+          "next_stage_trigger": "User changes Stage field"
+        },
+        "Needs_Analysis": {
+          "workflows_on_enter": [],
+          "human_actions": [
+            "Assess client needs",
+            "Assign training coordinator"
+          ],
+          "manual_workflows": {
+            "Email_to_training_Coordinator_from_DEALS": {
+              "workflow_id": "52330000002967852",
+              "trigger_field": "Request_Attendees",
+              "action": "Sends email requesting attendee details",
+              "workflow_url": "https://crm.zoho.com.au/crm/org7003757385/settings/workflow-rules/52330000002967852"
+            }
+          },
+          "next_stage_trigger": "User changes Stage field to Ready to Quote"
+        },
+        "Ready_to_Quote": {
+          "workflows_on_enter": {
+            "Create_Quote_Stage_Update_Ready_to_quote": {
+              "workflow_id": "52330000002460308",
+              "trigger": "field_update",
+              "type": "automatic",
+              "condition_field": "Stage",
+              "action": "AUTO-CREATES Quote record",
+              "creates_record": "Quote",
+              "workflow_url": "https://crm.zoho.com.au/crm/org7003757385/settings/workflow-rules/52330000002460308"
+            }
+          },
+          "human_actions": [
+            "Review auto-generated quote",
+            "Adjust pricing if needed"
+          ],
+          "next_module": "Quotes",
+          "next_stage": "5_quote_process"
+        },
+        "Negotiation": {
+          "workflows_on_enter": [],
+          "time_based_workflows": {
+            "Follow_up_on_Purchase_Order_28_days_before": {
+              "workflow_id": "52330000002638311",
+              "trigger": "date_or_datetime",
+              "type": "automatic",
+              "timing": "28 days before Course_Start_Date",
+              "action": "Creates follow-up task for PO",
+              "workflow_url": "https://crm.zoho.com.au/crm/org7003757385/settings/workflow-rules/52330000002638311"
+            },
+            "Follow_up_on_Purchase_Order_14_days_before": {
+              "workflow_id": "52330000002638269",
+              "trigger": "date_or_datetime",
+              "type": "automatic",
+              "timing": "14 days before Course_Start_Date",
+              "action": "Creates follow-up task",
+              "workflow_url": "https://crm.zoho.com.au/crm/org7003757385/settings/workflow-rules/52330000002638269"
+            },
+            "Follow_up_on_Purchase_Order_5_days_before": {
+              "workflow_id": "52330000009085891",
+              "trigger": "field_update",
+              "type": "automatic",
+              "condition_field": "Stage",
+              "action": "Creates urgent PO task",
+              "workflow_url": "https://crm.zoho.com.au/crm/org7003757385/settings/workflow-rules/52330000009085891"
+            }
+          },
+          "human_actions": [
+            "Chase purchase order",
+            "Negotiate terms",
+            "Follow up with client"
+          ],
+          "next_stage_trigger": "PO received or quote accepted"
+        },
+        "Closed_Won": {
+          "workflows_on_enter": {
+            "Purchase_Order_Received": {
+              "workflow_id": "52330000002460283",
+              "trigger": "field_update",
+              "type": "automatic",
+              "condition_field": "Purchase_Order_Number",
+              "action": "Updates deal and registration records",
+              "workflow_url": "https://crm.zoho.com.au/crm/org7003757385/settings/workflow-rules/52330000002460283"
+            },
+            "On_stage_Update_related_Attendees": {
+              "workflow_id": "52330000004335567",
+              "trigger": "field_update",
+              "type": "automatic",
+              "condition_field": "Stage",
+              "action": "Updates registration record statuses to Confirmed",
+              "workflow_url": "https://crm.zoho.com.au/crm/org7003757385/settings/workflow-rules/52330000004335567"
+            }
+          },
+          "creates_or_updates": [
+            "Invoices",
+            "Registration_Records"
+          ],
+          "next_stage": "6_invoice_payment"
+        },
+        "Closed_Lost": {
+          "workflows_on_enter": [],
+          "human_actions": [
+            "Enter Loss_Reason"
+          ],
+          "end_of_journey": true
+        }
+      }
+    },
+    "5_quote_process": {
+      "stage": "Quote Lifecycle",
+      "module": "Quotes",
+      "stage_field": "Quote_Stage",
+      "creation": {
+        "created_by_workflow": {
+          "workflow_id": "52330000002460308",
+          "workflow_name": "Create Quote - Stage Update Ready to quote",
+          "triggered_by": "Deal.Stage = Ready to Quote",
+          "type": "automatic",
+          "workflow_url": "https://crm.zoho.com.au/crm/org7003757385/settings/workflow-rules/52330000002460308"
+        },
+        "workflows_on_create": {
+          "Update_Quote_Details": {
+            "workflow_id": "52330000002597194",
+            "trigger": "create",
+            "type": "automatic",
+            "action": "Populates quote from deal data",
+            "workflow_url": "https://crm.zoho.com.au/crm/org7003757385/settings/workflow-rules/52330000002597194"
+          },
+          "Update_Quote_Naming_convention": {
+            "workflow_id": "52330000002856364",
+            "trigger": "create_or_edit",
+            "type": "automatic",
+            "action": "Formats quote subject",
+            "workflow_url": "https://crm.zoho.com.au/crm/org7003757385/settings/workflow-rules/52330000002856364"
+          },
+          "Inhouse_Calculate_Overall_Tax_for_Quote": {
+            "workflow_id": "52330000004975235",
+            "trigger": "create_or_edit",
+            "type": "automatic",
+            "action": "Calculates GST amounts",
+            "workflow_url": "https://crm.zoho.com.au/crm/org7003757385/settings/workflow-rules/52330000004975235"
+          }
+        }
+      },
+      "quote_stages": {
+        "Draft": {
+          "human_actions": [
+            "Review quote",
+            "Adjust items/pricing",
+            "Add notes"
+          ],
+          "next_action": "Send quote to client"
+        },
+        "Presented": {
+          "manual_trigger": {
+            "Send_Quote": {
+              "workflow_id": "52330000006984913",
+              "trigger_field": "Send_Quote_as_EMAIL",
+              "type": "manual",
+              "action": "Emails quote to client",
+              "workflow_url": "https://crm.zoho.com.au/crm/org7003757385/settings/workflow-rules/52330000006984913"
+            }
+          },
+          "workflows_on_stage_change": {
+            "Update_quote_when_quote_is_sent_or_won": {
+              "workflow_id": "52330000003995201",
+              "trigger": "field_update",
+              "type": "automatic",
+              "condition_field": "Quote_Stage",
+              "action": "Updates timestamps",
+              "workflow_url": "https://crm.zoho.com.au/crm/org7003757385/settings/workflow-rules/52330000003995201"
+            }
+          },
+          "human_actions": [
+            "Wait for client response",
+            "Enter PO details if received"
+          ],
+          "fields_to_track": [
+            "Expected_PO_Date",
+            "PO_Number"
+          ]
+        },
+        "Accepted": {
+          "workflows_on_stage_change": {
+            "Update_Deal_and_Invoice_on_Quote_Closed_Won": {
+              "workflow_id": "52330000002460325",
+              "trigger": "field_update",
+              "type": "automatic",
+              "condition_field": "Quote_Stage",
+              "action": "AUTO-CREATES Invoice + Updates Deal to Closed Won",
+              "creates_record": "Invoice",
+              "updates_record": "Deal",
+              "workflow_url": "https://crm.zoho.com.au/crm/org7003757385/settings/workflow-rules/52330000002460325"
+            },
+            "Update_Deal_with_PO_Number_and_Date": {
+              "workflow_id": "52330000006993468",
+              "trigger": "field_update",
+              "type": "automatic",
+              "condition_fields": [
+                "Expected_PO_Date",
+                "PO_Number"
+              ],
+              "action": "Syncs PO details to Deal",
+              "workflow_url": "https://crm.zoho.com.au/crm/org7003757385/settings/workflow-rules/52330000006993468"
+            }
+          },
+          "next_module": "Invoices",
+          "next_stage": "6_invoice_payment"
+        },
+        "Declined": {
+          "workflows_on_stage_change": [],
+          "updates_deal": "Stage = Closed Lost",
+          "end_of_journey": true
+        }
+      }
+    },
+    "6_invoice_payment": {
+      "stage": "Invoice & Payment",
+      "module": "Invoices",
+      "status_field": "Status",
+      "creation": {
+        "created_by_quote_acceptance": {
+          "workflow_id": "52330000002460325",
+          "workflow_name": "Update Deal and Invoice on Quote Closed Won",
+          "triggered_by": "Quote.Quote_Stage = Accepted",
+          "type": "automatic",
+          "workflow_url": "https://crm.zoho.com.au/crm/org7003757385/settings/workflow-rules/52330000002460325"
+        },
+        "created_manually": {
+          "type": "human_input",
+          "required_fields": [
+            "Subject",
+            "Invoiced_Items (subform)"
+          ]
+        },
+        "workflows_on_create": {
+          "Update_Due_Date": {
+            "workflow_id": "52330000005069739",
+            "trigger": "create",
+            "type": "automatic",
+            "action": "Calculates due date from payment terms",
+            "workflow_url": "https://crm.zoho.com.au/crm/org7003757385/settings/workflow-rules/52330000005069739"
+          },
+          "Update_All_Fields": {
+            "workflow_id": "52330000008512961",
+            "trigger": "create",
+            "type": "automatic",
+            "action": "Populates all fields from deal/quote",
+            "workflow_url": "https://crm.zoho.com.au/crm/org7003757385/settings/workflow-rules/52330000008512961"
+          },
+          "Update_URL": {
+            "workflow_id": "52330000008519048",
+            "trigger": "field_update",
+            "type": "automatic",
+            "condition_fields": [
+              "Course_Name",
+              "sbhtc__Total_inc_GST0",
+              "Deal_Name__s"
+            ],
+            "action": "Generates payment request URLs",
+            "workflow_url": "https://crm.zoho.com.au/crm/org7003757385/settings/workflow-rules/52330000008519048"
+          },
+          "Inhouse_Calculate_Overall_Tax_for_Invoice": {
+            "workflow_id": "52330000004975124",
+            "trigger": "create_or_edit",
+            "type": "automatic",
+            "action": "Calculates GST",
+            "workflow_url": "https://crm.zoho.com.au/crm/org7003757385/settings/workflow-rules/52330000004975124"
+          },
+          "New_Update_deal_and_Reg_record": {
+            "workflow_id": "52330000004251591",
+            "trigger": "create_or_edit",
+            "type": "automatic",
+            "action": "Links invoice to deal and registration records",
+            "workflow_url": "https://crm.zoho.com.au/crm/org7003757385/settings/workflow-rules/52330000004251591"
+          }
+        }
+      },
+      "status_progression": {
+        "Created": {
+          "workflows": [],
+          "human_actions": [
+            "Review invoice",
+            "Verify amounts"
+          ],
+          "next_action": "Send invoice"
+        },
+        "Sent": {
+          "manual_trigger": {
+            "Send_Invoice": {
+              "workflow_id": "52330000004534311",
+              "trigger_field": "Status",
+              "trigger_value": "Sent",
+              "type": "manual",
+              "action": "Emails invoice to client",
+              "workflow_url": "https://crm.zoho.com.au/crm/org7003757385/settings/workflow-rules/52330000004534311"
+            }
+          },
+          "automatic_workflow": {
+            "Send_on_create_Awaiting_Payment": {
+              "workflow_id": "52330000008694463",
+              "trigger": "create",
+              "type": "automatic",
+              "action": "Auto-sends if status = Awaiting Payment on create",
+              "workflow_url": "https://crm.zoho.com.au/crm/org7003757385/settings/workflow-rules/52330000008694463"
+            }
+          },
+          "human_actions": [
+            "Wait for payment",
+            "Chase if overdue"
+          ],
+          "integration_triggers": {
+            "stripe_payment_received": {
+              "type": "third_party",
+              "source": "Stripe webhook",
+              "updates_field": "Stripe_ID",
+              "updates_status": "Paid"
+            },
+            "xero_sync": {
+              "workflow_id": "52330000002460231",
+              "workflow_name": "Push_Invoice_to_Xero",
+              "type": "automatic",
+              "trigger": "Status field change",
+              "action": "Syncs to Xero accounting",
+              "workflow_url": "https://crm.zoho.com.au/crm/org7003757385/settings/workflow-rules/52330000002460231"
+            }
+          }
+        },
+        "Awaiting_Payment": {
+          "po_required_handling": {
+            "When_Po_is_received": {
+              "workflow_id": "52330000005069778",
+              "trigger": "field_update",
+              "type": "manual",
+              "condition_fields": [
+                "Purchase_Order_Number",
+                "Status"
+              ],
+              "action": "Updates status when PO entered",
+              "workflow_url": "https://crm.zoho.com.au/crm/org7003757385/settings/workflow-rules/52330000005069778"
+            }
+          },
+          "human_actions": [
+            "Enter PO number if received",
+            "Monitor payment"
+          ],
+          "url_tools": {
+            "Request_Payment_URL": "Zoho Form for payment request",
+            "Get_PO_URL": "Zoho Form for PO upload"
+          }
+        },
+        "Paid": {
+          "workflows_on_status_change": {
+            "Invoice_Update": {
+              "workflow_id": "52330000002610986",
+              "trigger": "field_update",
+              "type": "automatic",
+              "condition_field": "Status",
+              "action": "Updates Deal, Registration_Records",
+              "workflow_url": "https://crm.zoho.com.au/crm/org7003757385/settings/workflow-rules/52330000002610986"
+            },
+            "Update_Amount_in_Deal_when_Inv_is_paid": {
+              "workflow_id": "52330000009085784",
+              "trigger": "field_update",
+              "type": "automatic",
+              "condition_field": "Status",
+              "action": "Updates Deal.Amount",
+              "workflow_url": "https://crm.zoho.com.au/crm/org7003757385/settings/workflow-rules/52330000009085784"
+            },
+            "Push_Invoice_to_Xero": {
+              "workflow_id": "52330000002460231",
+              "trigger": "field_update",
+              "type": "automatic",
+              "condition_field": "Status",
+              "action": "Marks paid in Xero",
+              "integration": "Xero",
+              "workflow_url": "https://crm.zoho.com.au/crm/org7003757385/settings/workflow-rules/52330000002460231"
+            }
+          },
+          "updates_related_records": {
+            "Deal": "Stage may update to reflect payment",
+            "Registration_Records": "Status updates to Confirmed",
+            "Course_Performance": "Payment metrics updated"
+          },
+          "next_stage": "7_course_enrolment"
+        }
+      }
+    },
+    "7_course_enrolment": {
+      "stage": "Course Enrolment & Compliance",
+      "module": "Registration_Records",
+      "status_field": "Status",
+      "creation": {
+        "created_by_conversion": "Lead conversion workflows create registration",
+        "created_by_quote": "Quote acceptance creates registration",
+        "created_manually": "User creates registration record",
+        "workflows_on_create": {
+          "Populate_Course_Days": {
+            "workflow_id": "52330000002460165",
+            "trigger": "create",
+            "type": "automatic",
+            "action": "Creates Course_Days subform entries for attendance",
+            "workflow_url": "https://crm.zoho.com.au/crm/org7003757385/settings/workflow-rules/52330000002460165"
+          },
+          "Calculate_Registrations_and_create_team_task": {
+            "workflow_id": "52330000002518044",
+            "trigger": "create",
+            "type": "automatic",
+            "action": "Updates Course.Registrations_Booked counter",
+            "workflow_url": "https://crm.zoho.com.au/crm/org7003757385/settings/workflow-rules/52330000002518044"
+          },
+          "Registration_Records_ZohoFlow_Copy_of_CRM_Contact": {
+            "workflow_id": "52330000005138075",
+            "trigger": "create",
+            "type": "automatic",
+            "action": "Creates Workdrive folder for attendee",
+            "integration": "Workdrive",
+            "workflow_url": "https://crm.zoho.com.au/crm/org7003757385/settings/workflow-rules/52330000005138075"
+          },
+          "Email_Attendee_paid_via_credit_card": {
+            "workflow_id": "52330000002582386",
+            "trigger": "create",
+            "type": "automatic",
+            "condition": "Payment_Source = Credit Card",
+            "action": "Sends confirmation email",
+            "workflow_url": "https://crm.zoho.com.au/crm/org7003757385/settings/workflow-rules/52330000002582386"
+          },
+          "SMS_Attendance_Link": {
+            "workflow_id": "52330000005789634",
+            "trigger": "create",
+            "type": "automatic",
+            "action": "Sends SMS with attendance app link",
+            "integration": "ClickSend SMS",
+            "workflow_url": "https://crm.zoho.com.au/crm/org7003757385/settings/workflow-rules/52330000005789634"
+          },
+          "Update_Attendee_for_Payment_Update_with_DEAL": {
+            "workflow_id": "52330000004335393",
+            "trigger": "create",
+            "type": "automatic",
+            "action": "Links to deal for payment tracking",
+            "workflow_url": "https://crm.zoho.com.au/crm/org7003757385/settings/workflow-rules/52330000004335393"
+          },
+          "Waitlist_Record": {
+            "workflow_id": "52330000007034348",
+            "trigger": "create",
+            "type": "automatic",
+            "condition": "Course at maximum capacity",
+            "action": "Adds to waitlist",
+            "workflow_url": "https://crm.zoho.com.au/crm/org7003757385/settings/workflow-rules/52330000007034348"
+          }
+        }
+      },
+      "status_progression": {
+        "Spot_Tentative": {
+          "description": "Initial enquiry, not yet confirmed",
+          "workflows": [],
+          "human_actions": [
+            "Verify details",
+            "Send payment link if needed"
+          ],
+          "next_status_trigger": "Payment received or confirmed"
+        },
+        "Pending_Payment": {
+          "description": "Awaiting payment confirmation",
+          "manual_workflows": {
+            "Send_payment_link": {
+              "workflow_id": "52330000003024548",
+              "trigger_field": "Send_payment_link",
+              "type": "manual",
+              "active": false,
+              "action": "Sends payment link (inactive workflow)",
+              "workflow_url": "https://crm.zoho.com.au/crm/org7003757385/settings/workflow-rules/52330000003024548"
+            }
+          },
+          "payment_received_updates_to": "Spot_Booked"
+        },
+        "Spot_Booked": {
+          "description": "Payment confirmed, spot reserved",
+          "workflows_on_status_change": {
+            "Calculate_Registrations": {
+              "workflow_id": "52330000002518060",
+              "trigger": "field_update",
+              "type": "automatic",
+              "condition_field": "Status",
+              "action": "Updates course registration counts",
+              "workflow_url": "https://crm.zoho.com.au/crm/org7003757385/settings/workflow-rules/52330000002518060"
+            },
+            "Email_Attendee_Payment_made_for_Invoice": {
+              "workflow_id": "52330000005157463",
+              "trigger": "field_update",
+              "type": "automatic",
+              "condition_field": "Status",
+              "action": "Sends payment confirmation",
+              "workflow_url": "https://crm.zoho.com.au/crm/org7003757385/settings/workflow-rules/52330000005157463"
+            },
+            "Private_course_specific_workflows": {
+              "Private_course_Tentative_Attendee_Spot_Booked": "52330000005163175",
+              "Private_Course_Confirmed_Attendee_Spot_Booked": "52330000005163264"
+            }
+          },
+          "human_actions": [
+            "Complete compliance checks",
+            "Upload documents"
+          ],
+          "compliance_fields": {
+            "USI_Number": "Mandatory - Unique Student Identifier",
+            "English_second_language": "Compliance Check Done",
+            "Request_3rd_Party_Record": "Pre Requisite Evidence Complete",
+            "CV_Submitted": "Resume uploaded",
+            "Additional_Documents_Submitted": "Other docs uploaded"
+          },
+          "next_status_trigger": "All compliance complete"
+        },
+        "Confirmed": {
+          "description": "Payment received, compliance complete",
+          "workflows": [],
+          "next_stage": "8_pre_course_communications"
+        }
+      }
+    },
+    "8_pre_course_communications": {
+      "stage": "Pre-Course Reminders",
+      "module": "Registration_Records",
+      "trigger_type": "automatic",
+      "time_based_workflows": {
+        "15_days_before": {
+          "Generate_SMS_Shorten_Link": {
+            "workflow_id": "52330000005789649",
+            "trigger": "date_or_datetime",
+            "type": "automatic",
+            "timing": "15 days before Course_Start_Time",
+            "action": "Creates shortened URL for attendance",
+            "integration": "URL Shortener",
+            "workflow_url": "https://crm.zoho.com.au/crm/org7003757385/settings/workflow-rules/52330000005789649"
+          },
+          "Generate_SMS_Link_15_days_prior_if_Empty": {
+            "workflow_id": "52330000005789664",
+            "trigger": "date_or_datetime",
+            "type": "automatic",
+            "timing": "15 days before Course_Start_Time",
+            "action": "Backup link generation",
+            "workflow_url": "https://crm.zoho.com.au/crm/org7003757385/settings/workflow-rules/52330000005789664"
+          }
+        },
+        "14_days_before": {
+          "14_days_SMS_Before_Attendance_Confirmation": {
+            "workflow_id": "52330000005789721",
+            "trigger": "date_or_datetime",
+            "type": "automatic",
+            "timing": "14 days before course",
+            "action": "SMS requesting attendance confirmation",
+            "integration": "ClickSend SMS",
+            "workflow_url": "https://crm.zoho.com.au/crm/org7003757385/settings/workflow-rules/52330000005789721"
+          }
+        },
+        "7_days_before": {
+          "1_week_prior_to_Public_course": {
+            "workflow_id": "52330000002582766",
+            "trigger": "date_or_datetime",
+            "type": "automatic",
+            "timing": "7 days before course",
+            "condition": "Course_Type = Public",
+            "action": "Email reminder",
+            "workflow_url": "https://crm.zoho.com.au/crm/org7003757385/settings/workflow-rules/52330000002582766"
+          },
+          "7_Days_before_Public_course_SMS_Reminder": {
+            "workflow_id": "52330000002597951",
+            "trigger": "date_or_datetime",
+            "type": "automatic",
+            "timing": "7 days before course",
+            "condition": "Course_Type = Public",
+            "action": "SMS reminder",
+            "integration": "ClickSend SMS",
+            "workflow_url": "https://crm.zoho.com.au/crm/org7003757385/settings/workflow-rules/52330000002597951"
+          },
+          "1_week_prior_to_Private_Confirmed_course": {
+            "workflow_id": "52330000005163385",
+            "trigger": "date_or_datetime",
+            "type": "automatic",
+            "timing": "7 days before course",
+            "condition": "Course_Type = Private",
+            "action": "Email reminder",
+            "workflow_url": "https://crm.zoho.com.au/crm/org7003757385/settings/workflow-rules/52330000005163385"
+          },
+          "7_Days_before_Private_Confirmed_course_SMS_Reminder": {
+            "workflow_id": "52330000005163433",
+            "trigger": "date_or_datetime",
+            "type": "automatic",
+            "timing": "7 days before course",
+            "condition": "Course_Type = Private",
+            "action": "SMS reminder",
+            "integration": "ClickSend SMS",
+            "workflow_url": "https://crm.zoho.com.au/crm/org7003757385/settings/workflow-rules/52330000005163433"
+          }
+        },
+        "sms_confirmation_response": {
+          "SMS_Attendance_Acknowledgement": {
+            "workflow_id": "52330000006676878",
+            "trigger": "field_update",
+            "type": "automatic",
+            "condition_field": "SMS_Confirmation",
+            "action": "Acknowledges attendee response",
+            "integration": "ClickSend SMS",
+            "workflow_url": "https://crm.zoho.com.au/crm/org7003757385/settings/workflow-rules/52330000006676878"
+          }
+        }
+      },
+      "human_actions": [
+        "Monitor confirmations",
+        "Contact non-responders"
+      ],
+      "next_stage": "9_course_delivery"
+    },
+    "9_course_delivery": {
+      "stage": "Course Delivery & Attendance",
+      "module": "Courses + Registration_Records",
+      "trigger_type": "mixed",
+      "course_module_workflows": {
+        "before_course": {
+          "Send_Attendance_App_email_11_days_prior": {
+            "workflow_id": "52330000002569380",
+            "trigger": "date_or_datetime",
+            "type": "automatic",
+            "timing": "11 days before Course_Start_Time",
+            "action": "Sends attendance app to trainer",
+            "workflow_url": "https://crm.zoho.com.au/crm/org7003757385/settings/workflow-rules/52330000002569380"
+          },
+          "10_days_before_course_SMS_to_Trainer": {
+            "workflow_id": "52330000002656676",
+            "trigger": "date_or_datetime",
+            "type": "automatic",
+            "timing": "10 days before course",
+            "action": "SMS reminder to trainer",
+            "integration": "ClickSend SMS",
+            "workflow_url": "https://crm.zoho.com.au/crm/org7003757385/settings/workflow-rules/52330000002656676"
+          },
+          "Trainer_Info_PDF": {
+            "workflow_id": "52330000010838346",
+            "trigger": "date_or_datetime",
+            "type": "automatic",
+            "timing": "3 days before course",
+            "action": "Generates trainer info PDF",
+            "workflow_url": "https://crm.zoho.com.au/crm/org7003757385/settings/workflow-rules/52330000010838346"
+          },
+          "1_Day_prior_Attendance_PDF": {
+            "workflow_id": "52330000012545268",
+            "trigger": "date_or_datetime",
+            "type": "automatic",
+            "timing": "1 day before course",
+            "action": "Generates attendance list PDF",
+            "workflow_url": "https://crm.zoho.com.au/crm/org7003757385/settings/workflow-rules/52330000012545268"
+          },
+          "1_day_before_course_SMS_to_Trainer": {
+            "workflow_id": "52330000002656692",
+            "trigger": "date_or_datetime",
+            "type": "automatic",
+            "timing": "1 day before course",
+            "action": "Final SMS to trainer",
+            "integration": "ClickSend SMS",
+            "workflow_url": "https://crm.zoho.com.au/crm/org7003757385/settings/workflow-rules/52330000002656692"
+          }
+        },
+        "during_course": {
+          "Manual_Trigger_for_Attendance_PDF": {
+            "workflow_id": "52330000004569126",
+            "trigger": "field_update",
+            "type": "manual",
+            "trigger_field": "Workflow_Actions",
+            "action": "Generates attendance PDF on demand",
+            "workflow_url": "https://crm.zoho.com.au/crm/org7003757385/settings/workflow-rules/52330000004569126"
+          },
+          "Send_attendance_to_Trainer": {
+            "workflow_id": "52330000004815267",
+            "trigger": "field_update",
+            "type": "manual",
+            "trigger_field": "Send_Attendance_PDF_to_Trainer",
+            "action": "Emails attendance list",
+            "workflow_url": "https://crm.zoho.com.au/crm/org7003757385/settings/workflow-rules/52330000004815267"
+          }
+        },
+        "after_course": {
+          "Update_Course_Attended_1_week_from_course_date": {
+            "workflow_id": "52330000003014483",
+            "trigger": "date_or_datetime",
+            "type": "automatic",
+            "timing": "1 week after Course_Start_Time",
+            "action": "Updates attendance flags",
+            "workflow_url": "https://crm.zoho.com.au/crm/org7003757385/settings/workflow-rules/52330000003014483"
+          },
+          "Update_Course_Attended_1_Day_from_course": {
+            "workflow_id": "52330000003014499",
+            "trigger": "date_or_datetime",
+            "type": "automatic",
+            "timing": "1 day after Course_Start_Time",
+            "action": "Updates attendance status",
+            "workflow_url": "https://crm.zoho.com.au/crm/org7003757385/settings/workflow-rules/52330000003014499"
+          },
+          "Thank_you_SMS": {
+            "workflow_id": "52330000002656733",
+            "trigger": "date_or_datetime",
+            "type": "automatic",
+            "timing": "1 day after Course_End_Date",
+            "action": "Sends thank you SMS",
+            "integration": "ClickSend SMS",
+            "module": "Registration_Records",
+            "workflow_url": "https://crm.zoho.com.au/crm/org7003757385/settings/workflow-rules/52330000002656733"
+          },
+          "Trainer_Feedback_Email": {
+            "workflow_id": "52330000002656789",
+            "trigger": "date_or_datetime",
+            "type": "automatic",
+            "timing": "After course end",
+            "action": "Requests trainer feedback",
+            "workflow_url": "https://crm.zoho.com.au/crm/org7003757385/settings/workflow-rules/52330000002656789"
+          }
+        }
+      },
+      "human_actions": {
+        "trainer_during_course": {
+          "description": "Trainer marks daily attendance",
+          "updates": "Registration_Records.Course_Days subform",
+          "fields": [
+            "Course_Date",
+            "Attendance",
+            "Comments"
+          ]
+        },
+        "admin_during_course": {
+          "description": "Monitor attendance, generate PDFs as needed",
+          "manual_triggers": [
+            "Workflow_Actions",
+            "Send_Attendance_PDF_to_Trainer"
+          ]
+        },
+        "trainer_after_course": {
+          "description": "Upload materials, complete feedback",
+          "updates_fields": [
+            "Course_Work_Uploaded_Competent",
+            "Trainer_Comments"
+          ]
+        }
+      },
+      "attendance_tracking": {
+        "subform": "Course_Days",
+        "parent_module": "Registration_Records",
+        "auto_populated_by": "Populate_Course_Days workflow",
+        "updated_by": "Trainer (human input)"
+      },
+      "next_stage": "10_certification"
+    },
+    "10_certification": {
+      "stage": "Certificate Processing",
+      "module": "Registration_Records",
+      "trigger_type": "manual",
+      "human_actions": {
+        "submit_to_rto": {
+          "description": "Upload coursework to RTO for assessment",
+          "updates_field": "Course_Work_Uploaded_Competent (on Course)",
+          "external_system": "RTO portal"
+        },
+        "receive_certificates": {
+          "description": "RTO returns certificates",
+          "updates_field": "Certificate",
+          "values": [
+            "Not Received",
+            "Received",
+            "Issued",
+            "Held Back"
+          ]
+        },
+        "complete_compliance": {
+          "description": "Complete post-course compliance",
+          "fields": [
+            "Difficulty_with_IT (Post Requisite Evidence)",
+            "Reading_writing_difficulties (SOA Received)",
+            "Result (Competent/Not Yet Competent)"
+          ]
+        },
+        "distribute_certificates": {
+          "description": "Send certificates to attendees",
+          "trigger_field": "send_cert_email",
+          "trigger_value": true,
+          "triggers_workflow": "Certificate_Held_Back"
+        }
+      },
+      "workflows": {
+        "Certificate_Held_Back": {
+          "workflow_id": "52330000002667069",
+          "trigger": "field_update",
+          "type": "manual",
+          "condition_field": "send_cert_email",
+          "action": "Sends certificate or hold notification",
+          "logic": "Checks Certificate_Held_Back_Reason field",
+          "workflow_url": "https://crm.zoho.com.au/crm/org7003757385/settings/workflow-rules/52330000002667069"
+        },
+        "status_update": {
+          "workflow_id": "52330000004045787",
+          "trigger": "field_update",
+          "type": "automatic",
+          "condition_field": "Status",
+          "action": "Updates related records when status = Completed",
+          "workflow_url": "https://crm.zoho.com.au/crm/org7003757385/settings/workflow-rules/52330000004045787"
+        }
+      },
+      "private_course_handling": {
+        "field": "SOA_Sent",
+        "description": "For private courses, SOA sent to client/employer",
+        "type": "human_input"
+      },
+      "next_stage": "11_archiving"
+    },
+    "11_archiving": {
+      "stage": "Archiving & Performance",
+      "module": "Courses",
+      "trigger_type": "automatic",
+      "completion_workflow": {
+        "Status_updated_to_completed": {
+          "workflow_id": "52330000004037507",
+          "trigger": "field_update",
+          "type": "automatic",
+          "condition_field": "Course_Status",
+          "condition_value": "Completed",
+          "action": "Triggers completion workflows",
+          "workflow_url": "https://crm.zoho.com.au/crm/org7003757385/settings/workflow-rules/52330000004037507"
+        },
+        "Course_Performance": {
+          "workflow_id": "52330000008928375",
+          "trigger": "field_update",
+          "type": "automatic",
+          "condition_field": "Course_Status",
+          "condition_value": "Completed",
+          "action": "Updates Course_Performance analytics record",
+          "updates_module": "Course_Performance",
+          "workflow_url": "https://crm.zoho.com.au/crm/org7003757385/settings/workflow-rules/52330000008928375"
+        },
+        "Completed_course_for_WP_course_Start_Date": {
+          "workflow_id": "52330000004065214",
+          "trigger": "date_or_datetime",
+          "type": "automatic",
+          "timing": "1 week after course end",
+          "action": "Updates WordPress course status",
+          "integration": "WordPress",
+          "workflow_url": "https://crm.zoho.com.au/crm/org7003757385/settings/workflow-rules/52330000004065214"
+        }
+      },
+      "human_actions": {
+        "collect_trainer_materials": {
+          "description": "Collect final paperwork from trainer",
+          "updates_field": "Trainer_Comments"
+        },
+        "verify_workdrive": {
+          "description": "Ensure all documents archived",
+          "field": "Workdrive_URL"
+        },
+        "set_final_status": {
+          "description": "Mark course complete",
+          "updates_field": "Course_Status",
+          "value": "Completed or Archived"
+        }
+      },
+      "analytics_updated": {
+        "module": "Course_Performance",
+        "metrics": [
+          "Total_Deals",
+          "Total_Won_Deals",
+          "Booked_Registrations",
+          "Total_Invoices_Issued",
+          "Total_Invoice_Amount",
+          "Outstanding_Amount",
+          "Top_Lead_Source"
+        ]
+      },
+      "end_of_journey": true
+    }
+  },
+  "workflow_trigger_taxonomy": {
+    "automatic_triggers": {
+      "create": {
+        "description": "Fires when record created",
+        "human_input_required": "Create the record",
+        "examples": [
+          "New_Lead_Notification",
+          "Update_Deal_ID",
+          "Populate_Course_Days"
+        ]
+      },
+      "edit": {
+        "description": "Fires on any record edit",
+        "human_input_required": "Edit any field",
+        "examples": [
+          "Push_Contact_Updates_to_Xero",
+          "Update_course_from_product"
+        ]
+      },
+      "create_or_edit": {
+        "description": "Fires on create OR edit",
+        "human_input_required": "Create or edit record",
+        "examples": [
+          "Deal_Naming_Convention",
+          "Calculate_Overall_Tax"
+        ]
+      },
+      "field_update": {
+        "description": "Fires when specific field(s) change",
+        "human_input_required": "Update the specified field",
+        "examples": [
+          "Purchase_Order_Received (when PO_Number entered)",
+          "Course_Status changes"
+        ]
+      },
+      "date_or_datetime": {
+        "description": "Fires at specified time before/after a date field",
+        "human_input_required": "None - runs on schedule",
+        "examples": [
+          "10_days_before_course_SMS",
+          "Follow_up_on_Purchase_Order"
+        ]
+      },
+      "section_update": {
+        "description": "Fires when section of record updated",
+        "human_input_required": "Update fields in specific section",
+        "examples": [
+          "Assign_Related_To_Fields_on_Update"
+        ]
+      }
+    },
+    "manual_triggers": {
+      "boolean_field": {
+        "description": "User sets boolean field to TRUE",
+        "human_input_required": "Check the checkbox",
+        "field_examples": [
+          "Send_Trainer_email",
+          "Send_Attendance_PDF_to_Trainer",
+          "send_cert_email",
+          "Create_Team_Task",
+          "Update_Registration_Records",
+          "Add_Trainer_Calendar"
+        ]
+      },
+      "picklist_field": {
+        "description": "User selects specific picklist value",
+        "human_input_required": "Select from dropdown",
+        "field_examples": [
+          "WF_Action (Leads) - multiple conversion options",
+          "Workflow_Actions (Courses) - multiple actions"
+        ]
+      }
+    },
+    "third_party_triggers": {
+      "stripe_webhook": {
+        "description": "Stripe payment completion",
+        "updates_field": "Stripe_ID",
+        "triggers_workflow": "Convert_on_Payment_Success",
+        "creates": [
+          "Contact",
+          "Deal",
+          "Invoice",
+          "Registration_Record"
+        ]
+      },
+      "wordpress_form": {
+        "description": "Website form submission",
+        "creates": "Lead",
+        "fields_populated": [
+          "Course",
+          "Email",
+          "Mobile",
+          "Course_Type"
+        ]
+      },
+      "xero_sync": {
+        "description": "Accounting data sync",
+        "workflows": [
+          "Push_Invoice_to_Xero",
+          "Push_Account_Updates_to_Xero",
+          "Push_Contact_Updates_to_Xero"
+        ],
+        "bidirectional": true
+      },
+      "workdrive_integration": {
+        "description": "Document folder creation",
+        "workflows": [
+          "Courses_ZohoFlow_CRM_Course_to_Workdrive_Folder",
+          "Registration_Records_ZohoFlow_Copy_of_CRM_Contact",
+          "Contacts_ZohoFlow_CRM_Contact_to_Workdrive_Folder"
+        ],
+        "updates_field": "Workdrive_URL"
+      }
+    }
+  },
+  "record_creation_chains": {
+    "public_course_credit_card_path": {
+      "sequence": [
+        {
+          "order": 1,
+          "action": "Lead submits form on website",
+          "type": "third_party",
+          "creates": "Lead"
+        },
+        {
+          "order": 2,
+          "action": "Lead pays via Stripe",
+          "type": "third_party",
+          "triggers_workflow": "Convert_on_Payment_Success"
+        },
+        {
+          "order": 3,
+          "action": "Workflow creates records",
+          "type": "automatic",
+          "creates": [
+            "Contact",
+            "Account (if Company provided)",
+            "Deal",
+            "Invoice",
+            "Registration_Record"
+          ]
+        },
+        {
+          "order": 4,
+          "action": "Registration record creation triggers workflows",
+          "type": "automatic",
+          "workflows": [
+            "Populate_Course_Days",
+            "Calculate_Registrations",
+            "Create_Workdrive_Folder",
+            "SMS_Attendance_Link"
+          ]
+        },
+        {
+          "order": 5,
+          "action": "User completes compliance fields",
+          "type": "human_input",
+          "updates": "Registration_Record compliance fields"
+        },
+        {
+          "order": 6,
+          "action": "Time-based reminders send automatically",
+          "type": "automatic",
+          "workflows": [
+            "SMS reminders",
+            "Email reminders"
+          ]
+        },
+        {
+          "order": 7,
+          "action": "Trainer marks attendance during course",
+          "type": "human_input",
+          "updates": "Course_Days subform"
+        },
+        {
+          "order": 8,
+          "action": "User processes certificates",
+          "type": "human_input",
+          "updates": "Certificate field, triggers send_cert_email"
+        },
+        {
+          "order": 9,
+          "action": "Course marked complete",
+          "type": "human_input",
+          "updates": "Course.Course_Status = Completed"
+        },
+        {
+          "order": 10,
+          "action": "Performance metrics auto-update",
+          "type": "automatic",
+          "workflow": "Course_Performance",
+          "updates": "Course_Performance record"
+        }
+      ]
+    },
+    "public_course_invoice_path": {
+      "sequence": [
+        {
+          "order": 1,
+          "action": "Lead submits form requesting invoice",
+          "type": "third_party",
+          "creates": "Lead"
+        },
+        {
+          "order": 2,
+          "action": "User triggers conversion",
+          "type": "manual",
+          "sets_field": "WF_Action = Convert Pay Via Invoice",
+          "triggers_workflow": "Convert_Pay_Via_Invoice"
+        },
+        {
+          "order": 3,
+          "action": "Workflow creates records",
+          "type": "automatic",
+          "creates": [
+            "Contact",
+            "Account",
+            "Deal",
+            "Invoice",
+            "Registration_Record"
+          ]
+        },
+        {
+          "order": 4,
+          "action": "Invoice sent to client",
+          "type": "manual",
+          "sets_field": "Invoice.Status = Sent"
+        },
+        {
+          "order": 5,
+          "action": "Client pays invoice",
+          "type": "third_party",
+          "updates": "Invoice.Status = Paid"
+        },
+        {
+          "order": 6,
+          "action": "Payment triggers registration confirmation",
+          "type": "automatic",
+          "workflow": "Invoice_Update",
+          "updates": "Registration_Record.Status = Confirmed"
+        },
+        {
+          "order": 7,
+          "action": "Continue to course delivery...",
+          "type": "automatic",
+          "continues_to": "9_course_delivery"
+        }
+      ]
+    },
+    "private_course_path": {
+      "sequence": [
+        {
+          "order": 1,
+          "action": "Enquiry received (form or phone)",
+          "type": "mixed",
+          "creates": "Lead"
+        },
+        {
+          "order": 2,
+          "action": "User qualifies lead and converts",
+          "type": "manual",
+          "sets_field": "WF_Action = Convert Non Paying Lead",
+          "triggers_workflow": "Convert_Non_Paying_Lead"
+        },
+        {
+          "order": 3,
+          "action": "Workflow creates records",
+          "type": "automatic",
+          "creates": [
+            "Contact",
+            "Account",
+            "Deal"
+          ]
+        },
+        {
+          "order": 4,
+          "action": "Deal progresses to Ready to Quote",
+          "type": "human_input",
+          "sets_field": "Deal.Stage = Ready to Quote"
+        },
+        {
+          "order": 5,
+          "action": "Quote auto-created",
+          "type": "automatic",
+          "workflow": "Create_Quote_Stage_Update_Ready_to_quote",
+          "creates": "Quote"
+        },
+        {
+          "order": 6,
+          "action": "User sends quote to client",
+          "type": "manual",
+          "sets_field": "Send_Quote_as_EMAIL = true",
+          "triggers_workflow": "Send_Quote"
+        },
+        {
+          "order": 7,
+          "action": "Client accepts quote (provides PO)",
+          "type": "human_input",
+          "sets_field": "Quote.Quote_Stage = Accepted"
+        },
+        {
+          "order": 8,
+          "action": "Invoice auto-created, Deal updated",
+          "type": "automatic",
+          "workflow": "Update_Deal_and_Invoice_on_Quote_Closed_Won",
+          "creates": "Invoice",
+          "updates": "Deal.Stage = Closed Won"
+        },
+        {
+          "order": 9,
+          "action": "User creates registration records for each attendee",
+          "type": "human_input",
+          "creates": "Multiple Registration_Records",
+          "links_to": "Course"
+        },
+        {
+          "order": 10,
+          "action": "Continue to enrolment and delivery...",
+          "continues_to": "7_course_enrolment"
+        }
+      ]
+    }
+  },
+  "module_dependency_map": {
+    "Leads": {
+      "creates_directly": [],
+      "converts_to": [
+        "Contacts",
+        "Accounts",
+        "Deals"
+      ],
+      "lookup_relationships": {
+        "outgoing": [
+          "Converted_Account",
+          "Converted_Contact",
+          "Converted_Deal",
+          "Course",
+          "Existing_Company_Record"
+        ],
+        "incoming": []
+      },
+      "trigger_sources": {
+        "user_creates_record": "Human input",
+        "website_form": "WordPress (3rd party)",
+        "google_ads": "Google Ads (3rd party)",
+        "facebook_ads": "Facebook (3rd party)",
+        "api_import": "External systems (3rd party)"
+      }
+    },
+    "Contacts": {
+      "created_by": [
+        "Lead conversion workflows",
+        "User manual entry"
+      ],
+      "creates_directly": [],
+      "lookup_relationships": {
+        "outgoing": [
+          "Account_Name"
+        ],
+        "incoming": [
+          "Accounts.Primary_Contact",
+          "Deals.Contact_Name",
+          "Courses.Course_Trainer",
+          "Registration_Records.Attendee",
+          "Team_Tasks.Contact"
+        ]
+      },
+      "trigger_sources": {
+        "lead_conversion": "Automatic workflow",
+        "user_creates": "Human input",
+        "workdrive_integration": "Automatic (creates folder)"
+      }
+    },
+    "Accounts": {
+      "created_by": [
+        "Lead conversion workflows",
+        "User manual entry"
+      ],
+      "creates_directly": [],
+      "lookup_relationships": {
+        "outgoing": [
+          "Parent_Account"
+        ],
+        "incoming": [
+          "Contacts.Account_Name",
+          "Deals.Account_Name",
+          "Quotes.Account_Name",
+          "Invoices.Account_Name",
+          "Courses.Private_Course_Client",
+          "Registration_Records.Account_Name"
+        ]
+      },
+      "trigger_sources": {
+        "lead_conversion": "Automatic workflow",
+        "user_creates": "Human input",
+        "xero_sync": "Automatic (bidirectional)"
+      }
+    },
+    "Deals": {
+      "created_by": [
+        "Lead conversion workflows",
+        "User manual entry"
+      ],
+      "creates_directly": [
+        "Quotes (via workflow)",
+        "Invoices (via Quote acceptance)"
+      ],
+      "lookup_relationships": {
+        "outgoing": [
+          "Account_Name",
+          "Contact_Name",
+          "Courseaa",
+          "Course"
+        ],
+        "incoming": [
+          "Quotes.Deal_Name",
+          "Invoices.Deal_Name__s",
+          "Registration_Records.Deal",
+          "Team_Tasks.Deal"
+        ]
+      },
+      "trigger_sources": {
+        "lead_conversion": "Automatic workflow",
+        "user_creates": "Human input",
+        "user_changes_stage": "Human input triggers stage-based workflows"
+      },
+      "stage_based_automation": {
+        "Ready_to_Quote": "Auto-creates Quote",
+        "Closed_Won": "Updates invoices and registrations",
+        "Stage_changes": "Multiple workflows trigger on stage changes"
+      }
+    },
+    "Courses": {
+      "created_by": [
+        "User manual entry"
+      ],
+      "creates_directly": [
+        "Team_Tasks (via workflow)",
+        "Course_Performance (via workflow)"
+      ],
+      "lookup_relationships": {
+        "outgoing": [
+          "Course_Trainer",
+          "Course_Qualification",
+          "Select_Venue",
+          "Private_Course_Client"
+        ],
+        "incoming": [
+          "Leads.Course",
+          "Deals.Courseaa",
+          "Registration_Records.Course",
+          "Quotes.Course_Name",
+          "Invoices.Course_Name"
+        ]
+      },
+      "trigger_sources": {
+        "user_creates": "Human input",
+        "workdrive_integration": "Automatic (creates folder)",
+        "wordpress_sync": "Automatic (publishes course)",
+        "time_based_workflows": "Automatic (23 workflows total)"
+      },
+      "high_automation_module": true,
+      "workflow_categories": {
+        "on_create": 5,
+        "on_field_update": 12,
+        "time_based": 6
+      }
+    },
+    "Registration_Records": {
+      "created_by": [
+        "Lead conversion workflows",
+        "Quote acceptance workflows",
+        "User manual entry"
+      ],
+      "creates_directly": [
+        "Course_Days subform entries (via workflow)"
+      ],
+      "lookup_relationships": {
+        "outgoing": [
+          "Course",
+          "Attendee",
+          "Trainer",
+          "Deal",
+          "Invoice",
+          "Quote",
+          "Venue"
+        ],
+        "incoming": [
+          "Team_Tasks.Course_Attendee",
+          "Feedbacks.Attendee_Record"
+        ]
+      },
+      "trigger_sources": {
+        "lead_conversion": "Automatic workflow",
+        "quote_acceptance": "Automatic workflow",
+        "user_creates": "Human input",
+        "workdrive_integration": "Automatic (creates folder)",
+        "sms_integration": "Automatic (sends links)",
+        "time_based_workflows": "Automatic (9 workflows)"
+      },
+      "high_automation_module": true,
+      "workflow_categories": {
+        "on_create": 7,
+        "on_field_update": 11,
+        "time_based": 9
+      }
+    },
+    "Quotes": {
+      "created_by": [
+        "Deal stage change to Ready to Quote (automatic)",
+        "User manual entry"
+      ],
+      "creates_directly": [
+        "Invoices (when Quote_Stage = Accepted)"
+      ],
+      "lookup_relationships": {
+        "outgoing": [
+          "Deal_Name",
+          "Account_Name",
+          "Contact_Name",
+          "Course_Name"
+        ],
+        "incoming": [
+          "Sales_Orders.Quote_Name",
+          "Registration_Records.Quote",
+          "Team_Tasks.Quote"
+        ]
+      },
+      "trigger_sources": {
+        "deal_stage_change": "Automatic workflow",
+        "user_creates": "Human input",
+        "user_sends_quote": "Manual (Send_Quote_as_EMAIL field)"
+      },
+      "automatic_creation_workflow": {
+        "workflow_id": "52330000002460308",
+        "workflow_name": "Create Quote - Stage Update Ready to quote",
+        "triggered_by": "Deal.Stage = Ready to Quote",
+        "workflow_url": "https://crm.zoho.com.au/crm/org7003757385/settings/workflow-rules/52330000002460308"
+      }
+    },
+    "Invoices": {
+      "created_by": [
+        "Quote acceptance (automatic)",
+        "Lead conversion with invoice payment",
+        "User manual entry"
+      ],
+      "creates_directly": [],
+      "lookup_relationships": {
+        "outgoing": [
+          "Account_Name",
+          "Contact_Name",
+          "Deal_Name__s",
+          "Course_Name"
+        ],
+        "incoming": [
+          "Registration_Records.Invoice",
+          "Team_Tasks.Invoice"
+        ]
+      },
+      "trigger_sources": {
+        "quote_acceptance": "Automatic workflow",
+        "lead_conversion": "Automatic workflow",
+        "user_creates": "Human input",
+        "xero_sync": "Automatic (bidirectional)",
+        "stripe_payment": "3rd party webhook"
+      },
+      "payment_integrations": {
+        "stripe": {
+          "field": "Stripe_ID",
+          "updates_status": "Paid",
+          "type": "third_party"
+        },
+        "xero": {
+          "workflow": "Push_Invoice_to_Xero",
+          "sync_direction": "bidirectional",
+          "type": "automatic"
+        }
+      }
+    },
+    "Team_Tasks": {
+      "created_by": [
+        "Course creation (automatic)",
+        "Registration creation (automatic)",
+        "User manual triggers from other modules"
+      ],
+      "creates_directly": [],
+      "lookup_relationships": {
+        "outgoing": [
+          "Course",
+          "Course_Attendee",
+          "Deal",
+          "Invoice",
+          "Quote",
+          "Lead",
+          "Contact",
+          "Project"
+        ],
+        "incoming": []
+      },
+      "trigger_sources": {
+        "course_create": "Automatic (Create_Tasks_for_Course)",
+        "registration_create": "Automatic (Calculate_Registrations_and_create_team_task)",
+        "manual_triggers": "Human sets Create_Team_Task field on various modules"
+      }
+    },
+    "Course_Performance": {
+      "created_by": [
+        "Course creation (automatic)"
+      ],
+      "creates_directly": [],
+      "lookup_relationships": {
+        "outgoing": [
+          "Course"
+        ],
+        "incoming": []
+      },
+      "trigger_sources": {
+        "course_create": "Automatic (Course_Performance_Record workflow)",
+        "course_complete": "Automatic (Course_Performance workflow updates metrics)"
+      },
+      "analytics_module": true
+    }
+  },
+  "integration_dependency_map": {
+    "Xero_Accounting": {
+      "modules_synced": [
+        "Contacts",
+        "Accounts",
+        "Invoices"
+      ],
+      "sync_direction": "Bidirectional",
+      "workflows": {
+        "Push_Contact_Updates_to_Xero": {
+          "workflow_id": "52330000002460248",
+          "module": "Contacts",
+          "trigger": "edit",
+          "type": "automatic",
+          "workflow_url": "https://crm.zoho.com.au/crm/org7003757385/settings/workflow-rules/52330000002460248"
+        },
+        "Push_Account_Updates_to_Xero": {
+          "workflow_id": "52330000002460265",
+          "module": "Accounts",
+          "trigger": "edit",
+          "type": "automatic",
+          "workflow_url": "https://crm.zoho.com.au/crm/org7003757385/settings/workflow-rules/52330000002460265"
+        },
+        "Push_Invoice_to_Xero": {
+          "workflow_id": "52330000002460231",
+          "module": "Invoices",
+          "trigger": "field_update (Status)",
+          "type": "automatic",
+          "workflow_url": "https://crm.zoho.com.au/crm/org7003757385/settings/workflow-rules/52330000002460231"
+        }
+      },
+      "fields_synced": [
+        "Xero_ID",
+        "Xero_Invoice_Number",
+        "Xero_Invoice_URL"
+      ],
+      "sync_trigger": "Record creation or status changes",
+      "failure_impact": "Financial records out of sync"
+    },
+    "WordPress_Website": {
+      "modules_synced": [
+        "Courses"
+      ],
+      "sync_direction": "Outbound (CRM → WordPress)",
+      "workflows": {
+        "Sync_Course_to_Wordpress": {
+          "workflow_id": "52330000006315389",
+          "module": "Courses",
+          "trigger": "field_update (Course_Status)",
+          "type": "automatic",
+          "workflow_url": "https://crm.zoho.com.au/crm/org7003757385/settings/workflow-rules/52330000006315389"
+        },
+        "Course_Confirmed_Website_Calendar": {
+          "workflow_id": "52330000011998036",
+          "module": "Courses",
+          "trigger": "field_update (Course_Confirmed)",
+          "type": "automatic",
+          "workflow_url": "https://crm.zoho.com.au/crm/org7003757385/settings/workflow-rules/52330000011998036"
+        },
+        "Completed_course_for_WP": {
+          "workflow_id": "52330000004065214",
+          "module": "Courses",
+          "trigger": "date_or_datetime",
+          "timing": "1 week after course end",
+          "type": "automatic",
+          "workflow_url": "https://crm.zoho.com.au/crm/org7003757385/settings/workflow-rules/52330000004065214"
+        }
+      },
+      "fields_synced": [
+        "WP_Course_ID",
+        "WP_Ticket_ID",
+        "Published_Date"
+      ],
+      "sync_trigger": "Course status changes or confirmation",
+      "failure_impact": "Website course listings out of date"
+    },
+    "Workdrive_Documents": {
+      "modules_synced": [
+        "Contacts",
+        "Courses",
+        "Registration_Records"
+      ],
+      "sync_direction": "Outbound (CRM → Workdrive)",
+      "workflows": {
+        "Contacts_ZohoFlow_CRM_Contact_to_Workdrive_Folder": {
+          "workflow_id": "52330000002820175",
+          "module": "Contacts",
+          "trigger": "create",
+          "type": "automatic",
+          "workflow_url": "https://crm.zoho.com.au/crm/org7003757385/settings/workflow-rules/52330000002820175"
+        },
+        "Courses_ZohoFlow_CRM_Course_to_Workdrive_Folder": {
+          "workflow_id": "52330000002462001",
+          "module": "Courses",
+          "trigger": "create",
+          "type": "automatic",
+          "workflow_url": "https://crm.zoho.com.au/crm/org7003757385/settings/workflow-rules/52330000002462001"
+        },
+        "Registration_Records_ZohoFlow_Copy_of_CRM_Contact": {
+          "workflow_id": "52330000005138075",
+          "module": "Registration_Records",
+          "trigger": "create",
+          "type": "automatic",
+          "workflow_url": "https://crm.zoho.com.au/crm/org7003757385/settings/workflow-rules/52330000005138075"
+        },
+        "Move_Course_Attendee_Folder_on_Course_Change": {
+          "workflow_id": "52330000005375288",
+          "module": "Registration_Records",
+          "trigger": "field_update (Course)",
+          "type": "automatic",
+          "action": "Moves folder if attendee changes courses",
+          "workflow_url": "https://crm.zoho.com.au/crm/org7003757385/settings/workflow-rules/52330000005375288"
+        }
+      },
+      "fields_synced": [
+        "Workdrive_URL"
+      ],
+      "sync_trigger": "Record creation or course change",
+      "failure_impact": "Document storage not organized"
+    },
+    "ClickSend_SMS": {
+      "modules_using": [
+        "Leads",
+        "Contacts",
+        "Courses",
+        "Registration_Records"
+      ],
+      "sync_direction": "Outbound (CRM → ClickSend)",
+      "workflow_count": "10+",
+      "key_workflows": {
+        "trainer_reminders": [
+          "10_days_before_course_SMS_to_Trainer",
+          "1_day_before_course_SMS_to_Trainer"
+        ],
+        "attendee_reminders": [
+          "SMS_Attendance_Link",
+          "14_days_SMS_Before_Attendance_Confirmation",
+          "7_Days_before_Public_course_SMS_Reminder",
+          "SMS_Attendance_Acknowledgement",
+          "Thank_you_SMS"
+        ]
+      },
+      "opt_out_field": "SMS_Opt_Out",
+      "failure_impact": "Reminders not sent, attendance issues"
+    },
+    "Stripe_Payments": {
+      "modules_using": [
+        "Leads",
+        "Invoices",
+        "Registration_Records"
+      ],
+      "sync_direction": "Inbound (Stripe → CRM)",
+      "trigger_type": "Webhook",
+      "payment_flow": {
+        "payment_link_generated": "From Lead or Invoice",
+        "customer_pays": "Stripe processes payment",
+        "webhook_sent": "Stripe notifies Zoho",
+        "workflow_triggered": "Convert_on_Payment_Success",
+        "records_created": [
+          "Contact",
+          "Deal",
+          "Invoice",
+          "Registration_Record"
+        ]
+      },
+      "fields_updated": [
+        "Stripe_ID",
+        "Payment_Source",
+        "Status"
+      ],
+      "failure_impact": "Payments not processed, records not created"
+    },
+    "Attendance_App": {
+      "modules_using": [
+        "Registration_Records"
+      ],
+      "sync_direction": "Bidirectional",
+      "workflows": {
+        "SMS_Attendance_Link": "Sends link on registration create",
+        "Generate_SMS_Shorten_Link": "Creates shortened URL 15 days before",
+        "SMS_Attendance_Acknowledgement": "Receives confirmation responses"
+      },
+      "fields_used": [
+        "SMS_Link",
+        "SMS_Confirmation",
+        "Attendance_Confirmed"
+      ],
+      "failure_impact": "Attendance tracking manual only"
+    }
+  },
+  "human_input_touchpoints": {
+    "critical_manual_inputs": {
+      "lead_qualification": {
+        "module": "Leads",
+        "decision": "Qualify or disqualify",
+        "field": "WF_Action",
+        "values": [
+          "Generate Payment URL",
+          "Convert Pay Via Invoice",
+          "Convert Non Paying Lead",
+          "Convert to Only Create a contact"
+        ],
+        "impact": "Determines conversion path"
+      },
+      "deal_stage_progression": {
+        "module": "Deals",
+        "decision": "Move deal through stages",
+        "field": "Stage",
+        "values": [
+          "Qualification",
+          "Needs Analysis",
+          "Ready to Quote",
+          "Negotiation",
+          "Closed Won",
+          "Closed Lost"
+        ],
+        "impact": "Triggers quote creation, PO follow-ups, completion workflows"
+      },
+      "quote_sending": {
+        "module": "Quotes",
+        "action": "Send quote to client",
+        "field": "Send_Quote_as_EMAIL",
+        "value": true,
+        "impact": "Client receives quote"
+      },
+      "quote_acceptance": {
+        "module": "Quotes",
+        "action": "Mark quote accepted",
+        "field": "Quote_Stage",
+        "value": "Accepted",
+        "impact": "Auto-creates Invoice, updates Deal to Closed Won"
+      },
+      "invoice_sending": {
+        "module": "Invoices",
+        "action": "Send invoice to client",
+        "field": "Status",
+        "value": "Sent",
+        "impact": "Client receives invoice, triggers email workflow"
+      },
+      "po_entry": {
+        "module": "Deals or Invoices or Quotes",
+        "action": "Enter purchase order number",
+        "field": "Purchase_Order_Number",
+        "impact": "Triggers PO received workflows, updates registrations"
+      },
+      "compliance_completion": {
+        "module": "Registration_Records",
+        "action": "Complete compliance fields",
+        "fields": [
+          "USI_Number",
+          "English_second_language",
+          "Request_3rd_Party_Record",
+          "CV_Submitted"
+        ],
+        "impact": "Registration can proceed to confirmed"
+      },
+      "attendance_marking": {
+        "module": "Registration_Records",
+        "action": "Mark daily attendance",
+        "subform": "Course_Days",
+        "fields": [
+          "Attendance",
+          "Comments"
+        ],
+        "who": "Trainer",
+        "impact": "Attendance records complete"
+      },
+      "certificate_distribution": {
+        "module": "Registration_Records",
+        "action": "Trigger certificate send",
+        "field": "send_cert_email",
+        "value": true,
+        "impact": "Sends certificate to attendee"
+      },
+      "course_completion": {
+        "module": "Courses",
+        "action": "Mark course complete",
+        "field": "Course_Status",
+        "value": "Completed",
+        "impact": "Triggers performance metrics update, archiving workflows"
+      }
+    },
+    "optional_manual_triggers": {
+      "request_attendee_details": {
+        "module": "Deals",
+        "field": "Request_Attendees",
+        "action": "Email training coordinator for attendee list"
+      },
+      "send_trainer_logistics": {
+        "module": "Courses",
+        "field": "Send_Trainer_email",
+        "action": "Email logistics details to trainer"
+      },
+      "add_to_trainer_calendar": {
+        "module": "Courses",
+        "field": "Add_Trainer_Calendar",
+        "action": "Create calendar event for trainer"
+      },
+      "send_attendance_pdf": {
+        "module": "Courses",
+        "field": "Send_Attendance_PDF_to_Trainer",
+        "action": "Email attendance list to trainer"
+      },
+      "generate_attendance_pdf": {
+        "module": "Courses",
+        "field": "Workflow_Actions",
+        "action": "Generate attendance PDF on demand"
+      },
+      "update_registration_records": {
+        "module": "Courses",
+        "field": "Update_Registration_Records",
+        "action": "Sync course changes to all registrations"
+      },
+      "refresh_payment_url": {
+        "module": "Invoices",
+        "field": "Refresh_PO_URL",
+        "action": "Regenerate payment/PO request URLs"
+      }
+    }
+  },
+  "workflow_failure_diagnostics": {
+    "if_lead_not_converting": {
+      "check_workflows": [
+        "Convert_on_Payment_Success (52330000008292523)",
+        "Convert_Pay_Via_Invoice (52330000008920352)",
+        "Convert_Non_Paying_Lead (52330000008250081)"
+      ],
+      "check_fields": [
+        "WF_Action field value",
+        "Payment_source",
+        "Stripe_ID if credit card"
+      ],
+      "check_integrations": [
+        "Stripe webhook configured",
+        "Zoho Form submissions working"
+      ],
+      "common_causes": [
+        "WF_Action not set",
+        "Stripe webhook failed",
+        "Missing mandatory fields"
+      ]
+    },
+    "if_quote_not_created": {
+      "check_workflows": [
+        "Create Quote - Stage Update Ready to quote (52330000002460308)"
+      ],
+      "check_fields": [
+        "Deal.Stage = Ready to Quote",
+        "Deal has Course selected"
+      ],
+      "check_conditions": [
+        "Deal.Courseaa or Deal.Course populated",
+        "Course_Type set"
+      ],
+      "common_causes": [
+        "Stage not changed correctly",
+        "Workflow inactive",
+        "Missing course linkage"
+      ]
+    },
+    "if_invoice_not_created": {
+      "check_workflows": [
+        "Update Deal and Invoice on Quote Closed Won (52330000002460325)"
+      ],
+      "check_fields": [
+        "Quote.Quote_Stage = Accepted",
+        "Quote has Quoted_Items"
+      ],
+      "check_conditions": [
+        "Quote linked to Deal",
+        "Quote has valid amounts"
+      ],
+      "common_causes": [
+        "Quote_Stage not set to Accepted",
+        "Workflow inactive",
+        "Missing quoted items"
+      ]
+    },
+    "if_registration_not_created": {
+      "check_workflows": [
+        "All lead conversion workflows",
+        "Quote acceptance workflow"
+      ],
+      "check_fields": [
+        "Lead converted successfully",
+        "Quote accepted",
+        "Course exists"
+      ],
+      "check_conditions": [
+        "Course record active",
+        "Attendee contact exists"
+      ],
+      "common_causes": [
+        "Conversion workflow failed",
+        "Course not found",
+        "Missing contact"
+      ]
+    },
+    "if_workdrive_folder_not_created": {
+      "check_workflows": [
+        "Courses_ZohoFlow_CRM_Course_to_Workdrive_Folder (52330000002462001)",
+        "Registration_Records_ZohoFlow_Copy_of_CRM_Contact (52330000005138075)"
+      ],
+      "check_integrations": [
+        "Zoho Flow connection active",
+        "Workdrive permissions configured"
+      ],
+      "common_causes": [
+        "Flow connection broken",
+        "Workdrive permissions issue",
+        "Workflow inactive"
+      ]
+    },
+    "if_sms_not_sending": {
+      "check_workflows": [
+        "Any SMS workflow - 10+ workflows"
+      ],
+      "check_fields": [
+        "Mobile number populated",
+        "SMS_Opt_Out = false"
+      ],
+      "check_integrations": [
+        "ClickSend account active",
+        "ClickSend credits available"
+      ],
+      "common_causes": [
+        "SMS_Opt_Out = true",
+        "Invalid mobile number",
+        "ClickSend integration broken"
+      ]
+    },
+    "if_xero_not_syncing": {
+      "check_workflows": [
+        "Push_Invoice_to_Xero (52330000002460231)",
+        "Push_Account_Updates_to_Xero (52330000002460265)",
+        "Push_Contact_Updates_to_Xero (52330000002460248)"
+      ],
+      "check_integrations": [
+        "Xero connection active",
+        "OAuth token valid"
+      ],
+      "check_fields": [
+        "Xero_ID field",
+        "Status changes"
+      ],
+      "common_causes": [
+        "OAuth expired",
+        "Xero permissions changed",
+        "Network timeout"
+      ]
+    }
+  },
+  "dashboard_data_sources": {
+    "lead_funnel_dashboard": {
+      "module": "Leads",
+      "metrics": [
+        "Total Leads by Lead_Source",
+        "Conversion Rate (Converted__s = true)",
+        "Lead_Status distribution",
+        "Leads by Course_Type",
+        "Time to conversion (Lead_Conversion_Time)"
+      ],
+      "filters": [
+        "Lead_Status",
+        "Lead_Source",
+        "Course_Type",
+        "Created_Time"
+      ]
+    },
+    "sales_pipeline_dashboard": {
+      "module": "Deals",
+      "metrics": [
+        "Deals by Stage",
+        "Total Amount by Stage",
+        "Win Rate (Closed Won / Total Deals)",
+        "Average Deal Value",
+        "Sales Cycle Duration"
+      ],
+      "filters": [
+        "Stage",
+        "Course_Type",
+        "Created_Date",
+        "Closing_Date"
+      ]
+    },
+    "revenue_dashboard": {
+      "modules": [
+        "Invoices",
+        "Deals",
+        "Course_Performance"
+      ],
+      "metrics": [
+        "Total Invoice Amount (Invoices.sbhtc__Total_inc_GST0)",
+        "Outstanding Amount (Invoices.Amount_Outstanding)",
+        "Paid Invoices Count",
+        "Revenue by Course (Course_Performance.Total_Paid_Amount)",
+        "Payment Source breakdown"
+      ],
+      "filters": [
+        "Invoice_Date",
+        "Status",
+        "Course_Name",
+        "Payment_Source"
+      ]
+    },
+    "course_performance_dashboard": {
+      "module": "Course_Performance",
+      "metrics": [
+        "Total_Deals per course",
+        "Total_Won_Deals",
+        "Booked_Registrations vs target",
+        "Revenue per course (Total_Invoice_Amount)",
+        "Outstanding_Amount",
+        "Top_Lead_Source effectiveness"
+      ],
+      "linked_to": "Courses via lookup",
+      "updated_by": "Course_Performance workflow when course completed"
+    },
+    "registration_compliance_dashboard": {
+      "module": "Registration_Records",
+      "metrics": [
+        "Registrations by Status",
+        "Compliance completion rate (USI_Number populated)",
+        "Certificate status distribution",
+        "Attendance rate (from Course_Days)",
+        "Payment status (Invoice_Status)"
+      ],
+      "filters": [
+        "Status",
+        "Course",
+        "Attendee_Type",
+        "Private_Course_Status"
+      ]
+    },
+    "workflow_execution_dashboard": {
+      "data_source": "Workflow execution logs (Zoho CRM)",
+      "metrics": [
+        "Workflows executed today",
+        "Failed workflows",
+        "Most frequently triggered workflows",
+        "Time-based workflows pending"
+      ],
+      "key_workflows_to_monitor": [
+        "Lead conversion workflows",
+        "Quote/Invoice creation workflows",
+        "SMS sending workflows",
+        "Xero sync workflows"
+      ]
+    }
+  },
+  "visual_flowchart_structure": {
+    "recommended_charts": {
+      "overview_chart": {
+        "title": "Complete Customer Journey - All Paths",
+        "swimlanes": [
+          "Leads Module",
+          "Contacts/Accounts Modules",
+          "Deals Module",
+          "Quotes Module",
+          "Invoices Module",
+          "Courses Module",
+          "Registration_Records Module",
+          "Course_Performance Module"
+        ],
+        "shape_legend": {
+          "rectangle": "Process/Action",
+          "diamond": "Decision Point",
+          "rounded_rectangle": "Automatic Workflow",
+          "cylinder": "Data Store/Record",
+          "cloud": "External Integration"
+        },
+        "color_legend": {
+          "green": "Automatic Trigger",
+          "blue": "Manual Trigger",
+          "orange": "3rd Party Trigger",
+          "yellow": "Human Input Required",
+          "red": "Failure/Error Path"
+        }
+      },
+      "deals_detailed_chart": {
+        "title": "Deals Module - Complete Workflow Map",
+        "sections": [
+          "Deal Creation (from Lead conversion or manual)",
+          "Stage Progression (with workflows at each stage)",
+          "Quote Creation Trigger",
+          "Invoice Creation Trigger",
+          "PO Follow-up Workflows",
+          "Related Record Updates"
+        ],
+        "show_workflows": "All 13 deal workflows with trigger conditions",
+        "show_integrations": [
+          "Xero sync"
+        ],
+        "show_human_inputs": [
+          "Stage changes",
+          "PO number entry",
+          "Request attendees"
+        ]
+      },
+      "registration_detailed_chart": {
+        "title": "Registration_Records - Complete Journey",
+        "sections": [
+          "Creation Sources (4 paths)",
+          "Status Progression",
+          "Compliance Checklist",
+          "Pre-Course Communications (timeline)",
+          "Attendance Tracking",
+          "Certification Process"
+        ],
+        "show_workflows": "All 24 registration workflows",
+        "show_integrations": [
+          "Workdrive",
+          "ClickSend SMS",
+          "Attendance App"
+        ],
+        "timeline": "15 days before → 14 days → 7 days → Course Day → Post-course"
+      },
+      "integration_map_chart": {
+        "title": "External Integrations - Data Flow",
+        "show_systems": [
+          "WordPress",
+          "Xero",
+          "Stripe",
+          "ClickSend SMS",
+          "Workdrive",
+          "Attendance App"
+        ],
+        "show_direction": "Arrows indicating data flow direction",
+        "show_trigger_points": "Which CRM events trigger integration",
+        "show_failure_impacts": "What breaks if integration fails"
+      }
+    }
+  },
+  "quick_reference_process_flows": {
+    "how_is_quote_created": {
+      "answer": "Automatically when Deal.Stage changes to 'Ready to Quote'",
+      "workflow": "Create Quote - Stage Update Ready to quote (52330000002460308)",
+      "human_action": "User must change Deal.Stage field",
+      "prerequisites": [
+        "Deal must exist",
+        "Deal must have Course linked"
+      ],
+      "next_step": "Quote auto-populated with deal data, user reviews and sends"
+    },
+    "how_is_invoice_created": {
+      "answer": "Automatically when Quote.Quote_Stage changes to 'Accepted'",
+      "workflow": "Update Deal and Invoice on Quote Closed Won (52330000002460325)",
+      "human_action": "User must change Quote.Quote_Stage to Accepted",
+      "prerequisites": [
+        "Quote must exist",
+        "Quote must have Quoted_Items"
+      ],
+      "also_creates": "Updates Deal.Stage to Closed Won",
+      "next_step": "Invoice ready to send"
+    },
+    "how_is_registration_created": {
+      "answers": [
+        {
+          "method": "Lead conversion (payment success)",
+          "workflow": "Convert_on_Payment_Success (52330000008292523)",
+          "trigger": "Stripe payment webhook",
+          "human_action": "None - automatic on payment"
+        },
+        {
+          "method": "Lead conversion (invoice payment)",
+          "workflow": "Convert_Pay_Via_Invoice (52330000008920352)",
+          "trigger": "User sets WF_Action field",
+          "human_action": "Select WF_Action = Convert Pay Via Invoice"
+        },
+        {
+          "method": "Quote acceptance",
+          "workflow": "Update Deal and Invoice on Quote Closed Won creates invoice",
+          "trigger": "Quote accepted, invoice created, links to registration",
+          "human_action": "Accept quote, then manually create registration or workflow creates"
+        },
+        {
+          "method": "Manual creation",
+          "workflow": "None",
+          "trigger": "User creates record directly",
+          "human_action": "Create registration, link to Course and Attendee"
+        }
+      ],
+      "all_trigger_workflows": "7 workflows fire on registration creation"
+    },
+    "how_are_sms_sent": {
+      "answer": "Automatically by time-based and event-based workflows",
+      "integration": "ClickSend SMS",
+      "workflows_count": "10+ SMS workflows",
+      "opt_out_check": "All workflows check SMS_Opt_Out field",
+      "human_action": "None - automatic",
+      "exception": "User can manually trigger some SMS via workflow action fields"
+    },
+    "how_is_workdrive_folder_created": {
+      "answer": "Automatically via Zoho Flow when record created",
+      "integration": "Zoho Workdrive + Zoho Flow",
+      "workflows": [
+        "Courses: Creates folder on course create",
+        "Contacts: Creates folder on contact create",
+        "Registration_Records: Creates folder on registration create"
+      ],
+      "human_action": "None - automatic",
+      "folder_url_stored_in": "Workdrive_URL field"
+    },
+    "what_triggers_course_performance_update": {
+      "answer": "Automatically when Course.Course_Status = Completed",
+      "workflow": "Course_Performance (52330000008928375)",
+      "human_action": "Set Course_Status to Completed",
+      "updates_module": "Course_Performance",
+      "metrics_calculated": "All financial and registration metrics",
+      "can_refresh": "Set Run_Scheduler = true to recalculate"
+    }
+  },
+  "troubleshooting_guide": {
+    "registration_count_not_updating": {
+      "workflow": "Calculate_Registrations (52330000002518060)",
+      "triggered_by": "Registration_Records.Status field change",
+      "updates_field": "Courses.Registrations_Booked",
+      "check": [
+        "Workflow active?",
+        "Status field changed?",
+        "Course lookup populated?"
+      ],
+      "manual_fix": "Don't manually update count - fix workflow"
+    },
+    "quote_not_auto_creating": {
+      "workflow": "Create Quote - Stage Update Ready to quote (52330000002460308)",
+      "triggered_by": "Deal.Stage = Ready to Quote",
+      "check": [
+        "Workflow active?",
+        "Stage changed to exact value?",
+        "Deal has Courseaa populated?"
+      ],
+      "manual_fix": "Create quote manually or fix workflow"
+    },
+    "invoice_not_auto_creating": {
+      "workflow": "Update Deal and Invoice on Quote Closed Won (52330000002460325)",
+      "triggered_by": "Quote.Quote_Stage = Accepted",
+      "check": [
+        "Workflow active?",
+        "Quote_Stage set to exact value?",
+        "Quoted_Items populated?"
+      ],
+      "manual_fix": "Create invoice manually or fix workflow"
+    },
+    "sms_not_sending": {
+      "workflows": "10+ SMS workflows",
+      "check": [
+        "ClickSend integration active?",
+        "ClickSend credits available?",
+        "Mobile number populated?",
+        "SMS_Opt_Out = false?",
+        "Workflow active?",
+        "Date/time trigger correct?"
+      ],
+      "manual_fix": "Send SMS manually or fix integration"
+    },
+    "workdrive_folder_not_created": {
+      "workflows": [
+        "Courses_ZohoFlow_CRM_Course_to_Workdrive_Folder (52330000002462001)",
+        "Registration_Records_ZohoFlow_Copy_of_CRM_Contact (52330000005138075)"
+      ],
+      "check": [
+        "Zoho Flow active?",
+        "Workdrive permissions OK?",
+        "Workflow active?"
+      ],
+      "manual_fix": "Create folder manually or fix Flow"
+    },
+    "xero_not_syncing": {
+      "workflows": [
+        "Push_Invoice_to_Xero (52330000002460231)",
+        "Push_Account_Updates_to_Xero (52330000002460265)",
+        "Push_Contact_Updates_to_Xero (52330000002460248)"
+      ],
+      "check": [
+        "Xero OAuth token valid?",
+        "Workflows active?",
+        "Status field changed?"
+      ],
+      "manual_fix": "Reconnect Xero or sync manually"
+    }
+  }
+}

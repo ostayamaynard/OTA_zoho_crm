@@ -1,0 +1,53 @@
+{
+  "module": "Contacts",
+  "generated_from": "zoho-dependencies-2025-11-13.json",
+  "last_updated": "2025-11-19",
+  "total_workflows": 7,
+  "customer_journey": {
+    "Contacts_Created": {
+      "description": "When a contact record is created",
+      "related_workflows": [
+        {
+          "workflow_id": "52330000002820175",
+          "workflow_name": "Contacts_ZohoFlow_CRM Contact to Workdrive Folder",
+          "workflow_url": "https://crm.zoho.com.au/crm/org7003757385/settings/workflow-rules/52330000002820175"
+        },
+        {
+          "workflow_id": "52330000005817024",
+          "workflow_name": "Format Phone field",
+          "workflow_url": "https://crm.zoho.com.au/crm/org7003757385/settings/workflow-rules/52330000005817024"
+        }
+      ]
+    },
+    "Contacts_Updated": {
+      "description": "When a contact record is updated",
+      "related_workflows": [
+        {
+          "workflow_id": "52330000002758242",
+          "workflow_name": "Create task in contacts",
+          "workflow_url": "https://crm.zoho.com.au/crm/org7003757385/settings/workflow-rules/52330000002758242"
+        },
+        {
+          "workflow_id": "52330000005817052",
+          "workflow_name": "On Edit - Format Phone field",
+          "workflow_url": "https://crm.zoho.com.au/crm/org7003757385/settings/workflow-rules/52330000005817052"
+        },
+        {
+          "workflow_id": "52330000002460248",
+          "workflow_name": "Push Contact Updates to Xero",
+          "workflow_url": "https://crm.zoho.com.au/crm/org7003757385/settings/workflow-rules/52330000002460248"
+        },
+        {
+          "workflow_id": "52330000010756379",
+          "workflow_name": "setContactsGMapFiledsAsEmpty",
+          "workflow_url": "https://crm.zoho.com.au/crm/org7003757385/settings/workflow-rules/52330000010756379"
+        },
+        {
+          "workflow_id": "52330000010756331",
+          "workflow_name": "updateContactAddressAndRemoveMapFileds",
+          "workflow_url": "https://crm.zoho.com.au/crm/org7003757385/settings/workflow-rules/52330000010756331"
+        }
+      ]
+    }
+  }
+}

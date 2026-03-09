@@ -1,0 +1,261 @@
+{
+  "module": "Quotes",
+  "status_field": "Quote_Stage",
+  "total_stages": 8,
+  "used_stages": 6,
+  "unused_stages": 2,
+  "source": "zoho-data-model-2025-11-13.json",
+  "generated": "2025-11-18",
+  "stages": [
+    {
+      "sequence": 1,
+      "display_value": "Draft",
+      "actual_value": "Draft",
+      "colour_code": "#616e88",
+      "type": "used",
+      "id": "52330000000018474",
+      "category": "entry",
+      "description": "Quote created, being prepared",
+      "workflows_on_entry": [
+        {
+          "name": "Update Quote Details",
+          "id": "52330000002597194",
+          "trigger": "create",
+          "active": true,
+          "workflow_url": "https://crm.zoho.com.au/crm/org7003757385/settings/workflow-rules/52330000002597194"
+        },
+        {
+          "name": "Update Quote Naming convention",
+          "id": "52330000002856364",
+          "trigger": "create_or_edit",
+          "active": true,
+          "workflow_url": "https://crm.zoho.com.au/crm/org7003757385/settings/workflow-rules/52330000002856364"
+        },
+        {
+          "name": "Inhouse - Calculate Overall Tax for Quote",
+          "id": "52330000004975235",
+          "trigger": "create_or_edit",
+          "active": true,
+          "workflow_url": "https://crm.zoho.com.au/crm/org7003757385/settings/workflow-rules/52330000004975235"
+        }
+      ],
+      "human_actions": [
+        "Add line items to Quoted_Items subform",
+        "Set Number_of_Attendees",
+        "Set Valid_Till date",
+        "Verify Account_Name and Contact_Name"
+      ],
+      "transitions_to": [
+        "Negotiation",
+        "Sent",
+        "Unused"
+      ]
+    },
+    {
+      "sequence": 2,
+      "display_value": "Negotiation",
+      "actual_value": "Negotiation",
+      "colour_code": "#ffd6bc",
+      "type": "used",
+      "id": "52330000000018477",
+      "category": "active",
+      "description": "Terms being discussed with client",
+      "workflows_on_entry": [],
+      "workflows_on_field_update": [
+        {
+          "name": "Update Deal with PO Number and Date",
+          "id": "52330000006993468",
+          "trigger_fields": [
+            "Expected_PO_Date",
+            "PO_Number"
+          ],
+          "active": true,
+          "workflow_url": "https://crm.zoho.com.au/crm/org7003757385/settings/workflow-rules/52330000006993468"
+        }
+      ],
+      "human_actions": [
+        "Update pricing as negotiated",
+        "Track Quote_Version for major changes",
+        "Set Expected_PO_Date",
+        "Enter PO_Number when received"
+      ],
+      "transitions_to": [
+        "Sent",
+        "Closed Lost",
+        "Unused"
+      ]
+    },
+    {
+      "sequence": 3,
+      "display_value": "Sent",
+      "actual_value": "Delivered",
+      "colour_code": "#add9ff",
+      "type": "used",
+      "id": "52330000000018480",
+      "category": "active",
+      "description": "Quote delivered to client",
+      "workflows_on_entry": [
+        {
+          "name": "Update quote when quote is sent or won",
+          "id": "52330000003995201",
+          "trigger": "field_update",
+          "trigger_field": "Quote_Stage",
+          "active": true,
+          "workflow_url": "https://crm.zoho.com.au/crm/org7003757385/settings/workflow-rules/52330000003995201"
+        }
+      ],
+      "checkbox_workflows": [
+        {
+          "name": "Send Quote",
+          "id": "52330000006984913",
+          "trigger_field": "Send_Quote_as_EMAIL",
+          "active": true,
+          "workflow_url": "https://crm.zoho.com.au/crm/org7003757385/settings/workflow-rules/52330000006984913"
+        }
+      ],
+      "human_actions": [
+        "Send quote via Send_Quote_as_EMAIL or manually",
+        "Share Accept_Quote_URL with client",
+        "Follow up before Valid_Till expires"
+      ],
+      "transitions_to": [
+        "Closed Won",
+        "Closed Lost",
+        "Negotiation"
+      ]
+    },
+    {
+      "sequence": 4,
+      "display_value": "Closed Won",
+      "actual_value": "Closed Won",
+      "colour_code": "#67c480",
+      "type": "used",
+      "id": "52330000000018489",
+      "category": "terminal_success",
+      "description": "Client accepted quote",
+      "workflows_on_entry": [
+        {
+          "name": "Update Deal and Invoice on Quote Closed Won",
+          "id": "52330000002460325",
+          "trigger": "field_update",
+          "trigger_field": "Quote_Stage",
+          "active": true,
+          "creates": [
+            "Invoice"
+          ],
+          "workflow_url": "https://crm.zoho.com.au/crm/org7003757385/settings/workflow-rules/52330000002460325"
+        },
+        {
+          "name": "Update quote when quote is sent or won",
+          "id": "52330000003995201",
+          "trigger": "field_update",
+          "trigger_field": "Quote_Stage",
+          "active": true,
+          "workflow_url": "https://crm.zoho.com.au/crm/org7003757385/settings/workflow-rules/52330000003995201"
+        }
+      ],
+      "human_actions": [
+        "Verify Invoice was created",
+        "Enter PO_Number if provided",
+        "Confirm Deal updated to Closed Won"
+      ],
+      "transitions_to": []
+    },
+    {
+      "sequence": 5,
+      "display_value": "Closed Lost",
+      "actual_value": "Closed Lost",
+      "colour_code": "#eb4d4d",
+      "type": "used",
+      "id": "52330000000018492",
+      "category": "terminal_closed",
+      "description": "Client declined quote",
+      "workflows_on_entry": [],
+      "human_actions": [
+        "Document loss reason in notes",
+        "Update Deal to Closed Lost",
+        "Plan follow-up timing"
+      ],
+      "transitions_to": []
+    },
+    {
+      "sequence": 6,
+      "display_value": "Unused",
+      "actual_value": "Unused",
+      "colour_code": "#666666",
+      "type": "used",
+      "id": "52330000002455442",
+      "category": "terminal_closed",
+      "description": "Quote set aside, not applicable",
+      "workflows_on_entry": [],
+      "human_actions": [
+        "Document reason for unused status"
+      ],
+      "transitions_to": []
+    },
+    {
+      "sequence": 7,
+      "display_value": "Confirmed",
+      "actual_value": "Confirmed",
+      "colour_code": "#25b52a",
+      "type": "unused",
+      "id": "52330000000018486",
+      "category": "unused",
+      "description": "Not currently in use",
+      "workflows_on_entry": [],
+      "human_actions": [],
+      "transitions_to": []
+    },
+    {
+      "sequence": 8,
+      "display_value": "On Hold",
+      "actual_value": "On Hold",
+      "colour_code": "#f6c1ff",
+      "type": "unused",
+      "id": "52330000000018483",
+      "category": "unused",
+      "description": "Not currently in use",
+      "workflows_on_entry": [],
+      "human_actions": [],
+      "transitions_to": []
+    }
+  ],
+  "kanban_columns": [
+    {
+      "name": "New",
+      "stages": [
+        "Draft"
+      ],
+      "color": "#616e88"
+    },
+    {
+      "name": "In Progress",
+      "stages": [
+        "Negotiation"
+      ],
+      "color": "#ffd6bc"
+    },
+    {
+      "name": "Sent",
+      "stages": [
+        "Sent"
+      ],
+      "color": "#add9ff"
+    },
+    {
+      "name": "Won",
+      "stages": [
+        "Closed Won"
+      ],
+      "color": "#67c480"
+    },
+    {
+      "name": "Lost",
+      "stages": [
+        "Closed Lost",
+        "Unused"
+      ],
+      "color": "#eb4d4d"
+    }
+  ]
+}

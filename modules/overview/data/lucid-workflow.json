@@ -1,0 +1,68 @@
+{
+    "operations_flow": {
+      "Course Created": {
+        "outputs": {
+          "Course Date": null,
+          "Course Location": null,
+          "Course Trainer": null,
+          "Course Details": null
+        },
+        "next": "Course Approved"
+      },
+      "Course Approved": {
+        "outputs": {
+          "Min Trigger Levels Met": null,
+          "Sent to Spec (for Enrolment) Link": null
+        },
+        "next": "Coursework"
+      },
+      "Coursework": {
+        "outputs": {
+          "Printed": null,
+          "Sent": null,
+          "Received": null
+        },
+        "next": "Course Logistics"
+      },
+      "Course Logistics": {
+        "outputs": {
+          "Trainer Travel": null,
+          "Trainer Accommodation": null,
+          "Training Room": null,
+          "Other": null
+        },
+        "next": "Course Enrolment"
+      },
+      "Course Enrolment": {
+        "outputs": {
+          "Compliance Completed": null
+        },
+        "next": "Course Delivery"
+      },
+      "Course Delivery": {
+        "outputs": {
+          "Attendance Captured": null,
+          "Coursework Received": null
+        },
+        "next": "Certification"
+      },
+      "Certification": {
+        "outputs": {
+          "Coursework Sent to RTO": null,
+          "Certificate Received": null,
+          "Compliance Checks Completed": null,
+          "Certificate Sent to Client": null,
+          "Certificate Sent to Customer": null
+        },
+        "next": "Archiving"
+      },
+      "Archiving": {
+        "outputs": {
+          "Paperwork Received from Trainer": null,
+          "Paperwork Archived": null
+        },
+        "next": null
+      }
+    }
+  }
+  

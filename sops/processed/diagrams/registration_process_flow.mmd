@@ -1,0 +1,119 @@
+flowchart TD
+    %% Registration Process SOP Flow
+    %% Source: SOPs/raw_sops/registration_process.md
+    %% Coverage: 13%
+    %% Related CRM Diagrams:
+    %%   - modules/deals/diagrams/deals-workflow.mmd
+    %%   - modules/courses/diagrams/course-attendees-journey.mmd
+    %%   - modules/registration_records/diagrams/registration-kanban-detailed.mmd
+
+    Start([Start: Registration Process])
+
+    %% Step 1: Locate Course
+    subgraph Step1["Step 1: Locate Course in CRM"]
+        S1_Module["👤 Go to Courses module"]
+        S1_Visible{Tab<br/>visible?}
+        S1_Dropdown["👤 Click ... to find<br/>in dropdown"]
+        S1_FilterChoice{Filter<br/>method?}
+        S1_Location["👤 Filter by location<br/>(e.g., Mackay)"]
+        S1_Month["👤 Filter by month<br/>(e.g., July)"]
+        S1_Select["👤 Select correct course"]
+    end
+
+    Start --> S1_Module
+    S1_Module --> S1_Visible
+    S1_Visible -->|No| S1_Dropdown
+    S1_Visible -->|Yes| S1_FilterChoice
+    S1_Dropdown --> S1_FilterChoice
+    S1_FilterChoice -->|Location| S1_Location
+    S1_FilterChoice -->|Month| S1_Month
+    S1_Location --> S1_Select
+    S1_Month --> S1_Select
+
+    %% Step 2: Create Deal
+    subgraph Step2["Step 2: Create New Deal for Student"]
+        S2_Scroll["👤 Scroll to Deals section"]
+        S2_Click["👤 Click ... > New Deal"]
+        S2_Name["📋 SOP: Enter Deal Name<br/>CourseCode + Location + Date + Name"]
+        S2_Conflict["❌ CONTRADICTS CRM"]
+        S2_AutoName["🤖 WF: Deal Naming<br/>ID: 52330000002967279<br/>Auto-generates name"]
+        S2_Correct["✅ Do NOT enter name<br/>Set Contact, Account, Course only"]
+        S2_Account{Account<br/>exists?}
+        S2_SelectAcct["👤 Select existing Account"]
+        S2_CreateAcct["👤 Create new Account"]
+        S2_AcctProp["🟡 WF: Account propagates<br/>ID: 52330000005069264"]
+    end
+
+    S1_Select --> S2_Scroll
+    S2_Scroll --> S2_Click
+    S2_Click --> S2_Name
+    S2_Name -.->|"SOP incorrect"| S2_Conflict
+    S2_Conflict -.->|"Actual behavior"| S2_AutoName
+    S2_AutoName --> S2_Correct
+    S2_Correct --> S2_Account
+    S2_Account -->|Yes| S2_SelectAcct
+    S2_Account -->|No| S2_CreateAcct
+    S2_SelectAcct --> S2_AcctProp
+    S2_CreateAcct --> S2_AcctProp
+
+    %% Step 3: Complete Details
+    subgraph Step3["Step 3: Complete Student Details"]
+        S3_Contact["👤 Set Contact_Name"]
+        S3_OpenContact["👤 Open Contact record"]
+        S3_Email["👤 Verify/add Email"]
+        S3_Mobile["👤 Verify/add Mobile"]
+        S3_Notes["👤 Add special notes<br/>to Description"]
+    end
+
+    S2_AcctProp --> S3_Contact
+    S3_Contact --> S3_OpenContact
+    S3_OpenContact --> S3_Email
+    S3_Email --> S3_Mobile
+    S3_Mobile --> S3_Notes
+
+    %% Step 4: Save and Confirm
+    subgraph Step4["Step 4: Save and Confirm"]
+        S4_Save["👤 Save the Deal"]
+        S4_ID["🟡 WF: Update Deal ID<br/>ID: 52330000002444572"]
+        S4_Amount["🟡 WF: Update Amount<br/>ID: 52330000003995130"]
+        S4_Verify["👤 Verify auto-generated<br/>Deal Name correct"]
+        S4_Back["👤 Return to Course"]
+        S4_Confirm["👤 Confirm Deal in list"]
+        S4_Note["📝 Note: This creates Deal<br/>not Registration Record"]
+    end
+
+    S3_Notes --> S4_Save
+    S4_Save -->|triggers| S4_ID
+    S4_Save -->|triggers| S4_Amount
+    S4_ID --> S4_Verify
+    S4_Amount --> S4_Verify
+    S4_Verify --> S4_Back
+    S4_Back --> S4_Confirm
+    S4_Confirm --> S4_Note
+
+    S4_Note --> End([End: Student Registered<br/>via Deal])
+
+    %% Styling
+    classDef human fill:#2196F3,stroke:#000,stroke-width:2px,color:#fff
+    classDef auto fill:#90EE90,stroke:#000,stroke-width:2px
+    classDef decision fill:#FFEB3B,stroke:#000,stroke-width:2px
+    classDef conflict fill:#F44336,stroke:#000,stroke-width:3px,color:#fff
+    classDef correct fill:#4CAF50,stroke:#000,stroke-width:2px,color:#fff
+    classDef sop fill:#E1BEE7,stroke:#000,stroke-width:1px
+    classDef undoc fill:#FFE082,stroke:#000,stroke-width:2px
+    classDef note fill:#E3F2FD,stroke:#000,stroke-width:1px
+
+    class S1_Module,S1_Dropdown,S1_Location,S1_Month,S1_Select,S2_Scroll,S2_Click,S2_SelectAcct,S2_CreateAcct,S3_Contact,S3_OpenContact,S3_Email,S3_Mobile,S3_Notes,S4_Save,S4_Verify,S4_Back,S4_Confirm human
+    class S2_AutoName auto
+    class S1_Visible,S1_FilterChoice,S2_Account decision
+    class S2_Conflict conflict
+    class S2_Correct correct
+    class S2_Name sop
+    class S2_AcctProp,S4_ID,S4_Amount undoc
+    class S4_Note note
+
+    %% Clickable workflow links
+    click S2_AutoName href "https://crm.zoho.com.au/crm/org7003757385/settings/workflow-rules/52330000002967279" "Open: Deal Naming workflow"
+    click S2_AcctProp href "https://crm.zoho.com.au/crm/org7003757385/settings/workflow-rules/52330000005069264" "Open: Account propagates workflow"
+    click S4_ID href "https://crm.zoho.com.au/crm/org7003757385/settings/workflow-rules/52330000002444572" "Open: Update Deal ID workflow"
+    click S4_Amount href "https://crm.zoho.com.au/crm/org7003757385/settings/workflow-rules/52330000003995130" "Open: Update Amount workflow"

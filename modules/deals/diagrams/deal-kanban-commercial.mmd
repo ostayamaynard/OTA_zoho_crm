@@ -1,0 +1,198 @@
+flowchart TD
+    %% Auto-generated on 2025-11-18
+    %% Source: zoho-data-model-2025-11-13.json + zoho-dependencies-2025-11-13.json
+    %% Do not manually edit. Update via Claude Code only.
+    %% Scope: Commercial lifecycle workflows (14 of 19)
+
+    %% ========== STAGE DEFINITIONS (Style B - Dominant) ==========
+    Qualification["🔍 QUALIFICATION"]
+    Negotiation_Review["💬 NEGOTIATION/REVIEW"]
+    Ready_to_Quote["📝 READY TO QUOTE"]
+    Awaiting_ZipPay_Confirmation["💳 AWAITING ZIPPAY"]
+    Awaiting_PO["📋 AWAITING PO"]
+    Awaiting_Invoice_Payment["💰 AWAITING PAYMENT"]
+    Unused["⏸️ UNUSED"]
+    Closed_Won["✅ CLOSED WON"]
+    Closed_Lost["❌ CLOSED LOST"]
+    UnAccounted["🔍 UNACCOUNTED<br/>(Kanban filter only)"]
+
+    %% ========== STAGE FLOW ==========
+    Qualification --> Negotiation_Review
+    Negotiation_Review --> Ready_to_Quote
+    Ready_to_Quote --> Awaiting_ZipPay_Confirmation
+    Awaiting_ZipPay_Confirmation --> Awaiting_PO
+    Ready_to_Quote --> Awaiting_PO
+    Awaiting_PO --> Awaiting_Invoice_Payment
+    Awaiting_Invoice_Payment --> Closed_Won
+    Awaiting_PO --> Closed_Won
+    Negotiation_Review --> Unused
+    Unused --> Negotiation_Review
+    Negotiation_Review --> Closed_Lost
+    Ready_to_Quote --> Closed_Lost
+    Awaiting_ZipPay_Confirmation --> Closed_Lost
+    Awaiting_PO --> Closed_Lost
+    Awaiting_Invoice_Payment --> Closed_Lost
+
+    %% ========== QUALIFICATION STAGE WORKFLOWS ==========
+
+    %% WF: Update Deal ID (create)
+    WF_UpdateDealID["Update Deal ID<br/>Action: Assigns Deal_CRM_ID"]
+    click WF_UpdateDealID "https://crm.zoho.com.au/crm/org7003757385/settings/workflow-rules/52330000002444572" _blank
+    Qualification -.->|"create"| WF_UpdateDealID
+
+    %% WF: Deal Naming Convention (create)
+    WF_DealNaming["Deal Naming Convention<br/>Action: Formats Deal_Name"]
+    click WF_DealNaming "https://crm.zoho.com.au/crm/org7003757385/settings/workflow-rules/52330000002967279" _blank
+    Qualification -.->|"create"| WF_DealNaming
+
+    %% WF: Update Amount on create (create_or_edit)
+    WF_UpdateAmount["Update Amount on create<br/>Action: Calculates Amount"]
+    click WF_UpdateAmount "https://crm.zoho.com.au/crm/org7003757385/settings/workflow-rules/52330000003995130" _blank
+    Qualification -.->|"create_or_edit"| WF_UpdateAmount
+
+    %% WF: Workflow - Update Deal ID (create_or_edit)
+    WF_UpdateDealID2["Workflow - Update Deal ID<br/>Action: Maintains Deal ID"]
+    click WF_UpdateDealID2 "https://crm.zoho.com.au/crm/org7003757385/settings/workflow-rules/52330000004452015" _blank
+    Qualification -.->|"create_or_edit"| WF_UpdateDealID2
+
+    %% WF: If Website Account Name (create)
+    WF_WebsiteAccount["If Website Account Name<br/>Action: Populates account"]
+    click WF_WebsiteAccount "https://crm.zoho.com.au/crm/org7003757385/settings/workflow-rules/52330000005157945" _blank
+    Qualification -.->|"create"| WF_WebsiteAccount
+
+    %% WF: Copy of Deal Naming Convention (field_update)
+    WF_CopyDealNaming["Copy of Deal Naming Convention<br/>Action: Updates Deal_Name"]
+    click WF_CopyDealNaming "https://crm.zoho.com.au/crm/org7003757385/settings/workflow-rules/52330000004013962" _blank
+    Qualification -.->|"field_update:Courseaa OR Course_Type"| WF_CopyDealNaming
+
+    %% WF: Update Deal stage when 1 attendee (create) - INACTIVE
+    WF_FastTrack["Update Deal stage when 1 attendee<br/>Action: Stage → Awaiting_Invoice_Payment<br/>⚠️ INACTIVE"]
+    click WF_FastTrack "https://crm.zoho.com.au/crm/org7003757385/settings/workflow-rules/52330000004434048" _blank
+    Qualification -.->|"create<br/>[cond: attendees=1, type=Public]"| WF_FastTrack
+    linkStyle 21 stroke-dasharray: 3 3
+
+    %% Human SOP placeholder for Qualification
+    SOP_Qual["👤 Human Review Needed<br/>(See SOP link TBD)<br/>Verify deal details, select course"]
+    Qualification --> SOP_Qual
+
+    %% ========== NEGOTIATION/REVIEW STAGE WORKFLOWS ==========
+
+    %% WF: Follow up on Purchase Order 28 days before (date_or_datetime)
+    WF_PO28Days["Follow up on PO 28 days before<br/>Action: Creates Team Task"]
+    click WF_PO28Days "https://crm.zoho.com.au/crm/org7003757385/settings/workflow-rules/52330000002638311" _blank
+    Negotiation_Review -.->|"date_or_datetime:Course_Start_Date<br/>[-28 days]"| WF_PO28Days
+
+    %% WF: Follow up on Purchase Order 14 days before (date_or_datetime)
+    WF_PO14Days["Follow up on PO 14 days before<br/>Action: Creates Team Task"]
+    click WF_PO14Days "https://crm.zoho.com.au/crm/org7003757385/settings/workflow-rules/52330000002638269" _blank
+    Negotiation_Review -.->|"date_or_datetime:Course_Start_Date<br/>[-14 days]"| WF_PO14Days
+
+    %% WF: Follow up on Purchase Order 1 day before (date_or_datetime)
+    WF_PO1Day["Follow up on PO 1 day before<br/>Action: Creates urgent Team Task"]
+    click WF_PO1Day "https://crm.zoho.com.au/crm/org7003757385/settings/workflow-rules/52330000002638411" _blank
+    Negotiation_Review -.->|"date_or_datetime:Course_Start_Date<br/>[-1 day]"| WF_PO1Day
+
+    %% WF: Follow up on Purchase Order 5 days before course (field_update:Stage)
+    WF_PO5Days["Follow up on PO 5 days before<br/>Action: Creates Team Task<br/>⚠️ NOT time-based"]
+    click WF_PO5Days "https://crm.zoho.com.au/crm/org7003757385/settings/workflow-rules/52330000009085891" _blank
+    Negotiation_Review -.->|"field_update:Stage<br/>[cond: internal logic]"| WF_PO5Days
+
+    %% WF: Follow up future deals (date_or_datetime)
+    WF_FollowUpFuture["Follow up future deals<br/>Action: Creates follow-up task"]
+    click WF_FollowUpFuture "https://crm.zoho.com.au/crm/org7003757385/settings/workflow-rules/52330000001178038" _blank
+    Unused -.->|"date_or_datetime:Follow_up_date"| WF_FollowUpFuture
+
+    %% Human SOP placeholder for Negotiation
+    SOP_Negot["👤 Human Review Needed<br/>(See SOP link TBD)<br/>Chase PO, negotiate terms"]
+    Negotiation_Review --> SOP_Negot
+
+    %% ========== READY TO QUOTE STAGE WORKFLOWS ==========
+
+    %% WF: Create Quote - Stage Update (field_update:Stage)
+    WF_CreateQuote["Create Quote - Stage Update<br/>Action: AUTO-CREATES Quote"]
+    click WF_CreateQuote "https://crm.zoho.com.au/crm/org7003757385/settings/workflow-rules/52330000002460308" _blank
+    Ready_to_Quote -.->|"field_update:Stage<br/>[cond: Stage = Ready to Quote]"| WF_CreateQuote
+
+    %% Human SOP placeholder for Quote
+    SOP_Quote["👤 Human Review Needed<br/>(See SOP link TBD)<br/>Review quote, send to client"]
+    Ready_to_Quote --> SOP_Quote
+
+    %% ========== PO RECEIVED WORKFLOWS (Any Stage) ==========
+
+    %% WF: Purchase Order Received (field_update:Purchase_Order_Number)
+    WF_POReceived["Purchase Order Received<br/>Action: Updates deal status"]
+    click WF_POReceived "https://crm.zoho.com.au/crm/org7003757385/settings/workflow-rules/52330000002460283" _blank
+    Awaiting_PO -.->|"field_update:Purchase_Order_Number<br/>[any stage]"| WF_POReceived
+    Closed_Won -.->|"field_update:Purchase_Order_Number<br/>[any stage]"| WF_POReceived
+
+    %% Human SOP placeholder for Closed Won
+    SOP_Won["👤 Human Review Needed<br/>(See SOP link TBD)<br/>Verify invoice, monitor payment"]
+    Closed_Won --> SOP_Won
+
+    %% Human SOP placeholder for Closed Lost
+    SOP_Lost["👤 Human Review Needed<br/>(See SOP link TBD)<br/>Enter Loss_Reason, cancel registrations"]
+    Closed_Lost --> SOP_Lost
+
+    %% ========== LEGEND ==========
+    subgraph Legend["📋 LEGEND"]
+        L_Stage["STAGE NODE<br/>(Dominant, 3px border)"]
+        L_WF["Workflow Automation<br/>(Click to open in Zoho)"]
+        L_Field["field_update:Field<br/>(Field-based trigger)"]
+        L_Date["date_or_datetime:Field<br/>(Scheduled trigger)"]
+        L_Human["👤 Human/SOP Touchpoint"]
+        L_Inactive["- - - Inactive Workflow"]
+    end
+
+    %% ========== STYLING ==========
+    classDef stageQual fill:#FFE8E8,stroke:#000,stroke-width:3px,stroke-dasharray:5 5
+    classDef stageNegot fill:#E3E9FF,stroke:#000,stroke-width:3px,stroke-dasharray:5 5
+    classDef stageQuote fill:#FFF4C4,stroke:#000,stroke-width:3px,stroke-dasharray:5 5
+    classDef stageZip fill:#E8D5FF,stroke:#000,stroke-width:3px,stroke-dasharray:5 5
+    classDef stagePO fill:#F5F5F5,stroke:#000,stroke-width:3px,stroke-dasharray:5 5
+    classDef stageInvoice fill:#E8E8E8,stroke:#000,stroke-width:3px,stroke-dasharray:5 5
+    classDef stageUnused fill:#FFE8E8,stroke:#000,stroke-width:3px,stroke-dasharray:5 5
+    classDef stageWon fill:#C8E6C9,stroke:#000,stroke-width:3px,stroke-dasharray:5 5
+    classDef stageLost fill:#FFCDD2,stroke:#000,stroke-width:3px,stroke-dasharray:5 5
+    classDef stageFilter fill:#F0F0F0,stroke:#000,stroke-width:3px,stroke-dasharray:5 5
+    classDef workflow fill:#E3F2FD,stroke:#1976D2,stroke-width:2px
+    classDef inactiveWF fill:#FFF3E0,stroke:#FF9800,stroke-width:2px,stroke-dasharray: 3 3
+
+    class Qualification stageQual
+    class Negotiation_Review stageNegot
+    class Ready_to_Quote stageQuote
+    class Awaiting_ZipPay_Confirmation stageZip
+    class Awaiting_PO stagePO
+    class Awaiting_Invoice_Payment stageInvoice
+    class Unused stageUnused
+    class Closed_Won stageWon
+    class Closed_Lost stageLost
+    class UnAccounted stageFilter
+    class WF_UpdateDealID,WF_DealNaming,WF_UpdateAmount,WF_UpdateDealID2,WF_WebsiteAccount,WF_CopyDealNaming,WF_PO28Days,WF_PO14Days,WF_PO1Day,WF_PO5Days,WF_FollowUpFuture,WF_CreateQuote,WF_POReceived workflow
+    class WF_FastTrack inactiveWF
+
+    %% ========== CLICKABLE WORKFLOW LINKS ==========
+    click WF_UpdateDealID "https://crm.zoho.com.au/crm/org7003757385/settings/workflow-rules/52330000002444572" "Open in Zoho CRM"
+    click WF_DealNaming "https://crm.zoho.com.au/crm/org7003757385/settings/workflow-rules/52330000002967279" "Open in Zoho CRM"
+    click WF_UpdateAmount "https://crm.zoho.com.au/crm/org7003757385/settings/workflow-rules/52330000003995130" "Open in Zoho CRM"
+    click WF_UpdateDealID2 "https://crm.zoho.com.au/crm/org7003757385/settings/workflow-rules/52330000004452015" "Open in Zoho CRM"
+    click WF_WebsiteAccount "https://crm.zoho.com.au/crm/org7003757385/settings/workflow-rules/52330000005157945" "Open in Zoho CRM"
+    click WF_CopyDealNaming "https://crm.zoho.com.au/crm/org7003757385/settings/workflow-rules/52330000004013962" "Open in Zoho CRM"
+    click WF_FastTrack "https://crm.zoho.com.au/crm/org7003757385/settings/workflow-rules/52330000004434048" "Open in Zoho CRM"
+    click WF_PO28Days "https://crm.zoho.com.au/crm/org7003757385/settings/workflow-rules/52330000002638311" "Open in Zoho CRM"
+    click WF_PO14Days "https://crm.zoho.com.au/crm/org7003757385/settings/workflow-rules/52330000002638269" "Open in Zoho CRM"
+    click WF_PO1Day "https://crm.zoho.com.au/crm/org7003757385/settings/workflow-rules/52330000002638411" "Open in Zoho CRM"
+    click WF_PO5Days "https://crm.zoho.com.au/crm/org7003757385/settings/workflow-rules/52330000009085891" "Open in Zoho CRM"
+    click WF_FollowUpFuture "https://crm.zoho.com.au/crm/org7003757385/settings/workflow-rules/52330000001178038" "Open in Zoho CRM"
+    click WF_CreateQuote "https://crm.zoho.com.au/crm/org7003757385/settings/workflow-rules/52330000002460308" "Open in Zoho CRM"
+    click WF_POReceived "https://crm.zoho.com.au/crm/org7003757385/settings/workflow-rules/52330000002460283" "Open in Zoho CRM"
+
+    %% ========== LEGEND ==========
+    subgraph Legend
+        direction LR
+        L_Stage["Deal Stage"]
+        L_Workflow["Workflow Rule<br/>(clickable)"]
+        L_InactiveWF["Inactive Workflow"]
+    end
+    class L_Stage stageQual
+    class L_Workflow workflow
+    class L_InactiveWF inactiveWF

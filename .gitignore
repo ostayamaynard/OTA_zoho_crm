@@ -1,0 +1,31 @@
+# Python
+__pycache__/
+*.py[cod]
+.venv/
+venv/
+env/
+
+# Archives and local-only
+archive/
+Cash Flow Report*.xlsx
+
+# Export files - policy
+# Keep: JSON exports (zoho-data-model-*.json, zoho-dependencies-*.json) - these are version controlled
+# Exclude: Excel files (too large, JSON is the source of truth)
+tools/export_client/*.xlsx
+
+# Secrets
+.env
+.env.*
+tools/export_client/.env
+
+# OS / IDE
+.DS_Store
+.cursor/
+.cursorignore
+.vscode/
+.idea/
+
+# Temporary files
+*.tmp
+*.log

@@ -1,0 +1,47 @@
+graph TD
+    %% Deals Customer Journey
+
+    Deal_Created["1. Deal Created<br/>Deal record created from lead conversion or direct entry"]
+    Needs_Analysis["2. Needs Analysis<br/>Understanding client requirements and course needs"]
+    Ready_to_Quote["3. Ready to Quote<br/>Preparing and sending quotation to client"]
+    Negotiation["4. Negotiation<br/>Quote sent, awaiting client decision"]
+    Closed_Won_or_Lost["5. Closed Won or Lost<br/>Quote accepted or rejected"]
+
+    Deal_Created --> Needs_Analysis
+    Needs_Analysis --> Ready_to_Quote
+    Ready_to_Quote --> Negotiation
+    Negotiation --> Closed_Won_or_Lost
+
+    Deal_Created_WF0["Update Deal ID<br/>ID: 52330000002444572"]
+    style Deal_Created_WF0 fill:#90EE90
+    Deal_Created -.->|triggers| Deal_Created_WF0
+    Deal_Created_WF1["Deal Naming Convention<br/>ID: 52330000002967279"]
+    style Deal_Created_WF1 fill:#90EE90
+    Deal_Created -.->|triggers| Deal_Created_WF1
+    Deal_Created_WF2["Update Amount on create<br/>ID: 52330000003995130"]
+    style Deal_Created_WF2 fill:#90EE90
+    Deal_Created -.->|triggers| Deal_Created_WF2
+    Needs_Analysis_WF0["Email to training Coordinator from DEALS<br/>ID: 52330000002967852"]
+    style Needs_Analysis_WF0 fill:#90EE90
+    Needs_Analysis -.->|triggers| Needs_Analysis_WF0
+    Needs_Analysis_WF1["When Account name is not blank<br/>ID: 52330000005069264"]
+    style Needs_Analysis_WF1 fill:#90EE90
+    Needs_Analysis -.->|triggers| Needs_Analysis_WF1
+    Ready_to_Quote_WF0["Create Quote - Stage Update Ready to quote<br/>ID: 52330000002460308"]
+    style Ready_to_Quote_WF0 fill:#90EE90
+    Ready_to_Quote -.->|triggers| Ready_to_Quote_WF0
+    Ready_to_Quote_WF1["Copy of Deal Naming Convention<br/>ID: 52330000004013962"]
+    style Ready_to_Quote_WF1 fill:#90EE90
+    Ready_to_Quote -.->|triggers| Ready_to_Quote_WF1
+    Negotiation_WF0["Follow up future deals<br/>ID: 52330000001178038"]
+    style Negotiation_WF0 fill:#90EE90
+    Negotiation -.->|triggers| Negotiation_WF0
+    Closed_Won_or_Lost_WF0["Purchase Order Received<br/>ID: 52330000002460283"]
+    style Closed_Won_or_Lost_WF0 fill:#90EE90
+    Closed_Won_or_Lost -.->|triggers| Closed_Won_or_Lost_WF0
+    Closed_Won_or_Lost_WF1["Update Registration records when PO Is received<br/>ID: 52330000006993545"]
+    style Closed_Won_or_Lost_WF1 fill:#90EE90
+    Closed_Won_or_Lost -.->|triggers| Closed_Won_or_Lost_WF1
+    Closed_Won_or_Lost_WF2["On stage Update related Attendees<br/>ID: 52330000004335567"]
+    style Closed_Won_or_Lost_WF2 fill:#90EE90
+    Closed_Won_or_Lost -.->|triggers| Closed_Won_or_Lost_WF2

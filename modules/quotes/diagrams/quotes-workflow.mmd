@@ -1,0 +1,62 @@
+---
+title: Quotes Module - Workflow Execution Flow
+---
+flowchart TB
+    subgraph module["<a href='https://crm.zoho.com.au/crm/org7003757385/tab/Quotes'>Quotes Module</a>"]
+        direction LR
+        M["8 workflows | 3 triggers"]
+    end
+
+    subgraph Create["On Create Workflows (1)"]
+        C1["<a href='https://crm.zoho.com.au/crm/org7003757385/settings/workflow-rules/52330000002597194'>Update Quote Details</a><br/><small>ID: 52330000002597194</small><br/><small>Trigger: On Create</small>"]
+    end
+
+    subgraph CreateEdit["On Create/Edit Workflows (3)"]
+        CE1["<a href='https://crm.zoho.com.au/crm/org7003757385/settings/workflow-rules/52330000002856364'>Update Quote Naming</a><br/><small>ID: 52330000002856364</small><br/><small>Trigger: On Create/Edit</small>"]
+        CE2["<a href='https://crm.zoho.com.au/crm/org7003757385/settings/workflow-rules/52330000002375246'>Calculate Overall Tax</a><br/><small>ID: 52330000002375246</small><br/><small>Trigger: On Create/Edit</small>"]
+        CE3["<a href='https://crm.zoho.com.au/crm/org7003757385/settings/workflow-rules/52330000004975235'>Inhouse - Calculate Tax</a><br/><small>ID: 52330000004975235</small><br/><small>Trigger: On Create/Edit</small>"]
+    end
+
+    subgraph StageUpdate["On Quote_Stage Update (2)"]
+        S1["<a href='https://crm.zoho.com.au/crm/org7003757385/settings/workflow-rules/52330000003995201'>Update quote when sent or won</a><br/><small>ID: 52330000003995201</small><br/><small>Field: Quote_Stage = Sent/Won</small>"]
+        S2["<a href='https://crm.zoho.com.au/crm/org7003757385/settings/workflow-rules/52330000002460325'>Update Deal and Invoice on Closed Won</a><br/><small>ID: 52330000002460325</small><br/><small>Field: Quote_Stage = Closed Won</small>"]
+    end
+
+    subgraph FieldUpdate["On Other Field Updates (2)"]
+        F1["<a href='https://crm.zoho.com.au/crm/org7003757385/settings/workflow-rules/52330000006984913'>Send Quote</a><br/><small>ID: 52330000006984913</small><br/><small>Field: Send_Quote_as_EMAIL = true</small>"]
+        F2["<a href='https://crm.zoho.com.au/crm/org7003757385/settings/workflow-rules/52330000006993468'>Update Deal with PO Number</a><br/><small>ID: 52330000006993468</small><br/><small>Fields: Expected_PO_Date, PO_Number</small>"]
+    end
+
+    subgraph External["External Systems"]
+        E1[("<a href='https://crm.zoho.com.au/crm/org7003757385/tab/Deals'>Deals</a><br/><small>Module</small>")]
+        E2[("<a href='https://crm.zoho.com.au/crm/org7003757385/tab/Invoices'>Invoices</a><br/><small>Module</small>")]
+        E3[("Email<br/><small>Notifications</small>")]
+    end
+
+    %% Create flow
+    C1 -->|"sequence"| CE1
+    CE1 -->|"sequence"| CE2
+
+    %% Stage update impacts
+    S2 -->|"Create Invoice<br/>lookup"| E2
+    S1 -->|"Update Amount<br/>lookup"| E1
+    S2 -->|"Update Stage<br/>lookup"| E1
+
+    %% Field updates
+    F1 -->|"Send Email<br/>notification"| E3
+    F2 -->|"Update PO<br/>lookup"| E1
+
+    %% Styling
+    classDef moduleStyle fill:#e3f2fd,stroke:#1976d2,color:#0d47a1,stroke-width:2px
+    classDef createStyle fill:#c8e6c9,stroke:#2e7d32,color:#1b5e20
+    classDef createEditStyle fill:#dcedc8,stroke:#689f38,color:#33691e
+    classDef stageStyle fill:#f3e5f5,stroke:#7b1fa2,color:#4a148c
+    classDef fieldStyle fill:#fff3e0,stroke:#f57c00,color:#e65100
+    classDef extStyle fill:#e8f5e9,stroke:#4caf50,color:#1b5e20
+
+    class M moduleStyle
+    class C1 createStyle
+    class CE1,CE2,CE3 createEditStyle
+    class S1,S2 stageStyle
+    class F1,F2 fieldStyle
+    class E1,E2,E3 extStyle

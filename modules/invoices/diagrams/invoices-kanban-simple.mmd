@@ -1,0 +1,49 @@
+---
+title: Invoices Module - Status Kanban (Simple)
+---
+flowchart LR
+    subgraph New["New"]
+        Draft["Draft"]
+    end
+
+    subgraph Pending["Pending"]
+        Awaiting["Awaiting Payment"]
+        Sent["Sent"]
+    end
+
+    subgraph InProgress["In Progress"]
+        Approved["Approved"]
+        Partial["Partially Paid"]
+    end
+
+    subgraph Completed["Completed"]
+        Paid["Paid"]
+    end
+
+    subgraph Closed["Closed"]
+        Cancelled["Cancelled"]
+        Void["Void"]
+        Credit["Credit"]
+    end
+
+    Draft --> Awaiting
+    Draft --> Cancelled
+    Awaiting --> Sent
+    Awaiting --> Paid
+    Awaiting --> Cancelled
+    Sent --> Approved
+    Sent --> Partial
+    Sent --> Paid
+    Sent --> Cancelled
+    Approved --> Partial
+    Approved --> Paid
+    Approved --> Void
+    Partial --> Paid
+    Partial --> Void
+    Paid --> Credit
+
+    style New fill:#808080,color:#fff
+    style Pending fill:#3498db,color:#fff
+    style InProgress fill:#f1c40f,color:#000
+    style Completed fill:#27ae60,color:#fff
+    style Closed fill:#e74c3c,color:#fff

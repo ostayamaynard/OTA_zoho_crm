@@ -1,0 +1,48 @@
+graph LR
+    %% Simplified Deal Kanban Board - 9 Stages
+    
+    classDef qual fill:#FFE8E8,stroke:#ffc6c6,stroke-width:4px
+    classDef negot fill:#E3E9FF,stroke:#ced9ff,stroke-width:4px
+    classDef quote fill:#FFF4C4,stroke:#ffda62,stroke-width:4px
+    classDef zip fill:#E8D5FF,stroke:#af38fa,stroke-width:4px
+    classDef po fill:#F5F5F5,stroke:#dbdbdb,stroke-width:4px
+    classDef invoice fill:#E8E8E8,stroke:#acacac,stroke-width:4px
+    classDef unused fill:#FFE8E8,stroke:#ffc6c6,stroke-width:4px
+    classDef won fill:#C8E6C9,stroke:#25b52a,stroke-width:4px
+    classDef lost fill:#FFCDD2,stroke:#eb4d4d,stroke-width:4px
+    
+    S1["🔍<br/>QUALIFICATION<br/>━━━━━━━<br/>5 auto workflows<br/>Verify details"]
+    S2["💬<br/>NEGOTIATION<br/>━━━━━━━<br/>5 workflows<br/>Chase PO"]
+    S3["📝<br/>READY TO QUOTE<br/>━━━━━━━<br/>⚡ Quote auto-created<br/>Review & send"]
+    S4["💳<br/>AWAITING ZIPPAY<br/>━━━━━━━<br/>Payment confirmation"]
+    S5["📋<br/>AWAITING PO<br/>━━━━━━━<br/>Purchase order"]
+    S6["💰<br/>AWAITING PAYMENT<br/>━━━━━━━<br/>Invoice payment"]
+    S7["⏸️<br/>UNUSED<br/>━━━━━━━<br/>On hold"]
+    S8["✅<br/>CLOSED WON<br/>━━━━━━━<br/>3 auto workflows<br/>Process payment"]
+    S9["❌<br/>CLOSED LOST<br/>━━━━━━━<br/>Document loss"]
+    
+    S1 --> S2
+    S2 --> S3
+    S3 --> S4
+    S3 --> S2
+    S4 --> S5
+    S4 --> S8
+    S4 --> S9
+    S5 --> S6
+    S5 --> S8
+    S5 --> S9
+    S6 --> S8
+    S6 --> S9
+    S2 --> S8
+    S2 --> S9
+    S7 -.->|reactivate| S2
+    
+    class S1 qual
+    class S2 negot
+    class S3 quote
+    class S4 zip
+    class S5 po
+    class S6 invoice
+    class S7 unused
+    class S8 won
+    class S9 lost
